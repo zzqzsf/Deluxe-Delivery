@@ -1,0 +1,128 @@
+/*尾部整体布局*/
+#footer{
+    height:360px;
+    width: 100%;
+    background: #333333;
+}
+#footer-t{
+    height: 80%;
+    width: 70%;
+    margin: 0 auto;
+}
+#write{
+    background: white;
+    height: 0.2%;
+    width: 100%;
+}
+#footer-d{
+    height: 19.8%;
+    width: 56%;
+    margin: 0 auto;
+}
+.l{
+     float: left;
+ }
+.r{
+    float: right;
+}
+/*白线上部字体部分总体布局*/
+#left{
+    float: left;
+    height: 40%;
+    width: 17%;
+    margin-top: 6%;
+    margin-left: 6%;
+}
+#mid{
+    float: right;
+    height: 51%;
+    width: 20%;
+    margin-top: 6%;
+    margin-right: 7%;
+}
+#right{
+    float: right;
+    height: 40%;
+    width: 22%;
+    margin-top: 6%
+}
+/*白线上左边部分字*/
+.float{
+    font-size: 14px;
+    color: #9f9f9f;
+    margin-top: 15%;
+}
+/*白线上中间部分字*/
+.m-1{
+    font-size: 22px;
+    margin-top: 1%;
+    color: #eeeeee;
+}
+#m-2{
+    font-size: 14px;
+    margin-top: 1%;
+    color: #9f9f9f;
+}
+#m-3{
+    font-size: 22px;
+    margin-top: 7%;
+    color: #eeeeee;
+}
+#m-4{
+    font-size: 14px;
+    margin-top: 3%;
+    color: #9f9f9f;
+}
+/*白线上右边部分二维码*/
+.ma-1{
+    float: left;
+    background: url("../image/qrcode-app.jpg") ;
+    height: 90px;
+    width: 90px;
+    background-size: 100%;
+}
+.ma-2{
+    float: right;
+    background: url("../image/qrcode-wxapp.jpg") ;
+    height: 90px;
+    width: 90px;
+    background-size: 100%;
+    margin-right: 3%;
+
+}
+/*白线下*/
+#footer-d{
+    line-height: 80px
+;
+}
+/*公安报备行及图标*/
+.d1{
+    float: left;
+    color: #9f9f9f;
+    font-size: 12px;
+}
+#d2{
+    margin-left: 15%;
+    background: url("../image/goverment_cut.png");
+    float: left;
+    height: 32%;
+    width: 3%;
+    background-size: 100%;
+    margin-top: 4%;
+}
+#d3{
+    margin-left: 3%;
+    color: #9f9f9f;
+    font-size: 12px;
+    float:left;
+}
+#d4{
+    margin-left: 3%;
+    background: url("../image/backup.png");
+    float: left;
+    height: 35%;
+    width: 3%;
+    background-size: 100%;
+    margin-top: 4%;
+}
+
