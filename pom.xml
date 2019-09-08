@@ -11,7 +11,7 @@
     <groupId>org.lanqiao</groupId>
     <artifactId>deluxe-delivery</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>deluxe-delivery</name>
+    <name>deluxe-delivery</name>v
     <description>Demo project for Spring Boot</description>
 
     <properties>
