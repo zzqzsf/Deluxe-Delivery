@@ -6,19 +6,9 @@
      position: fixed;
      top:0;
  }
-#show{
-    height: 1800px;
-    width: 100%;
-    background: #f5f5f5;
-}
-#footer{
-    height:360px;
-    width: 100%;
-    background: #333333;
-}
 /*滚动页眉*/
 #rollhead-b{
-    width: 80%;
+    width: 75%;
     margin: 0 auto;
     height: 70px;
 }
@@ -33,12 +23,14 @@
     height: 50px;
     width: 57px;
 }
+/*logo右边文字总体*/
 #logo-w{
     float: right;
-    width: 70%;
+    width: 65%;
     height: 100%;
 
 }
+/*logo右边字体上部及下部*/
 #logo-t{
     height: 70%;
     font-size: 25px;
@@ -58,6 +50,7 @@
     height: 100%;
     width: 60%;
 }
+/*导航中第一种特殊样式*/
 #dh1{
     float: left;
     height:67px;
@@ -67,6 +60,7 @@
     line-height: 63px;
     text-align:center;
 }
+/*选中加粗导航*/
 #dh3{
     float: left;
     height:70px;
@@ -77,15 +71,18 @@
     font-weight: bolder;
     text-align:center;
 }
+/*选中加粗导航上部*/
 #dh3-t{
     height:67px;
     width:48px;
 }
+/*选中部分黄线*/
 #dh3-d{
     height:3px;
     width:48px;
     background: orange;
 }
+/*导航中第二种特殊样式*/
 #dh4{
     float:left ;
     height:67px;
@@ -96,6 +93,7 @@
     line-height: 63px;
 
 }
+/*导航中常规字体样式*/
 .dh2{
     float: left;
     height:67px;
