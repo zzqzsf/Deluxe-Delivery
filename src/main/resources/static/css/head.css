@@ -3,8 +3,8 @@
      height: 70px;
      width: 100%;
      background: white;
-    position: fixed;
-    top:0;
+     position: fixed;
+     top:0px;
  }
 #show{
     height: 1800px;

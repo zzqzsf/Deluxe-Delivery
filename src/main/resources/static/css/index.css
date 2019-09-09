@@ -19,9 +19,25 @@
     background-color: black;
 }
 .mainItem{
+    position: relative;
     width: 590px;
     height: 60px;
     margin-top: 250px;
     margin-left: 393px;
     background-color: blue;
+}
+.city{
+    height: 56px;
+    width: 80px;
+    text-align: center;
+    font-size: 16px;
+}
+.triangle-down {
+    position: absolute;
+    left: 61px;
+    top: 29px;
+    content: '';
+    border: 5px solid transparent;
+    border-width: 4px 5px;
+    border-top-color: #999;
 }
