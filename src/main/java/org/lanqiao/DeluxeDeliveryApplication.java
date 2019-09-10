@@ -1,4 +1,4 @@
-package org.lanqiao.deluxedelivery;
+package org.lanqiao;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
