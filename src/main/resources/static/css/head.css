@@ -1,4 +1,8 @@
 /*整体大布局*/
+body{
+    margin: 0;
+    padding: 0;
+}
 #rollhead{
      height: 70px;
      width: 100%;
@@ -18,7 +22,7 @@
 }
 /*滚动页眉*/
 #rollhead-b{
-    width: 80%;
+    width: 75%;
     margin: 0 auto;
     height: 70px;
 }
@@ -33,12 +37,14 @@
     height: 50px;
     width: 57px;
 }
+/*logo右边文字总体*/
 #logo-w{
     float: right;
-    width: 70%;
+    width: 65%;
     height: 100%;
 
 }
+/*logo右边字体上部及下部*/
 #logo-t{
     height: 70%;
     font-size: 25px;
@@ -58,6 +64,7 @@
     height: 100%;
     width: 60%;
 }
+/*导航中第一种特殊样式*/
 #dh1{
     float: left;
     height:67px;
@@ -66,7 +73,9 @@
     font-size: 15px;
     line-height: 63px;
     text-align:center;
+    cursor:pointer
 }
+/*选中加粗导航*/
 #dh3{
     float: left;
     height:70px;
@@ -76,32 +85,43 @@
     line-height: 63px;
     font-weight: bolder;
     text-align:center;
+    cursor:pointer
 }
-#dh3-t{
-    height:67px;
-    width:48px;
-}
-#dh3-d{
+
+/*选中部分黄线*/
+.dh3-d{
     height:3px;
-    width:48px;
+    width:100%;
     background: orange;
+    display: none;
 }
+/*导航中第二种特殊样式*/
 #dh4{
     float:left ;
-    height:67px;
+    height:70px;
     width:80px;
     margin-left: 6%;
     text-align:center;
     font-size: 15px;
     line-height: 63px;
+    cursor:pointer
 
 }
+/*导航中常规字体样式*/
 .dh2{
     float: left;
-    height:67px;
+    height:70px;
     width:64px;
     margin-left: 6%;
     font-size: 15px;
     line-height: 63px;
     text-align:center;
+    cursor:pointer
+}
+.dh22{
+    height:67px;
+    width:100%;
+}
+.dh3-d:hover{
+    display: block;
 }
