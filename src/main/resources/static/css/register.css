@@ -1,0 +1,41 @@
+.header{
+    width: 100%;
+    height: 64px;
+}
+.mainInfo{
+    width: 100%;
+    height: 450px;
+ }
+.registerInfo{
+    width: 500px;
+    height: 350px;
+    margin-left: 200px;
+    margin-top: 50px;
+
+}
+#tel,#msgCheck,#pass,#repass{
+    width: 240px;;
+    height: 36px;
+
+}
+#registerForm span{
+    height: 36px;
+    width: 70px;
+}
+.getMsg{
+    background-color: #cccccc;
+    color: #434343;
+    margin-left: 53px;
+}
+#registerForm span:hover{
+    cursor: pointer;
+}
+#registerButton{
+    border-color: #FFD705;
+    color: #6B450A;
+    background-color:#FFD705 ;
+    width: 150px;
+    height: 36px;
+    margin-left: 50px;
+}
+

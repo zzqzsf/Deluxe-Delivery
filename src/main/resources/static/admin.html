@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/admin.css" type="text/css">
+    <title>登陆</title>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script>
+        $(function () {
+            $("#selectAdmin").click(function () {
+                if($(this).text()=="手机动态码登陆"){
+                    $(this).text("普通方式登陆");
+                    $(".tel").attr("placeholder","手机号");
+                    $(".msg").attr("placeholder","密码");
+                    $("#getMsg").text("");
+
+                }else{
+                    $(this).text("手机动态码登陆");
+                    $(".tel").attr("placeholder","请输入手机号，未注册将自动注册");
+                    $(".msg").attr("placeholder","动态码");
+                    $("#getMsg").text("获取手机动态码");
+                }
+            })
+        })
+    </script>
+</head>
+<body>
+    <div class="header">
+        <img src="image/reglogo.png" style="padding-left: 100px">
+        <hr color="#FFD705">
+    </div>
+    <div class="mainInfo">
+        <div class="ad"></div>
+        <div class="admin">
+            <span>账号登陆</span>
+            <span id="selectAdmin">手机动态码登陆</span>
+            <form id="myFrom">
+                <div style="width: 260px;height: 35px"><input type="text" name="tel" placeholder="请输入手机号，未注册将自动注册" class="tel"></div>
+                <div class="pass">
+                    <div class="passPic"></div>
+                    <input type="text" name="msg" placeholder="动态码" class="msg">
+                    <div style="margin-top: 4px;float: left"><span id="getMsg">获取手机动态码</span></div>
+                </div>
+            <span class="forgetPass">忘记密码?</span>
+            <input type="submit" value="登 录" class="admin1">
+        </div>
+    </div>
+</body>
+</html>
