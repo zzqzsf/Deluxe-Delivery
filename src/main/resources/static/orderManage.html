@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>美团外卖-订单中心</title>
+    <link rel="stylesheet" href="css/head.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/orderManage.css">
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script>
+        $(function () {
+            $(".content").click(function () {
+                $("#j-shown-order").toggle();
+            })
+            $("#div2").css("height")
+        })
+
+    </script>
+</head>
+<body>
+<!--头部导航栏-->
+<div style="height:60px;background:#ffffff;position:relative;z-index:99">
+    <!--页眉跟随滚动-->
+    <div id="rollhead">
+        <div id="rollhead-b">
+            <div id="logo">
+                <img src="image/ND@~FFCE6B4U0B)2Z}G)B_I.png" id="logo-img" alt=""/>
+                <div id="logo-w">
+                    <div id="logo-t">美团外卖</div>
+                    <div id="logo-d">美团外卖 送啥都快</div>
+                </div>
+            </div>
+            <div id="daohang">
+                <div id="dh1">首页</div>
+                <div class="dh2">入驻加盟</div>
+                <div class="dh2">开放平台</div>
+                <div class="dh2">社会责任</div>
+                <div id="dh3">
+                    <div id="dh3-t">点外卖</div>
+                    <div id="dh3-d"></div>
+                </div>
+                <div id="dh4">下载手机版</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--灰色背景-->
+<div id="background">
+    <!--中间主体-->
+    <div class="innerwarp">
+        <!--菜单-->
+        <div id="menu" class="orders-tab fl">
+            <div class="tab">
+
+                <div class="menuList">
+                    <a href="/customer/order/list" class="borderradius-1 order-today active">
+                        <img src="image/orderListIcon.svg"/>
+                        三个月订单
+                    </a>
+                </div>
+                <div class="menuList"><a href="/account/setting" class="borderradius-1 my-account ">
+                    <img src="image/accountIcon.svg"/>
+                    我的账号
+                </a>
+                </div>
+                <div class="menuList"><a href="/favorite/restaurant" class="borderradius-1 my-favorite ">
+                    <img src="image/collectIcon.svg"/>
+                    我的收藏</a>
+                </div>
+
+            </div>
+        </div>
+        <!--订单-->
+        <div class="orders-list">
+            <!--订单头部-->
+            <div class="order-header">
+                <span class="oh-content">订单内容</span>
+                <span class="oh-phone">商家电话</span>
+                <span class="oh-money">支付金额</span>
+                <span class="oh-operate">操作</span>
+            </div>
+
+            <!--订单信息-->
+            <div data-sid="0" class="order-v order-hidden" data-orderphone="13003911057" data-viewid="66487200144236701"
+                 data-status="9" data-shipping="" data-qid="">
+                <div class="brief-intro j-toggle-content open">
+
+                    <div class="brief-intro-topconsole fr">
+                        <div class="clearfix">
+                            <a href="javascript:;" class="fr order-another j-order-another"
+                               data-viewid="66487200144236701"
+                               data-poi-id="144746545658991265" data-pv-flag="1">再来一单</a>
+                        </div>
+                    </div>
+
+                    <a href="/restaurant/144746545658991265" target="_blank" class="avatar fl"
+                       data-poi-id="144746545658991265" data-pv-flag="1">
+                        <img class="scroll-loading"
+                             src="https://p0.meituan.net/120.0/waimaipoi/91851b9251f97ec860fc9d04665884e5801450.jpg"
+                             data-src="https://p0.meituan.net/120.0/waimaipoi/91851b9251f97ec860fc9d04665884e5801450.jpg"
+                             data-max-height="70">
+                    </a>
+                    <!--订单内容-->
+                    <div class="content">
+                        <div class="rest-name clearfix">
+                            <a target="_blank" href="/restaurant/144746545658991265" class="ca-deepgrey j-poi-name"
+                               data-poi-id="144746545658991265" data-pv-flag="1">
+                                <span class="poi-name">淮南牛肉汤特色锅贴（集美店）</span>
+                            </a>
+                            <span class="order-total">18950095237</span>
+                            <span class="order-money-num">¥ 18.8</span>
+                        </div>
+                        <div class="rest-detail">
+                            <span class="order-total">2019-09-08 12:00</span>
+                            <span class="order-id">订单号：66487200144236701</span>
+                        </div>
+                    </div>
+                </div>
+                <!--订单详情-->
+                <div class="detail-intro clearfix " id="j-shown-order" >
+                    <div class="fl dishes ">
+                        <div class="dish-title">订单详情</div>
+                        <div class="list">
+                            <div class="dish-list">
+                                <script type="text/template" id="oflist-66487200144236701">
+                                    {"1636796536": {"name": "牛肉粉丝汤+二两锅贴（10只）", "score": 0}}
+                                </script>
+                                <div class="field clearfix">
+                                    <div class="fl">
+                                        <div class="food-na"> 牛肉粉丝汤+二两锅贴（
+                                            ...
+                                        </div>
+                                    </div>
+                                    <span class="food-count">1</span>
+                                    <span class="fr food-pri"><i>¥</i>42</span>
+                                </div>
+                                <div class="field clearfix">
+                                    <span class="fl classify">包装费：</span>
+                                    <span class="fr box-cost">¥2</span>
+                                </div>
+                                <div class="field clearfix">
+                                    <span class="fl classify">配送费：</span>
+                                    <span class="fr delivery-cost">¥2.5</span>
+                                </div>
+
+
+                            </div>
+                            <div class="food-total-info">实际支付：<i>¥</i><span>18.8</span></div>
+
+                        </div>
+                        <!--用户信息-->
+                        <div class="contact">
+                            <p>地址：集美大学新校区-克立楼 (克立楼219)</p>
+                            <p>姓名：黄文勋(先生)</p>
+                            <p>电话：13003911057</p>
+                            <p>备注：（无）</p>
+                        </div>
+
+                    </div>
+                    <!--订单状态-->
+                    <div class="order-content">
+                        <div class="procedure">
+                            <div class="pro-order-status">订单状态</div>
+                            <div class="fl process-bar">
+                                <i class="icon i-orderok"></i>
+                                <i class="i-orderarrow"></i>
+                                <i class="icon i-ordernotok"></i>
+                            </div>
+                            <div class="fl tips">
+                                <div class="step-1 ">
+                                    <span class="fr t-1">2019-09-08 12:00</span>
+                                    <p class="bold">订单提交成功，等待付款</p>
+                                </div>
+                                <div class="step-cancel">
+                                    <span class="fr t-cancel">2019-09-08 12:01</span>
+                                    <p class="bold">订单取消</p>
+                                    <p class="sub">订单已被取消</p>
+                                </div>
+                                <div class="clear"></div>
+                                <div class="cancel-reason" style="padding-left:0;">
+                                    <p class="tip">您已取消了本次订单，欢迎选择其他餐厅订餐，感谢使用美团外卖。</p>
+                                    <p>
+                                        <a href="javascript:;" class="s-btn other-rests j-other-rests">
+                                            <span class="s-btn">选择其他商家</span>
+
+                                        </a>
+                                        <a href="javascript:;" class="not-yet  ">
+                                            <span class="s-btn-white">订单反馈</span></a>
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!--底部-->
+<div id="footer">
+    <!--    白线上部分-->
+    <div id="footer-t">
+        <!--        白线上左边导航字-->
+        <div id="left">
+            <div class="l">
+                <div class="float">开放平台</div>
+                <div class="float">媒体报道</div>
+                <div class="float">潜质规则</div>
+                <div class="float">入驻加盟</div>
+            </div>
+            <div class="r">
+                <div class="float">常见问题</div>
+                <div class="float">用户反馈</div>
+                <div class="float">诚信举报</div>
+                <div class="float">加入我们</div>
+            </div>
+        </div>
+        <!--        白线上右边二维码-->
+        <div id="right">
+            <div class="m-1">更多商家，更多优惠</div>
+            <div>
+                <!--                二维码-->
+                <div class="ma-1"></div>
+                <div class="ma-2"></div>
+            </div>
+        </div>
+        <!--        白线上中间部分-->
+        <div id="mid">
+            <div class="m-1">品牌合作</div>
+            <div id="m-2">www.baidu.com</div>
+            <div id="m-3">客服 110-119</div>
+            <div id="m-4">周一至周日 9:00-21:00<br>客服不受理商业合作</div>
+        </div>
+    </div>
+    <!--    白线-->
+    <div id="write"></div>
+    <!--    白线下部分-->
+    <div id="footer-d">
+        <!--        字体及图标六块-->
+        <!--        蓝桥图标-->
+        <div id="d2" ></div>
+        <div class="d1">蓝桥科技有限公司</div>
+        <div id="d3">©️ meituan.com 京ICP证078341号 </div>
+        <!--        公安局图标-->
+        <div id="d4"></div>
+        <div class="d1">厦门公网安备110748295003632号</div>
+    </div>
+</div>
+<!--<div data-options="region:'east',split:true,collapsed:true,title:'East'" style="width:100px;padding:10px;">east region
+</div>
+<div data-options="region:'south',border:false" style="height:50px;background:#A9FACD;padding:10px;">south region</div>
+<div data-options="region:'center'">
+    <div id="tt" class="easyui-tabs" data-options="tabPosition:'left'" style="width:100%;height:250px">
+        <div title="三个月订单" style="padding:15px">
+           <div class="easyui-layout" data-options="fit:true" >
+               <div data-options="region:'north',border:false" style="height:60px;background:yellow;padding:10px">north region</div>
+               <div data-options="region:'west',split:true,title:'West'" style="width:150px;padding:10px;">west content</div>
+               <div data-options="region:'east',split:true,collapsed:true,title:'East'" style="width:100px;padding:10px;">east region</div>
+               <div data-options="region:'south',border:false" style="height:50px;background:#A9FACD;padding:10px;">south region</div>
+               <div data-options="region:'center',title:'Center'"></div>
+           </div>
+        </div>
+        <div title="我的账号" style="padding:15px">
+            <ul class="easyui-tree" data-options="url:'tree_data1.json',method:'get',animate:true"></ul>
+        </div>
+        <div title="我的收藏" data-options="iconCls:'icon-help',closable:true" style="padding:15px">
+            This is the help content.
+        </div>
+    </div>
+</div>-->
+</body>
+
+</html>
