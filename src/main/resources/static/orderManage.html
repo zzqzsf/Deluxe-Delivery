@@ -9,10 +9,19 @@
     <script src="js/jquery-2.1.1.min.js"></script>
     <script>
         $(function () {
+            $("#setting-box").hide();
             $(".content").click(function () {
                 $("#j-shown-order").toggle();
-            })
-            $("#div2").css("height")
+            });
+//            $("#div2").css("height")
+            $("#orderlist").click(function () {
+                $("#setting-box").hide();
+                $(".orders-list").show();
+            });
+            $("#myaccount").click(function () {
+                $(".orders-list").hide();
+                $("#setting-box").show();
+            });
         })
 
     </script>
@@ -52,18 +61,18 @@
         <div id="menu" class="orders-tab fl">
             <div class="tab">
 
-                <div class="menuList">
+                <div class="menuList" id="orderlist">
                     <a href="/customer/order/list" class="borderradius-1 order-today active">
                         <img src="image/orderListIcon.svg"/>
                         三个月订单
                     </a>
                 </div>
-                <div class="menuList"><a href="/account/setting" class="borderradius-1 my-account ">
+                <div class="menuList" id="myaccount"><a href="" class="borderradius-1 my-account ">
                     <img src="image/accountIcon.svg"/>
                     我的账号
                 </a>
                 </div>
-                <div class="menuList"><a href="/favorite/restaurant" class="borderradius-1 my-favorite ">
+                <div class="menuList" id="collections"><a href="/favorite/restaurant" class="borderradius-1 my-favorite ">
                     <img src="image/collectIcon.svg"/>
                     我的收藏</a>
                 </div>
@@ -71,7 +80,7 @@
             </div>
         </div>
         <!--订单-->
-        <div class="orders-list">
+        <div class="orders-list" >
             <!--订单头部-->
             <div class="order-header">
                 <span class="oh-content">订单内容</span>
@@ -117,7 +126,7 @@
                     </div>
                 </div>
                 <!--订单详情-->
-                <div class="detail-intro clearfix " id="j-shown-order" >
+                <div class="detail-intro clearfix " id="j-shown-order">
                     <div class="fl dishes ">
                         <div class="dish-title">订单详情</div>
                         <div class="list">
@@ -197,6 +206,24 @@
 
 
         </div>
+        <!--我的账号-->
+        <div class="setting-box" id="setting-box">
+            <div class="user-info clearfix ct-commonblack">
+                <div class="user-info-item">
+                    <span class="ui-title">我的头像：</span>
+                    <i class="icon i-user-circle"></i>
+                </div>
+                <div class="user-info-item">
+                    <span class="ui-title">用户&nbsp;&nbsp;I&nbsp;D：</span>
+                    <span class="source-label">YdG773494809</span>
+                </div>
+                <div class="user-info-item">
+                    <span class="ui-title">手机号码：</span>
+                    <span class="source-label">1300****1057</span>
+                </div>
+                <a href="https://www.meituan.com/account/settings" target="_blank" class="s-btn j-modify-info">修改</a>
+            </div>
+        </div>
     </div>
 </div>
 <!--底部-->
@@ -241,9 +268,9 @@
     <div id="footer-d">
         <!--        字体及图标六块-->
         <!--        蓝桥图标-->
-        <div id="d2" ></div>
+        <div id="d2"></div>
         <div class="d1">蓝桥科技有限公司</div>
-        <div id="d3">©️ meituan.com 京ICP证078341号 </div>
+        <div id="d3">©️ meituan.com 京ICP证078341号</div>
         <!--        公安局图标-->
         <div id="d4"></div>
         <div class="d1">厦门公网安备110748295003632号</div>
