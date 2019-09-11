@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>下单</title>
     <link rel="stylesheet" href="css/takeOrder.css">
+    <script src="js/jquery-3.4.1.min.js"></script>
 </head>
 <body>
 <!--头部-->
@@ -86,12 +87,107 @@
                             <img src="image/address-bottom.png" style="width:100% " alt="">
                         </div>
                     </div>
-
+<!--                    给商家留言-->
+                    <div id="message-short">
+                        <label for="message-short">
+                            给商家留言:
+                        </label>
+                        <input  type="text" id="message" placeholder="不要辣，多放盐等口味要求" maxlength="100">
+                    </div>
+<!--                    隐藏部分选备注信息-->
+                    <div id="order-tags">
+                        <ul class="clearfix">
+                            <li><a class="tag" href="javascript:;">别放辣</a></li>
+                            <li><a class="tag" href="javascript:;">辣一点</a></li>
+                            <li><a class="tag" href="javascript:;">米饭多一点</a></li>
+                            <li><a class="tag" href="javascript:;">没零钱</a></li>
+                            <li><a class="tag" href="javascript:;">快点送</a></li>
+                            <li class="last"><a class="tag" href="javascript:;">别放香菜</a></li>
+                        </ul>
+                        <img src="image/xiangxia.png" style="height: 5px;width:30px;">
+                    </div>
+<!--                    选择付款方式-->
+                    <div id="pay-field">
+                        <label class="fl">付款方式：</label>
+                        <div id="check">
+                            <a href=""><div id="option-unavail">餐到付款</div></a>
+                            <a href=""><div id="option-margin">在线支付</div></a>
+                        </div>
+                    </div>
                 </form>
             </div>
+            <!--                    期望送达时间-->
+            <div id="order-arrTime">
+            <span>期望送达时间：</span>
+                <div id="select-input">
+                    <span>立即送出</span>
+                    <img src="image/sm.jpg" alt="">
+                </div>
+<!--                预计送达时间选择 ---显示隐藏-->
+                <div id="slide-down">
+                    <ul class="content">
+                        <li class="selected"><a href="javascript:;" class="">立即送出</a></li>
+                        <li class=""><a href="javascript:;">16:00</a></li>
+                        <li class=""><a href="javascript:;">16:20</a></li>
+                        <li class=""><a href="javascript:;">16:40</a></li>
+                        <li class=""><a href="javascript:;">17:00</a></li>
+                        <li class=""><a href="javascript:;">17:20</a></li>
+                        <li><a href="javascript:;">17:40</a></li>
+                        <li><a href="javascript:;">18:00</a></li>
+                        <li class=""><a href="javascript:;">18:20</a></li>
+                        <li><a href="javascript:;">18:40</a></li>
+                        <li><a href="javascript:;">19:00</a></li>
+                        <li><a href="javascript:;">19:20</a></li>
+                        <li><a href="javascript:;">19:40</a></li>
+                        <li><a href="javascript:;">20:00</a></li>
+                        <li class=""><a href="javascript:;">20:20</a></li>
+                        <li><a href="javascript:;">20:40</a></li>
+                        <li><a href="javascript:;">21:00</a></li>
+                    </ul>
+
+                </div>
+            </div>
+<!--            付款信息-------支付-->
+            <div id="pay-area">
+                <div class="tips">
+                    您需支付&nbsp;<span class="price">¥<span class="price" id="totalPrice">27</span>
+              </span><br>
+                    <span class="ct-lightgrey">* 由&nbsp;商家&nbsp;提供外卖服务</span>
+                </div>
+
+            </div>
+
         </div>
     </div>
 </div>
 <!--尾部-->
 </body>
 </html>
+<script type="text/javascript">
+
+    $(function () {
+        $('#message').click(function () {
+            //取消事件冒泡
+            // event.stopPropagation();
+            //按钮的toggle,如果div是可见的,点击按钮切换为隐藏的;如果是隐藏的,切换为可见的。
+            $('#order-tags').toggle();
+            return false;
+        });
+        //点击空白处隐藏弹出层，下面为滑动消失效果和淡出消失效果。
+        $(document).click(function(){
+            $('#order-tags').hide();          //淡出消失
+        });
+        $('#select-input').click(function () {
+            //取消事件冒泡
+            // event.stopPropagation();
+            //按钮的toggle,如果div是可见的,点击按钮切换为隐藏的;如果是隐藏的,切换为可见的。
+            $('#slide-down').toggle();
+            return false;
+        });
+        //点击空白处隐藏弹出层，下面为滑动消失效果和淡出消失效果。
+        $(document).click(function(){
+                $('#slide-down').hide();          //淡出消失
+        });
+    })
+</script>
+
