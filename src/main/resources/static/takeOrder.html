@@ -55,7 +55,7 @@
                 <form action="" id="order-form">
                     <div id="order-list">
                         <div id="order-list-wrp">
-                            <div id="order-list-inner">
+
                                 <div class="address-box">
                                     <p class="address-line">
                         <span>周树凡 女士 ：
@@ -78,15 +78,16 @@
                           <a class="j-delete-address address-operation cc-lightred-new" href="javascript:;">删除</a>
                         </span></p>
                                     <p class="address-line">西南医科大学(城北校区)&nbsp;&nbsp;海川楼</p>
-
                                 </div>
-                            </div>
+
                         </div>
+                        <div id="order-list-inner">
 
+                        </div>
                         <div id="address-bottom">
                             <img src="image/address-bottom.png" style="width:100% " alt="">
-                        </div>
-                    </div>
+<!--                        </div>-->
+<!--                    </div>-->
 <!--                    给商家留言-->
                     <div id="message-short">
                         <label for="message-short">
@@ -114,8 +115,8 @@
                             <a href=""><div id="option-margin">在线支付</div></a>
                         </div>
                     </div>
-                </form>
-            </div>
+
+
             <!--                    期望送达时间-->
             <div id="order-arrTime">
             <span>期望送达时间：</span>
@@ -154,9 +155,13 @@
               </span><br>
                     <span class="ct-lightgrey">* 由&nbsp;商家&nbsp;提供外卖服务</span>
                 </div>
-
+                <span id="pay-price">去付款</span>
             </div>
-
+                    </div> </div>
+                </form>
+<!--               右边的下载客户端链接-->
+<!--            <div id="right-order-tip">-->
+            </div>
         </div>
     </div>
 </div>
@@ -188,6 +193,28 @@
         $(document).click(function(){
                 $('#slide-down').hide();          //淡出消失
         });
+        $('#address-bottom').click(function () {
+            //取消事件冒泡
+            // event.stopPropagation();
+            //按钮的toggle,如果div是可见的,点击按钮切换为隐藏的;如果是隐藏的,切换为可见的。
+            $('#order-list-inner').toggle();
+            return false;
+        });
+        //点击空白处隐藏弹出层，下面为滑动消失效果和淡出消失效果。
+        $(document).click(function(){
+            $('#order-list-inner').hide();          //淡出消失
+        });
+        $('.address-box').focus(function () {
+            //取消事件冒泡
+            // event.stopPropagation();
+            //按钮的toggle,如果div是可见的,点击按钮切换为隐藏的;如果是隐藏的,切换为可见的。
+            $('.box-modify').show();
+            // return false;
+        });
+        //点击空白处隐藏弹出层，下面为滑动消失效果和淡出消失效果。
+        // $(document).blur(function(){
+        //     $('.box-modify').hide();          //淡出消失
+        // });
     })
 </script>
 

@@ -24,7 +24,6 @@
 #order-confirm{
     height: 560px;
     width: 78%;
-    border: solid 1px black;
     margin-top: 15px;
     margin-left: auto;
     margin-right: auto;
@@ -34,7 +33,6 @@
     width: 38%;
     height: 420px;
     float: left;
-    border: solid 1px black;
 }
 .dishes-table{
     color: #434343;
@@ -51,7 +49,6 @@
 .align-left{
     padding: 17px 0;
     font-size: 14px;
-    border-bottom: solid 1px black;
     width:59%;
     text-align: left;
     float: left;
@@ -62,7 +59,6 @@
 .align-right{
     padding: 17px 0;
     font-size: 14px;
-    border-bottom: solid 1px black;
     width: 31%;
     text-align: right;
     float: left;
@@ -138,14 +134,11 @@
      background-color: #FFFFFF;
      border: 1px solid #ebebeb;
      color: #434343;
-     overflow: auto;
  }
  #dishes-rap{
      width: 515px;
-     height: 400px;
      padding: 30px;
      padding-right: 0;
-     border: solid 1px #333333;
      margin-left: 29px;
 
  }
@@ -181,7 +174,6 @@
  #order-list{
      margin-top: 11px;
      width: 515px;
-     border: solid 1px #333333;
      height: 241px;
 
  }
@@ -191,7 +183,10 @@
  }
 #order-list-inner{
     height: 1200px;
-    overflow: hidden;
+    /*overflow: hidden;*/
+    overflow: scroll;
+    /*display: none;*/
+    background-color: #ffa735;
 }
 .address-box{
     height: 86px;
@@ -204,6 +199,15 @@
     font-size: 14px;
     overflow: hidden;
     cursor: pointer;
+}
+
+.box-modify {
+    color: #ffa735;
+     padding-left: 212px;
+     /*display: none;*/
+ }
+.box-modify a{
+    color: #ffa735;
 }
 .address-line{
     height: 35px;
@@ -277,7 +281,7 @@
 #pay-field{
     margin-top: 17px;
     font-size: 12px;
-    float: left;
+    height: 85px;
 }
 #pay-field label{
     float: left;
@@ -321,10 +325,12 @@
     border-top: 1px dashed #E8E8E8;
     padding: 10px 30px 11px;
     vertical-align: middle;
-    width: 588px;
-    height:26px;
+    width: 516px;
+    height: 26px;
     color: #434343;
     font-size: 12px;
+    text-align: left;
+    margin-left: -60px;
 }
 
 #order-arrTime span{
@@ -352,8 +358,8 @@
 }
 
 #slide-down{
-    left: 694.062px;
-    top: 624px;
+    left: 693px;
+    top: 735px;
     width: 90px;
     max-height: 150px;
     overflow: auto;
@@ -362,6 +368,7 @@
     background-color: #FFFFFF;
     z-index: 901;
     display: none;
+    margin-top: -93px;
 }
 #slide-down li{
     text-align: center;
@@ -379,10 +386,13 @@
 }
 #pay-area{
     height: 92px;
-    width: 598px;
+    width: 485px;
     padding: 20px 30px;
     padding-bottom: 22px;
     border-top: 1px dashed #E8E8E8;
+    text-align: left;
+    padding-left: 60px;
+    margin-left: -59px;
 }
 .tips{
     font-size: 12px;
@@ -398,6 +408,28 @@
     position: relative;
     color: #ffa735;
 }
+#pay-price{
+    display: block;
+    margin-left: 261px;
+    background-color: #ffd606;
+    width: 100px;
+    height: 28px;
+    text-align: center;
+    padding-top: 7px;
+    margin-top: -49px;
+}
+#right-order-tip{
+    border: 1px solid #ebebeb;
+    position: relative;
+    text-align: center;
+    background-color: #fafafa;
+    cursor: pointer;
+    z-index: 902;
+    height: 32px;
+    width: 158px;
+    margin-left: 453px;
+    margin-top: -111px;
+}
 ul{
     padding-left: 0;
     list-style-type: none;
@@ -405,4 +437,7 @@ ul{
 a{
     text-decoration: none;
     outline: none;
+}
+#body{
+    height: auto;
 }
