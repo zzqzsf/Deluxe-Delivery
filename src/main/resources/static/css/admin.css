@@ -1,0 +1,77 @@
+.header{
+    width: 100%;
+    height: 64px;
+}
+.ad,.admin{
+    width: 450px;
+    height: 350px;
+    float: left;
+    margin-left: 200px;
+}
+.ad{
+    margin-top: 100px;
+    background-image: url("../image/ad.png");
+}
+.admin{
+    margin-top: 130px;
+}
+#selectAdmin{
+    margin-left:140px;
+}
+.tel{
+    width: 280px;
+    height: 28px;
+    margin-top: 10px;
+    float: left;
+}
+.ex{
+    margin-top: 10px;
+    float: left;
+}
+.pass{
+    width: 282px;
+    height: 35px;
+    margin-top: 20px;
+    border:solid 1px #cccccc;
+}
+.passPic{
+    width: 20px;
+    height: 20px;
+    background-image: url(../image/smallFlag.png);
+    background-position: -151px -371px;
+    margin-top: 8px;
+    margin-left: 3px;
+    float: left;
+}
+.msg{
+    float: left;
+    height: 26px;
+    margin-top: 3px;
+    margin-left: 3px;
+    border: none;
+}
+.admin span{
+    font-size: 12px;
+}
+#selectAdmin:hover{
+    cursor: pointer;
+}
+#getMsg:hover{
+    cursor: pointer;
+}
+.forgetPass{
+    margin-left: 230px;
+    color: #FA9700;
+    display: block;
+    margin-top: 8px;
+}
+.admin1{
+    width: 282px;
+    height: 35px;
+    border-color: #FFD705;
+    color: #6B450A;
+    background-color: #FFD705;
+    margin-top: 8px;
+}
+
+
