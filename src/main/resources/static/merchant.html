@@ -492,7 +492,7 @@
                                             <div class="col-md-1" style="line-height: 30px">p******1</div>
                                             <div class="star-rating col-md-2" style="margin: 0;padding: 0">
                                                 <fieldset class="col-md-9" style="line-height: 30px">
-                                                    <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Outstanding">5 stars</label>
+                                                    <input type="radio" id="star5" name="rating" value="5" checked/><label for="star5" title="Outstanding" >5 stars</label>
                                                     <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Very Good">4 stars</label>
                                                     <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Good">3 stars</label>
                                                     <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Poor">2 stars</label>
@@ -596,24 +596,28 @@
                         <!--                    商家信息修改-->
                         <div id="updateShopInfo" class="tab-pane fade">
                             <form class="form-horizontal">
+<!--                                店铺名-->
                                 <div class="form-group">
                                     <label for="updateShopName" class="col-md-2 control-label">店铺名称</label>
-                                    <div class="col-md-10">S
+                                    <div class="col-md-10">
                                         <input type="text" class="form-control" id="updateShopName" placeholder="请输入店铺名称" value="尹正香麻辣香锅">
                                     </div>
                                 </div>
+<!--                                店铺地址-->
                                 <div class="form-group">
                                     <label for="updateShopAddr" class="col-md-2 control-label">店铺地址</label>
                                     <div class="col-md-10">
-                                        <input type="number" class="form-control" id="updateShopAddr" placeholder="请输入店铺地址" value="福建省厦门市集美区集美大学">
+                                        <input type="text" class="form-control" id="updateShopAddr" placeholder="请输入店铺地址" value="福建省厦门市集美区集美大学">
                                     </div>
                                 </div>
+<!--                                店铺联系电话-->
                                 <div class="form-group">
                                     <label for="updateShopTel" class="col-md-2 control-label">店铺联系电话</label>
                                     <div class="col-md-10">
-                                        <input type="number" class="form-control" id="updateShopTel" placeholder="请输入店铺联系电话" value="13255565835">
+                                        <input type="text" class="form-control" id="updateShopTel" placeholder="请输入店铺联系电话" value="13255565835">
                                     </div>
                                 </div>
+<!--                                店铺图片-->
                                 <div class="form-group">
                                     <label for="updateShopImg" class="col-md-2 control-label">店铺图片</label>
                                     <div class="col-md-10">
@@ -621,27 +625,21 @@
                                         <input type="file" id="updateShopImg">
                                     </div>
                                 </div>
+<!--                                起送价-->
                                 <div class="form-group">
-                                    <label for="updateFoodIntro" class="col-md-2 control-label">商品简介</label>
+                                    <label for="updateStartPrice" class="col-md-2 control-label">起送价</label>
                                     <div class="col-md-10">
-                                        <textarea class="form-control" rows="3" id="updateFoodIntro" placeholder="请输入商品介绍">这是米饭</textarea>
+                                        <input type="number" class="form-control" id="updateStartPrice" placeholder="请输入起送价" value="20.00"></input>
                                     </div>
                                 </div>
+<!--                                包装费-->
                                 <div class="form-group">
-                                    <label for="updateFoodSort" class="col-md-2 control-label">请选择商品分类</label>
+                                    <label for="updatePackagFee" class="col-md-2 control-label">包装费</label>
                                     <div class="col-md-10">
-                                        <select class="form-control" id="updateFoodSort">
-                                            <option value ="主食" select>主食</option>
-                                            <option value ="锅底">锅底</option>
-                                            <option value="素食主义">素食主义</option>
-                                            <option value="绿色家园">绿色家园</option>
-                                            <option value="丸来丸去">丸来丸去</option>
-                                        </select>
+                                        <input type="number" class="form-control" id="updatePackagFee" placeholder="请输入包装费" value="1.50"></input>
                                     </div>
                                 </div>
                             </form>
-                        </div>
-
                         </div>
                     </div>
                 </div>
