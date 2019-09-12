@@ -112,21 +112,42 @@
                             <li><a data-toggle="tab" href="#orders">全部订单</a></li>
                         </ul>
                     </div>
-
                     <div class="tab-content position" >
                         <div id="orders" class="tab-pane fade in active">
                             <ul class="list-inline nav nav-list">
                                 <li class="col-md-6" style="padding-left: 30px">订单内容</li>
                                 <li class="col-md-2">顾客电话</li>
                                 <li class="col-md-2">支付金额</li>
-                                <li class="col-md-2">操作</li>
+                                <li class="col-md-2" style="padding: 0 30px">操作</li>
                             </ul>
                             <h5 class="page-header" style="margin-top: 20px"></h5>
-                            <ul>
-                                <li class="col-md-4">
+                            <div class="row" style="border: 2px solid #eeeeee;padding: 10px 0">
+                                <!--                                <div style="margin-left: 15px ; border: 2px solid #f00;">-->
+                                <div class="col-md-6" style="padding: 0">
+                                    <div class="col-md-1" style="padding: 0;margin-left: 40px">
+                                        <img src="image/cus_default_img.png" class="img-responsive" alt="顾客头像">
+                                    </div>
+                                    <div class="col-md-10" style="padding: 0">
+                                        <div class="row-fluid" >
+                                            <span class="col-md-12" style="margin-bottom: 10px">淑芬</span>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <span class="col-md-3">2019-09-08 12:00</span>
+                                                <span class="col-md-7">订单号：66487200144236701</span>
+                                            </div>
 
-                                </li>
-                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-2" style="padding: 0">13255565835</div>
+                                <div class="col-md-2" style="padding: 0">￥<span>20.00</span></div>
+                                <div class="col-md-2" style="padding: 0">
+                                    <div class="col-md-4" style="padding: 0"><button class="btn btn-primary">确认接单</button></div>
+                                    <div class="col-md-4"><button class="btn btn-primary">拒接接单</button></div>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -180,16 +201,16 @@
 <!--                                    商品行-->
                                     <div class="row" style="height: 50px">
                                         <div class="col-md-1"><input type="checkbox" /></div>
-                                        <div class="col-md-4"><p>商品</p></div>
+                                        <div class="col-md-4" style="padding-left: 50px"><p>商品</p></div>
                                         <div class="col-md-2"><p>价格</p></div>
                                         <div class="col-md-2"><p>库存</p></div>
                                         <div class="col-md-3"><p>操作</p></div>
                                     </div>
 <!--                                    商品详细数据-->
-                                    <div class="row" style="height:70px ">
+                                    <div class="row" style="height:70px ;border: 2px solid #eeeeee;padding: 10px 0">
                                         <div class="col-md-1"><input type="checkbox"></div>
                                         <div class="col-md-4">
-                                            <div class="col-md-3" style="padding-left: 0">
+                                            <div class="col-md-3">
                                                 <img src="image/9af1d12511dddf8cd5189dedb96a0d41151682.png" class="img-responsive" alt="Cinque Terre">
                                             </div>
                                             <div class="col-md-9">
@@ -482,42 +503,41 @@
 <!--                具体评价-->
                     <div class="tab-content position" >
                         <div id="comments" class="tab-pane fade in active">
-                            <div class="row" style="margin-left: 15px">
-<!--                                <div style="margin-left: 15px ; border: 2px solid #f00;">-->
-                                    <div class="col-md-1">
-                                        <img src="image/cus_default_img.png" class="img-responsive" alt="顾客头像">
+                            <p>后面的那个div前面必须得有点东西，不然框框不对，前面的东西还不能隐藏</p>
+                            <div class="row" style="margin-left: 15px;border: 2px solid #eeeeee;padding: 10px 0">
+                                <div class="col-md-1">
+                                    <img src="image/cus_default_img.png" class="img-responsive" alt="顾客头像">
+                                </div>
+                                <div class="col-md-11">
+                                    <div class="row">
+                                        <div class="col-md-1" style="line-height: 30px">p******1</div>
+                                        <div class="star-rating col-md-2" style="margin: 0;padding: 0">
+                                            <fieldset class="col-md-9" style="line-height: 30px">
+                                                <input type="radio" id="star5" name="rating" value="5" checked/><label for="star5" title="Outstanding" >5 stars</label>
+                                                <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Very Good">4 stars</label>
+                                                <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Good">3 stars</label>
+                                                <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Poor">2 stars</label>
+                                                <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Very Poor">1 star</label>
+                                            </fieldset>
+                                            <span class="col-md-3" style="line-height: 30px">好评</span>
+                                        </div>
+                                        <div class="col-md-2 pull-right" style="line-height: 30px">2019-09-12</div>
                                     </div>
-                                    <div class="col-md-11">
-                                        <div class="row">
-                                            <div class="col-md-1" style="line-height: 30px">p******1</div>
-                                            <div class="star-rating col-md-2" style="margin: 0;padding: 0">
-                                                <fieldset class="col-md-9" style="line-height: 30px">
-                                                    <input type="radio" id="star5" name="rating" value="5" checked/><label for="star5" title="Outstanding" >5 stars</label>
-                                                    <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Very Good">4 stars</label>
-                                                    <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Good">3 stars</label>
-                                                    <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Poor">2 stars</label>
-                                                    <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Very Poor">1 star</label>
-                                                </fieldset>
-                                                <span class="col-md-3" style="line-height: 30px">好评</span>
-                                            </div>
-                                            <div class="col-md-2 pull-right" style="line-height: 30px">2019-09-12</div>
-                                        </div>
-                                        <div class="row" style="margin-top: 10px ; padding:0 30px 0 15px">
-                                            送餐快，刚刚好够饱，不会辣，就是嘴唇有点微麻。
-                                        </div>
-                                        <h5 class="page-header" style="margin-top: 15px"></h5>
-                                        <div class="row">
-                                            <from>
-                                                <div class="form-group">
-                                                    <label for="shopRespone" class="col-md-1 control-label" style="color:#ffb700 ; padding:0 15px 0 15px">商家回复:</label>
-                                                    <div class="col-md-10">
-                                                        <textarea class="form-control" rows="3" id="shopRespone" placeholder="请回复"></textarea>
-                                                    </div>
+                                    <div class="row" style="margin-top: 10px ; padding:0 30px 0 15px">
+                                        送餐快，刚刚好够饱，不会辣，就是嘴唇有点微麻。
+                                    </div>
+                                    <h5 class="page-header" style="margin-top: 15px"></h5>
+                                    <div class="row">
+                                        <from>
+                                            <div class="form-group">
+                                                <label for="shopRespone" class="col-md-1 control-label" style="color:#ffb700 ; padding:0 15px 0 15px">商家回复:</label>
+                                                <div class="col-md-10">
+                                                    <textarea class="form-control" rows="3" id="shopRespone" placeholder="请回复"></textarea>
                                                 </div>
-                                            </from>
-                                        </div>
+                                            </div>
+                                        </from>
                                     </div>
-<!--                                </div>-->
+                                </div>
                             </div>
 <!--                    评价信息分割线-->
                             <h5 class="page-header" style="margin-top: 20px"></h5>
