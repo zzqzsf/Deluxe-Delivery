@@ -54,10 +54,10 @@
 <!--			enableSelectByExample="false" enableUpdateByExample="false">-->
 <!--			<property name="useActualColumnNames" value="true" />-->
 <!--		</table>-->
-		<table tableName="user" domainObjectName="User"
+		<table tableName="address" domainObjectName="Address"
 			enableCountByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" enableUpdateByExample="false">
-			<property name="useActualColumnNames" value="true" />
+			<property name="useActualColumnNames" value="false" />
 		</table>
 <!--		<table tableName="student" domainObjectName="Student"-->
 <!--			enableCountByExample="false" enableDeleteByExample="false"-->
