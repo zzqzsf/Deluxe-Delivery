@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.lanqiao.mapper.CouponMapper" >
-  <resultMap id="BaseResultMap" type="org.lanqiao.entity.Coupon" >
+  <resultMap id="CouponResultMap" type="org.lanqiao.entity.Coupon" >
     <id column="coupon_id" property="couponId" jdbcType="INTEGER" />
     <result column="coupon_limit" property="couponLimit" jdbcType="INTEGER" />
     <result column="coupon_del" property="couponDel" jdbcType="INTEGER" />
@@ -9,7 +9,7 @@
   <sql id="Base_Column_List" >
     coupon_id, coupon_limit, coupon_del
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="CouponResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from coupon

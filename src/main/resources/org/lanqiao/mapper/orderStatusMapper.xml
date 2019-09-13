@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.lanqiao.mapper.orderStatusMapper" >
-  <resultMap id="BaseResultMap" type="org.lanqiao.entity.orderStatus" >
+  <resultMap id="OrderStatusResultMap" type="org.lanqiao.entity.orderStatus" >
     <result column="order_id" property="orderId" jdbcType="INTEGER" />
     <result column="order_status" property="orderStatus" jdbcType="VARCHAR" />
     <result column="order_status_update_time" property="orderStatusUpdateTime" jdbcType="TIMESTAMP" />

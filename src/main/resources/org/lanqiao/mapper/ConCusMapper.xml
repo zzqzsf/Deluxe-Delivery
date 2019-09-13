@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.lanqiao.mapper.ConCusMapper" >
-  <resultMap id="BaseResultMap" type="org.lanqiao.entity.ConCus" >
+  <resultMap id="ConCusResultMap" type="org.lanqiao.entity.ConCus" >
     <result column="coupon_id" property="couponId" jdbcType="INTEGER" />
     <result column="cus_id" property="cusId" jdbcType="INTEGER" />
   </resultMap>
