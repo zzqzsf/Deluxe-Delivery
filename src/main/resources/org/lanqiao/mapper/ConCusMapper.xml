@@ -5,10 +5,6 @@
     <result column="coupon_id" property="couponId" jdbcType="INTEGER" />
     <result column="cus_id" property="cusId" jdbcType="INTEGER" />
   </resultMap>
-  <insert id="insert" parameterType="org.lanqiao.entity.ConCus" >
-    insert into con_cus (coupon_id, cus_id)
-    values (#{couponId,jdbcType=INTEGER}, #{cusId,jdbcType=INTEGER})
-  </insert>
   <insert id="insertSelective" parameterType="org.lanqiao.entity.ConCus" >
     insert into con_cus
     <trim prefix="(" suffix=")" suffixOverrides="," >

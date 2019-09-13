@@ -6,12 +6,7 @@
     <result column="order_status" property="orderStatus" jdbcType="VARCHAR" />
     <result column="order_status_update_time" property="orderStatusUpdateTime" jdbcType="TIMESTAMP" />
   </resultMap>
-  <insert id="insert" parameterType="org.lanqiao.entity.orderStatus" >
-    insert into orderStatus (order_id, order_status, order_status_update_time
-      )
-    values (#{orderId,jdbcType=INTEGER}, #{orderStatus,jdbcType=VARCHAR}, #{orderStatusUpdateTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
+
   <insert id="insertSelective" parameterType="org.lanqiao.entity.orderStatus" >
     insert into orderStatus
     <trim prefix="(" suffix=")" suffixOverrides="," >

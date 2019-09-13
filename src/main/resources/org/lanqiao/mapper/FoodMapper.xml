@@ -13,30 +13,10 @@
     <result column="food_mon_sale" property="foodMonSale" jdbcType="INTEGER" />
     <result column="food_status" property="foodStatus" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    food_id, shop_id, food_name, food_price, food_stock, food_path, food_intro, fty_id, 
-    food_mon_sale, food_status
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="FoodResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from food
-    where food_id = #{foodId,jdbcType=INTEGER}
-  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from food
     where food_id = #{foodId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.lanqiao.entity.Food" >
-    insert into food (food_id, shop_id, food_name, 
-      food_price, food_stock, food_path, 
-      food_intro, fty_id, food_mon_sale, 
-      food_status)
-    values (#{foodId,jdbcType=INTEGER}, #{shopId,jdbcType=INTEGER}, #{foodName,jdbcType=VARCHAR}, 
-      #{foodPrice,jdbcType=VARCHAR}, #{foodStock,jdbcType=INTEGER}, #{foodPath,jdbcType=VARCHAR}, 
-      #{foodIntro,jdbcType=VARCHAR}, #{ftyId,jdbcType=INTEGER}, #{foodMonSale,jdbcType=INTEGER}, 
-      #{foodStatus,jdbcType=VARCHAR})
-  </insert>
   <insert id="insertSelective" parameterType="org.lanqiao.entity.Food" >
     insert into food
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -137,17 +117,5 @@
     </set>
     where food_id = #{foodId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.Food" >
-    update food
-    set shop_id = #{shopId,jdbcType=INTEGER},
-      food_name = #{foodName,jdbcType=VARCHAR},
-      food_price = #{foodPrice,jdbcType=VARCHAR},
-      food_stock = #{foodStock,jdbcType=INTEGER},
-      food_path = #{foodPath,jdbcType=VARCHAR},
-      food_intro = #{foodIntro,jdbcType=VARCHAR},
-      fty_id = #{ftyId,jdbcType=INTEGER},
-      food_mon_sale = #{foodMonSale,jdbcType=INTEGER},
-      food_status = #{foodStatus,jdbcType=VARCHAR}
-    where food_id = #{foodId,jdbcType=INTEGER}
-  </update>
+
 </mapper>

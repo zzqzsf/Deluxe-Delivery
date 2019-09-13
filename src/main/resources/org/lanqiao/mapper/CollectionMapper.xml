@@ -5,10 +5,7 @@
     <result column="cus_id" property="cusId" jdbcType="INTEGER" />
     <result column="shop_id" property="shopId" jdbcType="INTEGER" />
   </resultMap>
-  <insert id="insert" parameterType="org.lanqiao.entity.Collection" >
-    insert into collection (cus_id, shop_id)
-    values (#{cusId,jdbcType=INTEGER}, #{shopId,jdbcType=INTEGER})
-  </insert>
+
   <insert id="insertSelective" parameterType="org.lanqiao.entity.Collection" >
     insert into collection
     <trim prefix="(" suffix=")" suffixOverrides="," >

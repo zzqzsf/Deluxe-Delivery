@@ -12,30 +12,11 @@
     <result column="order_note" property="orderNote" jdbcType="VARCHAR" />
     <result column="estimated_time" property="estimatedTime" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    order_id, addr_id, cus_id, order_time, goo_ymoney, goo_smoney, order_status, order_note, 
-    estimated_time
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="OrdersResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from orders
-    where order_id = #{orderId,jdbcType=INTEGER}
-  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from orders
     where order_id = #{orderId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.lanqiao.entity.Orders" >
-    insert into orders (order_id, addr_id, cus_id, 
-      order_time, goo_ymoney, goo_smoney, 
-      order_status, order_note, estimated_time
-      )
-    values (#{orderId,jdbcType=INTEGER}, #{addrId,jdbcType=INTEGER}, #{cusId,jdbcType=INTEGER}, 
-      #{orderTime,jdbcType=TIMESTAMP}, #{gooYmoney,jdbcType=DOUBLE}, #{gooSmoney,jdbcType=DOUBLE}, 
-      #{orderStatus,jdbcType=VARCHAR}, #{orderNote,jdbcType=VARCHAR}, #{estimatedTime,jdbcType=VARCHAR}
-      )
-  </insert>
   <insert id="insertSelective" parameterType="org.lanqiao.entity.Orders" >
     insert into orders
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -125,18 +106,6 @@
         estimated_time = #{estimatedTime,jdbcType=VARCHAR},
       </if>
     </set>
-    where order_id = #{orderId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.Orders" >
-    update orders
-    set addr_id = #{addrId,jdbcType=INTEGER},
-      cus_id = #{cusId,jdbcType=INTEGER},
-      order_time = #{orderTime,jdbcType=TIMESTAMP},
-      goo_ymoney = #{gooYmoney,jdbcType=DOUBLE},
-      goo_smoney = #{gooSmoney,jdbcType=DOUBLE},
-      order_status = #{orderStatus,jdbcType=VARCHAR},
-      order_note = #{orderNote,jdbcType=VARCHAR},
-      estimated_time = #{estimatedTime,jdbcType=VARCHAR}
     where order_id = #{orderId,jdbcType=INTEGER}
   </update>
 </mapper>
