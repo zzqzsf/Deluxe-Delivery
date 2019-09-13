@@ -4,6 +4,6 @@ import org.lanqiao.entity.Food;
 
 import java.util.List;
 
-public interface shopshowServiseImpl  {
+public interface ShopshowServiseImpl {
     List<Food> GetAllgoods();
 }

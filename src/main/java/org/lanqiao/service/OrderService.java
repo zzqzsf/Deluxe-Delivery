@@ -1,4 +1,4 @@
 package org.lanqiao.service;
 
-public class orderService {
+public class OrderService {
 }
