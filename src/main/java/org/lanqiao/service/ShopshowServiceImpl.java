@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ShopshowServiceImpl implements ShopshowService {
+public class ShopShowServiceImpl implements ShopShowService {
     @Autowired
     ShopMapper shopMapper;
     @Override
     public List<Shop> GetAllShops() {
         return shopMapper.GetAllShops();
-//  hhggf
+//  hh
     }
 }
