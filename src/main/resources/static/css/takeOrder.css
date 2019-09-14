@@ -1,10 +1,24 @@
+/*整体大布局*/
+#headerFrame{
+    position: fixed;
+    top:0;
+    width:100%;
+    height:70px;
+}
 #body{
     width: 100%;
-    height: 601px;
+    height: auto;
+    min-height: 634px;
     background-color: #F5F5F5;
     margin-bottom: 30px;
     margin-top: 90px;
 }
+#footerFrame{
+    height:360px;
+    width: 100%;
+    background: #333333;
+}
+
 #breadcrumb {
     border-left: 5px solid #333;
     color: #444444;
@@ -129,11 +143,14 @@
 }
  #dishes{
      width: 59%;
-     height: 567px;
+     min-height: 598px;
      margin-left: 398px;
      background-color: #FFFFFF;
      border: 1px solid #ebebeb;
      color: #434343;
+     height: auto;
+     float: left;
+     margin-top: -420px;
  }
  #dishes-rap{
      width: 515px;
@@ -182,11 +199,10 @@
      overflow: hidden;
  }
 #order-list-inner{
-    height: 1200px;
-    /*overflow: hidden;*/
-    overflow: scroll;
-    /*display: none;*/
-    background-color: #ffa735;
+
+    overflow: hidden;
+    float: left;
+    width: 100%;
 }
 .address-box{
     height: 86px;
@@ -203,7 +219,7 @@
 
 .box-modify {
     color: #ffa735;
-     padding-left: 212px;
+     padding-left: 202px;
      /*display: none;*/
  }
 .box-modify a{
@@ -216,9 +232,9 @@
     margin-top: -4px;
 }
 #address-bottom{
-    height: 29px;
     text-align: center;
     cursor: pointer;
+    float: left;
 }
 #message-short{
     margin-top: 15px;
@@ -359,7 +375,6 @@
 
 #slide-down{
     left: 693px;
-    top: 735px;
     width: 90px;
     max-height: 150px;
     overflow: auto;
@@ -368,7 +383,6 @@
     background-color: #FFFFFF;
     z-index: 901;
     display: none;
-    margin-top: -93px;
 }
 #slide-down li{
     text-align: center;
@@ -441,3 +455,29 @@ a{
 #body{
     height: auto;
 }
+.clear{
+    clear: both;
+}
+/*弹出框*/
+.sex{
+    margin-left: 35px;
+}
+.input{
+    margin-left: 34px;
+    height: 34px;
+    width: 398px;
+    font-size: 14px;
+    padding-left: 10px;
+}
+*{padding:0px;margin:0px;}
+.pop {  display: none;  width: 600px; min-height: 470px;  max-height: 750px;  height:470px;  position: absolute;  top: 0;  left: 0;  bottom: 0;  right: 0;  margin: auto;  padding: 25px;  z-index: 130;  border-radius: 8px;  background-color: #fff;  box-shadow: 0 3px 18px rgba(100, 0, 0, .5);  }
+.pop-top{  height:40px;  width:100%;  border-bottom: 1px #E5E5E5 solid;  }
+.pop-top h2{  float: left;  display:block}
+.pop-top span{  float: right;  cursor: pointer;  font-weight: bold; display:block}
+.pop-foot{  height:50px;  line-height:50px;  width:100%;  border-top: 1px #E5E5E5 solid;  text-align: right;  }
+.pop-cancel, .pop-ok {  padding:8px 15px;  margin:15px 5px;  border: none;  border-radius: 5px;  background-color: #337AB7;  color: #fff;  cursor:pointer;  }
+.pop-cancel {  background-color: #FFF;  border:1px #CECECE solid;  color: #000;  }
+.pop-content{  height: 380px;  }
+.pop-content-left{  float: left;  }
+.pop-content-right{  width:310px;  float: left;  padding-top:20px;  padding-left:20px;  font-size: 16px;  line-height:35px;  }
+.bgPop{  display: none;  position: absolute;  z-index: 129;  left: 0;  top: 0;  width: 100%;  height: 100%;  background: rgba(0,0,0,.2);  }
