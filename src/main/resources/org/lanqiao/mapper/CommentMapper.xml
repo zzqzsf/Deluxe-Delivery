@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.lanqiao.mapper.CommentMapper" >
-  <resultMap id="BaseResultMap" type="org.lanqiao.entity.Comment" >
+  <resultMap id="CommentResultMap" type="org.lanqiao.entity.Comment" >
     <id column="com_id" property="comId" jdbcType="INTEGER" />
     <result column="shop_id" property="shopId" jdbcType="INTEGER" />
     <result column="cus_id" property="cusId" jdbcType="INTEGER" />
@@ -10,27 +10,12 @@
     <result column="com_time" property="comTime" jdbcType="TIMESTAMP" />
     <result column="shop_response" property="shopResponse" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    com_id, shop_id, cus_id, com_text, com_level, com_time, shop_response
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from comment
-    where com_id = #{comId,jdbcType=INTEGER}
-  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from comment
     where com_id = #{comId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.lanqiao.entity.Comment" >
-    insert into comment (com_id, shop_id, cus_id, 
-      com_text, com_level, com_time, 
-      shop_response)
-    values (#{comId,jdbcType=INTEGER}, #{shopId,jdbcType=INTEGER}, #{cusId,jdbcType=INTEGER}, 
-      #{comText,jdbcType=VARCHAR}, #{comLevel,jdbcType=INTEGER}, #{comTime,jdbcType=TIMESTAMP}, 
-      #{shopResponse,jdbcType=VARCHAR})
-  </insert>
+
   <insert id="insertSelective" parameterType="org.lanqiao.entity.Comment" >
     insert into comment
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -102,16 +87,6 @@
         shop_response = #{shopResponse,jdbcType=VARCHAR},
       </if>
     </set>
-    where com_id = #{comId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.Comment" >
-    update comment
-    set shop_id = #{shopId,jdbcType=INTEGER},
-      cus_id = #{cusId,jdbcType=INTEGER},
-      com_text = #{comText,jdbcType=VARCHAR},
-      com_level = #{comLevel,jdbcType=INTEGER},
-      com_time = #{comTime,jdbcType=TIMESTAMP},
-      shop_response = #{shopResponse,jdbcType=VARCHAR}
     where com_id = #{comId,jdbcType=INTEGER}
   </update>
 </mapper>

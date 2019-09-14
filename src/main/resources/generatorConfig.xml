@@ -59,15 +59,10 @@
 			enableSelectByExample="false" enableUpdateByExample="false">
 			<property name="useActualColumnNames" value="false" />
 		</table>
-<!--		<table tableName="student" domainObjectName="Student"-->
-<!--			enableCountByExample="false" enableDeleteByExample="false"-->
-<!--			enableSelectByExample="false" enableUpdateByExample="false">-->
-<!--			<property name="useActualColumnNames" value="true" />-->
-<!--		</table>-->
-<!--		<table tableName="class" domainObjectName="Classes"-->
-<!--			enableCountByExample="false" enableDeleteByExample="false"-->
-<!--			enableSelectByExample="false" enableUpdateByExample="false">-->
-<!--			<property name="useActualColumnNames" value="true" />-->
-<!--		</table>-->
+		<table tableName="food" domainObjectName="Food"
+			   enableCountByExample="false" enableDeleteByExample="false"
+			   enableSelectByExample="false" enableUpdateByExample="false">
+			<property name="useActualColumnNames" value="false" />
+		</table>
 	</context>
 </generatorConfiguration>

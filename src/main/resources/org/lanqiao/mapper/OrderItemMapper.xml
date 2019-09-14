@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.lanqiao.mapper.OrderItemMapper" >
-  <resultMap id="BaseResultMap" type="org.lanqiao.entity.OrderItem" >
+  <resultMap id="OrderItemResultMap" type="org.lanqiao.entity.OrderItem" >
     <id column="det_id" property="detId" jdbcType="INTEGER" />
     <result column="food_id" property="foodId" jdbcType="INTEGER" />
     <result column="shop_id" property="shopId" jdbcType="INTEGER" />
@@ -10,27 +10,12 @@
     <result column="det_money" property="detMoney" jdbcType="DOUBLE" />
     <result column="det_note" property="detNote" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    det_id, food_id, shop_id, order_id, food_number, det_money, det_note
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from orderItem
-    where det_id = #{detId,jdbcType=INTEGER}
-  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from orderItem
     where det_id = #{detId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.lanqiao.entity.OrderItem" >
-    insert into orderItem (det_id, food_id, shop_id, 
-      order_id, food_number, det_money, 
-      det_note)
-    values (#{detId,jdbcType=INTEGER}, #{foodId,jdbcType=INTEGER}, #{shopId,jdbcType=INTEGER}, 
-      #{orderId,jdbcType=INTEGER}, #{foodNumber,jdbcType=INTEGER}, #{detMoney,jdbcType=DOUBLE}, 
-      #{detNote,jdbcType=VARCHAR})
-  </insert>
+
   <insert id="insertSelective" parameterType="org.lanqiao.entity.OrderItem" >
     insert into orderItem
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -102,16 +87,6 @@
         det_note = #{detNote,jdbcType=VARCHAR},
       </if>
     </set>
-    where det_id = #{detId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.OrderItem" >
-    update orderItem
-    set food_id = #{foodId,jdbcType=INTEGER},
-      shop_id = #{shopId,jdbcType=INTEGER},
-      order_id = #{orderId,jdbcType=INTEGER},
-      food_number = #{foodNumber,jdbcType=INTEGER},
-      det_money = #{detMoney,jdbcType=DOUBLE},
-      det_note = #{detNote,jdbcType=VARCHAR}
     where det_id = #{detId,jdbcType=INTEGER}
   </update>
 </mapper>

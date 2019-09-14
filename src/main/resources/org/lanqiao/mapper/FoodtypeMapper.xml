@@ -1,30 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.lanqiao.mapper.FoodtypeMapper" >
-  <resultMap id="BaseResultMap" type="org.lanqiao.entity.Foodtype" >
+  <resultMap id="FoodtypeResultMap" type="org.lanqiao.entity.Foodtype" >
     <id column="fty_id" property="ftyId" jdbcType="INTEGER" />
     <result column="fty_name" property="ftyName" jdbcType="VARCHAR" />
     <result column="shop_id" property="shopId" jdbcType="INTEGER" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    fty_id, fty_name, shop_id
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from foodtype
-    where fty_id = #{ftyId,jdbcType=INTEGER}
-  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from foodtype
     where fty_id = #{ftyId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.lanqiao.entity.Foodtype" >
-    insert into foodtype (fty_id, fty_name, shop_id
-      )
-    values (#{ftyId,jdbcType=INTEGER}, #{ftyName,jdbcType=VARCHAR}, #{shopId,jdbcType=INTEGER}
-      )
-  </insert>
   <insert id="insertSelective" parameterType="org.lanqiao.entity.Foodtype" >
     insert into foodtype
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -62,10 +48,5 @@
     </set>
     where fty_id = #{ftyId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.Foodtype" >
-    update foodtype
-    set fty_name = #{ftyName,jdbcType=VARCHAR},
-      shop_id = #{shopId,jdbcType=INTEGER}
-    where fty_id = #{ftyId,jdbcType=INTEGER}
-  </update>
+
 </mapper>

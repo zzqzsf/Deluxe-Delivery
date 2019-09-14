@@ -1,30 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.lanqiao.mapper.CouponMapper" >
-  <resultMap id="BaseResultMap" type="org.lanqiao.entity.Coupon" >
+  <resultMap id="CouponResultMap" type="org.lanqiao.entity.Coupon" >
     <id column="coupon_id" property="couponId" jdbcType="INTEGER" />
     <result column="coupon_limit" property="couponLimit" jdbcType="INTEGER" />
     <result column="coupon_del" property="couponDel" jdbcType="INTEGER" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    coupon_id, coupon_limit, coupon_del
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from coupon
-    where coupon_id = #{couponId,jdbcType=INTEGER}
-  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from coupon
     where coupon_id = #{couponId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.lanqiao.entity.Coupon" >
-    insert into coupon (coupon_id, coupon_limit, coupon_del
-      )
-    values (#{couponId,jdbcType=INTEGER}, #{couponLimit,jdbcType=INTEGER}, #{couponDel,jdbcType=INTEGER}
-      )
-  </insert>
+
   <insert id="insertSelective" parameterType="org.lanqiao.entity.Coupon" >
     insert into coupon
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -62,10 +49,5 @@
     </set>
     where coupon_id = #{couponId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.Coupon" >
-    update coupon
-    set coupon_limit = #{couponLimit,jdbcType=INTEGER},
-      coupon_del = #{couponDel,jdbcType=INTEGER}
-    where coupon_id = #{couponId,jdbcType=INTEGER}
-  </update>
+
 </mapper>
