@@ -3,10 +3,10 @@ package org.lanqiao.service;
 import org.lanqiao.entity.Shop;
 import org.lanqiao.mapper.ShopMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import javax.xml.ws.Service;
 import java.util.List;
-
+@Service
 public class ShopServiceImpl implements ShopService {
     @Autowired
     ShopMapper shopMapper;
