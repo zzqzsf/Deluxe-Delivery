@@ -14,5 +14,6 @@ public class ShopshowServiceImpl implements ShopshowService {
     @Override
     public List<Shop> GetAllShops() {
         return shopMapper.GetAllShops();
+//  hhggf
     }
 }
