@@ -54,7 +54,7 @@
 <!--			enableSelectByExample="false" enableUpdateByExample="false">-->
 <!--			<property name="useActualColumnNames" value="true" />-->
 <!--		</table>-->
-		<table tableName="user" domainObjectName="User"
+		<table tableName="custom" domainObjectName="Custom"
 			enableCountByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" enableUpdateByExample="false">
 			<property name="useActualColumnNames" value="true" />

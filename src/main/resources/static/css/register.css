@@ -23,9 +23,10 @@
     width: 70px;
 }
 .getMsg{
-    background-color: #cccccc;
+    background-color: #dedede;
     color: #434343;
     margin-left: 53px;
+    font-size: 10px;
 }
 #registerForm span:hover{
     cursor: pointer;
@@ -37,5 +38,21 @@
     width: 150px;
     height: 36px;
     margin-left: 50px;
+}
+.errorReg{
+    color: red;
+    font-size: 10px;
+}
+#registerButton:hover{
+    cursor: pointer;
+}
+.error{
+    font-size: 10px;
+    padding-left: 5px;
+    color: red;
+}
+#codeMsg,#id{
+    color: red;
+    font-size: 10px;
 }
 
