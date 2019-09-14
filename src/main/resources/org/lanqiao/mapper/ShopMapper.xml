@@ -19,6 +19,10 @@
     *
     from shop
   </select>
+  <select id="SelectShopInfo" parameterType="java.lang.Integer" resultMap="ShopResultMap">
+    select * from shop where shop_id=#{shopId}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from shop
     where shop_id = #{shopId,jdbcType=INTEGER}
