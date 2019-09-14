@@ -2,7 +2,7 @@ package org.lanqiao.entity;
 
 import java.util.Date;
 
-public class orderStatus {
+public class OrderStatus {
     private Integer orderId;
 
     private String orderStatus;

@@ -14,8 +14,11 @@
     <result column="start_price" property="startPrice" jdbcType="DOUBLE" />
     <result column="packag_fee" property="packagFee" jdbcType="DOUBLE" />
   </resultMap>
-
-
+  <select id="GetAllShops" resultMap="ShopResultMap">
+    select
+    *
+    from shop
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from shop
     where shop_id = #{shopId,jdbcType=INTEGER}
