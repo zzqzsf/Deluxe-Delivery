@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <title>头部</title>
     <link rel="stylesheet" href="css/head.css">
+    <script src="js/jquery-3.4.1.js"></script>
+    <style>
+    </style>
+    <script>
+        $(function () {
+            $(".dh22").hover(function () {
+                $(this).parent().find(".dh3-d").show()
+            },function () {
+                $(this).parent().find(".dh3-d").hide()
+            });
+        })
+    </script>
 </head>
 <body>
 <!--页眉跟随滚动-->
@@ -20,18 +32,33 @@
 <!--        右边导航-->
         <div id="daohang">
 <!--            特殊字体一-->
-            <div id="dh1">首页</div>
+            <div id="dh1">
+                <div class="dh22">首页</div>
+                <div class="dh3-d"></div>
+            </div>
 <!--            通用字体2-->
-            <div class="dh2">入驻加盟</div>
-            <div class="dh2">开放平台</div>
-            <div class="dh2">社会责任</div>
+            <div class="dh2">
+                <div class="dh22">入驻加盟</div>
+                <div class="dh3-d"></div>
+            </div>
+            <div class="dh2">
+                <div class="dh22">开放平台</div>
+                <div class="dh3-d"></div>
+            </div>
+            <div class="dh2">
+                <div class="dh22">社会责任</div>
+                <div class="dh3-d"></div>
+            </div>
 <!--            导航当前字体-->
             <div id="dh3">
-                <div id="dh3-t">点外卖</div>
-                <div id="dh3-d"></div>
+                <div class="dh22">点外卖</div>
+                <div class="dh3-d"></div>
             </div>
 <!--            特殊字体二-->
-            <div id="dh4">下载手机版</div>
+            <div id="dh4">
+                <div class="dh22">下载手机版</div>
+                <div class="dh3-d"></div>
+            </div>
         </div>
     </div>
     </div>
