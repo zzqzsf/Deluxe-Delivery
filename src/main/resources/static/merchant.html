@@ -23,7 +23,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/star.css">
-
+    <link rel="stylesheet" type="text/css" href="css/pagination.css">
+    <script src="js/jquery.pagination.js"></script>
     <style>
         .icon {
             /*background-image: url(/static/img/sprite/icons_559f3531_1.png);*/
@@ -49,7 +50,6 @@
     </style>
 
     <script>
-
         $(function () {
             $("#foodStatus").click(function () {
                 confirm("是否要更改该商品的状态");
@@ -61,7 +61,6 @@
             $("#orderInfo").click(function () {
                 $("#orderItemInfo").toggle()
             })
-
         })
     </script>
 </head>
@@ -233,16 +232,20 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
-
-
-
-
-
-
-
                             </div>
+                            <div class="col-md-8 pull-right">
+                                <ul class="pagination">
+                                    <li><a href="#">&laquo;</a></li>
+                                    <li class="active"><a href="#">1</a></li>
+                                    <li class="disabled"><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">5</a></li>
+                                    <li><a href="#">&raquo;</a></li>
+                                </ul>
+                            </div>
+
                         </div>
                     </div>
                 </div>

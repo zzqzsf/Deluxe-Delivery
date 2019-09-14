@@ -14,12 +14,8 @@
     <result column="start_price" property="startPrice" jdbcType="DOUBLE" />
     <result column="packag_fee" property="packagFee" jdbcType="DOUBLE" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    shop_id, shop_name, shop_pwd, shop_addr, shop_tel, shop_state, shop_img, shop_com, 
-    shop_mon_sale, start_price, packag_fee
-  </sql>
   <select id="GetAllShops" resultMap="ShopResultMap">
-    select 
+    select
     *
     from shop
   </select>
@@ -27,16 +23,6 @@
     delete from shop
     where shop_id = #{shopId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="org.lanqiao.entity.Shop" >
-    insert into shop (shop_id, shop_name, shop_pwd, 
-      shop_addr, shop_tel, shop_state, 
-      shop_img, shop_com, shop_mon_sale, 
-      start_price, packag_fee)
-    values (#{shopId,jdbcType=INTEGER}, #{shopName,jdbcType=VARCHAR}, #{shopPwd,jdbcType=VARCHAR}, 
-      #{shopAddr,jdbcType=VARCHAR}, #{shopTel,jdbcType=VARCHAR}, #{shopState,jdbcType=VARCHAR}, 
-      #{shopImg,jdbcType=VARCHAR}, #{shopCom,jdbcType=INTEGER}, #{shopMonSale,jdbcType=INTEGER}, 
-      #{startPrice,jdbcType=DOUBLE}, #{packagFee,jdbcType=DOUBLE})
-  </insert>
   <insert id="insertSelective" parameterType="org.lanqiao.entity.Shop" >
     insert into shop
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -146,18 +132,5 @@
     </set>
     where shop_id = #{shopId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.Shop" >
-    update shop
-    set shop_name = #{shopName,jdbcType=VARCHAR},
-      shop_pwd = #{shopPwd,jdbcType=VARCHAR},
-      shop_addr = #{shopAddr,jdbcType=VARCHAR},
-      shop_tel = #{shopTel,jdbcType=VARCHAR},
-      shop_state = #{shopState,jdbcType=VARCHAR},
-      shop_img = #{shopImg,jdbcType=VARCHAR},
-      shop_com = #{shopCom,jdbcType=INTEGER},
-      shop_mon_sale = #{shopMonSale,jdbcType=INTEGER},
-      start_price = #{startPrice,jdbcType=DOUBLE},
-      packag_fee = #{packagFee,jdbcType=DOUBLE}
-    where shop_id = #{shopId,jdbcType=INTEGER}
-  </update>
+
 </mapper>
