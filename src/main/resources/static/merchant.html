@@ -24,6 +24,30 @@
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/star.css">
 
+    <style>
+        .icon {
+            /*background-image: url(/static/img/sprite/icons_559f3531_1.png);*/
+
+            background-repeat: no-repeat;
+            image-rendering:  crisp-edges;(-webkit-optimize-contrast);
+            display: inline-block;
+        }
+        .i-ordernotok {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background-color: #ccc;
+            /* background-position: -359px -284px; */
+        }
+        .i-orderok {
+            width: 7px;
+            height: 7px;
+            background: #ffd161;
+            border-radius: 50%;
+            /* background-position: -290px -284px; */
+        }
+    </style>
+
     <script>
 
         $(function () {
@@ -32,6 +56,10 @@
             });
             $("#deleteFood").click(function () {
                 confirm("确定要删除该商品");
+            })
+            $("#orderItemInfo").hide();
+            $("#orderInfo").click(function () {
+                $("#orderItemInfo").toggle()
             })
 
         })
@@ -121,7 +149,7 @@
                                 <li class="col-md-2" style="padding: 0 30px">操作</li>
                             </ul>
                             <h5 class="page-header" style="margin-top: 20px"></h5>
-                            <div class="row" style="border: 2px solid #eeeeee;padding: 10px 0">
+                            <div class="row" id="orderInfo" style="border: 2px solid #eeeeee;padding: 10px 0">
                                 <!--                                <div style="margin-left: 15px ; border: 2px solid #f00;">-->
                                 <div class="col-md-6" style="padding: 0">
                                     <div class="col-md-1" style="padding: 0;margin-left: 40px">
@@ -136,9 +164,7 @@
                                                 <span class="col-md-3">2019-09-08 12:00</span>
                                                 <span class="col-md-7">订单号：66487200144236701</span>
                                             </div>
-
                                         </div>
-
                                     </div>
                                 </div>
                                 <div class="col-md-2" style="padding: 0">13255565835</div>
@@ -148,7 +174,7 @@
                                     <div class="col-md-4"><button class="btn btn-primary">拒接接单</button></div>
                                 </div>
                             </div>
-                            <div class="row" style="border: 2px solid #bbbbbb;padding: 10px 0;">
+                            <div class="row" id="orderItemInfo" style="border: 2px solid #bbbbbb;padding: 10px 0;">
                                 <div class="col-md-4" style="border-right: 1px solid #999999 ">
                                     <div style="float: left ;width: 95%;padding-left: 25px;overflow:hidden;">
                                         <div>
@@ -189,8 +215,21 @@
                                     <div style="float: left ;width: 95%;padding-left: 25px;overflow:hidden;border-right: 0px solid #999999 ">
                                         <div>
                                             <h4 style="color:#aaaaaa">订单状态</h4>
-                                            <div>
-
+                                            <div class="col-md-1" style="float: left">
+                                                <i class="icon i-orderok"></i>
+                                                <i style="display: block;height: 40px ;width: 1px;margin: 0 0px 0 3px; background-color: #ffd161"></i>
+                                                <i class="icon i-ordernotok" style="border-radius: 50%"></i>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div>
+                                                    <span>订单提交成功</span>
+                                                    <span class="pull-right">2019-09-08 12:00</span>
+                                                </div>
+                                                <div style="height: 40px"></div>
+                                                <div>
+                                                    <span>订单取消</span>
+                                                    <span class="pull-right">2019-09-08 12:01</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
