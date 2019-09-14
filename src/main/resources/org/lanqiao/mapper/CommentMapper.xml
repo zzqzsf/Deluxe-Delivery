@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lanqiao.mapper.CommentMapper" >
+  <resultMap id="CommentResultMap" type="org.lanqiao.entity.Comment" >
+    <id column="com_id" property="comId" jdbcType="INTEGER" />
+    <result column="shop_id" property="shopId" jdbcType="INTEGER" />
+    <result column="cus_id" property="cusId" jdbcType="INTEGER" />
+    <result column="com_text" property="comText" jdbcType="VARCHAR" />
+    <result column="com_level" property="comLevel" jdbcType="INTEGER" />
+    <result column="com_time" property="comTime" jdbcType="TIMESTAMP" />
+    <result column="shop_response" property="shopResponse" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from comment
+    where com_id = #{comId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="org.lanqiao.entity.Comment" >
+    insert into comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="comId != null" >
+        com_id,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="cusId != null" >
+        cus_id,
+      </if>
+      <if test="comText != null" >
+        com_text,
+      </if>
+      <if test="comLevel != null" >
+        com_level,
+      </if>
+      <if test="comTime != null" >
+        com_time,
+      </if>
+      <if test="shopResponse != null" >
+        shop_response,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="comId != null" >
+        #{comId,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="cusId != null" >
+        #{cusId,jdbcType=INTEGER},
+      </if>
+      <if test="comText != null" >
+        #{comText,jdbcType=VARCHAR},
+      </if>
+      <if test="comLevel != null" >
+        #{comLevel,jdbcType=INTEGER},
+      </if>
+      <if test="comTime != null" >
+        #{comTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shopResponse != null" >
+        #{shopResponse,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.Comment" >
+    update comment
+    <set >
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="cusId != null" >
+        cus_id = #{cusId,jdbcType=INTEGER},
+      </if>
+      <if test="comText != null" >
+        com_text = #{comText,jdbcType=VARCHAR},
+      </if>
+      <if test="comLevel != null" >
+        com_level = #{comLevel,jdbcType=INTEGER},
+      </if>
+      <if test="comTime != null" >
+        com_time = #{comTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shopResponse != null" >
+        shop_response = #{shopResponse,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where com_id = #{comId,jdbcType=INTEGER}
+  </update>
+</mapper>

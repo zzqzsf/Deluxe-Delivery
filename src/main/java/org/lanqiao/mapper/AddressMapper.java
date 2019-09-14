@@ -19,6 +19,8 @@ public interface AddressMapper {
 
     int updateByPrimaryKey(Address record);
 
+
     List<Address> getAllAddress();
     List<Address> getAllAddresss();
+
 }

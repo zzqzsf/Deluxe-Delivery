@@ -9,12 +9,11 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
 
 mybatis:
-  mapper-locations: classpath:org/lanqiao/mapper/*.xml
-  type-aliases-package: org.lanqiao.entity
+  mapper-locations: classpath:org/lanqiao/mapper/AddressMapper.xml
+#  type-aliases-package: org.lanqiao.entity
 
 #showSql
 logging:
   level:
-    org:
-    lanqiao:
+    org.lanqiao:
         mapper : debug

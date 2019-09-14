@@ -47,10 +47,10 @@
 			<scope>runtime</scope>
 		</dependency>
 <!--		&lt;!&ndash;静态资源可以自动加载&ndash;&gt;-->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>springloaded</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework</groupId>-->
+<!--            <artifactId>springloaded</artifactId>-->
+<!--        </dependency>-->
 		<!-- mysql -->
 		<dependency>
 			<groupId>mysql</groupId>
