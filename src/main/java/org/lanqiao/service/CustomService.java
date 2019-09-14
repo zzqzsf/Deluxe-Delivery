@@ -3,7 +3,6 @@ package org.lanqiao.service;
 import org.lanqiao.entity.Custom;
 import org.springframework.stereotype.Service;
 
-
 public interface CustomService {
     int checkTel(String tel);
     int insertCustom(Custom custom);
