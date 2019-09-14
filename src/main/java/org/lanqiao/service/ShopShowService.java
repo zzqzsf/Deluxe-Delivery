@@ -7,5 +7,5 @@ import java.util.List;
 public interface ShopShowService {
 
     List<Shop> GetAllShops();
-//    vghgd
+//    gh
 }
