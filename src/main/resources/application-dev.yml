@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     username: root
-    password:(123456)
+    password: MySQL@2019
     url: jdbc:mysql://47.94.36.91:3306/meituan?useUnicode=true&amp;characterEncoding=UTF8&amp;nullCatalogMeansCurrent=true
     driver-class-name: com.mysql.jdbc.Driver
 
@@ -16,4 +16,4 @@ mybatis:
 logging:
   level:
     org.lanqiao:
-        mapper : debug
+      mapper : debug
