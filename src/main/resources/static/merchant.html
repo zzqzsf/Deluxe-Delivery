@@ -11,7 +11,6 @@
     <script src="bootstrap-3.3.7-dist/js/bootstrap.js"></script>
     <script src="bootstrap-3.3.7-dist/js/npm.js"></script>
     <script src="js/vue.min.js"></script>
-
     <!-- HTML5 Shiv 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
     <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
     <!--[if lt IE 9]>
@@ -23,8 +22,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/star.css">
-    <link rel="stylesheet" type="text/css" href="css/pagination.css">
-    <script src="js/jquery.pagination.js"></script>
+    <script src="js/vue.min.js"></script>
     <style>
         .icon {
             /*background-image: url(/static/img/sprite/icons_559f3531_1.png);*/
@@ -51,6 +49,19 @@
 
     <script>
         $(function () {
+            var shopId=1;
+            var vm=new Vue({
+                el:"#all",
+                data:{
+                    foodtype:"",
+                    food:"",
+
+                },
+                mathods:{
+
+                }
+            });
+
             $("#foodStatus").click(function () {
                 confirm("是否要更改该商品的状态");
             });
@@ -60,12 +71,28 @@
             $("#orderItemInfo").hide();
             $("#orderInfo").click(function () {
                 $("#orderItemInfo").toggle()
-            })
+            });
+
+            selectFoodtype(shopId);
+            function selectFoodtype(shopId) {
+                $.ajax({
+                    url:"/selectFoodtype",
+                    type:"post",
+                    data:{
+                        shopId:shopId,
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        vm.foodtype=data;
+                    }
+                })
+            }
+
         })
     </script>
 </head>
 <body>
-<div class="container-fluid">
+<div class="container-fluid" id="all">
     <div class="row-fluid">
         <div class="col-md-12" style="height: 60px">
             <button class="btn btn-block btn-primary active btn-lg" type="button">这是一个logo</button>
@@ -272,13 +299,16 @@
                         <div id="allfoods" class="tab-pane fade in active">
                             <div class="col-md-2">
 <!--                                商品管理三级导航栏-->
-                                <ul class="nav nav-pills nav-stacked">
-                                    <li><a data-toggle="tab" href="#foods">主食</a></li>
-                                    <li><a data-toggle="tab" href="#foods">锅底</a></li>
-                                    <li><a data-toggle="tab" href="#foods">素食主义</a></li>
-                                    <li><a data-toggle="tab" href="#foods">绿色家园</a></li>
-                                    <li><a data-toggle="tab" href="#foods">肉百汇</a></li>
-                                    <li><a data-toggle="tab" href="#foods">丸来丸去</a></li>
+                                <ul class="nav nav-pills nav-stacked" >
+                                    <div v-for="(foodtype,index) in foodtype">
+                                        <li><a data-toggle="tab" href="#foods">{{foodtype.ftyName}}</a></li>
+                                    </div>
+
+<!--                                    <li><a data-toggle="tab" href="#foods">锅底</a></li>-->
+<!--                                    <li><a data-toggle="tab" href="#foods">素食主义</a></li>-->
+<!--                                    <li><a data-toggle="tab" href="#foods">绿色家园</a></li>-->
+<!--                                    <li><a data-toggle="tab" href="#foods">肉百汇</a></li>-->
+<!--                                    <li><a data-toggle="tab" href="#foods">丸来丸去</a></li>-->
 <!--                                添加商品分类按钮，insertFoodSortModel-->
                                     <li><button type="button" class="btn btn-info btn-circle" data-toggle="modal" data-target="#inserFoodSortModal" data-toggle="tooltip" data-placement="top" title="添加商品分类">
                                         <i class="glyphicon glyphicon-plus"></i></button>
@@ -487,7 +517,7 @@
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                                                 </button>
-                                                <button type="button" class="btn btn-primary">
+                                                <button type="button" class="btn btn-primary" @click="">
                                                     提交
                                                 </button>
                                             </div>
