@@ -13,6 +13,13 @@
     <result column="food_mon_sale" property="foodMonSale" jdbcType="INTEGER" />
     <result column="food_status" property="foodStatus" jdbcType="VARCHAR" />
   </resultMap>
+  <select id="selectFoodList" parameterType="java.lang.Integer" resultMap="FoodResultMap">
+    select * from food where fty_id=#{foodtypeId}
+  </select>
+
+
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from food
     where food_id = #{foodId,jdbcType=INTEGER}

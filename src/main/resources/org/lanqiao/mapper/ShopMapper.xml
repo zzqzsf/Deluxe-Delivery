@@ -13,12 +13,48 @@
     <result column="shop_mon_sale" property="shopMonSale" jdbcType="INTEGER" />
     <result column="start_price" property="startPrice" jdbcType="DOUBLE" />
     <result column="packag_fee" property="packagFee" jdbcType="DOUBLE" />
+    <collection property="foodTypeList" resultMap="FoodtypeResultMap"></collection>
+    <collection property="foodList" resultMap="FoodResultMap"></collection>
   </resultMap>
+  <resultMap id="FoodtypeResultMap" type="org.lanqiao.entity.Foodtype" >
+    <id column="fty_id" property="ftyId" jdbcType="INTEGER" />
+    <result column="fty_name" property="ftyName" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="FoodResultMap" type="org.lanqiao.entity.Food" >
+    <id column="food_id" property="foodId" jdbcType="INTEGER" />
+    <result column="shop_id" property="shopId" jdbcType="INTEGER" />
+    <result column="food_name" property="foodName" jdbcType="VARCHAR" />
+    <result column="food_price" property="foodPrice" jdbcType="VARCHAR" />
+    <result column="food_stock" property="foodStock" jdbcType="INTEGER" />
+    <result column="food_path" property="foodPath" jdbcType="VARCHAR" />
+    <result column="food_intro" property="foodIntro" jdbcType="VARCHAR" />
+    <result column="fty_id" property="ftyId" jdbcType="INTEGER" />
+    <result column="food_mon_sale" property="foodMonSale" jdbcType="INTEGER" />
+    <result column="food_status" property="foodStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <!-- 琳 通过shopId，得到一个shop详情-->
+  <select id="selectShopById" resultType="org.lanqiao.entity.Shop" parameterType="java.lang.Integer">
+    select * from shop where shop_id = #{shopId}
+  </select>
+  <!-- 琳 通过shopId，得到食物所属类型-->
+  <select id="selectFoodType" resultMap="FoodtypeResultMap" parameterType="java.lang.Integer">
+    select * from foodtype where shop_id = #{shopId}
+  </select>
+  <!--琳 通过shopId，得到食物-->
+  <select id="selectAllFood" resultMap="FoodResultMap" parameterType="java.lang.Integer">
+    select * from food where shop_id = #{shopId}
+  </select>
+
   <select id="GetAllShops" resultMap="ShopResultMap">
     select
     *
     from shop
   </select>
+  <select id="SelectShopInfo" parameterType="java.lang.Integer" resultMap="ShopResultMap">
+    select * from shop where shop_id=#{shopId}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from shop
     where shop_id = #{shopId,jdbcType=INTEGER}

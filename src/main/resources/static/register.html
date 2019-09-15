@@ -9,68 +9,40 @@
     <script src="js/jquery.validate.js" type="application/javascript"></script>
     <script src="js/jquery.validate.regex.js" type="application/javascript"></script>
 
-    <script>
-        $(function () {
-            $("#registerForm").validate({
-                success:function(label){
-                    //label.text('').addClass('valid');
-                    label.removeClass('label');
-                    label.addClass("ok").css('color','#666').text('');
-                },
-                onfocusout:function(element){
-                    this.element(element);
-                },
-                rules: {
-                    tel: {
-                        required: true,
-                        regex: /^[1]([3-9])[0-9]{9}$/
-                    },
-                    pass: {
-                        required: true,
-                        minlength:6
-                    },
-                    repass:{
-                        required:true,
-                        minlength:6,
-                        equalTo:"#pass"
-                    }
-                },
-                messages: {
-                    tel: {
-                        required: "请输入您的手机号",
-                        regex: "请输入正确的11位手机号码"
-                    },
-                    pass: {
-                        required: "请输入密码",
-                        minlength: "密码长度至少为6"
-                    },
-                    repass: {
-                        required:"请再次输入密码",
-                        minlength:"密码长度至少为6",
-                        equalTo:"两次密码不一致"
-                    }
-                }
-            });
-        })
-    </script>
 </head>
 <body>
-    <div class="header">
-        <img src="image/reglogo.png" style="padding-left: 100px">
-        <hr color="#FFD705">
-    </div>
-    <div class="registerInfo">
-        <form id="registerForm">
-            <div class="phone"><span>手机号 </span><input type="text" id="tel" name="tel"></div>
-            <div style="margin-top: 5px;margin-bottom: 5px"><span class="getMsg">免费获取短信验证码</span></div>
-            <div class="msgCheck"><span style="margin-left: -32px">短信动态码 </span><input type="text" name="msg" id="msgCheck"></div>
-            <br>
-            <div class="password"><span style="margin-left: -17px">创建密码 </span><input type="password" name="pass" id="pass"></div>
-            <br>
-            <div class="repassword"><span style="margin-left: -17px">确认密码 </span><input type="password" name="repass" id="repass"></div>
-            <br>
-            <div class="register"><input type="submit" id="registerButton" value="注 册"></div>
-        </form>
-    </div>
+<div class="header">
+    <img src="image/reglogo.png" style="padding-left: 100px">
+    <hr color="#FFD705">
+</div>
+<div class="registerInfo">
+    <form id="registerForm">
+        <div class="phone">
+            <span>手机号 </span><input type="text" id="tel" name="tel">
+            <span id="error"></span>
+        </div>
+        <div style="margin-top: 5px;margin-bottom: 5px">
+            <span class="getMsg">免费获取短信验证码</span>
+            <span class="errorReg"></span>
+        </div>
+        <div class="msgCheck"><span style="margin-left: -32px">
+            短信动态码 </span><input type="text" name="verifyCode" id="msgCheck">
+            <span id="codeMsg"></span>
+        </div>
+        <br>
+        <div class="password">
+            <span style="margin-left: -17px">创建密码 </span>
+            <input type="password" name="cusPwd" id="pass">
+        </div>
+        <br>
+        <div class="repassword">
+            <span style="margin-left: -17px">确认密码 </span>
+            <input type="password" name="repass" id="repass">
+        </div>
+        <br>
+        <div class="register"><input type="submit" id="registerButton" value="注 册"></div>
+    </form>
+</div>
 </body>
 </html>
+<script type="text/javascript" src="js/register.js"></script>

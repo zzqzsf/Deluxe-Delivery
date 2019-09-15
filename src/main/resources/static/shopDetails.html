@@ -2,8 +2,156 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>店铺详情</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <link rel="stylesheet" href="css/shopDetails.css" type="text/css">
+    <script src="js/jquery-3.4.1.js"></script>
+    <script src="js/vue.min.js"></script>
 </head>
 <body>
+<div id="mainBody">
+    <!--头部-->
+    <div id="header">
+        <iframe id="headerFrame" name="headerFrame" src="head.html" width="100%" height="70px" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <div id="partOne" class="w">
+        <div id="partOneLeft">
+            <img src="image/zhizunPizza.jpg">
+            <div id="shopName"><span>尊宝披萨（集美石鼓店）</span></div>
+            <div id="star"></div><span id="score">4.8</span>
+            <div id="OpenTime">
+                <p>营业时间：8:00-20:00</p>
+                <p>地点：石鼓路</p>
+            </div>
+        </div>
+        <div id="partOneCenter">
+            <div class="OneCenterBigBox">
+                <p>平均配送时间</p>
+                <p><span>39</span>分钟</p>
+            </div>
+            <div class="OneCenterBigBox">
+                <p>起送</p>
+                <p><span>20</span>元</p>
+            </div>
+            <div class="OneCenterBigBox">
+                <p>配送费</p>
+                <p><span>5</span>元</p>
+            </div>
+        </div>
+        <div id="partOneRight">
+            <p>收藏本店</p>
+            <div id="heart"></div>
+        </div>
+    </div>
+    <div id="partTwoMenu" class="w">
+        <div id="menuAssess">
+            <ul>
+                <li>菜单</li>
+                <li>评论</li>
+                <li>食品安全方案</li>
+            </ul>
+        </div>
+        <div id="selectAssess">
+            <form>
+                <label><input type="radio" name="opinion" value="">全部评价</label>
+                <label><input type="radio" name="opinion" value="">好评</label>
+                <label><input type="radio" name="opinion" value="">差评</label>
+            </form>
+        </div>
+        <div class="assesssBigBox">
+            <img src="image/ad.png">
+            <div class="userName">仪***礼</div>
+            <div class="expressTime">2019-09-04</div>
+            <div class="starRank"></div>
+            <span>好评</span>
+            <div class="opinionText">
+                这家好吃是真的好吃，不然我也不会连点4单。可是外卖员真的让人绝望，怪小区我楼号？第二三次都要打电话问也罢了，这次直接送错栋（感谢隔壁阿姨好心还我）。 真的很好吃，可也真的很糟心
+            </div>
+        </div>
+        <div id="markBigBox">
+            <p style="height: 40px;font-size: 16px;text-align: center;line-height: 40px;font-weight: bold;border-bottom: 1px solid lightgray">总体评价</p>
+            <span id="allMark">4.4</span>
+            <div id="mark"></div>
+            <ul>
+                <li>5分<span class="lines"><i class="line"></i></span><i>71%</i></li>
+                <li>4分<span class="lines"><i class="line"></i></span><i>71%</i></li>
+                <li>3分<span class="lines"><i class="line"></i></span><i>71%</i></li>
+                <li>2分<span class="lines"><i class="line"></i></span><i>71%</i></li>
+                <li>1分<span class="lines"><i class="line"></i></span><i>71%</i></li>
+            </ul>
+        </div>
+        <div id="MenuSort">
+            <ul>
+                <li>尊宝随心配</li>
+                <li>超值优惠套餐</li>
+                <li>10寸美味披萨</li>
+            </ul>
+        </div>
+        <div id="foodShow">
+            <p id="sortName">尊宝随心配</p>
+            <div class="foodBigBox">
+                <div class="foodSmallBox">
+                    <img src="image/zhizunPizza.jpg">
+                    <p class="foodName">49.9尊宝开心配套餐</p>
+                    <p class="foodPrice"><span>￥</span>49.9</p>
+                    <div class="addButton"></div>
+                </div>
+                <div class="foodSmallBox">
+                    <img src="image/zhizunPizza.jpg">
+                    <p class="foodName">49.9尊宝开心配套餐</p>
+                    <p class="foodPrice"><span>￥</span>49.9</p>
+                    <div class="addButton"></div>
+                </div>
+                <div class="foodSmallBox">
+                    <img src="image/zhizunPizza.jpg">
+                    <p class="foodName">49.9尊宝开心配套餐</p>
+                    <p class="foodPrice"><span>￥</span>49.9</p>
+                    <div class="addButton"></div>
+                </div>
+            </div>
+        </div>
+        <div id="cartShow">
+            <div id="clearCart">
+                <i style="float: left;">购物车</i>
+                <i style="float: right;">清空购物车</i>
+            </div>
+            <div class="cartFood">
+                <span>超级豪华/水果什锦披萨水果什锦披萨</span>
+                <button name="sub" style="margin-left:10px">-</button>
+                <input type="text" name="num">
+                <button name="add" value="+">+</button>
+                <i class="singlePrice">￥128</i>
+            </div>
+            <div class="cartFood">
+                <span>榴莲王/水果什锦披萨</span>
+                <button name="sub" style="margin-left:10px">-</button>
+                <input type="text" name="num">
+                <button name="add">+</button>
+                <i class="singlePrice">￥128</i>
+            </div>
+            <div class="packCharge">
+                <i style="color: #fe673d">包装费</i>
+                <span>￥5</span>
+            </div>
+            <div class="packCharge">
+                <i style="color: #fe673d">配送费(不计起送费)</i>
+                <span>￥2</span>
+            </div>
+            <div id="allMoney">
+                <p>共<span style="color: #fe673d;font-size: 14px;">2</span>份,总计<span style="color: #fe4d3d;font-size: 16px;font-weight: bold;">￥152</span></p>
+            </div>
+        </div>
+        <div id="cartFixed">
+            <div id="cartPicBox">
+                <div id="cartPic"></div>
+            </div>
+            <div id="startSend">差20元起送</div>
+        </div>
+    </div>
+    <!--底部-->
+   <div id="footer">
+        <iframe id="footerFrame" name="footerFrame" src="footer.html" width="100%" height="100%" frameborder="0" scrolling="no"></iframe>
+    </div>
+</div>
 </body>
 </html>

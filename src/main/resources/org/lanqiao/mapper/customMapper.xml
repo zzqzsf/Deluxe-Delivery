@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lanqiao.mapper.CustomMapper" >
+    <resultMap id="CustomResultMap" type="org.lanqiao.entity.Custom" >
+        <id column="cus_id" property="cusId" jdbcType="INTEGER" />
+        <result column="cus_name" property="cusName" jdbcType="INTEGER" />
+        <result column="cus_pwd" property="cusPwd" jdbcType="VARCHAR" />
+        <result column="cus_tel" property="cusTel" jdbcType="DOUBLE" />
+        <result column="cus_email" property="cusEmail" jdbcType="TIMESTAMP" />
+
+    </resultMap>
+
+    <select id="checkTel"  resultType="java.lang.Integer" parameterType="java.lang.String">
+        select count(*) from custom where cus_tel = #{tel,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insertCustom" parameterType="org.lanqiao.entity.Custom">
+        insert into custom (cus_tel,cus_pwd)
+        values (#{cusTel,jdbcType=VARCHAR},#{cusPwd,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertCustom1"  parameterType="java.lang.String">
+        insert into custom (cus_tel)
+        values (#{cusTel,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="checkCustom" resultType="java.lang.Integer" parameterType="org.lanqiao.entity.Custom">
+        select count(*) from custom where cus_tel = #{cusTel,jdbcType=INTEGER} and cus_pwd = #{cusPwd,jdbcType=INTEGER}
+    </select>
+
+    <update id="updatePass" parameterType="java.lang.String">
+        update custom set cus_pwd = #{cusPwd,jdbcType=VARCHAR} where cus_tel = #{cusTel,jdbcType=VARCHAR}
+    </update>
+
+
+
+
+
+
+</mapper>

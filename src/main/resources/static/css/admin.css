@@ -73,5 +73,39 @@
     background-color: #FFD705;
     margin-top: 8px;
 }
+.errorTel{
+    color: red;
+    width: 282px;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    font-size: 14px;
+    background-color: #cccccc;
+    display: none;
+}
+.errorPic{
+    width: 20px;
+    height: 20px;
+    background-image: url(../image/smallFlag.png);
+    background-position: -211px -371px;
+    float: left;
+    margin-left: 75px;
+    margin-top: 8px;
+}
+.tel1{
+    display: block;
+    float: left;
+}
+#getMsg{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
 
 
