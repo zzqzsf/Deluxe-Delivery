@@ -1,5 +1,7 @@
 package org.lanqiao.entity;
 
+import java.util.List;
+
 public class Shop {
     private Integer shopId;
 
@@ -22,6 +24,25 @@ public class Shop {
     private Double startPrice;
 
     private Double packagFee;
+
+    private List<Foodtype> foodtypeList;
+    private List<Food> foodList;
+
+    public List<Foodtype> getFoodtypeList() {
+        return foodtypeList;
+    }
+
+    public void setFoodtypeList(List<Foodtype> foodtypeList) {
+        this.foodtypeList = foodtypeList;
+    }
+
+    public List<Food> getFoodList() {
+        return foodList;
+    }
+
+    public void setFoodList(List<Food> foodList) {
+        this.foodList = foodList;
+    }
 
     public Integer getShopId() {
         return shopId;
