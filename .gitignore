@@ -37,4 +37,4 @@ build/
 /src/main/resources/mybatis.properties
 /src/main/resources/generatorConfig.xml
 /src/main/resources/application-dev.yml
-!/src/main/resources/application-dev.yml
+/src/main/resources/mybatis-Config.xml

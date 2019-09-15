@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.lanqiao.mapper.CollectionMapper" >
-  <resultMap id="CollectionResultMap" type="org.lanqiao.entity.Collection" >
+  <resultMap id="CollectionResultMap" type="org.lanqiao.entity.Collections" >
     <result column="cus_id" property="cusId" jdbcType="INTEGER" />
     <result column="shop_id" property="shopId" jdbcType="INTEGER" />
   </resultMap>
 
-  <insert id="insertSelective" parameterType="org.lanqiao.entity.Collection" >
+  <insert id="insertSelective" parameterType="org.lanqiao.entity.Collections" >
     insert into collection
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="cusId != null" >

@@ -6,9 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 @Service
-public interface OrderService {
+public class OrderServiceImpl  implements OrderService{
+    @Autowired
+    OrdersMapper ordersMapper;
 
-    public List<Orders> getAllOrder(int pageNum, int pageSize);
+    public List<Orders> getAllOrder(int pageNum, int pageSize){
+        return ordersMapper.getAllOrder((pageNum-1)*pageSize,pageSize);
+    }
 }

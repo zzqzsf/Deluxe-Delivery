@@ -1,6 +1,6 @@
 package org.lanqiao.entity;
 
-public class Collection {
+public class Collections {
     private Integer cusId;
 
     private Integer shopId;
