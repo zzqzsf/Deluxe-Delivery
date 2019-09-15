@@ -5,7 +5,6 @@ import org.lanqiao.entity.Custom;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@Mapper
 public interface CustomMapper {
     //检查手机号是否被注册
     int checkTel(String tel);

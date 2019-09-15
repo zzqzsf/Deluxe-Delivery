@@ -92,4 +92,19 @@ public class Orders {
     public void setEstimatedTime(String estimatedTime) {
         this.estimatedTime = estimatedTime == null ? null : estimatedTime.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Orders{" +
+                "orderId=" + orderId +
+                ", addrId=" + addrId +
+                ", cusId=" + cusId +
+                ", orderTime=" + orderTime +
+                ", gooYmoney=" + gooYmoney +
+                ", gooSmoney=" + gooSmoney +
+                ", orderStatus='" + orderStatus + '\'' +
+                ", orderNote='" + orderNote + '\'' +
+                ", estimatedTime='" + estimatedTime + '\'' +
+                '}';
+    }
 }
