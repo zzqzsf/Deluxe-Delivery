@@ -6,13 +6,63 @@
     <link rel="stylesheet" href="css/head.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/orderManage.css">
-    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/jquery-3.4.1.min.js"></script>
     <script>
         $(function () {
+            /*取订单数据*/
+            var page = 1;
+            $.ajax({
+                url: "http://localhost:8080/getAllOrder",
+                type: "post",
+                dataType: "json",
+                data: {
+                    "pageNum": page,
+                    "pageSize": 3
+                },
+                success: function (data) {
+
+                    for (var i = 0; i < data.length; i++) {
+                        var $node = $model.clone(true);
+                        //2、使用data替换
+                        $node.find(".author").html("用户：" + data[i].author + "<span>" + data[i].id + "#" + "</span>");
+                        $node.find(".content").text(data[i].msg);
+                        $node.find(".time").text("发表于：" + data[i].date);
+                        $("#page").before($node);
+                    }
+
+                }
+
+            });
+            var orderNumber = 0;
+            if(orderNumber==0){
+                $("#noneOrder").show();
+            }else {
+                $("#hasOrder").show();
+            }
+            /*我的账号隐藏*/
+            $("#setting-box").hide();
+            /*订单详情隐藏*/
+            $("#j-shown-order").hide();
+            /*点击订单列表中任意订单一个显示订单详情*/
             $(".content").click(function () {
-                $("#j-shown-order").toggle();
-            })
-            $("#div2").css("height")
+                if($("#j-shown-order").css("display")=="none"){
+                    $("#j-shown-order").show(100);
+                }else{
+                    $("#j-shown-order").hide(100);
+                }
+
+            });
+            /*点击显示订单列表，隐藏我的账号*/
+            $("#orderlist").click(function () {
+                $("#setting-box").hide();
+                $("#hasOrder").show();
+            });
+            /*点击显示我的账号，隐藏订单列表*/
+            $("#myaccount").click(function () {
+                $(".orders-list").hide();
+                $("#setting-box").show();
+            });
+
         })
 
     </script>
@@ -52,18 +102,18 @@
         <div id="menu" class="orders-tab fl">
             <div class="tab">
 
-                <div class="menuList">
-                    <a href="/customer/order/list" class="borderradius-1 order-today active">
+                <div class="menuList" id="orderlist">
+                    <a style="cursor:pointer" class="borderradius-1 order-today active">
                         <img src="image/orderListIcon.svg"/>
                         三个月订单
                     </a>
                 </div>
-                <div class="menuList"><a href="/account/setting" class="borderradius-1 my-account ">
+                <div class="menuList" id="myaccount"><a style="cursor:pointer" class="borderradius-1 my-account ">
                     <img src="image/accountIcon.svg"/>
                     我的账号
                 </a>
                 </div>
-                <div class="menuList"><a href="/favorite/restaurant" class="borderradius-1 my-favorite ">
+                <div class="menuList" id="collections"><a style="cursor:pointer" class="borderradius-1 my-favorite ">
                     <img src="image/collectIcon.svg"/>
                     我的收藏</a>
                 </div>
@@ -71,7 +121,13 @@
             </div>
         </div>
         <!--订单-->
-        <div class="orders-list">
+        <div class="orders-list" id="noneOrder" style="min-height: 500px;display: none">
+            还没有订单哦，
+            <a href="">点击这里</a>
+            立即下单
+
+        </div>
+        <div class="orders-list" id="hasOrder" style="display: none" >
             <!--订单头部-->
             <div class="order-header">
                 <span class="oh-content">订单内容</span>
@@ -117,7 +173,7 @@
                     </div>
                 </div>
                 <!--订单详情-->
-                <div class="detail-intro clearfix " id="j-shown-order" >
+                <div class="detail-intro clearfix " id="j-shown-order">
                     <div class="fl dishes ">
                         <div class="dish-title">订单详情</div>
                         <div class="list">
@@ -132,7 +188,7 @@
                                         </div>
                                     </div>
                                     <span class="food-count">1</span>
-                                    <span class="fr food-pri"><i>¥</i>42</span>
+                                    <span class="fr food-pri">¥42</span>
                                 </div>
                                 <div class="field clearfix">
                                     <span class="fl classify">包装费：</span>
@@ -197,6 +253,24 @@
 
 
         </div>
+        <!--我的账号-->
+        <div class="setting-box" id="setting-box">
+            <div class="user-info clearfix ct-commonblack">
+                <div class="user-info-item">
+                    <span class="ui-title">我的头像：</span>
+                    <i class="icon i-user-circle"></i>
+                </div>
+                <div class="user-info-item">
+                    <span class="ui-title">用户&nbsp;&nbsp;I&nbsp;D：</span>
+                    <span class="source-label">YdG773494809</span>
+                </div>
+                <div class="user-info-item">
+                    <span class="ui-title">手机号码：</span>
+                    <span class="source-label">1300****1057</span>
+                </div>
+                <a href="https://www.meituan.com/account/settings" target="_blank" class="s-btn j-modify-info">修改</a>
+            </div>
+        </div>
     </div>
 </div>
 <!--底部-->
@@ -241,9 +315,9 @@
     <div id="footer-d">
         <!--        字体及图标六块-->
         <!--        蓝桥图标-->
-        <div id="d2" ></div>
+        <div id="d2"></div>
         <div class="d1">蓝桥科技有限公司</div>
-        <div id="d3">©️ meituan.com 京ICP证078341号 </div>
+        <div id="d3">©️ meituan.com 京ICP证078341号</div>
         <!--        公安局图标-->
         <div id="d4"></div>
         <div class="d1">厦门公网安备110748295003632号</div>
