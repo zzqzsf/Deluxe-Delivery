@@ -7,6 +7,7 @@ import org.lanqiao.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -33,6 +34,20 @@ public class ShopController {
     public int insertFood(Food food){
         return shopService.insertFood(food);
     }
+
+
+
+    @RequestMapping("/uploadFoodImg")
+    public String uploadFoodImg(MultipartFile foodImg){
+        foodImg.getOriginalFilename()
+
+    }
+
+
+
+
+
+
     @RequestMapping("/updateFoodInfo")
     public int updateFoodInfo(Food food){
         return shopService.updateFoodInfo(food);
@@ -46,15 +61,15 @@ public class ShopController {
     public List<Foodtype> selectFoodtype(int shopId){
         return shopService.selectFoodtypeList(shopId);
     }
-    @RequestMapping("insertFoodtype")
+    @RequestMapping("/insertFoodtype")
     public int insertFoodtype(Foodtype foodtype){
         return shopService.insertFoodtype(foodtype);
     }
-    @RequestMapping("deleteFoodtype")
+    @RequestMapping("/deleteFoodtype")
     public int deleteFoodtype(int foodtypeId){
         return shopService.deleteFootype(foodtypeId);
     }
-    @RequestMapping("updateFoodtype")
+    @RequestMapping("/updateFoodtype")
     public int updateFoodtype(Foodtype foodtype){
         return shopService.updateFoodtype(foodtype);
     }
