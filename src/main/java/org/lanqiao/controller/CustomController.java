@@ -94,6 +94,7 @@ public class CustomController {
 
     @RequestMapping("/getAllLocation")
     public List<Location> getAll(){
+        locationList.clear();
 //      redisUtil.lSet("locations",location);
         List<Object> objectList = redisUtil.lGet("locations",0,1);
         Object ob = (Object) objectList;
