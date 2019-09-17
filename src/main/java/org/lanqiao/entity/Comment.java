@@ -1,7 +1,6 @@
 package org.lanqiao.entity;
 
 import java.util.Date;
-import java.util.Set;
 
 public class Comment {
     private Integer comId;
@@ -17,6 +16,16 @@ public class Comment {
     private Date comTime;
 
     private String shopResponse;
+
+    private Shop shop;
+
+    public Shop getShop() {
+        return shop;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
+    }
 
     public Custom getCustom() {
         return custom;

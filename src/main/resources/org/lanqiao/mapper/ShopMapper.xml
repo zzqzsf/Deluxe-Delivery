@@ -35,15 +35,18 @@
   </resultMap>
   <!-- 琳 通过shopId，得到一个shop详情-->
   <select id="selectShopById" resultType="org.lanqiao.entity.Shop" parameterType="java.lang.Integer">
-    select * from shop where shop_id = #{shopId}
+    select shop_id as shopId,shop_name as shopName,shop_pwd as shopPwd,shop_addr as shopAddr,shop_tel as shopTel,shop_state as shopState,
+    shop_img as shopImg,shop_com as shopCom,shop_mon_sale as shopMonSale,start_price as startPrice,packag_fee as packagFee
+    from shop where shop_id = #{shopId}
   </select>
   <!-- 琳 通过shopId，得到食物所属类型-->
   <select id="selectFoodType" resultMap="FoodtypeResultMap" parameterType="java.lang.Integer">
     select * from foodtype where shop_id = #{shopId}
   </select>
-  <!--琳 通过shopId，得到食物-->
-  <select id="selectAllFood" resultMap="FoodResultMap" parameterType="java.lang.Integer">
-    select * from food where shop_id = #{shopId}
+  <!--通过shopId，得到食物-->
+  <select id="selectAllFood" resultMap="FoodResultMap">
+    select food.* from food,foodtype
+    where food.fty_id = foodtype.fty_id and food.shop_id = #{shopId} and food.fty_id =#{foodTypeId}
   </select>
 
   <select id="GetAllShops" resultMap="ShopResultMap">
