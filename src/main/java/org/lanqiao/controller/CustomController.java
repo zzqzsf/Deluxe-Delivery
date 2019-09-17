@@ -94,7 +94,10 @@ public class CustomController {
 
     @RequestMapping("/getAllLocation")
     public List<Location> getAll(){
-        locationList.clear();
+        Location location = new Location();
+        location.setName("集美万达");
+        location.setJingdu(118.1);
+        location.setWeidu(24.1);
 //      redisUtil.lSet("locations",location);
         List<Object> objectList = redisUtil.lGet("locations",0,1);
         Object ob = (Object) objectList;

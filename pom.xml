@@ -154,12 +154,11 @@
 			<version>2.5</version>
 		</dependency>
 
+<!--		solr-->
 		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt</artifactId>
-			<version>0.6.0</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-solr</artifactId>
 		</dependency>
-
 	</dependencies>
 
 	<build>
