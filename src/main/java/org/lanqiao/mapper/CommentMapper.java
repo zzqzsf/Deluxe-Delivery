@@ -15,5 +15,5 @@ public interface CommentMapper {
 
 	int updateByPrimaryKeySelective(Comment record);
 
-
+	List<Comment> SelectOpinion(Integer shopId, Integer level);
 }

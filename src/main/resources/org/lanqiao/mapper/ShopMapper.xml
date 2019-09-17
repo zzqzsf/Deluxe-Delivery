@@ -13,7 +13,8 @@
     <result column="shop_mon_sale" property="shopMonSale" jdbcType="INTEGER" />
     <result column="start_price" property="startPrice" jdbcType="DOUBLE" />
     <result column="packag_fee" property="packagFee" jdbcType="DOUBLE" />
-    <collection property="foodTypeList" resultMap="FoodtypeResultMap"></collection>
+    <result column="pei_fee" property="peiFee" jdbcType="DOUBLE" />
+    <collection property="foodtypeList" resultMap="FoodtypeResultMap"></collection>
     <collection property="foodList" resultMap="FoodResultMap"></collection>
   </resultMap>
   <resultMap id="FoodtypeResultMap" type="org.lanqiao.entity.Foodtype" >
@@ -56,7 +57,7 @@
     </select>
 
     <select id="getShop" resultMap="ShopResultMap" parameterType="java.lang.Integer">
-        select * from shop where shop_id=1;
+        select * from shop where shop_id=#{shopId}
     </select>
 
 <!--  豪 查找店铺信息-->

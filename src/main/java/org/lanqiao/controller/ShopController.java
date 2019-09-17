@@ -1,9 +1,6 @@
 package org.lanqiao.controller;
 
-<<<<<<<< HEAD:src/main/java/org/lanqiao/controller/ShopController.java
 
-public class ShopController {
-========
 import org.lanqiao.entity.Orders;
 import org.lanqiao.service.OrderService;
 import org.lanqiao.entity.Food;
@@ -17,19 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class OrderController {
-    @Autowired
-    OrderService orderService;
-
-    @RequestMapping("/getAllOrder")
-    public List<Orders> getAllOrder(int pageNum, int pageSize) {
-        return orderService.getAllOrder(pageNum,pageSize);
-
-    }
->>>>>>>> origin/master:src/main/java/org/lanqiao/controller/OrderController.java
 public class ShopController {
     @Autowired
     ShopService shopService;
+    @RequestMapping("/getShop")
+    public List<Shop> getShop(Integer shopId){
+        return shopService.getShop(shopId);
+    }
 
     @RequestMapping("/selectShopInfo")
     public Shop selectShopInfo(int shopId){

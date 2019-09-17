@@ -17,10 +17,10 @@
 
 
     <insert id="insert" parameterType="org.lanqiao.entity.OrderItem">
-        insert into orderItem (det_id, food_id, shop_id,
+        insert into orderItem (det_id, food_id,
         order_id, food_number, det_money,
         det_note)
-        values (#{detId,jdbcType=INTEGER}, #{foodId,jdbcType=INTEGER}, #{shopId,jdbcType=INTEGER},
+        values (#{detId,jdbcType=INTEGER}, #{foodId,jdbcType=INTEGER},
         #{orderId,jdbcType=INTEGER}, #{foodNumber,jdbcType=INTEGER}, #{detMoney,jdbcType=DOUBLE},
         #{detNote,jdbcType=VARCHAR})
     </insert>

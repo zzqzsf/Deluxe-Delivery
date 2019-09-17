@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.stereotype.Component;
 
 
-@Service
-import java.util.List;
 
+import java.util.List;
+@Service
 @Component
 public interface OrdersMapper {
 	int deleteByPrimaryKey(Integer orderId);

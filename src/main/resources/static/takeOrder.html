@@ -291,45 +291,44 @@
         // sessionStorage.setItem('telephone', $("input[name='telphone']").val());
         // var telephone =sessionStorage.getItem("telephone");
 
+        // var addrId1 =sessionStorage.getItem("addrId");
+        var addrId1;
+        sessionStorage.setItem('addrId',addrId1);
         $("#pay-price").click(function () {
-                // $.ajax({
-                //     url: "/insertOrder",
-                //     data: JSON.stringify(
-                //         {
-                //             "order": {
-                //                 addrId: mode.find("input[name='addressId']").val(),
-                //                 orderNote: $("#message").val(),
-                //                 orderState: "未完成付款",
-                //                 estimatedTime: $("#time").html(),
-                //
-                //             },
-                //             "orderItems": [{
-                //                 detNote: "无留言",
-                //                 detMoney: $("#count").html(),
-                //             }]
-                //         }),
-                //     dataType: "text",
-                //     type: "post",
-                //     contentType: "application/json",//{name:'david',pass：'123'}
-                //     success: function (text) {
-                //         alert("生成订单成功");
-                //     }
-                // });
+                $.ajax({
+                    url: "/insertOrder",
+                    data: JSON.stringify(
+                        {
+                            "order": {
+                                addrId: mode.find("input[name='addressId']").val(),
+                                orderNote: $("#message").val(),
+                                orderStatus: "未完成付款",
+                                shopId:sessionStorage.getItem("shopId"),
+                                estimatedTime: $("#time").html(),
 
-                //  $.ajax({
-                //     url: "/goAlipay",
-                //     data: {
-                //         'price':$("#totalPrice").html(),
-                //
-                //     },
-                //     dataType: "json",
-                //     type: "post",
-                //     success: function (data) {
-                //         //这个数字只是为了演示，实际应用肯定是写活的。
-                //
-                //     }
-                // });
-            location.href = "/goAlipay?price=" + $("#totalPrice").html();  //这个数字只是为了演示，实际应用肯定是写活的。
+                            },
+                            "orderItems": [{
+                                 detNote: "无留言",
+                                 detMoney: $("#count").html(),
+                                 foodNumber:sessionStorage.getItem('foodNum'),
+                            }]
+                        }),
+                    dataType: "text",
+                    type: "post",
+                    contentType: "application/json",//{name:'david',pass：'123'}
+                    success: function (text) {
+                        alert("生成订单成功");
+                    }
+                });
+                addrId1=mode.find("input[name='addressId']").val();
+            if (mode.find("input[name='addressId']").val()!=null){
+                location.href = "/goAlipay?price=" + $("#totalPrice").html();  //这个数字只是为了演示，实际应用肯定是写活的。
+
+            }
+            else
+            {
+                alert("111");
+            }
 
 
 
@@ -352,7 +351,9 @@
                     dataType: "json",
                     success: function (data) {
                         if (data == true)
-                            alert("添加地址成功");
+                        {
+                            location.href="takeOrder.html";
+                        }
 
                     }
 
@@ -400,14 +401,13 @@
                     for (var i = 0; i < data.length; i++) {
                         var $node1 = $model1.clone();
                         $node1.find("#food-name").html(data[i].foodName);
-                        $node1.find("#food-price").html(data[i].foodPrice);
+                        $node1.find("#food-price").html((data[i].foodPrice)+"*"+sessionStorage.getItem('foodNum'));
                         // $node1.find("#address").text(data[i].address);
                         // $node.children().eq(1).text(data[i].address);
                         $("#pPrice").before($node1);
                         count += (parseInt(data[i].foodPrice));
                     }
-                    $("#count").html(count);
-                    $("#totalPrice").text(count);
+
                 }
             });
 
@@ -415,20 +415,27 @@
         }
 
         //显示店家信息
+
+        var sum=0;
         function shop() {
+
             $.ajax({
-                url: "http://localhost:8080/getShop",
-                type: "get",
-                data: {},
+                url: "/getShop",
+                type: "post",
+                data: {
+                     shopId:sessionStorage.getItem("shopId"),
+                },
                 dataType: "json",
                 success: function (data) {
                     for (var i = 0; i < data.length; i++) {
                         $("#ca-brown").html(data[i].shopName);
-                        $("#peiPrice").html(data[i].startPrice);
+                        $("#peiPrice").html;
                         $("#packPrice").html(data[i].packagFee);
-
-
+                        sum+=(parseInt((data[i].peiFee))+parseInt(data[i].packagFee));
                     }
+                    sum1=parseInt(count)+parseInt(sum);
+                      $("#count").html(sum1);
+                    $("#totalPrice").text(sum1);
                 }
             });
 

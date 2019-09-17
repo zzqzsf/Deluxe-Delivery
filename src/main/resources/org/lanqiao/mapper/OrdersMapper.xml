@@ -29,11 +29,11 @@
             keyColumn="order_id">
         insert into orders (order_id, addr_id, cus_id,
         order_time, goo_ymoney, goo_smoney,
-        order_state, order_note, estimated_time
+        order_status, order_note, estimated_time,shop_id
         )
         values (#{orderId,jdbcType=INTEGER}, #{addrId,jdbcType=INTEGER}, #{cusId,jdbcType=INTEGER},
         #{orderTime,jdbcType=TIMESTAMP}, #{gooYmoney,jdbcType=DOUBLE}, #{gooSmoney,jdbcType=DOUBLE},
-        #{orderState,jdbcType=VARCHAR}, #{orderNote,jdbcType=VARCHAR}, #{estimatedTime,jdbcType=VARCHAR}
+        #{orderStatus,jdbcType=VARCHAR}, #{orderNote,jdbcType=VARCHAR}, #{estimatedTime,jdbcType=VARCHAR},#{shopId}
         )
     </insert>
 

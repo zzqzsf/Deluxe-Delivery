@@ -13,7 +13,7 @@ public class FoodServiceimpl implements FoodService {
 	FoodMapper foodMapper;
 
 	@Override
-	public List<Food> getFood(Integer foodId) {
-		return foodMapper.getFood(foodId);
+	public List<Food> getFood(Integer ftyId) {
+		return foodMapper.getFood(ftyId);
 	}
 }

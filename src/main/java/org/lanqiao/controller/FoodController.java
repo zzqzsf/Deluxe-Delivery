@@ -18,13 +18,11 @@ public class FoodController {
 	@Autowired
 	ShopService shopService;
 
+
+
 	@RequestMapping("/getFood")
-	public List<Food> getFood(Integer foodid) {
-		return foodService.getFood(foodid);
+	public List<Food> getFood(Integer ftyId) {
+		return foodService.getFood(ftyId);
 	}
 
-	@RequestMapping("/getShop")
-	public List<Shop> getShop(Integer shopId) {
-		return shopService.getShop(shopId);
-	}
 }

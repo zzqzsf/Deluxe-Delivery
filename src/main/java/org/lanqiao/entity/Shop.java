@@ -24,10 +24,20 @@ public class Shop {
     private Double startPrice;
 
     private Double packagFee;
+        private Double peiFee;
+
+    public Double getPeiFee() {
+        return peiFee;
+    }
+
+    public void setPeiFee(Double peiFee) {
+        this.peiFee = peiFee;
+    }
 
     private List<Foodtype> foodtypeList;
     private List<Food> foodList;
 
+//
     public List<Foodtype> getFoodtypeList() {
         return foodtypeList;
     }

@@ -28,7 +28,7 @@
 
 
     <select id="getFood" resultMap="FoodResultMap" parameterType="java.lang.Integer">
-        select * from food where food_id=1;
+        select * from food where fty_id=1;
     </select>
 
 

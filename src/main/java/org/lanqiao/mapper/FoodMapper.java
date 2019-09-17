@@ -6,9 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
-@Service
 import java.util.List;
+@Service
 @Repository
 public interface FoodMapper {
 	int deleteByPrimaryKey(Integer foodId);
@@ -20,6 +19,6 @@ public interface FoodMapper {
 	int updateByPrimaryKeySelective(Food record);
 // 根据分类查商品
     List<Food> selectFoodByFoodtype(Integer foodtypeId);
-	List<Food> getFood(Integer foodId);
+	List<Food> getFood(Integer ftyId);
 
 }

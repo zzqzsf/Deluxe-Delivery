@@ -8,5 +8,5 @@ import java.util.List;
 
 @Service
 public interface FoodService {
-	public List<Food> getFood(Integer foodId);
+	public List<Food> getFood(Integer ftyId);
 }
