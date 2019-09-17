@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.lanqiao.mapper.AddressMapper" >
-  <resultMap id="BaseResultMap" type="org.lanqiao.entity.Address" >
+  <resultMap id="AddressResultMap" type="org.lanqiao.entity.Address" >
     <id column="addr_id" property="addrId" jdbcType="INTEGER" />
     <result column="cus_id" property="cusId" jdbcType="INTEGER" />
     <result column="address" property="address" jdbcType="VARCHAR" />
@@ -12,8 +12,8 @@
   <sql id="Base_Column_List" >
     addr_id, cus_id, address, addr_name, addr_tel, sex
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+  <select id="selectByPrimaryKey" resultMap="AddressResultMap" parameterType="java.lang.Integer" >
+    select
     <include refid="Base_Column_List" />
     from address
     where addr_id = #{addrId,jdbcType=INTEGER}
@@ -23,10 +23,10 @@
     where addr_id = #{addrId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="org.lanqiao.entity.Address" >
-    insert into address (addr_id, cus_id, address, 
+    insert into address (addr_id, cus_id, address,
       addr_name, addr_tel, sex
       )
-    values (#{addrId,jdbcType=INTEGER}, #{cusId,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, 
+    values (#{addrId,jdbcType=INTEGER}, #{cusId,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR},
       #{addrName,jdbcType=VARCHAR}, #{addrTel,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}
       )
   </insert>

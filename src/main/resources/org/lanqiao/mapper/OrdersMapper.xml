@@ -10,8 +10,30 @@
     <result column="order_note" property="orderNote" jdbcType="VARCHAR" />
     <result column="estimated_time" property="estimatedTime" jdbcType="VARCHAR" />
     <result column="shop_id" property="shopId" jdbcType="INTEGER" />
-    <association property="address" resultMap=""
+    <association property="address" resultMap="AddressResultMap"></association>
+    <association property="custom" resultMap="CustomResultMap"></association>
+    <association property="shop" resultMap="ShopResultMap"></association>
   </resultMap>
+  <resultMap id="AddressResultMap" type="org.lanqiao.entity.Address" >
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="addr_name" property="addrName" jdbcType="VARCHAR" />
+    <result column="addr_tel" property="addrTel" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="CustomResultMap" type="org.lanqiao.entity.Custom" >
+    <result column="cus_name" property="cusName" jdbcType="INTEGER" />
+    <result column="cus_tel" property="cusTel" jdbcType="DOUBLE" />
+    <result column="cus_img" property="cusImg" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ShopResultMap" type="org.lanqiao.entity.Shop" >
+    <result column="start_price" property="startPrice" jdbcType="DOUBLE" />
+    <result column="packag_fee" property="packagFee" jdbcType="DOUBLE" />
+  </resultMap>
+
+<!--查找该商家的全部订单-->
+  <select id="selectAllShopOrder" parameterType="java.lang.Integer" resultMap="OrdersResultMap">
+    select o.*,a.addr_name,a.address,a.addr_tel,a.sex,c.cus_name,c.cus_img,c.cus_tel,s.packag_fee from orders o,address a,custom c,shop s where o.addr_id=a.addr_id and o.cus_id=c.cus_id and o.shop_id=s.shop_id and o.shop_id=#{shopId} order by order_time
+  </select>
 
   <select id="getAllOrder" resultMap="OrdersResultMap" >
     /*select * from orders order by id desc*/
