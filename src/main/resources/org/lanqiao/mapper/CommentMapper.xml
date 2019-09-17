@@ -11,6 +11,18 @@
     <result column="shop_response" property="shopResponse" jdbcType="VARCHAR" />
   </resultMap>
 
+  <!--通过shopId得到所有评论-->
+  <select id="SelectOpinion" resultMap="CommentResultMap">
+    select * from comment
+    where shop_id = #{shopId}
+    <if test="level==0">
+      and com_level <![CDATA[ < ]]>  4
+    </if>
+    <if test="level==1">
+      and com_level <![CDATA[ >= ]]>  4
+    </if>
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from comment
     where com_id = #{comId,jdbcType=INTEGER}

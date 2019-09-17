@@ -17,7 +17,7 @@ public interface ShopMapper {
 
     Shop SelectShopInfo(Integer shopId);
     //店铺详情页面所需接口
-    Shop selectShopById(int shopId);
-    List<Foodtype> selectFoodType(int shopId);
-    List<Food> selectAllFood(int shopId);
+    Shop selectShopById(Integer shopId);
+    List<Foodtype> selectFoodType(Integer shopId);
+    List<Food> selectAllFood(Integer shopId,Integer foodTypeId);
 }

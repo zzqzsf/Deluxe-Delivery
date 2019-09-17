@@ -20,10 +20,9 @@ body,img,p,span,ul,li{
 #footer{
     height: 220px;
     width: 100%;
+    float: left;
     position: absolute;
     bottom: 0;
-    z-index: 10;
-    display: none;
 }
 .w{
     margin-top: 10px;
@@ -66,13 +65,26 @@ body,img,p,span,ul,li{
     font-weight: bold;
 }
 #star{
-    height: 15px;
-    width: 75px;
+    width: 72px;
+    height: 12px;
     line-height: 12px;
+    display: inline-block;
+    background-size: 14px 12px;
+    overflow: hidden;
+    background-image: url(https://waimai.meituan.com/static/img/restaurant/star-gray.svg);
     position: absolute;
     top: 45%;
     left: 40%;
+}
+#startwo{
+    width: 72px;
+    height: 12px;
+    line-height: 12px;
+    display: inline-block;
+    background-size: 14px 12px;
+    overflow: hidden;
     background-image: url(https://waimai.meituan.com/static/img/restaurant/star-yellow.svg);
+    background-repeat: repeat-x;
 }
 #score{
     font-size: 12px;
@@ -162,11 +174,10 @@ body,img,p,span,ul,li{
     border-bottom: 1px solid lightgray;
 }
 #menuAssess li{
-    height: 30px;
+    height: 38px;
     width: 15%;
     line-height: 30px;
     font-size: 16px;
-    margin: 4px;
     float: left;
     text-align: center;
     cursor: pointer;
@@ -181,39 +192,40 @@ body,img,p,span,ul,li{
     display: none;
 }
 #MenuSort ul{
-    height: 150px;
     width: 90%;
     margin:auto;
 }
 #MenuSort li{
     height: 30px;
-    width: 19%;
+    width: 15%;
     line-height: 30px;
-    font-size: 12px;
+    font-size: 13px;
     text-align: center;
     overflow: hidden;
     float: left;
     margin: 3px;
+    cursor: pointer;
 }
 /*菜品展示*/
-#foodShow{
+.foodShow{
     width: 70%;
     float: left;
     background-color: white;
     border-bottom: 1px solid lightgray;
-    /*display: none;*/
+    display: none;
 }
-#sortName{
+.sortName{
     height: 35px;
-    width: 100%;
+    width: 95%;
     font-size: 16px;
     text-align: left;
     line-height: 30px;
-    border-bottom: 1px solid lightgray;
+    margin-left: 10px;
 }
 .foodBigBox{
     height: 255px;
     width: 100%;
+    border-top: 1px solid lightgray;
 }
 .foodSmallBox{
     height: 255px;
@@ -257,8 +269,7 @@ body,img,p,span,ul,li{
     bottom: 50px;
     margin-left: 57%;
     background-color: white;
-    z-index: 1;
-    /*display: none;*/
+    display: none;
 }
 /*清空购物车*/
 #clearCart{
@@ -322,7 +333,7 @@ body,img,p,span,ul,li{
     height: 40px;
     width: 100%;
     float: left;
-    border-bottom: 2px solid lightgray; 
+    border-bottom: 1px solid lightgray;
 }
 .packCharge i{
     height: 40px;
@@ -359,6 +370,7 @@ body,img,p,span,ul,li{
     bottom: 0;
     margin-left: 57%;
     z-index: 1;
+    display: none;
 }
 #cartPicBox{
     height: 50px;
@@ -378,7 +390,7 @@ body,img,p,span,ul,li{
     height: 50px;
     width: 40%;
     float: right;
-    background-color: #ffd161;
+    background-color: #cccccc;
     font-size: 18px;
     text-align: center;
     font-weight: bold;
@@ -395,26 +407,36 @@ body,img,p,span,ul,li{
     width: 70%;
     float: left;
     background-color: white;
+    display: none;
 }
 #selectAssess label{
     line-height: 40px;
 }
 /*评论模板*/
-.assesssBigBox{
+.assessBigBox{
     height: 100px;
     width: 70%;
     float: left;
     background-color: white;
     border-bottom: 1px solid lightgray;
     position: relative;
+    display: none;
 }
-.assesssBigBox img{
+.assessBigBox img{
     height: 40px;
     width: 40px;
     border-radius: 50%;
     position: absolute;
     top: 10px;
     left: 10px;
+}
+.assessBigBox span{
+    font-size: 12px;
+    line-height: 20px;
+    color: #333;
+    position: absolute;
+    top: 20px;
+    left: 210px;
 }
 .userName{
     height: 20px;
@@ -436,20 +458,26 @@ body,img,p,span,ul,li{
     text-align: center;
 }
 .starRank{
-    height: 15px;
-    width: 75px;
-    background-image: url(https://waimai.meituan.com/static/img/restaurant/star-yellow.svg);
+    width: 72px;
+    height: 12px;
+    line-height: 12px;
+    display: inline-block;
+    background-size: 14px 12px;
+    overflow: hidden;
+    background-image: url(https://waimai.meituan.com/static/img/restaurant/star-gray.svg);
     position: absolute;
-    top: 25px;
-    left: 128px;
+    top: 23px;
+    left: 126px;
 }
-.assesssBigBox span{
-    font-size: 12px;
-    line-height: 20px;
-    color: #333;
-    position: absolute;
-    top: 25px;
-    left: 210px;
+.starRankLevel{
+    width: 72px;
+    height: 12px;
+    line-height: 12px;
+    display: inline-block;
+    background-size: 14px 12px;
+    overflow: hidden;
+    background-image: url(https://waimai.meituan.com/static/img/restaurant/star-yellow.svg);
+    background-repeat: repeat-x;
 }
 .opinionText{
     width: 80%;
@@ -468,25 +496,41 @@ body,img,p,span,ul,li{
     position: absolute;
     right: 0;
     top: 0;
+    display: none;
 }
 #mark{
-    height: 25px;
-    width: 36%;
-    background-image: url(https://waimai.meituan.com/static/img/restaurant/star-yellow.svg);
+    display: inline-block;
+    width: 150px;
+    height: 20px;
+    line-height: 20px;
+    background-size: 30px 20px;
+    overflow: hidden;
+    background-image: url(https://waimai.meituan.com/static/img/restaurant/star-gray.svg);
     float: right;
     margin-right: 50px;
-    margin-top: 8px;
+    margin-top: 13px;
 }
-#allMark{    
+#marktwo{
+    width: 150px;
+    height: 20px;
+    line-height: 12px;
+    display: inline-block;
+    background-size: 30px 20px;
+    overflow: hidden;
+    background-image: url(https://waimai.meituan.com/static/img/restaurant/star-yellow.svg);
+    background-repeat: repeat-x;
+}
+#allMark{
     height: 25px;
     width: 10%;
     float: left;
     font-size: 16px;
     font-weight: bold;
-    margin-left: 26px;
+    margin-left: 78px;
     position: absolute;
-    top: 52px;
-    margin-top: 10px;
+    top: 50px;
+    text-align: center;
+    line-height: 30px;
 }
 #markBigBox ul{
     height: 160px;

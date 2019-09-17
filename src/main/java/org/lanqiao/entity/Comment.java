@@ -17,6 +17,16 @@ public class Comment {
 
     private String shopResponse;
 
+    private Shop shop;
+
+    public Shop getShop() {
+        return shop;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
+    }
+
     public Integer getComId() {
         return comId;
     }
