@@ -1,8 +1,6 @@
 package org.lanqiao.controller;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import org.apache.solr.client.solrj.response.UpdateResponse;
+
 import org.lanqiao.entity.Shop;
 import org.lanqiao.service.ShopShowService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,17 +22,17 @@ public class ShopShowController {
 @Autowired
 ShopShowService shopShowService;
 
-    @RequestMapping("/getAllShare")
-    public PageInfo get(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum){
-
-        PageHelper.startPage(pageNum, 3);
-
-        List<Shop> shareList = shopShowService.GetAllShops();
-
-        PageInfo<Shop> pageInfo = new PageInfo<>(shareList);
-
-        return pageInfo;
-    }
+//    @RequestMapping("/getAllShare")
+//    public PageInfo get(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum){
+//
+//        PageHelper.startPage(pageNum, 3);
+//
+//        List<Shop> shareList = shopShowService.GetAllShops();
+//
+//        PageInfo<Shop> pageInfo = new PageInfo<>(shareList);
+//
+//        return pageInfo;
+//    }
 //    solr
 @Autowired
 private SolrTemplate solrTemplate;
