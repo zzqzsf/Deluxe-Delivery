@@ -1,0 +1,30 @@
+package org.lanqiao.controller;
+
+
+import org.lanqiao.entity.Food;
+import org.lanqiao.entity.Shop;
+import org.lanqiao.service.FoodService;
+import org.lanqiao.service.ShopService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+public class FoodController {
+	@Autowired
+	FoodService foodService;
+	@Autowired
+	ShopService shopService;
+
+	@RequestMapping("/getFood")
+	public List<Food> getFood(Integer foodid) {
+		return foodService.getFood(foodid);
+	}
+
+	@RequestMapping("/getShop")
+	public List<Shop> getShop(Integer shopId) {
+		return shopService.getShop(shopId);
+	}
+}

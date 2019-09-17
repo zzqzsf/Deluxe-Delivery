@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <title>支付成功</title>
     <link rel="stylesheet" href="css/takeOrderSuccess.css">
+    <script src="js/jquery-3.4.1.min.js"></script>
 </head>
 <body>
 <div id="body">
-<!--    支付成功页面-->
+    <!--    支付成功页面-->
     <div id="pay-success">
-<!--        支付成功左侧-->
+        <!--        支付成功左侧-->
         <div id="tips-box">
             <div id="top-info">
                 <img src="image/success.png" alt="">
                 <div id="info">
                     <strong>支付成功!</strong>
-                    <div id="wait">请保持您的手机1773****3914畅通，方便送餐人员联系到您。</div>
+                    <div id="wait">请保持您的手机<span id="phone">1773****3914</span>畅通，方便送餐人员联系到您。</div>
                     <div id="wait-time">
                         <div class="receive">
                             <img src="" alt="">
@@ -23,7 +24,7 @@
                                 <span class="bold">6</span>
                                 分钟
                             </span>
-                    </div>
+                        </div>
                         <div class="receive">
                             <img src="" alt="">
                             <span class="">预计
@@ -31,15 +32,15 @@
                                 送达
                             </span>
                         </div>
-                </div>
-              <div id="checkOrder">
-                  <a href="">查看我的订单</a>
-              </div>
+                    </div>
+                    <div id="checkOrder">
+                        <a href="">查看我的订单</a>
+                    </div>
                 </div>
 
             </div>
         </div>
-<!--        支付成功右侧-->
+        <!--        支付成功右侧-->
         <div id="qr-box">
             <div id="title">下载美团外卖</div>
             <div class="method">
@@ -59,3 +60,14 @@
 </div>
 </body>
 </html>
+<script type="text/javascript">
+    $(function () {
+        address();
+        function address() {
+           var phone =sessionStorage.getItem("phone");
+           $("#phone").html(phone);
+
+        }
+
+    })
+</script>

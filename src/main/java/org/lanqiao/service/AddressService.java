@@ -8,6 +8,8 @@ import java.util.List;
 @Service
 public interface AddressService {
 	public int insert(Address address);
-	public List<Address> getAllAddress();
+
+	public List<Address> getAllAddress(Integer cusId);
+
 	public List<Address> getAllAddresss();
 }

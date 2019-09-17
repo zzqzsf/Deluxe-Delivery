@@ -7,5 +7,7 @@ import java.util.List;
 
 @Service
 public interface ShopService {
-    public List<Shop> selectShopInfo(int shopId);
+	public List<Shop> selectShopInfo(int shopId);
+
+	public List<Shop> getShop(Integer shopId);
 }

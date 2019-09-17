@@ -11,14 +11,15 @@ import java.util.List;
 public class AddressServiceImpl implements AddressService {
 	@Autowired
 	AddressMapper addressMapper;
+
 	@Override
 	public int insert(Address address) {
 		return addressMapper.insert(address);
 	}
 
 	@Override
-	public List<Address> getAllAddress() {
-		return addressMapper.getAllAddress();
+	public List<Address> getAllAddress(Integer cusId) {
+		return addressMapper.getAllAddress(cusId);
 	}
 
 	@Override

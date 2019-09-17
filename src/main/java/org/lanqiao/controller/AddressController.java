@@ -15,21 +15,21 @@ public class AddressController {
 	AddressService addressService;
 
 	@RequestMapping("/addAddress")
-	public int insert(Address address){
+	public int insert(Address address) {
 		return addressService.insert(address);
 	}
 
 
 	@RequestMapping("/getAddress")
-	public List<Address> getAllAddress(){
-		List<Address> addressList=addressService.getAllAddress();
+	public List<Address> getAllAddress(Integer cusId) {
+		List<Address> addressList = addressService.getAllAddress(cusId);
 		return addressList;
 
 	}
 
 	@RequestMapping("/getAddresss")
-	public List<Address> getAllAddresss(){
-		List<Address> addressList1=addressService.getAllAddresss();
+	public List<Address> getAllAddresss() {
+		List<Address> addressList1 = addressService.getAllAddresss();
 		return addressList1;
 
 	}

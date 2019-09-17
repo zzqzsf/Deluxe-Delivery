@@ -16,29 +16,29 @@
         $(function () {
             //点击文字变黄
             $(".s-4").click(function () {
-                $(".s-4").css('color','')
-                $(this).css('color','orange')
+                $(".s-4").css('color', '')
+                $(this).css('color', 'orange')
             })
             // 图片透明度特效
             $(".show1").hover(function () {
-                $(".i3").css('opacity','0.6')
+                $(".i3").css('opacity', '0.6')
                 $(".shouc").show()
-            },function () {
-                $(".i3").css('opacity','1')
+            }, function () {
+                $(".i3").css('opacity', '1')
                 $(".shouc").hide()
             });
             //登录部分
             $("#selectAdmin").click(function () {
-                if($(this).text()=="手机动态码登陆"){
+                if ($(this).text() == "手机动态码登陆") {
                     $(this).text("普通方式登陆");
-                    $(".tel").attr("placeholder","手机号");
-                    $(".msg").attr("placeholder","密码");
+                    $(".tel").attr("placeholder", "手机号");
+                    $(".msg").attr("placeholder", "密码");
                     $("#getMsg").text("");
 
-                }else{
+                } else {
                     $(this).text("手机动态码登陆");
-                    $(".tel").attr("placeholder","请输入手机号，未注册将自动注册");
-                    $(".msg").attr("placeholder","动态码");
+                    $(".tel").attr("placeholder", "请输入手机号，未注册将自动注册");
+                    $(".msg").attr("placeholder", "动态码");
                     $("#getMsg").text("获取手机动态码");
                 }
             })
@@ -54,7 +54,7 @@
 <body>
 
 <!--头部引用-->
-    <iframe id="headerFrame" name="headerFrame" src="head.html" frameborder="0" scrolling="no"></iframe>
+<iframe id="headerFrame" name="headerFrame" src="head.html" frameborder="0" scrolling="no"></iframe>
 <div id="show">
     <a name="shopshow.html"></a>
     <div id="login">
@@ -63,7 +63,7 @@
             <div id="l-2">集美区</div>
             <div id="l-3">集美大学</div>
             <div id="l-4"></div>
-            <div id="l-5">切换地址<img  id="top-tools" src="image/top-tools-arrow.png" /></div>
+            <div id="l-5">切换地址<img id="top-tools" src="image/top-tools-arrow.png"/></div>
         </div>
         <div id="login-r">
             <div data-toggle="modal" data-target="#myModal" class="r-2">注册</div>
@@ -73,7 +73,7 @@
     </div>
     <div id="search">
         <div id="search-b">
-            <img src="image/new-icon-sort.png"id="new-icon"/>
+            <img src="image/new-icon-sort.png" id="new-icon"/>
             <div id="s-1">商家分类</div>
             <div id="s-2"></div>
             <div class="s-4">全部</div>
@@ -83,8 +83,8 @@
             <div class="s-4">精选小吃</div>
             <div class="s-4">鲜果购</div>
             <div class="s-4">下午茶</div>
-            <div id="h1" >
-                <input type="text"id="tet" placeholder="搜索商品，美食">
+            <div id="h1">
+                <input type="text" id="tet" placeholder="搜索商品，美食">
                 <div id="h3"><img src="image/4~1RPLMD[@B}6EZ5D$999JR.png" id="i1"/></div>
             </div>
         </div>
@@ -97,11 +97,12 @@
     <div id="shopshow">
         <div class="show1">
             <div class="show-img">
-                <div class="i3"> <img data-toggle="modal" data-target="#myModal" class="shouc" src="image/icon-new-heart.png" /></div>
+                <div class="i3"><img data-toggle="modal" data-target="#myModal" class="shouc"
+                                     src="image/icon-new-heart.png"/></div>
             </div>
             <div class="show-font">
                 <div class="show-name">蜜汁烤鸡排</div>
-<!--                评价星星-->
+                <!--                评价星星-->
                 <div id="bg"><!--这里是背景，也就是灰色的星星-->
                     <!--说明，这里的width就是设置分数啦，以我写的为例，一个星星的长度是12px，也就是1分12px，如果是4.3分，就是4.3*12px = 51.6px的长度，当然这个一般是取得数据后用js或者其他模板语言去控制的-->
                     <div id="over" style="width:54px"></div><!--这里是遮罩，设置宽度以达到评分的效果-->
@@ -141,7 +142,7 @@
         <div class="xian">
             <div class="show-font"></div>
         </div>
-<!--        多余页面-->
+        <!--        多余页面-->
         <div class="show1">
             <div class="show-img">
                 <img src="image/9af1d12511dddf8cd5189dedb96a0d41151682.png" height="100%" width="100%"/></div>
@@ -244,7 +245,7 @@
         <div class="xian">
             <div class="show-font"></div>
         </div>
-<!--        分页-->
+        <!--        分页-->
         <ul class="pagination" style="margin-left: 37%">
             <li><a href="#">&laquo;</a></li>
             <li><a href="#">1</a></li>
@@ -256,7 +257,7 @@
         </ul>
 
     </div>
-<!--    右侧滚动二维码-->
+    <!--    右侧滚动二维码-->
     <div id="rool-r">
         <div id="rool-r-1"><img src="image/go-top.png" id="go-top"/> <br><a id="a1" href="#show">顶部</a></div>
         <div class="rool-r-2">美团外卖app<img src="image/sidebar-wm-app.jpg" class="i2"/></div>
@@ -272,30 +273,38 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="myModalLabel">
-                   请登录美团账号
+                    请登录美团账号
                 </h4>
             </div>
-<!--            登录小页面-->
+            <!--            登录小页面-->
             <div class="admin">
-                <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">登陆账号</font></font></span>
+                <span><font style="vertical-align: inherit;"><font
+                        style="vertical-align: inherit;">登陆账号</font></font></span>
                 <span id="selectAdmin"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">手机动态码登陆</font></font></span>
                 <form id="myFrom">
-                    <div style="width: 260px;height: 35px"><input type="text" name="tel" placeholder="请输入手机号，未注册将自动注册" class="tel"></div>
+                    <div style="width: 260px;height: 35px"><input type="text" name="tel" placeholder="请输入手机号，未注册将自动注册"
+                                                                  class="tel"></div>
                     <div class="pass">
                         <div class="passPic"></div>
                         <input type="text" name="msg" placeholder="动态码" class="msg">
-                        <div style="margin-top: 4px;float: left"><span id="getMsg"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">获取手机动态码</font></font></span></div>
+                        <div style="margin-top: 4px;float: left"><span id="getMsg"><font
+                                style="vertical-align: inherit;"><font
+                                style="vertical-align: inherit;">获取手机动态码</font></font></span></div>
                     </div>
-                    <span class="forgetPass"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">忘记密码？</font></font></span>
-                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><input type="submit" value="登录" class="admin1"></font></font>
-                </form></div>
+                    <span class="forgetPass"><font style="vertical-align: inherit;"><font
+                            style="vertical-align: inherit;">忘记密码？</font></font></span>
+                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><input type="submit"
+                                                                                                         value="登录"
+                                                                                                         class="admin1"></font></font>
+                </form>
+            </div>
             <div class="modal-footer">
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
 <!--尾部引用-->
-    <iframe id="footerFrame" name="footerFrame" src="footer.html" frameborder="0" scrolling="no"></iframe>
+<iframe id="footerFrame" name="footerFrame" src="footer.html" frameborder="0" scrolling="no"></iframe>
 
 </body>
 </html>

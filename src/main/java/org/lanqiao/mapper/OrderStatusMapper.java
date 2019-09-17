@@ -5,5 +5,5 @@ import org.lanqiao.entity.OrderStatus;
 public interface OrderStatusMapper {
 
 
-    int insertSelective(OrderStatus record);
+	int insertSelective(OrderStatus record);
 }

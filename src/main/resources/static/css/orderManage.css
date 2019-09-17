@@ -2,24 +2,29 @@ div {
     /*border: 1px #e1251b solid;*/
     display: block;
 }
-body{
+
+body {
     margin: 0;
     padding: 0;
 }
+
 a {
     color: #666;
     text-decoration: none;
     margin: 0;
     padding: 0;
 }
-p{
+
+p {
     margin: 0;
     padding: 0;
 }
-ul{
+
+ul {
     margin: 0;
-    padding:0;
+    padding: 0;
 }
+
 ul li {
     list-style: none;
     margin-top: 10px;
@@ -38,7 +43,8 @@ ul li a {
 
     padding-top: 20px;
 }
-.innerwarp{
+
+.innerwarp {
     position: relative;
     width: 72.65%;
     margin: 0 auto;
@@ -54,13 +60,15 @@ ul li a {
     padding-top: 17px;
     padding-bottom: 8px;
     bottom: 20px;
-    top:15px;
+    top: 15px;
 }
-.menuList{
+
+.menuList {
     margin-top: 20px;
     padding-left: 35px;
 }
-.menuList img{
+
+.menuList img {
     width: 26px;
     height: 26px;
     vertical-align: middle;
@@ -79,7 +87,7 @@ ul li a {
 
 }
 
-.orderlisticon  {
+.orderlisticon {
     background-image: url("static/image/orderListIcon.svg");
     width: 26px;
     height: 26px;
@@ -98,6 +106,7 @@ ul li a {
     width: 170px;
     bottom: 0;
 }
+
 .orders-tab .tab {
     display: block;
     font-size: 14px;
@@ -109,19 +118,24 @@ ul li a {
 .fl {
     float: left;
 }
+
 .order-today.active i {
     background-image: url(/static/image/orderListIcon.svg);
 }
+
 .my-account i {
     background-image: url(/static/image/accountIcon.svg);
 }
+
 .my-favorite i {
     background-image: url(/static/image/collectIcon.svg);
 }
+
 .orders-tab li a:hover, .orders-tab li a.active {
     background-color: #fafafa;
     color: #333;
 }
+
 .orders-tab li a {
     font-weight: normal;
     font-size: 14px;
@@ -133,6 +147,7 @@ ul li a {
     -moz-transition: background-color .15s linear;
     transition: background-color .15s linear;
 }
+
 .borderradius-1 {
     border-radius: 1px;
     -moz-border-radius: 1px;
@@ -140,12 +155,14 @@ ul li a {
     /*-ms-boder-radius: 1px;
     -o-boder-radius: 1px;*/
 }
+
 .tab {
     display: block;
     font-size: 14px;
     color: #333;
     font-weight: bold;
 }
+
 .orders-tab li a {
     font-weight: normal;
     font-size: 14px;
@@ -157,12 +174,14 @@ ul li a {
     -moz-transition: background-color .15s linear;
     transition: background-color .15s linear;
 }
+
 .orders-list {
     background-color: #ffffff;
     margin-left: 170px;
     border-left: 14px solid #f5f5f5;
     overflow: hidden;
 }
+
 .orders-list .order-header {
     line-height: 50px;
     font-size: 12px;
@@ -170,29 +189,36 @@ ul li a {
     padding-left: 30px;
     border-bottom: 1px solid #e5e5e5;
 }
+
 .orders-list .order-header span {
     display: inline-block;
 }
+
 .order-header .oh-content {
     width: 51.5%;
     margin-left: 14px;
 }
+
 .order-header .oh-phone {
     width: 15.5%;
 }
+
 .order-header .oh-money {
     display: inline-block;
     width: 14%;
 }
+
 .order-header .oh-operate {
     margin-left: 20px;
 }
+
 .order-v {
     background-color: #FFFFFF;
     color: #434343;
     position: relative;
     padding: 0 30px;
 }
+
 .order-v .avatar {
     display: block;
     height: 70px;
@@ -203,14 +229,17 @@ ul li a {
     overflow: hidden;
     _display: inline;
 }
+
 .order-v:last-of-type .brief-intro {
     border-bottom: none;
 }
+
 .order-v .brief-intro {
     height: 130px;
     border-bottom: 1px dashed #e5e5e5;
     cursor: pointer;
 }
+
 .order-v .rest-name {
     font-size: 12px;
     padding-top: 45px;
@@ -219,10 +248,12 @@ ul li a {
     line-height: 1;
     /* font-family: \5FAE\8F6F\96C5\9ED1; */
 }
+
 .order-v .rest-detail {
     margin-top: -10px;
     color: #999;
 }
+
 .order-v .rest-name .ca-deepgrey {
     width: 296px;
     float: left;
@@ -230,17 +261,20 @@ ul li a {
     color: #333;
     font-weight: bold;
 }
+
 .order-v .rest-name .order-total {
     display: inline-block;
     width: 131px;
     line-height: 36px;
     font-size: 12px;
 }
+
 .order-v .order-total {
     font-size: 14px;
     color: #333;
     margin-left: 14px;
 }
+
 .rest-name .order-money-num {
     display: inline-block;
     font-size: 14px;
@@ -248,11 +282,13 @@ ul li a {
     line-height: 36px;
     font-weight: bold;
 }
+
 .rest-detail .order-total {
     margin-left: 0;
     color: #999;
     font-size: 12px;
 }
+
 .order-v .rest-detail .order-id {
     display: inline-block;
     width: 180px;
@@ -265,6 +301,7 @@ ul li a {
     color: #999;
     margin-left: 10px;
 }
+
 .order-v .order-another {
     float: right;
     margin-top: 46px;
@@ -278,22 +315,27 @@ ul li a {
     border-radius: 2px;
     border: 1px solid #999;
 }
+
 .brief-intro-topconsole {
     width: 100px;
     position: relative;
 }
+
 .fr {
     float: right;
 }
+
 .order-v .detail-intro {
     border: 1px solid #E5E5E5;
     background: #fff;
     position: relative;
     margin-top: -1px;
 }
+
 .clearfix {
     zoom: 1;
 }
+
 .order-v .dishes {
     border-right: 1px solid #E5E5E5;
     background-color: #fff;
@@ -301,30 +343,37 @@ ul li a {
     padding: 16px 0 0 20px;
     color: #333;
 }
+
 .dish-title, .pro-order-status {
     font-size: 14px;
     color: #999;
     margin-bottom: 26px;
     font-weight: bold;
 }
+
 .list {
     padding-right: 38px;
 }
+
 .order-v .dish-list, .order-v .fee-list {
     font-size: 14px;
     color: #333;
 }
+
 .field {
     overflow: hidden;
     margin-bottom: 15px;
 }
+
 .food-count {
     margin-left: 30px;
 }
+
 .food-pri {
     /* width: 80px; */
     text-align: right;
 }
+
 .dish-list .food-na {
     font-size: 14px;
     color: #333;
@@ -333,19 +382,24 @@ ul li a {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 .order-v .field .food-count {
     margin-left: 30px;
 }
+
 .order-v .field .food-pri {
     /* width: 80px; */
     text-align: right;
 }
+
 .field .classify {
     color: #333;
 }
+
 .fr {
     float: right;
 }
+
 .order-v .food-total-info {
     border-top: 1px dashed #e5e5e5;
     font-size: 14px;
@@ -353,45 +407,54 @@ ul li a {
     padding: 22px 0 18px;
     text-align: right;
 }
+
 .order-v .contact {
-    padding-top:16px;
+    padding-top: 16px;
     padding-bottom: 20px;
     margin-right: 38px;
     border-top: 1px solid #e5e5e5;
     font-size: 12px;
     color: #666666;
 }
-.contact p{
+
+.contact p {
     padding-top: 6px;
 }
+
 .order-v .order-content {
     margin-left: 318px;
     border-left: 1px solid #e5e5e5;
 }
+
 .order-v .procedure {
     padding: 16px 20px 86px 37px;
     overflow: hidden;
     *zoom: 1;
 }
+
 .dish-title, .pro-order-status {
     font-size: 14px;
     color: #999;
     margin-bottom: 26px;
     font-weight: bold;
 }
+
 /*订单状态小图标*/
 .order-v .procedure .process-bar {
     margin-top: 6px;
 }
+
 .order-v .process-bar .icon {
     width: 7px;
     height: 7px;
     border-radius: 50%;
 }
+
 .order-v .process-bar i {
     display: block;
     background-image: none;
 }
+
 .i-orderok {
     width: 7px;
     height: 7px;
@@ -399,6 +462,7 @@ ul li a {
     border-radius: 50%;
     /* background-position: -290px -284px; */
 }
+
 .icon {
     /*background-image: url(/static/img/sprite/icons_559f3531_1.png);*/
 
@@ -406,49 +470,59 @@ ul li a {
     image-rendering: -webkit-optimize-contrast;
     display: inline-block;
 }
+
 .order-v .process-bar i.i-orderarrow {
     width: 1px;
     height: 42px;
     background: #ffd161;
     margin: 5px 0 5px 3px;
 }
+
 .i-ordernotok {
     width: 7px;
     height: 7px;
     background-color: #ccc;
     /* background-position: -359px -284px; */
 }
+
 /*订单状态详情页面*/
 .order-v .tips {
     margin-left: 31px;
     width: 319px;
 }
+
 .order-v .tips .step-1, .order-v .tips .step-2, .order-v .tips .step-3, .order-v .tips .step-4, .order-v .tips .step-delivery {
     height: 59px;
 }
+
 .order-v .t-1, .order-v .t-2, .order-v .t-3, .order-v .t-delivery, .order-v .t-finish, .order-v .t-cancel, .order-v .t-4 {
     margin-top: 2px;
     color: #999;
     font-size: 12px;
 }
+
 .order-v .tips .bold {
     font-size: 14px;
     color: #333;
     font-weight: normal;
 }
+
 .order-v .tips .sub {
     color: #999;
     margin-top: 5px;
     font-size: 12px;
 }
+
 .clear {
     clear: both;
 }
+
 /*订单取消原因*/
 .order-v .cancel-reason {
     margin-top: 8px;
     padding-left: 44px;
 }
+
 .order-v .cancel-reason .tip, .order-v .step-3 .tip {
     background-color: #fffdf0;
     border: 1px solid #ffd161;
@@ -457,21 +531,26 @@ ul li a {
     width: 294px;
     font-size: 12px;
 }
+
 .order-v .cancel-reason p {
     margin-bottom: 10px;
 }
+
 .order-v .pay-choose, .order-v .other-rests {
     margin-right: 5px;
 }
+
 .order-v .s-btn {
     background: #FFD161;
     text-align: center;
 }
+
 .s-btn .s-btn, .s-btn-white .s-btn-white, .color-btn .color-btn, .color-btn-white .color-btn-white, .color-btn-dark .color-btn-dark, .sq-btn .sq-btn {
     background-position: 100% 0;
     padding-right: 20px;
     padding-left: 10px;
 }
+
 .s-btn, .s-btn-white, .color-btn, .color-btn-white, .color-btn-dark, .sq-btn {
     /*background-image: url(/static/img/btn/s-btn_4.png);*/
     /*_background-image: url(/static/img/btn/_s-btn_4.png);*/
@@ -485,10 +564,12 @@ ul li a {
     font-size: 14px;
     text-align: center;
 }
+
 .order-v .not-yet {
     color: #000000;
     margin-right: 5px;
 }
+
 .order-v .s-btn-white {
     background: #fff;
     border: 1px solid #999;
@@ -497,11 +578,13 @@ ul li a {
     padding-right: 20px;
     padding-left: 20px;
 }
+
 .s-btn-white {
     /*background-image: url(/static/img/btn/s-btn-white_2.png);*/
 
     color: #444444;
 }
+
 .clearfix:after {
     visibility: hidden;
     display: block;

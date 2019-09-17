@@ -5,5 +5,5 @@ import org.lanqiao.entity.Dictionary;
 public interface DictionaryMapper {
 
 
-    int insertSelective(Dictionary record);
+	int insertSelective(Dictionary record);
 }

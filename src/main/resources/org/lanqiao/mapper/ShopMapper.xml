@@ -1,136 +1,141 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.lanqiao.mapper.ShopMapper" >
-  <resultMap id="ShopResultMap" type="org.lanqiao.entity.Shop" >
-    <id column="shop_id" property="shopId" jdbcType="INTEGER" />
-    <result column="shop_name" property="shopName" jdbcType="VARCHAR" />
-    <result column="shop_pwd" property="shopPwd" jdbcType="VARCHAR" />
-    <result column="shop_addr" property="shopAddr" jdbcType="VARCHAR" />
-    <result column="shop_tel" property="shopTel" jdbcType="VARCHAR" />
-    <result column="shop_state" property="shopState" jdbcType="VARCHAR" />
-    <result column="shop_img" property="shopImg" jdbcType="VARCHAR" />
-    <result column="shop_com" property="shopCom" jdbcType="INTEGER" />
-    <result column="shop_mon_sale" property="shopMonSale" jdbcType="INTEGER" />
-    <result column="start_price" property="startPrice" jdbcType="DOUBLE" />
-    <result column="packag_fee" property="packagFee" jdbcType="DOUBLE" />
-  </resultMap>
-  <select id="GetAllShops" resultMap="ShopResultMap">
-    select
-    *
-    from shop
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from shop
-    where shop_id = #{shopId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insertSelective" parameterType="org.lanqiao.entity.Shop" >
-    insert into shop
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="shopId != null" >
-        shop_id,
-      </if>
-      <if test="shopName != null" >
-        shop_name,
-      </if>
-      <if test="shopPwd != null" >
-        shop_pwd,
-      </if>
-      <if test="shopAddr != null" >
-        shop_addr,
-      </if>
-      <if test="shopTel != null" >
-        shop_tel,
-      </if>
-      <if test="shopState != null" >
-        shop_state,
-      </if>
-      <if test="shopImg != null" >
-        shop_img,
-      </if>
-      <if test="shopCom != null" >
-        shop_com,
-      </if>
-      <if test="shopMonSale != null" >
-        shop_mon_sale,
-      </if>
-      <if test="startPrice != null" >
-        start_price,
-      </if>
-      <if test="packagFee != null" >
-        packag_fee,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="shopId != null" >
-        #{shopId,jdbcType=INTEGER},
-      </if>
-      <if test="shopName != null" >
-        #{shopName,jdbcType=VARCHAR},
-      </if>
-      <if test="shopPwd != null" >
-        #{shopPwd,jdbcType=VARCHAR},
-      </if>
-      <if test="shopAddr != null" >
-        #{shopAddr,jdbcType=VARCHAR},
-      </if>
-      <if test="shopTel != null" >
-        #{shopTel,jdbcType=VARCHAR},
-      </if>
-      <if test="shopState != null" >
-        #{shopState,jdbcType=VARCHAR},
-      </if>
-      <if test="shopImg != null" >
-        #{shopImg,jdbcType=VARCHAR},
-      </if>
-      <if test="shopCom != null" >
-        #{shopCom,jdbcType=INTEGER},
-      </if>
-      <if test="shopMonSale != null" >
-        #{shopMonSale,jdbcType=INTEGER},
-      </if>
-      <if test="startPrice != null" >
-        #{startPrice,jdbcType=DOUBLE},
-      </if>
-      <if test="packagFee != null" >
-        #{packagFee,jdbcType=DOUBLE},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.Shop" >
-    update shop
-    <set >
-      <if test="shopName != null" >
-        shop_name = #{shopName,jdbcType=VARCHAR},
-      </if>
-      <if test="shopPwd != null" >
-        shop_pwd = #{shopPwd,jdbcType=VARCHAR},
-      </if>
-      <if test="shopAddr != null" >
-        shop_addr = #{shopAddr,jdbcType=VARCHAR},
-      </if>
-      <if test="shopTel != null" >
-        shop_tel = #{shopTel,jdbcType=VARCHAR},
-      </if>
-      <if test="shopState != null" >
-        shop_state = #{shopState,jdbcType=VARCHAR},
-      </if>
-      <if test="shopImg != null" >
-        shop_img = #{shopImg,jdbcType=VARCHAR},
-      </if>
-      <if test="shopCom != null" >
-        shop_com = #{shopCom,jdbcType=INTEGER},
-      </if>
-      <if test="shopMonSale != null" >
-        shop_mon_sale = #{shopMonSale,jdbcType=INTEGER},
-      </if>
-      <if test="startPrice != null" >
-        start_price = #{startPrice,jdbcType=DOUBLE},
-      </if>
-      <if test="packagFee != null" >
-        packag_fee = #{packagFee,jdbcType=DOUBLE},
-      </if>
-    </set>
-    where shop_id = #{shopId,jdbcType=INTEGER}
-  </update>
+<mapper namespace="org.lanqiao.mapper.ShopMapper">
+    <resultMap id="ShopResultMap" type="org.lanqiao.entity.Shop">
+        <id column="shop_id" property="shopId" jdbcType="INTEGER"/>
+        <result column="shop_name" property="shopName" jdbcType="VARCHAR"/>
+        <result column="shop_pwd" property="shopPwd" jdbcType="VARCHAR"/>
+        <result column="shop_addr" property="shopAddr" jdbcType="VARCHAR"/>
+        <result column="shop_tel" property="shopTel" jdbcType="VARCHAR"/>
+        <result column="shop_state" property="shopState" jdbcType="VARCHAR"/>
+        <result column="shop_img" property="shopImg" jdbcType="VARCHAR"/>
+        <result column="shop_com" property="shopCom" jdbcType="INTEGER"/>
+        <result column="shop_mon_sale" property="shopMonSale" jdbcType="INTEGER"/>
+        <result column="start_price" property="startPrice" jdbcType="DOUBLE"/>
+        <result column="packag_fee" property="packagFee" jdbcType="DOUBLE"/>
+    </resultMap>
+    <select id="GetAllShops" resultMap="ShopResultMap">
+        select
+        *
+        from shop
+    </select>
+
+    <select id="getShop" resultMap="ShopResultMap" parameterType="java.lang.Integer">
+        select * from shop where shop_id=1;
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from shop
+        where shop_id = #{shopId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insertSelective" parameterType="org.lanqiao.entity.Shop">
+        insert into shop
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="shopId != null">
+                shop_id,
+            </if>
+            <if test="shopName != null">
+                shop_name,
+            </if>
+            <if test="shopPwd != null">
+                shop_pwd,
+            </if>
+            <if test="shopAddr != null">
+                shop_addr,
+            </if>
+            <if test="shopTel != null">
+                shop_tel,
+            </if>
+            <if test="shopState != null">
+                shop_state,
+            </if>
+            <if test="shopImg != null">
+                shop_img,
+            </if>
+            <if test="shopCom != null">
+                shop_com,
+            </if>
+            <if test="shopMonSale != null">
+                shop_mon_sale,
+            </if>
+            <if test="startPrice != null">
+                start_price,
+            </if>
+            <if test="packagFee != null">
+                packag_fee,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="shopId != null">
+                #{shopId,jdbcType=INTEGER},
+            </if>
+            <if test="shopName != null">
+                #{shopName,jdbcType=VARCHAR},
+            </if>
+            <if test="shopPwd != null">
+                #{shopPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="shopAddr != null">
+                #{shopAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="shopTel != null">
+                #{shopTel,jdbcType=VARCHAR},
+            </if>
+            <if test="shopState != null">
+                #{shopState,jdbcType=VARCHAR},
+            </if>
+            <if test="shopImg != null">
+                #{shopImg,jdbcType=VARCHAR},
+            </if>
+            <if test="shopCom != null">
+                #{shopCom,jdbcType=INTEGER},
+            </if>
+            <if test="shopMonSale != null">
+                #{shopMonSale,jdbcType=INTEGER},
+            </if>
+            <if test="startPrice != null">
+                #{startPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="packagFee != null">
+                #{packagFee,jdbcType=DOUBLE},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.Shop">
+        update shop
+        <set>
+            <if test="shopName != null">
+                shop_name = #{shopName,jdbcType=VARCHAR},
+            </if>
+            <if test="shopPwd != null">
+                shop_pwd = #{shopPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="shopAddr != null">
+                shop_addr = #{shopAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="shopTel != null">
+                shop_tel = #{shopTel,jdbcType=VARCHAR},
+            </if>
+            <if test="shopState != null">
+                shop_state = #{shopState,jdbcType=VARCHAR},
+            </if>
+            <if test="shopImg != null">
+                shop_img = #{shopImg,jdbcType=VARCHAR},
+            </if>
+            <if test="shopCom != null">
+                shop_com = #{shopCom,jdbcType=INTEGER},
+            </if>
+            <if test="shopMonSale != null">
+                shop_mon_sale = #{shopMonSale,jdbcType=INTEGER},
+            </if>
+            <if test="startPrice != null">
+                start_price = #{startPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="packagFee != null">
+                packag_fee = #{packagFee,jdbcType=DOUBLE},
+            </if>
+        </set>
+        where shop_id = #{shopId,jdbcType=INTEGER}
+    </update>
 
 </mapper>

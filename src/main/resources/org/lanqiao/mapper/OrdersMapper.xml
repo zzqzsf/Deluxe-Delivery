@@ -1,154 +1,149 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.lanqiao.mapper.OrdersMapper" >
-  <resultMap id="BaseResultMap" type="org.lanqiao.entity.Orders" >
-    <id column="order_id" property="orderId" jdbcType="INTEGER" />
-    <result column="addr_id" property="addrId" jdbcType="INTEGER" />
-    <result column="cus_id" property="cusId" jdbcType="INTEGER" />
-    <result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
-    <result column="goo_ymoney" property="gooYmoney" jdbcType="DOUBLE" />
-    <result column="goo_smoney" property="gooSmoney" jdbcType="DOUBLE" />
-    <result column="order_state" property="orderState" jdbcType="VARCHAR" />
-    <result column="order_note" property="orderNote" jdbcType="VARCHAR" />
-    <result column="estimated_time" property="estimatedTime" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    order_id, addr_id, cus_id, order_time, goo_ymoney, goo_smoney, order_state, order_note, 
-    estimated_time
-  </sql>
+<mapper namespace="org.lanqiao.mapper.OrdersMapper">
+    <resultMap id="BaseResultMap" type="org.lanqiao.entity.Orders">
+        <id column="order_id" property="orderId" jdbcType="INTEGER"/>
+        <result column="addr_id" property="addrId" jdbcType="INTEGER"/>
+        <result column="cus_id" property="cusId" jdbcType="INTEGER"/>
+        <result column="order_time" property="orderTime" jdbcType="TIMESTAMP"/>
+        <result column="goo_ymoney" property="gooYmoney" jdbcType="DOUBLE"/>
+        <result column="goo_smoney" property="gooSmoney" jdbcType="DOUBLE"/>
+        <result column="order_state" property="orderState" jdbcType="VARCHAR"/>
+        <result column="order_note" property="orderNote" jdbcType="VARCHAR"/>
+        <result column="estimated_time" property="estimatedTime" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        order_id, addr_id, cus_id, order_time, goo_ymoney, goo_smoney, order_state, order_note,
+        estimated_time
+    </sql>
 
 
-
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from orders
-    where order_id = #{orderId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from orders
-    where order_id = #{orderId,jdbcType=INTEGER}
-  </delete>
-
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from orders
+        where order_id = #{orderId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from orders
+        where order_id = #{orderId,jdbcType=INTEGER}
+    </delete>
 
 
-  <insert id="insert" parameterType="org.lanqiao.entity.Orders" >
-    insert into orders (order_id, addr_id, cus_id, 
-      order_time, goo_ymoney, goo_smoney, 
-      order_state, order_note, estimated_time
-      )
-    values (#{orderId,jdbcType=INTEGER}, #{addrId,jdbcType=INTEGER}, #{cusId,jdbcType=INTEGER}, 
-      #{orderTime,jdbcType=TIMESTAMP}, #{gooYmoney,jdbcType=DOUBLE}, #{gooSmoney,jdbcType=DOUBLE}, 
-      #{orderState,jdbcType=VARCHAR}, #{orderNote,jdbcType=VARCHAR}, #{estimatedTime,jdbcType=VARCHAR}
-      )
-  </insert>
+    <insert id="insert" parameterType="org.lanqiao.entity.Orders" useGeneratedKeys="true" keyProperty="order_id"
+            keyColumn="order_id">
+        insert into orders (order_id, addr_id, cus_id,
+        order_time, goo_ymoney, goo_smoney,
+        order_state, order_note, estimated_time
+        )
+        values (#{orderId,jdbcType=INTEGER}, #{addrId,jdbcType=INTEGER}, #{cusId,jdbcType=INTEGER},
+        #{orderTime,jdbcType=TIMESTAMP}, #{gooYmoney,jdbcType=DOUBLE}, #{gooSmoney,jdbcType=DOUBLE},
+        #{orderState,jdbcType=VARCHAR}, #{orderNote,jdbcType=VARCHAR}, #{estimatedTime,jdbcType=VARCHAR}
+        )
+    </insert>
 
 
-
-
-
-
-  <insert id="insertSelective" parameterType="org.lanqiao.entity.Orders" >
-    insert into orders
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="orderId != null" >
-        order_id,
-      </if>
-      <if test="addrId != null" >
-        addr_id,
-      </if>
-      <if test="cusId != null" >
-        cus_id,
-      </if>
-      <if test="orderTime != null" >
-        order_time,
-      </if>
-      <if test="gooYmoney != null" >
-        goo_ymoney,
-      </if>
-      <if test="gooSmoney != null" >
-        goo_smoney,
-      </if>
-      <if test="orderState != null" >
-        order_state,
-      </if>
-      <if test="orderNote != null" >
-        order_note,
-      </if>
-      <if test="estimatedTime != null" >
-        estimated_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="orderId != null" >
-        #{orderId,jdbcType=INTEGER},
-      </if>
-      <if test="addrId != null" >
-        #{addrId,jdbcType=INTEGER},
-      </if>
-      <if test="cusId != null" >
-        #{cusId,jdbcType=INTEGER},
-      </if>
-      <if test="orderTime != null" >
-        #{orderTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="gooYmoney != null" >
-        #{gooYmoney,jdbcType=DOUBLE},
-      </if>
-      <if test="gooSmoney != null" >
-        #{gooSmoney,jdbcType=DOUBLE},
-      </if>
-      <if test="orderState != null" >
-        #{orderState,jdbcType=VARCHAR},
-      </if>
-      <if test="orderNote != null" >
-        #{orderNote,jdbcType=VARCHAR},
-      </if>
-      <if test="estimatedTime != null" >
-        #{estimatedTime,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.Orders" >
-    update orders
-    <set >
-      <if test="addrId != null" >
-        addr_id = #{addrId,jdbcType=INTEGER},
-      </if>
-      <if test="cusId != null" >
+    <insert id="insertSelective" parameterType="org.lanqiao.entity.Orders">
+        insert into orders
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">
+                order_id,
+            </if>
+            <if test="addrId != null">
+                addr_id,
+            </if>
+            <if test="cusId != null">
+                cus_id,
+            </if>
+            <if test="orderTime != null">
+                order_time,
+            </if>
+            <if test="gooYmoney != null">
+                goo_ymoney,
+            </if>
+            <if test="gooSmoney != null">
+                goo_smoney,
+            </if>
+            <if test="orderState != null">
+                order_state,
+            </if>
+            <if test="orderNote != null">
+                order_note,
+            </if>
+            <if test="estimatedTime != null">
+                estimated_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">
+                #{orderId,jdbcType=INTEGER},
+            </if>
+            <if test="addrId != null">
+                #{addrId,jdbcType=INTEGER},
+            </if>
+            <if test="cusId != null">
+                #{cusId,jdbcType=INTEGER},
+            </if>
+            <if test="orderTime != null">
+                #{orderTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gooYmoney != null">
+                #{gooYmoney,jdbcType=DOUBLE},
+            </if>
+            <if test="gooSmoney != null">
+                #{gooSmoney,jdbcType=DOUBLE},
+            </if>
+            <if test="orderState != null">
+                #{orderState,jdbcType=VARCHAR},
+            </if>
+            <if test="orderNote != null">
+                #{orderNote,jdbcType=VARCHAR},
+            </if>
+            <if test="estimatedTime != null">
+                #{estimatedTime,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.Orders">
+        update orders
+        <set>
+            <if test="addrId != null">
+                addr_id = #{addrId,jdbcType=INTEGER},
+            </if>
+            <if test="cusId != null">
+                cus_id = #{cusId,jdbcType=INTEGER},
+            </if>
+            <if test="orderTime != null">
+                order_time = #{orderTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gooYmoney != null">
+                goo_ymoney = #{gooYmoney,jdbcType=DOUBLE},
+            </if>
+            <if test="gooSmoney != null">
+                goo_smoney = #{gooSmoney,jdbcType=DOUBLE},
+            </if>
+            <if test="orderState != null">
+                order_state = #{orderState,jdbcType=VARCHAR},
+            </if>
+            <if test="orderNote != null">
+                order_note = #{orderNote,jdbcType=VARCHAR},
+            </if>
+            <if test="estimatedTime != null">
+                estimated_time = #{estimatedTime,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where order_id = #{orderId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.Orders">
+        update orders
+        set addr_id = #{addrId,jdbcType=INTEGER},
         cus_id = #{cusId,jdbcType=INTEGER},
-      </if>
-      <if test="orderTime != null" >
         order_time = #{orderTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="gooYmoney != null" >
         goo_ymoney = #{gooYmoney,jdbcType=DOUBLE},
-      </if>
-      <if test="gooSmoney != null" >
         goo_smoney = #{gooSmoney,jdbcType=DOUBLE},
-      </if>
-      <if test="orderState != null" >
         order_state = #{orderState,jdbcType=VARCHAR},
-      </if>
-      <if test="orderNote != null" >
         order_note = #{orderNote,jdbcType=VARCHAR},
-      </if>
-      <if test="estimatedTime != null" >
-        estimated_time = #{estimatedTime,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where order_id = #{orderId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.Orders" >
-    update orders
-    set addr_id = #{addrId,jdbcType=INTEGER},
-      cus_id = #{cusId,jdbcType=INTEGER},
-      order_time = #{orderTime,jdbcType=TIMESTAMP},
-      goo_ymoney = #{gooYmoney,jdbcType=DOUBLE},
-      goo_smoney = #{gooSmoney,jdbcType=DOUBLE},
-      order_state = #{orderState,jdbcType=VARCHAR},
-      order_note = #{orderNote,jdbcType=VARCHAR},
-      estimated_time = #{estimatedTime,jdbcType=VARCHAR}
-    where order_id = #{orderId,jdbcType=INTEGER}
-  </update>
+        estimated_time = #{estimatedTime,jdbcType=VARCHAR}
+        where order_id = #{orderId,jdbcType=INTEGER}
+    </update>
 </mapper>
