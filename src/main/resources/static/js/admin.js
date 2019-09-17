@@ -41,8 +41,10 @@ $(function () {
                                 code.attr("disabled","true");
                                 time--;
                                 code.val("重新获取"+time+"秒");
+                                code.css({"cursor": "not-allowed", "opacity": "0.5"});
                                 if (time==0) {
                                     code.attr("disabled","false");
+                                    code.css({"cursor": "pointer", "opacity": "1"});
                                     clearInterval(t);
                                     code.val("重新获取");
                                     validCode=true;
@@ -87,7 +89,7 @@ $(function () {
                     if(data.flag){
                         $(".errorTel").hide();
                         if(data.rowNum==1){
-                            alert("登陆成功");
+                            window.location.assign("http://localhost:8080/index.html")
                         }else{
                             $.ajax({
                                 url: "http://localhost:8080/insertCustom1",
