@@ -1,8 +1,10 @@
 package org.lanqiao.mapper;
 
-import org.lanqiao.entity.Collection;
+import org.lanqiao.entity.Collections;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface CollectionMapper {
 
-	int insertSelective(Collection record);
+    int insertSelective(Collections record);
 }

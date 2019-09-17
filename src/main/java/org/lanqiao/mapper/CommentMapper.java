@@ -1,7 +1,11 @@
 package org.lanqiao.mapper;
 
 import org.lanqiao.entity.Comment;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Repository
 public interface CommentMapper {
 	int deleteByPrimaryKey(Integer comId);
 

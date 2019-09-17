@@ -1,97 +1,120 @@
 package org.lanqiao.entity;
 
-
 import java.util.Date;
 
-
 public class Orders {
-	private Integer orderId;
+    private Integer orderId;
 
-	private Integer addrId;
+    private Integer addrId;
 
-	private Integer cusId;
+    private Integer cusId;
 
-	private Date orderTime;
+    private Date orderTime;
 
-	private Double gooYmoney;
+    private Double gooYmoney;
 
-	private Double gooSmoney;
+    private Double gooSmoney;
 
-	private String orderState;
+    public Integer getShopId() {
+        return shopId;
+    }
 
-	private String orderNote;
+    public void setShopId(Integer shopId) {
+        this.shopId = shopId;
+    }
 
-	private String estimatedTime;
+    private String orderStatus;
 
-	public Integer getOrderId() {
-		return orderId;
-	}
+    private String orderNote;
 
-	public void setOrderId(Integer orderId) {
-		this.orderId = orderId;
-	}
+    private String estimatedTime;
 
-	public Integer getAddrId() {
-		return addrId;
-	}
+    private Integer shopId;
 
-	public void setAddrId(Integer addrId) {
-		this.addrId = addrId;
-	}
+    public Integer getOrderId() {
+        return orderId;
+    }
 
-	public Integer getCusId() {
-		return cusId;
-	}
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
+    }
 
-	public void setCusId(Integer cusId) {
-		this.cusId = cusId;
-	}
+    public Integer getAddrId() {
+        return addrId;
+    }
 
-	public Date getOrderTime() {
-		return orderTime;
-	}
+    public void setAddrId(Integer addrId) {
+        this.addrId = addrId;
+    }
 
-	public void setOrderTime(Date orderTime) {
-		this.orderTime = orderTime;
-	}
+    public Integer getCusId() {
+        return cusId;
+    }
 
-	public Double getGooYmoney() {
-		return gooYmoney;
-	}
+    public void setCusId(Integer cusId) {
+        this.cusId = cusId;
+    }
 
-	public void setGooYmoney(Double gooYmoney) {
-		this.gooYmoney = gooYmoney;
-	}
+    public Date getOrderTime() {
+        return orderTime;
+    }
 
-	public Double getGooSmoney() {
-		return gooSmoney;
-	}
+    public void setOrderTime(Date orderTime) {
+        this.orderTime = orderTime;
+    }
 
-	public void setGooSmoney(Double gooSmoney) {
-		this.gooSmoney = gooSmoney;
-	}
+    public Double getGooYmoney() {
+        return gooYmoney;
+    }
 
-	public String getOrderState() {
-		return orderState;
-	}
+    public void setGooYmoney(Double gooYmoney) {
+        this.gooYmoney = gooYmoney;
+    }
 
-	public void setOrderState(String orderState) {
-		this.orderState = orderState == null ? null : orderState.trim();
-	}
+    public Double getGooSmoney() {
+        return gooSmoney;
+    }
 
-	public String getOrderNote() {
-		return orderNote;
-	}
+    public void setGooSmoney(Double gooSmoney) {
+        this.gooSmoney = gooSmoney;
+    }
 
-	public void setOrderNote(String orderNote) {
-		this.orderNote = orderNote == null ? null : orderNote.trim();
-	}
+    public String getOrderStatus() {
+        return orderStatus;
+    }
 
-	public String getEstimatedTime() {
-		return estimatedTime;
-	}
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus == null ? null : orderStatus.trim();
+    }
 
-	public void setEstimatedTime(String estimatedTime) {
-		this.estimatedTime = estimatedTime == null ? null : estimatedTime.trim();
-	}
+    public String getOrderNote() {
+        return orderNote;
+    }
+
+    public void setOrderNote(String orderNote) {
+        this.orderNote = orderNote == null ? null : orderNote.trim();
+    }
+
+    public String getEstimatedTime() {
+        return estimatedTime;
+    }
+
+    public void setEstimatedTime(String estimatedTime) {
+        this.estimatedTime = estimatedTime == null ? null : estimatedTime.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "Orders{" +
+                "orderId=" + orderId +
+                ", addrId=" + addrId +
+                ", cusId=" + cusId +
+                ", orderTime=" + orderTime +
+                ", gooYmoney=" + gooYmoney +
+                ", gooSmoney=" + gooSmoney +
+                ", orderStatus='" + orderStatus + '\'' +
+                ", orderNote='" + orderNote + '\'' +
+                ", estimatedTime='" + estimatedTime + '\'' +
+                '}';
+    }
 }

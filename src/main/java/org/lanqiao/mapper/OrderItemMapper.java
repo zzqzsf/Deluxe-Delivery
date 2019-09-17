@@ -5,9 +5,11 @@ import org.lanqiao.entity.OrderItem;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import org.springframework.stereotype.Repository;
 
 
 @Service
+@Repository
 public interface OrderItemMapper {
 	int deleteByPrimaryKey(Integer detId);
 

@@ -1,73 +1,66 @@
 package org.lanqiao.entity;
 
 public class OrderItem {
-	private Integer detId;
+    private Integer detId;
 
-	private Integer foodId;
+    private Integer foodId;
 
-	private Integer shopId;
 
-	private Integer orderId;
 
-	private Integer foodNumber;
+    private Integer orderId;
 
-	private Double detMoney;
+    private Integer foodNumber;
 
-	private String detNote;
+    private Double detMoney;
 
-	public Integer getDetId() {
-		return detId;
-	}
+    private String detNote;
 
-	public void setDetId(Integer detId) {
-		this.detId = detId;
-	}
+    public Integer getDetId() {
+        return detId;
+    }
 
-	public Integer getFoodId() {
-		return foodId;
-	}
+    public void setDetId(Integer detId) {
+        this.detId = detId;
+    }
 
-	public void setFoodId(Integer foodId) {
-		this.foodId = foodId;
-	}
+    public Integer getFoodId() {
+        return foodId;
+    }
 
-	public Integer getShopId() {
-		return shopId;
-	}
+    public void setFoodId(Integer foodId) {
+        this.foodId = foodId;
+    }
 
-	public void setShopId(Integer shopId) {
-		this.shopId = shopId;
-	}
 
-	public Integer getOrderId() {
-		return orderId;
-	}
+    public Integer getOrderId() {
+        return orderId;
+    }
 
-	public void setOrderId(Integer orderId) {
-		this.orderId = orderId;
-	}
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
+    }
 
-	public Integer getFoodNumber() {
-		return foodNumber;
-	}
+    public Integer getFoodNumber() {
+        return foodNumber;
+    }
 
-	public void setFoodNumber(Integer foodNumber) {
-		this.foodNumber = foodNumber;
-	}
+    public void setFoodNumber(Integer foodNumber) {
+        this.foodNumber = foodNumber;
+    }
 
-	public Double getDetMoney() {
-		return detMoney;
-	}
+    public Double getDetMoney() {
+        return detMoney;
+    }
 
-	public void setDetMoney(Double detMoney) {
-		this.detMoney = detMoney;
-	}
+    public void setDetMoney(Double detMoney) {
+        this.detMoney = detMoney;
+    }
 
-	public String getDetNote() {
-		return detNote;
-	}
+    public String getDetNote() {
+        return detNote;
+    }
 
-	public void setDetNote(String detNote) {
-		this.detNote = detNote == null ? null : detNote.trim();
-	}
+    public void setDetNote(String detNote) {
+        this.detNote = detNote == null ? null : detNote.trim();
+    }
 }

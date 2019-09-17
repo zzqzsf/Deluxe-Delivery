@@ -3,73 +3,83 @@ package org.lanqiao.entity;
 import java.util.Date;
 
 public class Comment {
-	private Integer comId;
+    private Integer comId;
 
-	private Integer shopId;
+    private Integer shopId;
 
-	private Integer cusId;
+    private Integer cusId;
 
-	private String comText;
+    private String comText;
 
-	private Integer comLevel;
+    private Integer comLevel;
 
-	private Date comTime;
+    private Date comTime;
 
-	private String shopResponse;
+    private String shopResponse;
 
-	public Integer getComId() {
-		return comId;
-	}
+    private Shop shop;
 
-	public void setComId(Integer comId) {
-		this.comId = comId;
-	}
+    public Shop getShop() {
+        return shop;
+    }
 
-	public Integer getShopId() {
-		return shopId;
-	}
+    public void setShop(Shop shop) {
+        this.shop = shop;
+    }
 
-	public void setShopId(Integer shopId) {
-		this.shopId = shopId;
-	}
+    public Integer getComId() {
+        return comId;
+    }
 
-	public Integer getCusId() {
-		return cusId;
-	}
+    public void setComId(Integer comId) {
+        this.comId = comId;
+    }
 
-	public void setCusId(Integer cusId) {
-		this.cusId = cusId;
-	}
+    public Integer getShopId() {
+        return shopId;
+    }
 
-	public String getComText() {
-		return comText;
-	}
+    public void setShopId(Integer shopId) {
+        this.shopId = shopId;
+    }
 
-	public void setComText(String comText) {
-		this.comText = comText == null ? null : comText.trim();
-	}
+    public Integer getCusId() {
+        return cusId;
+    }
 
-	public Integer getComLevel() {
-		return comLevel;
-	}
+    public void setCusId(Integer cusId) {
+        this.cusId = cusId;
+    }
 
-	public void setComLevel(Integer comLevel) {
-		this.comLevel = comLevel;
-	}
+    public String getComText() {
+        return comText;
+    }
 
-	public Date getComTime() {
-		return comTime;
-	}
+    public void setComText(String comText) {
+        this.comText = comText == null ? null : comText.trim();
+    }
 
-	public void setComTime(Date comTime) {
-		this.comTime = comTime;
-	}
+    public Integer getComLevel() {
+        return comLevel;
+    }
 
-	public String getShopResponse() {
-		return shopResponse;
-	}
+    public void setComLevel(Integer comLevel) {
+        this.comLevel = comLevel;
+    }
 
-	public void setShopResponse(String shopResponse) {
-		this.shopResponse = shopResponse == null ? null : shopResponse.trim();
-	}
+    public Date getComTime() {
+        return comTime;
+    }
+
+    public void setComTime(Date comTime) {
+        this.comTime = comTime;
+    }
+
+    public String getShopResponse() {
+        return shopResponse;
+    }
+
+    public void setShopResponse(String shopResponse) {
+        this.shopResponse = shopResponse == null ? null : shopResponse.trim();
+    }
 }

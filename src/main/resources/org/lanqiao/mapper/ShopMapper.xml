@@ -1,19 +1,54 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.lanqiao.mapper.ShopMapper">
-    <resultMap id="ShopResultMap" type="org.lanqiao.entity.Shop">
-        <id column="shop_id" property="shopId" jdbcType="INTEGER"/>
-        <result column="shop_name" property="shopName" jdbcType="VARCHAR"/>
-        <result column="shop_pwd" property="shopPwd" jdbcType="VARCHAR"/>
-        <result column="shop_addr" property="shopAddr" jdbcType="VARCHAR"/>
-        <result column="shop_tel" property="shopTel" jdbcType="VARCHAR"/>
-        <result column="shop_state" property="shopState" jdbcType="VARCHAR"/>
-        <result column="shop_img" property="shopImg" jdbcType="VARCHAR"/>
-        <result column="shop_com" property="shopCom" jdbcType="INTEGER"/>
-        <result column="shop_mon_sale" property="shopMonSale" jdbcType="INTEGER"/>
-        <result column="start_price" property="startPrice" jdbcType="DOUBLE"/>
-        <result column="packag_fee" property="packagFee" jdbcType="DOUBLE"/>
-    </resultMap>
+<mapper namespace="org.lanqiao.mapper.ShopMapper" >
+  <resultMap id="ShopResultMap" type="org.lanqiao.entity.Shop" >
+    <id column="shop_id" property="shopId" jdbcType="INTEGER" />
+    <result column="shop_name" property="shopName" jdbcType="VARCHAR" />
+    <result column="shop_pwd" property="shopPwd" jdbcType="VARCHAR" />
+    <result column="shop_addr" property="shopAddr" jdbcType="VARCHAR" />
+    <result column="shop_tel" property="shopTel" jdbcType="VARCHAR" />
+    <result column="shop_state" property="shopState" jdbcType="VARCHAR" />
+    <result column="shop_img" property="shopImg" jdbcType="VARCHAR" />
+    <result column="shop_com" property="shopCom" jdbcType="INTEGER" />
+    <result column="shop_mon_sale" property="shopMonSale" jdbcType="INTEGER" />
+    <result column="start_price" property="startPrice" jdbcType="DOUBLE" />
+    <result column="packag_fee" property="packagFee" jdbcType="DOUBLE" />
+    <collection property="foodTypeList" resultMap="FoodtypeResultMap"></collection>
+    <collection property="foodList" resultMap="FoodResultMap"></collection>
+  </resultMap>
+  <resultMap id="FoodtypeResultMap" type="org.lanqiao.entity.Foodtype" >
+    <id column="fty_id" property="ftyId" jdbcType="INTEGER" />
+    <result column="fty_name" property="ftyName" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="FoodResultMap" type="org.lanqiao.entity.Food" >
+    <id column="food_id" property="foodId" jdbcType="INTEGER" />
+    <result column="shop_id" property="shopId" jdbcType="INTEGER" />
+    <result column="food_name" property="foodName" jdbcType="VARCHAR" />
+    <result column="food_price" property="foodPrice" jdbcType="VARCHAR" />
+    <result column="food_stock" property="foodStock" jdbcType="INTEGER" />
+    <result column="food_path" property="foodPath" jdbcType="VARCHAR" />
+    <result column="food_intro" property="foodIntro" jdbcType="VARCHAR" />
+    <result column="fty_id" property="ftyId" jdbcType="INTEGER" />
+    <result column="food_mon_sale" property="foodMonSale" jdbcType="INTEGER" />
+    <result column="food_status" property="foodStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <!-- 琳 通过shopId，得到一个shop详情-->
+  <select id="selectShopById" resultType="org.lanqiao.entity.Shop" parameterType="java.lang.Integer">
+    select shop_id as shopId,shop_name as shopName,shop_pwd as shopPwd,shop_addr as shopAddr,shop_tel as shopTel,shop_state as shopState,
+    shop_img as shopImg,shop_com as shopCom,shop_mon_sale as shopMonSale,start_price as startPrice,packag_fee as packagFee
+    from shop where shop_id = #{shopId}
+  </select>
+  <!-- 琳 通过shopId，得到食物所属类型-->
+  <select id="selectFoodType" resultMap="FoodtypeResultMap" parameterType="java.lang.Integer">
+    select * from foodtype where shop_id = #{shopId}
+  </select>
+  <!--通过shopId，得到食物-->
+  <select id="selectAllFood" resultMap="FoodResultMap">
+    select food.* from food,foodtype
+    where food.fty_id = foodtype.fty_id and food.shop_id = #{shopId} and food.fty_id =#{foodTypeId}
+  </select>
+
     <select id="GetAllShops" resultMap="ShopResultMap">
         select
         *
@@ -24,118 +59,125 @@
         select * from shop where shop_id=1;
     </select>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-        delete from shop
-        where shop_id = #{shopId,jdbcType=INTEGER}
-    </delete>
-    <insert id="insertSelective" parameterType="org.lanqiao.entity.Shop">
-        insert into shop
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="shopId != null">
-                shop_id,
-            </if>
-            <if test="shopName != null">
-                shop_name,
-            </if>
-            <if test="shopPwd != null">
-                shop_pwd,
-            </if>
-            <if test="shopAddr != null">
-                shop_addr,
-            </if>
-            <if test="shopTel != null">
-                shop_tel,
-            </if>
-            <if test="shopState != null">
-                shop_state,
-            </if>
-            <if test="shopImg != null">
-                shop_img,
-            </if>
-            <if test="shopCom != null">
-                shop_com,
-            </if>
-            <if test="shopMonSale != null">
-                shop_mon_sale,
-            </if>
-            <if test="startPrice != null">
-                start_price,
-            </if>
-            <if test="packagFee != null">
-                packag_fee,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="shopId != null">
-                #{shopId,jdbcType=INTEGER},
-            </if>
-            <if test="shopName != null">
-                #{shopName,jdbcType=VARCHAR},
-            </if>
-            <if test="shopPwd != null">
-                #{shopPwd,jdbcType=VARCHAR},
-            </if>
-            <if test="shopAddr != null">
-                #{shopAddr,jdbcType=VARCHAR},
-            </if>
-            <if test="shopTel != null">
-                #{shopTel,jdbcType=VARCHAR},
-            </if>
-            <if test="shopState != null">
-                #{shopState,jdbcType=VARCHAR},
-            </if>
-            <if test="shopImg != null">
-                #{shopImg,jdbcType=VARCHAR},
-            </if>
-            <if test="shopCom != null">
-                #{shopCom,jdbcType=INTEGER},
-            </if>
-            <if test="shopMonSale != null">
-                #{shopMonSale,jdbcType=INTEGER},
-            </if>
-            <if test="startPrice != null">
-                #{startPrice,jdbcType=DOUBLE},
-            </if>
-            <if test="packagFee != null">
-                #{packagFee,jdbcType=DOUBLE},
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.Shop">
-        update shop
-        <set>
-            <if test="shopName != null">
-                shop_name = #{shopName,jdbcType=VARCHAR},
-            </if>
-            <if test="shopPwd != null">
-                shop_pwd = #{shopPwd,jdbcType=VARCHAR},
-            </if>
-            <if test="shopAddr != null">
-                shop_addr = #{shopAddr,jdbcType=VARCHAR},
-            </if>
-            <if test="shopTel != null">
-                shop_tel = #{shopTel,jdbcType=VARCHAR},
-            </if>
-            <if test="shopState != null">
-                shop_state = #{shopState,jdbcType=VARCHAR},
-            </if>
-            <if test="shopImg != null">
-                shop_img = #{shopImg,jdbcType=VARCHAR},
-            </if>
-            <if test="shopCom != null">
-                shop_com = #{shopCom,jdbcType=INTEGER},
-            </if>
-            <if test="shopMonSale != null">
-                shop_mon_sale = #{shopMonSale,jdbcType=INTEGER},
-            </if>
-            <if test="startPrice != null">
-                start_price = #{startPrice,jdbcType=DOUBLE},
-            </if>
-            <if test="packagFee != null">
-                packag_fee = #{packagFee,jdbcType=DOUBLE},
-            </if>
-        </set>
-        where shop_id = #{shopId,jdbcType=INTEGER}
-    </update>
+<!--  豪 查找店铺信息-->
+  <select id="SelectShopInfo" parameterType="java.lang.Integer" resultMap="ShopResultMap">
+    select * from shop where shop_id=#{shopId}
+  </select>
+  <update id="updateShopStatus">
+    update shop set order_State=#{#shopStatus} where shop_id=#{shopId}
+  </update>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from shop
+    where shop_id = #{shopId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertSelective" parameterType="org.lanqiao.entity.Shop" >
+    insert into shop
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="shopName != null" >
+        shop_name,
+      </if>
+      <if test="shopPwd != null" >
+        shop_pwd,
+      </if>
+      <if test="shopAddr != null" >
+        shop_addr,
+      </if>
+      <if test="shopTel != null" >
+        shop_tel,
+      </if>
+      <if test="shopState != null" >
+        shop_state,
+      </if>
+      <if test="shopImg != null" >
+        shop_img,
+      </if>
+      <if test="shopCom != null" >
+        shop_com,
+      </if>
+      <if test="shopMonSale != null" >
+        shop_mon_sale,
+      </if>
+      <if test="startPrice != null" >
+        start_price,
+      </if>
+      <if test="packagFee != null" >
+        packag_fee,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="shopId != null" >
+        #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="shopName != null" >
+        #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="shopPwd != null" >
+        #{shopPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="shopAddr != null" >
+        #{shopAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="shopTel != null" >
+        #{shopTel,jdbcType=VARCHAR},
+      </if>
+      <if test="shopState != null" >
+        #{shopState,jdbcType=VARCHAR},
+      </if>
+      <if test="shopImg != null" >
+        #{shopImg,jdbcType=VARCHAR},
+      </if>
+      <if test="shopCom != null" >
+        #{shopCom,jdbcType=INTEGER},
+      </if>
+      <if test="shopMonSale != null" >
+        #{shopMonSale,jdbcType=INTEGER},
+      </if>
+      <if test="startPrice != null" >
+        #{startPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="packagFee != null" >
+        #{packagFee,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.Shop" >
+    update shop
+    <set >
+      <if test="shopName != null" >
+        shop_name = #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="shopPwd != null" >
+        shop_pwd = #{shopPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="shopAddr != null" >
+        shop_addr = #{shopAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="shopTel != null" >
+        shop_tel = #{shopTel,jdbcType=VARCHAR},
+      </if>
+      <if test="shopState != null" >
+        shop_state = #{shopState,jdbcType=VARCHAR},
+      </if>
+      <if test="shopImg != null" >
+        shop_img = #{shopImg,jdbcType=VARCHAR},
+      </if>
+      <if test="shopCom != null" >
+        shop_com = #{shopCom,jdbcType=INTEGER},
+      </if>
+      <if test="shopMonSale != null" >
+        shop_mon_sale = #{shopMonSale,jdbcType=INTEGER},
+      </if>
+      <if test="startPrice != null" >
+        start_price = #{startPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="packagFee != null" >
+        packag_fee = #{packagFee,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where shop_id = #{shopId,jdbcType=INTEGER}
+  </update>
 
 </mapper>

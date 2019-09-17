@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>找回密码</title>
+    <link href="css/getPass.css" type="text/css" rel="stylesheet">
+
+</head>
+<body>
+<div class="main">
+    <div class="header">
+        <img src="image/getPasslogo.png" class="logo">
+        <div class="header_right">
+            <div>已有美团账号?&nbsp&nbsp&nbsp
+                <button class="adminButton">登录</button>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="mainArea">
+        <div class="headline-content">找回登录密码</div>
+        <hr class="henxian">
+        <div class="liucheng">
+            <div class="liucheng1">1:确认账号</div>
+            <div class="liucheng2">2:安全校验</div>
+            <div class="liucheng3">3:设置密码</div>
+            <div class="liucheng4">4:完成</div>
+        </div>
+        <div class="mainArea1">
+            <div class="mainArea2">
+                <div class="row1"><span id="text">请填写您要找回密码的美团账号</span></div>
+                <div class="row2">
+                    <input type="text" placeholder="手机号" class="tel" name="cusTel">
+                    <input type='button' value='获取验证码' class='getVerCodeBut'>
+                </div>
+                <div class="row3"><input type="button" class="nextButton" value="下一步" disabled="disabled"></div>
+                <div class="row4">
+                    <div class="errorPic"></div>
+                    <span class="errorTelMsg"></span></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="js/foundPass.js" type="text/javascript"></script>
+<script src="js/jquery-3.4.1.min.js" type="text/javascript"></script>
+<script>
+    $(function () {
+        var step = 1;
+        var tel;
+        var validCode = true;
+        $(".row4").hide();
+        $(".nextButton").click(function () {
+            step++;
+            switch (step) {
+                case 2:
+                    $(".nextButton").css({"background-color": "#FFD705", "cursor": "not-allowed", "opacity": "0.5"});
+                    $(".liucheng2").css("background-color", "#FFD705");
+                    $(".liucheng1").css("background-color", "#cccccc");
+                    $("#text").text("请填写您获取的验证码");
+                    $(".tel").attr("placeholder", "验证码");
+                    $(".tel").css("width", "195px");
+                    $(".tel").val("");
+                    $(".errorTelMsg").text("验证码错误");
+                    $(".getVerCodeBut").css("display", "inline")
+                    break;
+                case 3:
+                    $(".nextButton").css({"background-color": "#FFD705", "cursor": "not-allowed", "opacity": "0.5"});
+                    $(".liucheng3").css("background-color", "#FFD705");
+                    $(".liucheng2").css("background-color", "#cccccc");
+                    $("#text").text("请为您的账号" + tel + "填写一个新密码");
+                    $(".tel").attr("placeholder", "请设置密码6-20位的密码");
+                    $(this).val("保存新密码");
+                    $(".tel").val("");
+                    $(".getVerCodeBut").hide();
+                    $(".tel").css("width", "300px");
+
+                    break;
+                case 4:
+                    $(".liucheng4").css("background-color", "#FFD705");
+                    $(".liucheng3").css("background-color", "#cccccc");
+                    $.ajax({
+                        url: "http://localhost:8080/updatePass",
+                        type: "post",
+                        data: {
+                            'cusPwd': $(".tel").val(),
+                            'cusTel': tel
+                        },
+                        dataType: "json",
+                        success: function (data) {
+                            if(data==1){
+                                $("#text").text("恭喜您已成功了修改了登陆密码");
+                                $(".tel").remove();
+                                $(".row2").append("<p>您的登录密码已经重新设置，请妥善保管</p>")
+                                $(".nextButton").css({"background-color": "#FFD705", "cursor": "pointer", "opacity": "1"});
+                                $(".nextButton").val("立即登录");
+                                $(".nextButton").click(function () {
+                                    window.location.assign("http://localhost:8080/admin.html")
+                                })
+                            }
+                        }
+                    })
+                    break;
+            }
+        })
+        $(".getVerCodeBut").click(function () {
+            $.ajax({
+                url: "http://localhost:8080/sendVerifyCode",
+                type: "post",
+                data: {
+                    'tel': tel,
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data) {
+                        var time = 60;
+                        var code = $(".getVerCodeBut");
+                        if (validCode) {
+                            validCode = false;
+                            var t = setInterval(function () {
+                                code.attr("disabled", "true");
+                                code.css({"opacity": "0.5", "cursor": "not-allowed"});
+                                time--;
+                                code.val("重新获取" + time + "秒");
+                                if (time == 0) {
+                                    code.css({"opacity": "1", "cursor": "pointer"});
+                                    code.removeAttr("disabled");
+                                    clearInterval(t);
+                                    code.val("重新获取");
+                                    validCode = true;
+                                }
+                            }, 1000)
+                        }
+                    }
+                }
+            })
+        })
+
+        //判断该手机号是否被注册
+        $(".tel").blur(function () {
+            if (step == 1) {
+                $.ajax({
+                    url: "http://localhost:8080/checkTel1",
+                    type: "post",
+                    data: {
+                        'cusTel': $(".tel").val(),
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data == 1) {
+                            tel = $(".tel").val();
+                            $(".row4").hide();
+                            $(".nextButton").css({"background-color": "#FFD705", "cursor": "pointer", "opacity": "1"});
+                            $(".nextButton").removeAttr("disabled");
+                        } else {
+                            $(".row4").show();
+                            $(".errorTelMsg").text("该手机号不正确或未被注册");
+                        }
+                    }
+                })
+            } else if (step == 2) {
+                $.ajax({
+                    url: "http://localhost:8080/checkVerifyCode",
+                    type: "post",
+                    data: {
+                        tel: tel,
+                        verifyCode: $(".tel").val()
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data) {
+                            $(".row4").hide();
+                            $(".nextButton").css({"background-color": "#FFD705", "cursor": "pointer", "opacity": "1"});
+                            $(".nextButton").removeAttr("disabled");
+                        } else {
+                            $(".row4").show();
+                            $(".errorTelMsg").text("验证码错误");
+                        }
+                    }
+                })
+            } else if (step == 3){
+                if($(this).val().length<6 || $(this).val().length>20) {
+                    $(".row4").show();
+                    $(".errorTelMsg").text("密码格式不对");
+                }else{
+                    $(".nextButton").css({"background-color": "#FFD705", "cursor": "pointer", "opacity": "1"});
+                    $(".nextButton").removeAttr("disabled");
+                }
+            }
+
+                })
+
+
+    })
+</script>
