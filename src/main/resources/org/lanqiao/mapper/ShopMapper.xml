@@ -50,9 +50,10 @@
   </select>
 
   <select id="GetAllShops" resultMap="ShopResultMap">
-    select
-    *
-    from shop
+    select * from shop where shop_name in
+    <foreach collection="list" item="location" index="index" open="(" close=")" separator=",">
+         #{location.name}
+    </foreach>
   </select>
 <!--  豪 查找店铺信息-->
   <select id="SelectShopInfo" parameterType="java.lang.Integer" resultMap="ShopResultMap">

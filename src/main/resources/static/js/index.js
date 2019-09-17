@@ -3,7 +3,6 @@ $(function () {
     function G(id) {
         return document.getElementById(id);
     }
-
     var cityName;
     var name;
     var length;
@@ -90,12 +89,12 @@ $(function () {
                                 'length': length,
                             },
                             success: function (data) {
-                                alert(data);
+
                             }
                         })
                     }
-                    alert(data[i].name + (map.getDistance(point1, pointC)).toFixed(2) + ' 米。');
                 }
+               window.location.assign("http://localhost:8080/shopshow.html")
 
 
             }

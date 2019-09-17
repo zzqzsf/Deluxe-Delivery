@@ -16,4 +16,6 @@ public interface CustomMapper {
     int checkCustom(Custom custom);
     //修改密码
     int updatePass(String cusTel,String cusPwd);
+    //获取用户id
+    int getUserId(String cusTel);
 }
