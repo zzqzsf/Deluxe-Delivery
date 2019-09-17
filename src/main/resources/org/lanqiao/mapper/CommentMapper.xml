@@ -4,13 +4,21 @@
   <resultMap id="CommentResultMap" type="org.lanqiao.entity.Comment" >
     <id column="com_id" property="comId" jdbcType="INTEGER" />
     <result column="shop_id" property="shopId" jdbcType="INTEGER" />
-    <result column="cus_id" property="cusId" jdbcType="INTEGER" />
     <result column="com_text" property="comText" jdbcType="VARCHAR" />
     <result column="com_level" property="comLevel" jdbcType="INTEGER" />
     <result column="com_time" property="comTime" jdbcType="TIMESTAMP" />
     <result column="shop_response" property="shopResponse" jdbcType="VARCHAR" />
+    <association property="custom" resultMap="CustomResultMap"></association>
+  </resultMap>
+  <resultMap id="CustomResultMap" type="org.lanqiao.entity.Custom" >
+    <id column="cus_id" property="cusId" jdbcType="INTEGER" />
+    <result column="cus_name" property="cusName" jdbcType="INTEGER" />
+    <result column="cus_img" property="cusImg" jdbcType="VARCHAR" />
   </resultMap>
 
+  <select id="selectAllComment" parameterType="java.lang.Integer" resultMap="CommentResultMap">
+    select cm.*,cus_name,cus_img from comment cm,custom cu where shop_id=#{shopId} and cm.cus_id=cu.cus_id order by com_time
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from comment
     where com_id = #{comId,jdbcType=INTEGER}

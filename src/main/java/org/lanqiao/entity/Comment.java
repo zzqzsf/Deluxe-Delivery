@@ -1,13 +1,14 @@
 package org.lanqiao.entity;
 
 import java.util.Date;
+import java.util.Set;
 
 public class Comment {
     private Integer comId;
 
     private Integer shopId;
 
-    private Integer cusId;
+    private Custom custom;
 
     private String comText;
 
@@ -16,6 +17,14 @@ public class Comment {
     private Date comTime;
 
     private String shopResponse;
+
+    public Custom getCustom() {
+        return custom;
+    }
+
+    public void setCustom(Custom customs) {
+        this.custom = customs;
+    }
 
     public Integer getComId() {
         return comId;
@@ -31,14 +40,6 @@ public class Comment {
 
     public void setShopId(Integer shopId) {
         this.shopId = shopId;
-    }
-
-    public Integer getCusId() {
-        return cusId;
-    }
-
-    public void setCusId(Integer cusId) {
-        this.cusId = cusId;
     }
 
     public String getComText() {
