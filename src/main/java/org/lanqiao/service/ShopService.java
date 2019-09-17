@@ -1,5 +1,6 @@
 package org.lanqiao.service;
 
+import org.lanqiao.entity.Comment;
 import org.lanqiao.entity.Food;
 import org.lanqiao.entity.Foodtype;
 import org.lanqiao.entity.Shop;
@@ -23,4 +24,6 @@ public interface ShopService {
     public int insertFoodtype(Foodtype foodtype);
     public int updateFoodtype(Foodtype foodtype);
     public int deleteFootype(int foodtypeId);
+//Comment评价的
+    public List<Comment> selectAllComment(int shopId);
 }

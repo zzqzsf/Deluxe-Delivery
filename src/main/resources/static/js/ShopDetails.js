@@ -226,8 +226,8 @@ $(function(){
         success:function (data) {
             for (let i = 0;i< data.length;i++){
                 let $node = $assessModel.clone(true);
-                // $node.children().eq(0).attr("src",data.ImaUrl);
-                // $node.children().eq(1).text(data.name);
+                $node.children().eq(0).attr("src",data[i].custom.cusImg);
+                $node.children().eq(1).text(data[i].custom.cusName);
                 $node.children().eq(2).text(timestampToTime(data[i].comTime));
                 var level = data[i].comLevel*72/5;
                 $node.children().eq(3).children().eq(0).css({width:level+"px"});

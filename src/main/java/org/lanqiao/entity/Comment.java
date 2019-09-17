@@ -17,7 +17,17 @@ public class Comment {
 
     private String shopResponse;
 
+    private Custom custom;
+
     private Shop shop;
+
+    public Custom getCustom() {
+        return custom;
+    }
+
+    public void setCustom(Custom custom) {
+        this.custom = custom;
+    }
 
     public Shop getShop() {
         return shop;
@@ -25,6 +35,14 @@ public class Comment {
 
     public void setShop(Shop shop) {
         this.shop = shop;
+    }
+
+    public Integer getCusId() {
+        return cusId;
+    }
+
+    public void setCusId(Integer cusId) {
+        this.cusId = cusId;
     }
 
     public Integer getComId() {
@@ -41,14 +59,6 @@ public class Comment {
 
     public void setShopId(Integer shopId) {
         this.shopId = shopId;
-    }
-
-    public Integer getCusId() {
-        return cusId;
-    }
-
-    public void setCusId(Integer cusId) {
-        this.cusId = cusId;
     }
 
     public String getComText() {

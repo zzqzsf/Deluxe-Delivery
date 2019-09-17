@@ -13,3 +13,4 @@ public class DeluxeDeliveryApplication {
 		SpringApplication.run(DeluxeDeliveryApplication.class, args);
 	}
 }
+
