@@ -15,32 +15,40 @@
 
     <script>
         $(function () {
-            var pageNum=1
+            var Num=1
             //vue
-            $.ajax({
-            url: "/getAllShare",
-                type: "post",
-                data: {
-                pageNum:1,
-            },
-            dataType: "json",
-                success: function (data) {
-                for (var i=0;i<data.list.length;i++) {
-                    vm.shop.push({
-                        shopName: data.list[i].shopName,
-                        shopCom: data.list[i].shopCom,
-                        startPrice:data.list[i].startPrice,
-                        packagFee:data.list[i].packagFee
+                var vm = new Vue({
+                    el: '#shopshow',
+                    data: {
+                        shop:[],
+                    },
+                    method:{
+                       create: function(){
+                                     $.ajax({
+                        url: "/getAllShare",
+                        type: "post",
+                        data: {
+                            pageNum:Num,
+                        },
+                        dataType: "json",
+                        success: function (data) {
+                            for (var i=0;i<data.list.length;i++) {
+                                vm.shop.push({
+                                    shopName: data.list[i].shopName,
+                                    shopCom: data.list[i].shopCom,
+                                    startPrice:data.list[i].startPrice,
+                                    packagFee:data.list[i].packagFee
+                                })
+                            }
+                        }
                     })
-                }
-            }
-        });
-            var vm = new Vue({
-                el: '#shopshow',
-                data: {
-                    shop:[],
-                },
-            })
+                                 }
+
+                    }
+                })
+            vm.create();
+
+
 
 
             //点击文字变黄
@@ -81,7 +89,12 @@
             //     $(this).css('data-target','#myModal')
             // })
             $(".w2").click(function () {
-                $(".j1").val(parseInt($(this).val()+1))
+                Num++
+                vm.create();
+            })
+            $(".w1").click(function () {
+                Num--
+                vm.create();
             })
             function yema() {
 

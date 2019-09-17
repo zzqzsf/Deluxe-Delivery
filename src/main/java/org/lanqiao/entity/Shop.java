@@ -1,5 +1,11 @@
 package org.lanqiao.entity;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.solr.core.mapping.Indexed;
+import org.springframework.data.solr.core.mapping.SolrDocument;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 @SolrDocument(solrCoreName = "articles")
