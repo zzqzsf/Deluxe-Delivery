@@ -12,10 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+
 @Service
 public class ShopServiceImpl implements ShopService {
-    @Autowired
-    ShopMapper shopMapper;
+	@Autowired
+	ShopMapper shopMapper;
+
 
     @Autowired
     FoodMapper foodMapper;
@@ -34,7 +37,7 @@ public class ShopServiceImpl implements ShopService {
         return shopMapper.updateByPrimaryKeySelective(shop);
     }
 //    food 部分
-    @Override
+	@Override
     public List<Food> selectFoodByFoodtype(int foodtypeId) {
 
         return foodMapper.selectFoodByFoodtype(foodtypeId);
@@ -53,7 +56,12 @@ public class ShopServiceImpl implements ShopService {
     @Override
     public int deleteFood(int foodId) {
         return foodMapper.deleteByPrimaryKey(foodId);
-    }
+	}
+
+	@Override
+	public List<Shop> getShop(Integer shopId) {
+		return shopMapper.getShop(shopId);
+	}
 //    foodtype部分
     @Override
     public List<Foodtype> selectFoodtypeList(int shopId) {

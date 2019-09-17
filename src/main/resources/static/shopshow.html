@@ -53,14 +53,14 @@
 
             //点击文字变黄
             $(".s-4").click(function () {
-                $(".s-4").css('color','')
-                $(this).css('color','orange')
+                $(".s-4").css('color', '')
+                $(this).css('color', 'orange')
             })
             // 图片透明度特效
             $(".show1").hover(function () {
                 $(this).find(".i3").css('opacity','0.6')
                 $(this).find(".shouc").show()
-            },function () {
+            }, function () {
                 $(this).find(".i3").css('opacity','1')
                 $(this).find(".shouc").hide()
             });
@@ -71,16 +71,16 @@
 
             //登录部分
             $("#selectAdmin").click(function () {
-                if($(this).text()=="手机动态码登陆"){
+                if ($(this).text() == "手机动态码登陆") {
                     $(this).text("普通方式登陆");
-                    $(".tel").attr("placeholder","手机号");
-                    $(".msg").attr("placeholder","密码");
+                    $(".tel").attr("placeholder", "手机号");
+                    $(".msg").attr("placeholder", "密码");
                     $("#getMsg").text("");
 
-                }else{
+                } else {
                     $(this).text("手机动态码登陆");
-                    $(".tel").attr("placeholder","请输入手机号，未注册将自动注册");
-                    $(".msg").attr("placeholder","动态码");
+                    $(".tel").attr("placeholder", "请输入手机号，未注册将自动注册");
+                    $(".msg").attr("placeholder", "动态码");
                     $("#getMsg").text("获取手机动态码");
                 }
             })

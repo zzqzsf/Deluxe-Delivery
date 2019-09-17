@@ -1,6 +1,6 @@
 server:
   port: 8080
-# solr配置及数据库
+
 spring:
   datasource:
     username: root
@@ -17,4 +17,3 @@ logging:
   level:
     org.lanqiao:
       mapper : debug
-

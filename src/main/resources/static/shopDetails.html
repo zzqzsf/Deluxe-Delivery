@@ -92,7 +92,7 @@
                 <div class="foodSmallBox">
                     <img src="">
                     <p class="foodName">49.9尊宝开心配套餐</p>
-                    <p class="foodPrice"><span>￥</span>49.9</p>
+                    <p class="foodPrice">￥49.9</span></p>
                     <div class="addButton"></div>
                 </div>
             </div>
@@ -105,10 +105,11 @@
             <div class="cartFood">
                 <span>超级豪华/水果什锦披萨水果什锦披萨</span>
                 <button name="sub" style="margin-left:10px">-</button>
-                <input type="text" name="num" value="1">
+                <input type="text" id="num" name="num" value="1">
                 <button name="add" value="+">+</button>
-                <i class="singlePrice">￥128</i>
+                <i class="singlePrice">￥<span id="one-price" class="singlePrice">128.00</span></i>
                 <span style="display: none;">￥0</span>
+                <input type="hidden" value="1" id="foodId">
             </div>
             <div class="packCharge">
                 <i style="color: #fe673d">包装费</i>
@@ -121,14 +122,14 @@
             <div id="allMoney">
                 <p>
                     共<span style="color: #fe673d;font-size: 14px;">2</span>份,
-                    总计<span style="color: #fe4d3d;font-size: 16px;font-weight: bold;">￥152</span>
+                    总计<span style="color: #fe4d3d;font-size: 16px;font-weight: bold;" id="detMoney">￥152</span>
                 </p>
             </div>               
         </div>
         <div id="cartFixed">
             <div id="cartPicBox">
                 <div id="cartPic"></div>
-            </div>            
+            </div>
             <div id="startSend">差20元起送</div>
         </div>
     </div>
