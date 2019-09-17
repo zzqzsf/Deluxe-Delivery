@@ -1,106 +1,117 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.lanqiao.mapper.AddressMapper" >
-  <resultMap id="AddressResultMap" type="org.lanqiao.entity.Address" >
-    <id column="addr_id" property="addrId" jdbcType="INTEGER" />
-    <result column="cus_id" property="cusId" jdbcType="INTEGER" />
-    <result column="address" property="address" jdbcType="VARCHAR" />
-    <result column="addr_name" property="addrName" jdbcType="VARCHAR" />
-    <result column="addr_tel" property="addrTel" jdbcType="VARCHAR" />
-    <result column="sex" property="sex" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    addr_id, cus_id, address, addr_name, addr_tel, sex
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="AddressResultMap" parameterType="java.lang.Integer" >
-    select
-    <include refid="Base_Column_List" />
-    from address
-    where addr_id = #{addrId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from address
-    where addr_id = #{addrId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="org.lanqiao.entity.Address" >
-    insert into address (addr_id, cus_id, address,
-      addr_name, addr_tel, sex
-      )
-    values (#{addrId,jdbcType=INTEGER}, #{cusId,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR},
-      #{addrName,jdbcType=VARCHAR}, #{addrTel,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="org.lanqiao.entity.Address" >
-    insert into address
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="addrId != null" >
-        addr_id,
-      </if>
-      <if test="cusId != null" >
-        cus_id,
-      </if>
-      <if test="address != null" >
-        address,
-      </if>
-      <if test="addrName != null" >
-        addr_name,
-      </if>
-      <if test="addrTel != null" >
-        addr_tel,
-      </if>
-      <if test="sex != null" >
-        sex,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="addrId != null" >
-        #{addrId,jdbcType=INTEGER},
-      </if>
-      <if test="cusId != null" >
-        #{cusId,jdbcType=INTEGER},
-      </if>
-      <if test="address != null" >
-        #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="addrName != null" >
-        #{addrName,jdbcType=VARCHAR},
-      </if>
-      <if test="addrTel != null" >
-        #{addrTel,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null" >
-        #{sex,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.Address" >
-    update address
-    <set >
-      <if test="cusId != null" >
-        cus_id = #{cusId,jdbcType=INTEGER},
-      </if>
-      <if test="address != null" >
+<mapper namespace="org.lanqiao.mapper.AddressMapper">
+    <resultMap id="BaseResultMap" type="org.lanqiao.entity.Address">
+        <id column="addr_id" property="addrId" jdbcType="INTEGER"/>
+        <result column="cus_id" property="cusId" jdbcType="INTEGER"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="addr_name" property="addrName" jdbcType="VARCHAR"/>
+        <result column="addr_tel" property="addrTel" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        addr_id, cus_id, address, addr_name, addr_tel, sex
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from address
+        where addr_id = #{addrId,jdbcType=INTEGER}
+    </select>
+
+    <select id="getAllAddress" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select * from address where cus_id=23 limit 2 ;
+    </select>
+
+    <select id="getAllAddresss" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from address;
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from address
+        where addr_id = #{addrId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="org.lanqiao.entity.Address">
+        insert into address (addr_id, cus_id, address,
+        addr_name, addr_tel, sex
+        )
+        values (#{addrId,jdbcType=INTEGER}, #{cusId,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR},
+        #{addrName,jdbcType=VARCHAR}, #{addrTel,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="org.lanqiao.entity.Address">
+        insert into address
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="addrId != null">
+                addr_id,
+            </if>
+            <if test="cusId != null">
+                cus_id,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="addrName != null">
+                addr_name,
+            </if>
+            <if test="addrTel != null">
+                addr_tel,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="addrId != null">
+                #{addrId,jdbcType=INTEGER},
+            </if>
+            <if test="cusId != null">
+                #{cusId,jdbcType=INTEGER},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="addrName != null">
+                #{addrName,jdbcType=VARCHAR},
+            </if>
+            <if test="addrTel != null">
+                #{addrTel,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.Address">
+        update address
+        <set>
+            <if test="cusId != null">
+                cus_id = #{cusId,jdbcType=INTEGER},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="addrName != null">
+                addr_name = #{addrName,jdbcType=VARCHAR},
+            </if>
+            <if test="addrTel != null">
+                addr_tel = #{addrTel,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where addr_id = #{addrId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.Address">
+        update address
+        set cus_id = #{cusId,jdbcType=INTEGER},
         address = #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="addrName != null" >
         addr_name = #{addrName,jdbcType=VARCHAR},
-      </if>
-      <if test="addrTel != null" >
         addr_tel = #{addrTel,jdbcType=VARCHAR},
-      </if>
-      <if test="sex != null" >
-        sex = #{sex,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where addr_id = #{addrId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.Address" >
-    update address
-    set cus_id = #{cusId,jdbcType=INTEGER},
-      address = #{address,jdbcType=VARCHAR},
-      addr_name = #{addrName,jdbcType=VARCHAR},
-      addr_tel = #{addrTel,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=VARCHAR}
-    where addr_id = #{addrId,jdbcType=INTEGER}
-  </update>
+        sex = #{sex,jdbcType=VARCHAR}
+        where addr_id = #{addrId,jdbcType=INTEGER}
+    </update>
 </mapper>

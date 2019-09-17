@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 public interface ConCusMapper {
 
 
-    int insertSelective(ConCus record);
+	int insertSelective(ConCus record);
 }
