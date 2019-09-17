@@ -1,8 +1,10 @@
 package org.lanqiao.service;
 
+import org.lanqiao.entity.Comment;
 import org.lanqiao.entity.Food;
 import org.lanqiao.entity.Foodtype;
 import org.lanqiao.entity.Shop;
+import org.lanqiao.mapper.CommentMapper;
 import org.lanqiao.mapper.FoodMapper;
 import org.lanqiao.mapper.FoodtypeMapper;
 import org.lanqiao.mapper.ShopMapper;
@@ -20,6 +22,8 @@ public class ShopServiceImpl implements ShopService {
 
     @Autowired
     FoodtypeMapper foodtypeMapper;
+    @Autowired
+    CommentMapper commentMapper;
     @Override
     public Shop selectShopInfo(int shopId) {
         return shopMapper.SelectShopInfo(shopId);
@@ -69,6 +73,11 @@ public class ShopServiceImpl implements ShopService {
     @Override
     public int deleteFootype(int foodtypeId) {
         return foodtypeMapper.deleteByPrimaryKey(foodtypeId);
+    }
+
+    @Override
+    public List<Comment> selectAllComment(int shopId) {
+        return commentMapper.selectAllComment(shopId);
     }
 
 

@@ -13,7 +13,7 @@
     <result column="shop_mon_sale" property="shopMonSale" jdbcType="INTEGER" />
     <result column="start_price" property="startPrice" jdbcType="DOUBLE" />
     <result column="packag_fee" property="packagFee" jdbcType="DOUBLE" />
-    <collection property="foodTypeList" resultMap="FoodtypeResultMap"></collection>
+    <collection property="foodtypeList" resultMap="FoodtypeResultMap"></collection>
     <collection property="foodList" resultMap="FoodResultMap"></collection>
   </resultMap>
   <resultMap id="FoodtypeResultMap" type="org.lanqiao.entity.Foodtype" >

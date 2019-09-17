@@ -5,9 +5,9 @@ import java.util.Date;
 public class Orders {
     private Integer orderId;
 
-    private Integer addrId;
+    private Address address;
 
-    private Integer cusId;
+    private Custom custom;
 
     private Date orderTime;
 
@@ -39,20 +39,20 @@ public class Orders {
         this.orderId = orderId;
     }
 
-    public Integer getAddrId() {
-        return addrId;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setAddrId(Integer addrId) {
-        this.addrId = addrId;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
-    public Integer getCusId() {
-        return cusId;
+    public Custom getCustom() {
+        return custom;
     }
 
-    public void setCusId(Integer cusId) {
-        this.cusId = cusId;
+    public void setCustom(Custom custom) {
+        this.custom = custom;
     }
 
     public Date getOrderTime() {
@@ -107,14 +107,15 @@ public class Orders {
     public String toString() {
         return "Orders{" +
                 "orderId=" + orderId +
-                ", addrId=" + addrId +
-                ", cusId=" + cusId +
+                ", address=" + address +
+                ", custom=" + custom +
                 ", orderTime=" + orderTime +
                 ", gooYmoney=" + gooYmoney +
                 ", gooSmoney=" + gooSmoney +
                 ", orderStatus='" + orderStatus + '\'' +
                 ", orderNote='" + orderNote + '\'' +
                 ", estimatedTime='" + estimatedTime + '\'' +
+                ", shopId=" + shopId +
                 '}';
     }
 }

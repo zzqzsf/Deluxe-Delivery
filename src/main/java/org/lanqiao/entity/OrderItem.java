@@ -5,8 +5,6 @@ public class OrderItem {
 
     private Integer foodId;
 
-
-
     private Integer orderId;
 
     private Integer foodNumber;

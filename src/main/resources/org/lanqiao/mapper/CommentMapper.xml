@@ -19,6 +19,10 @@
     <result column="cus_email" property="cusEmail" jdbcType="TIMESTAMP" />
     <result column="cus_img" property="cusImg" jdbcType="VARCHAR" />
   </resultMap>
+
+  <select id="selectAllComment" parameterType="java.lang.Integer" resultMap="CommentResultMap">
+    select cm.*,cus_name,cus_img from comment cm,custom cu where shop_id=#{shopId} and cm.cus_id=cu.cus_id order by com_time
+  </select>
   <!--通过shopId得到所有评论-->
   <select id="SelectOpinion" resultMap="CommentResultMap">
     select com.*,custom.*

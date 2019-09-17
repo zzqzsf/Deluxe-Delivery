@@ -1,19 +1,27 @@
 package org.lanqiao.entity;
 
 public class Custom {
-    private int cusID;
+    private int cusId;
     private String cusName;
     private String cusPwd;
     private String cusTel;
     private String cusEmail;
     private String cusImg;
 
-    public int getCusID() {
-        return cusID;
+    public String getCusImg() {
+        return cusImg;
     }
 
-    public void setCusID(int cusID) {
-        this.cusID = cusID;
+    public void setCusImg(String cusImg) {
+        this.cusImg = cusImg;
+    }
+
+    public int getCusId() {
+        return cusId;
+    }
+
+    public void setCusI(int cusId) {
+        this.cusId = cusId;
     }
 
     public String getCusName() {
