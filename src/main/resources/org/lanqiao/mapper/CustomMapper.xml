@@ -15,13 +15,13 @@
     </select>
 
     <insert id="insertCustom" parameterType="org.lanqiao.entity.Custom">
-        insert into custom (cus_tel,cus_pwd)
-        values (#{cusTel,jdbcType=VARCHAR},#{cusPwd,jdbcType=VARCHAR})
+        insert into custom (cus_tel,cus_pwd,cus_name)
+        values (#{cusTel,jdbcType=VARCHAR},#{cusPwd,jdbcType=VARCHAR},#{cusName,jdbcType=VARCHAR})
     </insert>
 
     <insert id="insertCustom1"  parameterType="java.lang.String">
-        insert into custom (cus_tel)
-        values (#{cusTel,jdbcType=VARCHAR})
+        insert into custom (cus_tel,cus_name)
+        values (#{cusTel,jdbcType=VARCHAR},#{cusName,jdbcType=VARCHAR})
     </insert>
 
     <select id="checkCustom" resultType="java.lang.Integer" parameterType="org.lanqiao.entity.Custom">

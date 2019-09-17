@@ -1,18 +1,17 @@
 package org.lanqiao.controller;
 
 import org.lanqiao.entity.Custom;
+import org.lanqiao.entity.Location;
 import org.lanqiao.service.CustomService;
 import org.lanqiao.util.RedisUtil;
 import org.lanqiao.util.SMSUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 public class CustomController {
@@ -22,8 +21,11 @@ public class CustomController {
     @Resource
     private RedisUtil redisUtil;
 
+
     @Autowired
     CustomService customService;
+
+    List<Location> locationList = new ArrayList<>();
 
     @RequestMapping("/checkTel")
     public int checkTel(String tel){
@@ -53,7 +55,8 @@ public class CustomController {
         if("".equals(custom.getCusPwd())){
             return 0;
         }else{
-            return customService.insertCustom(custom);
+            int count = customService.insertCustom(custom);
+            return count;
         }
     }
     @RequestMapping("/insertCustom1")
@@ -87,6 +90,24 @@ public class CustomController {
     public int updatePass(String cusTel,String cusPwd){
         return customService.updatePass(cusTel,cusPwd);
     }
+
+
+    @RequestMapping("/getAllLocation")
+    public List<Location> getAll(){
+//      redisUtil.lSet("locations",location);
+        List<Object> objectList = redisUtil.lGet("locations",0,1);
+        Object ob = (Object) objectList;
+        List<Location> locationList = (List<Location>)ob;
+        return locationList;
+    }
+
+    @RequestMapping("/getShopInfo")
+    public int getShopInfo( Location storeInfo){
+        locationList.add(storeInfo);
+        return locationList.size();
+    }
+
+
 
 
 
