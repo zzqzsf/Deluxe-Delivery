@@ -5,7 +5,7 @@ public class OrderItem {
 
     private Integer foodId;
 
-    private Integer shopId;
+
 
     private Integer orderId;
 
@@ -31,13 +31,6 @@ public class OrderItem {
         this.foodId = foodId;
     }
 
-    public Integer getShopId() {
-        return shopId;
-    }
-
-    public void setShopId(Integer shopId) {
-        this.shopId = shopId;
-    }
 
     public Integer getOrderId() {
         return orderId;

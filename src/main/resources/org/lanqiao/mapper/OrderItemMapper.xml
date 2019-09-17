@@ -4,7 +4,6 @@
   <resultMap id="OrderItemResultMap" type="org.lanqiao.entity.OrderItem" >
     <id column="det_id" property="detId" jdbcType="INTEGER" />
     <result column="food_id" property="foodId" jdbcType="INTEGER" />
-    <result column="shop_id" property="shopId" jdbcType="INTEGER" />
     <result column="order_id" property="orderId" jdbcType="INTEGER" />
     <result column="food_number" property="foodNumber" jdbcType="INTEGER" />
     <result column="det_money" property="detMoney" jdbcType="DOUBLE" />
@@ -25,9 +24,7 @@
       <if test="foodId != null" >
         food_id,
       </if>
-      <if test="shopId != null" >
-        shop_id,
-      </if>
+
       <if test="orderId != null" >
         order_id,
       </if>
@@ -48,9 +45,6 @@
       <if test="foodId != null" >
         #{foodId,jdbcType=INTEGER},
       </if>
-      <if test="shopId != null" >
-        #{shopId,jdbcType=INTEGER},
-      </if>
       <if test="orderId != null" >
         #{orderId,jdbcType=INTEGER},
       </if>
@@ -70,9 +64,6 @@
     <set >
       <if test="foodId != null" >
         food_id = #{foodId,jdbcType=INTEGER},
-      </if>
-      <if test="shopId != null" >
-        shop_id = #{shopId,jdbcType=INTEGER},
       </if>
       <if test="orderId != null" >
         order_id = #{orderId,jdbcType=INTEGER},

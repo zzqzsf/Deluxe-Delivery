@@ -7,7 +7,7 @@
     <result column="shop_id" property="shopId" jdbcType="INTEGER" />
   </resultMap>
 
-  <select id="selectFoodtypeList" parameterType="java.lang.Integer">
+  <select id="selectFoodtypeList" parameterType="java.lang.Integer" resultMap="FoodtypeResultMap">
     select * from foodtype where shop_id= #{shodId}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

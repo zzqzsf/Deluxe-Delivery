@@ -13,7 +13,8 @@
     <result column="food_mon_sale" property="foodMonSale" jdbcType="INTEGER" />
     <result column="food_status" property="foodStatus" jdbcType="VARCHAR" />
   </resultMap>
-  <select id="selectFoodList" parameterType="java.lang.Integer" resultMap="FoodResultMap">
+<!--  根据分类查商品-->
+  <select id="selectFoodByFoodtype" parameterType="java.lang.Integer" resultMap="FoodResultMap">
     select * from food where fty_id=#{foodtypeId}
   </select>
 
