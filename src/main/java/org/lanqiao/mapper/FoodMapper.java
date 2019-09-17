@@ -9,7 +9,7 @@ public interface FoodMapper {
     int deleteByPrimaryKey(Integer foodId);
     int insertSelective(Food record);
     int updateByPrimaryKeySelective(Food record);
-
+// 根据分类查商品
     List<Food> selectFoodByFoodtype(Integer foodtypeId);
 
 

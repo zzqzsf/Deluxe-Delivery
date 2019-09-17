@@ -54,10 +54,13 @@
     *
     from shop
   </select>
+<!--  豪 查找店铺信息-->
   <select id="SelectShopInfo" parameterType="java.lang.Integer" resultMap="ShopResultMap">
     select * from shop where shop_id=#{shopId}
   </select>
-
+  <update id="updateShopStatus">
+    update shop set order_State=#{#shopStatus} where shop_id=#{shopId}
+  </update>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from shop
     where shop_id = #{shopId,jdbcType=INTEGER}

@@ -15,11 +15,21 @@ public class Orders {
 
     private Double gooSmoney;
 
+    public Integer getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(Integer shopId) {
+        this.shopId = shopId;
+    }
+
     private String orderStatus;
 
     private String orderNote;
 
     private String estimatedTime;
+
+    private Integer shopId;
 
     public Integer getOrderId() {
         return orderId;
