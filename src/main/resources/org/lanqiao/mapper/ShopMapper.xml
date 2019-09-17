@@ -125,7 +125,7 @@
         #{shopImg,jdbcType=VARCHAR},
       </if>
       <if test="shopCom != null" >
-        #{shopCom,jdbcType=INTEGER},
+        #{shopCom,jdbcType=DECIMAL},
       </if>
       <if test="shopMonSale != null" >
         #{shopMonSale,jdbcType=INTEGER},

@@ -1,11 +1,13 @@
 package org.lanqiao.entity;
 
-import java.math.BigDecimal;
 import java.util.List;
 
-public class Shop {
+@SolrDocument(solrCoreName = "articles")
+public class Shop implements Serializable {
+    @Id
+    @Indexed
     private Integer shopId;
-
+    @Indexed
     private String shopName;
 
     private String shopPwd;

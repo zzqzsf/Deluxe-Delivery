@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>商店</title>
@@ -11,9 +11,38 @@
     <script src="bootstrap-3.3.7-dist/js/npm.js"></script>
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/star.css">
+    <script src="js/vue.min.js"></script>
 
     <script>
         $(function () {
+            var pageNum=1
+            //vue
+            $.ajax({
+            url: "/getAllShare",
+                type: "post",
+                data: {
+                pageNum:1,
+            },
+            dataType: "json",
+                success: function (data) {
+                for (var i=0;i<data.list.length;i++) {
+                    vm.shop.push({
+                        shopName: data.list[i].shopName,
+                        shopCom: data.list[i].shopCom,
+                        startPrice:data.list[i].startPrice,
+                        packagFee:data.list[i].packagFee
+                    })
+                }
+            }
+        });
+            var vm = new Vue({
+                el: '#shopshow',
+                data: {
+                    shop:[],
+                },
+            })
+
+
             //点击文字变黄
             $(".s-4").click(function () {
                 $(".s-4").css('color','')
@@ -21,12 +50,17 @@
             })
             // 图片透明度特效
             $(".show1").hover(function () {
-                $(".i3").css('opacity','0.6')
-                $(".shouc").show()
+                $(this).find(".i3").css('opacity','0.6')
+                $(this).find(".shouc").show()
             },function () {
-                $(".i3").css('opacity','1')
-                $(".shouc").hide()
+                $(this).find(".i3").css('opacity','1')
+                $(this).find(".shouc").hide()
             });
+            $("#h3").click(function () {
+                $("#shopshow").hide()
+                $("#shopshow1").show()
+            });
+
             //登录部分
             $("#selectAdmin").click(function () {
                 if($(this).text()=="手机动态码登陆"){
@@ -46,6 +80,13 @@
             //     $(this).css('data-toggle','modal')
             //     $(this).css('data-target','#myModal')
             // })
+            $(".w2").click(function () {
+                $(".j1").val(parseInt($(this).val()+1))
+            })
+            function yema() {
+
+            }
+
 
         })
     </script>
@@ -95,166 +136,61 @@
         <div id="g2">平台公示</div>
     </div>
     <div id="shopshow">
-        <div class="show1">
+        <div class="show1" v-for="(aa,index) in shop ">
             <div class="show-img">
                 <div class="i3"> <img data-toggle="modal" data-target="#myModal" class="shouc" src="image/icon-new-heart.png" /></div>
             </div>
             <div class="show-font">
-                <div class="show-name">蜜汁烤鸡排</div>
+                <div class="show-name" >{{aa.shopName}}</div>
 <!--                评价星星-->
-                <div id="bg"><!--这里是背景，也就是灰色的星星-->
+                <div class="bg"><!--这里是背景，也就是灰色的星星-->
                     <!--说明，这里的width就是设置分数啦，以我写的为例，一个星星的长度是12px，也就是1分12px，如果是4.3分，就是4.3*12px = 51.6px的长度，当然这个一般是取得数据后用js或者其他模板语言去控制的-->
-                    <div id="over" style="width:54px"></div><!--这里是遮罩，设置宽度以达到评分的效果-->
+                    <div class="over" style="width:54px"></div><!--这里是遮罩，设置宽度以达到评分的效果-->
                 </div>
-                <div class="pinfen">4.5分</div>
-                <div id="culue">
-                    <div id="qisong">起送：￥20</div>
-                    <div id="peisong">配送费：￥3</div>
-                    <div id="shijian">30分钟</div>
+                <div class="pinfen">{{aa.shopCom}}分</div>
+                <div class="culue">
+                    <div class="qisong">起送：￥<td>{{aa.startPrice}}</td></div>
+                    <div class="peisong">配送费：￥<td>{{aa.packagFee}}</td></div>
+                    <div class="shijian"><td>30</td>分钟</div>
                 </div>
             </div>
         </div>
-        <div class="show1">
-            <div class="show-img">
-                <img src="image/752a6606a87b6345893f278b3d2784be34816.jpg" height="100%" width="100%"/>
-            </div>
-            <div class="show-font">
-                <div class="show-name">蜜汁烤鸡排</div>
-            </div>
-        </div>
-        <div class="show1">
-            <div class="show-img">
-                <img src="image/dbbf2dc0f1e698b1116231c8016be6f2181462.jpg" height="100%" width="100%"/>
-            </div>
-            <div class="show-font">
-                <div class="show-name">蜜汁烤鸡排</div>
-            </div>
-        </div>
-        <div class="show1">
-            <div class="show-img">
-                <img src="image/02ca0a773237abd46ab62b6a2f496d7640960.jpg" height="100%" width="100%"/>
-            </div>
-            <div class="show-font">
-                <div class="show-name">蜜汁烤鸡排</div>
-            </div>
-        </div>
-        <div class="xian">
-            <div class="show-font"></div>
-        </div>
-<!--        多余页面-->
-        <div class="show1">
-            <div class="show-img">
-                <img src="image/9af1d12511dddf8cd5189dedb96a0d41151682.png" height="100%" width="100%"/></div>
-            <div class="show-font">
-                <div class="show-name">蜜汁烤鸡排</div>
-            </div>
-        </div>
-        <div class="show1">
-            <div class="show-img">
-                <img src="image/752a6606a87b6345893f278b3d2784be34816.jpg" height="100%" width="100%"/>
-            </div>
-            <div class="show-font">
-                <div class="show-name">蜜汁烤鸡排</div>
-            </div>
-        </div>
-        <div class="show1">
-            <div class="show-img">
-                <img src="image/dbbf2dc0f1e698b1116231c8016be6f2181462.jpg" height="100%" width="100%"/>
-            </div>
-            <div class="show-font">
-                <div class="show-name">蜜汁烤鸡排</div>
-            </div>
-        </div>
-        <div class="show1">
-            <div class="show-img">
-                <img src="image/02ca0a773237abd46ab62b6a2f496d7640960.jpg" height="100%" width="100%"/>
-            </div>
-            <div class="show-font">
-                <div class="show-name">蜜汁烤鸡排</div>
-            </div>
-        </div>
-        <div class="xian">
-            <div class="show-font"></div>
-        </div>
-        <div class="show1">
-            <div class="show-img">
-                <img src="image/9af1d12511dddf8cd5189dedb96a0d41151682.png" height="100%" width="100%"/></div>
-            <div class="show-font">
-                <div class="show-name">蜜汁烤鸡排</div>
-            </div>
-        </div>
-        <div class="show1">
-            <div class="show-img">
-                <img src="image/752a6606a87b6345893f278b3d2784be34816.jpg" height="100%" width="100%"/>
-            </div>
-            <div class="show-font">
-                <div class="show-name">蜜汁烤鸡排</div>
-            </div>
-        </div>
-        <div class="show1">
-            <div class="show-img">
-                <img src="image/dbbf2dc0f1e698b1116231c8016be6f2181462.jpg" height="100%" width="100%"/>
-            </div>
-            <div class="show-font">
-                <div class="show-name">蜜汁烤鸡排</div>
-            </div>
-        </div>
-        <div class="show1">
-            <div class="show-img">
-                <img src="image/02ca0a773237abd46ab62b6a2f496d7640960.jpg" height="100%" width="100%"/>
-            </div>
-            <div class="show-font">
-                <div class="show-name">蜜汁烤鸡排</div>
-            </div>
-        </div>
-        <div class="xian">
-            <div class="show-font"></div>
-        </div>
-        <div class="show1">
-            <div class="show-img">
-                <img src="image/9af1d12511dddf8cd5189dedb96a0d41151682.png" height="100%" width="100%"/></div>
-            <div class="show-font">
-                <div class="show-name">蜜汁烤鸡排</div>
-            </div>
-        </div>
-        <div class="show1">
-            <div class="show-img">
-                <img src="image/752a6606a87b6345893f278b3d2784be34816.jpg" height="100%" width="100%"/>
-            </div>
-            <div class="show-font">
-                <div class="show-name">蜜汁烤鸡排</div>
-            </div>
-        </div>
-        <div class="show1">
-            <div class="show-img">
-                <img src="image/dbbf2dc0f1e698b1116231c8016be6f2181462.jpg" height="100%" width="100%"/>
-            </div>
-            <div class="show-font">
-                <div class="show-name">蜜汁烤鸡排</div>
-            </div>
-        </div>
-        <div class="show1">
-            <div class="show-img">
-                <img src="image/02ca0a773237abd46ab62b6a2f496d7640960.jpg" height="100%" width="100%"/>
-            </div>
-            <div class="show-font">
-                <div class="show-name">蜜汁烤鸡排</div>
-            </div>
-        </div>
-        <div class="xian">
-            <div class="show-font"></div>
-        </div>
+        <div class="xian"style="margin-top: 26%"></div>
+        <div class="xian"style="margin-top: 26.5%"></div>
+        <div class="xian"style="margin-top: 27%"></div>
+        <div class="xian"style="margin-top: 26.5%"></div>
+        <div class="xian"style="margin-top: 26.5%"></div>
 <!--        分页-->
         <ul class="pagination" style="margin-left: 37%">
-            <li><a href="#">&laquo;</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#">&raquo;</a></li>
+            <li><a class="w1" href="#">&laquo;</a></li>
+            <li><a class="j1" href="#">1</a></li>
+            <li><a class="j1" href="#">2</a></li>
+            <li><a class="j1" href="#">3</a></li>
+            <li ><a>...</a></li>
+            <li><a class="j2" href="#">5</a></li>
+            <li><a class="w2" href="#">&raquo;</a></li>
         </ul>
 
+
+    </div>
+    <div id="shopshow1">
+        <div id="solr-1">搜索"<div id="neir"></div>"结果如下</div>
+        <div class="solr-2">
+            <div class="show-font">
+                <div class="show-name" >{{aa.shopName}}</div>
+                <!--                评价星星-->
+                <div class="bg"><!--这里是背景，也就是灰色的星星-->
+                    <!--说明，这里的width就是设置分数啦，以我写的为例，一个星星的长度是12px，也就是1分12px，如果是4.3分，就是4.3*12px = 51.6px的长度，当然这个一般是取得数据后用js或者其他模板语言去控制的-->
+                    <div class="over" style="width:54px"></div><!--这里是遮罩，设置宽度以达到评分的效果-->
+                </div>
+                <div class="pinfen">{{aa.shopCom}}分</div>
+                <div class="culue">
+                    <div class="qisong">起送：￥<td>{{aa.startPrice}}</td></div>
+                    <div class="peisong">配送费：￥<td>{{aa.packagFee}}</td></div>
+                    <div class="shijian"><td>30</td>分钟</div>
+                </div>
+            </div>
+        </div>
     </div>
 <!--    右侧滚动二维码-->
     <div id="rool-r">
