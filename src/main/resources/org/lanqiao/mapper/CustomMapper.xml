@@ -7,7 +7,6 @@
         <result column="cus_pwd" property="cusPwd" jdbcType="VARCHAR" />
         <result column="cus_tel" property="cusTel" jdbcType="DOUBLE" />
         <result column="cus_email" property="cusEmail" jdbcType="TIMESTAMP" />
-
     </resultMap>
 
     <select id="checkTel"  resultType="java.lang.Integer" parameterType="java.lang.String">

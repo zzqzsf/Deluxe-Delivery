@@ -6,6 +6,7 @@ public class Custom {
     private String cusPwd;
     private String cusTel;
     private String cusEmail;
+    private String cusImg;
 
     public int getCusID() {
         return cusID;
@@ -45,5 +46,13 @@ public class Custom {
 
     public void setCusEmail(String cusEmail) {
         this.cusEmail = cusEmail;
+    }
+
+    public String getCusImg() {
+        return cusImg;
+    }
+
+    public void setCusImg(String cusImg) {
+        this.cusImg = cusImg;
     }
 }

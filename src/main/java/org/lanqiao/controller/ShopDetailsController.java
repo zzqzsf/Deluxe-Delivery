@@ -30,7 +30,7 @@ public class ShopDetailsController {
         return shopDetailsService.selectAllFood(shopId,foodTypeId);
     }
     @RequestMapping("/comment")
-    public List<Comment> SelectOpinion(Integer shopId, Integer level) {
-        return shopDetailsService.SelectOpinion(shopId,level);
+    public List<Comment> SelectOpinion() {
+        return shopDetailsService.SelectOpinion(1,-1);
     }
 }

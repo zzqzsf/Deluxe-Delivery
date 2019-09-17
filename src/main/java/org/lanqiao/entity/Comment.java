@@ -19,6 +19,16 @@ public class Comment {
 
     private Shop shop;
 
+    private Custom custom;
+
+    public Custom getCustom() {
+        return custom;
+    }
+
+    public void setCustom(Custom custom) {
+        this.custom = custom;
+    }
+
     public Shop getShop() {
         return shop;
     }

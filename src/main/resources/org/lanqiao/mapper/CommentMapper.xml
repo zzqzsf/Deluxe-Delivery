@@ -9,12 +9,21 @@
     <result column="com_level" property="comLevel" jdbcType="INTEGER" />
     <result column="com_time" property="comTime" jdbcType="TIMESTAMP" />
     <result column="shop_response" property="shopResponse" jdbcType="VARCHAR" />
+    <association resultMap="CustomResultMap" property="custom"></association>
   </resultMap>
-
+  <resultMap id="CustomResultMap" type="org.lanqiao.entity.Custom" >
+    <id column="cus_id" property="cusID" jdbcType="INTEGER" />
+    <result column="cus_name" property="cusName" jdbcType="INTEGER" />
+    <result column="cus_pwd" property="cusPwd" jdbcType="VARCHAR" />
+    <result column="cus_tel" property="cusTel" jdbcType="DOUBLE" />
+    <result column="cus_email" property="cusEmail" jdbcType="TIMESTAMP" />
+    <result column="cus_img" property="cusImg" jdbcType="VARCHAR" />
+  </resultMap>
   <!--通过shopId得到所有评论-->
   <select id="SelectOpinion" resultMap="CommentResultMap">
-    select * from comment
-    where shop_id = #{shopId}
+    select com.*,custom.*
+    from comment com,custom
+    where shop_id = #{shopId} and com.cus_id = custom.cus_id
     <if test="level==0">
       and com_level <![CDATA[ < ]]>  4
     </if>
