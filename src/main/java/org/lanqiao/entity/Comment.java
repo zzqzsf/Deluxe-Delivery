@@ -7,7 +7,7 @@ public class Comment {
 
     private Integer shopId;
 
-    private Custom custom;
+    private Integer cusId;
 
     private String comText;
 
@@ -17,9 +17,9 @@ public class Comment {
 
     private String shopResponse;
 
-    private Shop shop;
-
     private Custom custom;
+
+    private Shop shop;
 
     public Custom getCustom() {
         return custom;
@@ -37,12 +37,12 @@ public class Comment {
         this.shop = shop;
     }
 
-    public Custom getCustom() {
-        return custom;
+    public Integer getCusId() {
+        return cusId;
     }
 
-    public void setCustom(Custom customs) {
-        this.custom = customs;
+    public void setCusId(Integer cusId) {
+        this.cusId = cusId;
     }
 
     public Integer getComId() {

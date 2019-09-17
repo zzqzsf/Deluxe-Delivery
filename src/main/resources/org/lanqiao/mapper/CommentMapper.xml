@@ -12,7 +12,7 @@
     <association resultMap="CustomResultMap" property="custom"></association>
   </resultMap>
   <resultMap id="CustomResultMap" type="org.lanqiao.entity.Custom" >
-    <id column="cus_id" property="cusID" jdbcType="INTEGER" />
+    <id column="cus_id" property="cusId" jdbcType="INTEGER" />
     <result column="cus_name" property="cusName" jdbcType="INTEGER" />
     <result column="cus_pwd" property="cusPwd" jdbcType="VARCHAR" />
     <result column="cus_tel" property="cusTel" jdbcType="DOUBLE" />

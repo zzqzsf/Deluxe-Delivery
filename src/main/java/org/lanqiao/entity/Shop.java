@@ -1,5 +1,6 @@
 package org.lanqiao.entity;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class Shop {
@@ -17,7 +18,7 @@ public class Shop {
 
     private String shopImg;
 
-    private Integer shopCom;
+    private BigDecimal shopCom;
 
     private Integer shopMonSale;
 
@@ -100,11 +101,11 @@ public class Shop {
         this.shopImg = shopImg == null ? null : shopImg.trim();
     }
 
-    public Integer getShopCom() {
+    public BigDecimal getShopCom() {
         return shopCom;
     }
 
-    public void setShopCom(Integer shopCom) {
+    public void setShopCom(BigDecimal shopCom) {
         this.shopCom = shopCom;
     }
 
