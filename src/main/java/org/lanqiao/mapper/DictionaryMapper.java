@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 public interface DictionaryMapper {
 
 
-    int insertSelective(Dictionary record);
+	int insertSelective(Dictionary record);
 }

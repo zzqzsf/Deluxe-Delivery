@@ -29,6 +29,12 @@
     delete from food
     where food_id = #{foodId,jdbcType=INTEGER}
   </delete>
+
+    <select id="getFood" resultMap="FoodResultMap" parameterType="java.lang.Integer">
+        select * from food where fty_id=1;
+    </select>
+
+
   <insert id="insertSelective" parameterType="org.lanqiao.entity.Food" >
     insert into food
     <trim prefix="(" suffix=")" suffixOverrides="," >

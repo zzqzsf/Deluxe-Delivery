@@ -1,63 +1,59 @@
 package org.lanqiao.entity;
 
 public class Address {
-    private Integer addrId;
 
-    private Integer cusId;
+	private int addrId;
+	private int cusId;
+	private String address;
+	private String addrName;
+	private String addrTel;
+	private String sex;
 
-    private String address;
+	public int getAddrId() {
+		return addrId;
+	}
 
-    private String addrName;
+	public void setAddrId(int addrId) {
+		this.addrId = addrId;
+	}
 
-    private String addrTel;
+	public int getCusId() {
+		return cusId;
+	}
 
-    private String sex;
+	public void setCusId(int cusId) {
+		this.cusId = cusId;
+	}
 
-    public Integer getAddrId() {
-        return addrId;
-    }
+	public String getAddress() {
+		return address;
+	}
 
-    public void setAddrId(Integer addrId) {
-        this.addrId = addrId;
-    }
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
-    public Integer getCusId() {
-        return cusId;
-    }
+	public String getAddrName() {
+		return addrName;
+	}
 
-    public void setCusId(Integer cusId) {
-        this.cusId = cusId;
-    }
+	public void setAddrName(String addrName) {
+		this.addrName = addrName;
+	}
 
-    public String getAddress() {
-        return address;
-    }
+	public String getAddrTel() {
+		return addrTel;
+	}
 
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
-    }
+	public void setAddrTel(String addrTel) {
+		this.addrTel = addrTel;
+	}
 
-    public String getAddrName() {
-        return addrName;
-    }
+	public String getSex() {
+		return sex;
+	}
 
-    public void setAddrName(String addrName) {
-        this.addrName = addrName == null ? null : addrName.trim();
-    }
-
-    public String getAddrTel() {
-        return addrTel;
-    }
-
-    public void setAddrTel(String addrTel) {
-        this.addrTel = addrTel == null ? null : addrTel.trim();
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex == null ? null : sex.trim();
-    }
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
 }

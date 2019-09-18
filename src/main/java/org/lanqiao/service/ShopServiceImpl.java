@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+
 @Service
 public class ShopServiceImpl implements ShopService {
     @Autowired
@@ -56,6 +58,10 @@ public class ShopServiceImpl implements ShopService {
         food.setFoodStatus("已删除");
         return foodMapper.updateByPrimaryKeySelective(food);
     }
+	@Override
+	public List<Shop> getShop(Integer shopId) {
+		return shopMapper.getShop(shopId);
+	}
 //    foodtype部分
     @Override
     public List<Foodtype> selectFoodtypeList(int shopId) {

@@ -10,7 +10,7 @@
     z-index: 1;
 }
 #show{
-    height: 1740px;
+    height: 1800px;
     width: 100%;
     background: #f5f5f5;
     padding-top: 5%;
@@ -266,26 +266,26 @@
     font-size: 16px;
     line-height: 230%;
 }
-#culue{
+.culue{
     width: 100%;
     height: 35%;
     margin-top: 11%;
 }
-#qisong{
+.qisong{
     float: left;
     font-size: 75%;
     color: #707070;
     height: 100%;
     width: 35%;
 }
-#peisong{
+.peisong{
     float: left;
     font-size: 75%;
     color: #707070;
     height: 100%;
     width: 35%;
 }
-#shijian{
+.shijian{
     float: right;
     font-size: 75%;
     color: #707070;
@@ -433,7 +433,7 @@
     color: #ffa735;
 }
 /*星星*/
-#bg{
+.bg{
     width: 60px;
     height: 12px;
     background: url("../image/hxx.png") ;
@@ -441,7 +441,7 @@
     float: left;
 
 }
-#over{
+.over{
     height:11px;
     background:url("../image/hxx2.png");
     position: relative;
@@ -455,4 +455,8 @@
     font-size: 11px;
     font-weight: bolder;
     margin-left: 12px;
+}
+#show2{
+    height: 1%;
+    width: 2%;
 }

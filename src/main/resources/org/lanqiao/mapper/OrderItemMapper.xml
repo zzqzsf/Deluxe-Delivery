@@ -15,6 +15,17 @@
     where det_id = #{detId,jdbcType=INTEGER}
   </delete>
 
+
+    <insert id="insert" parameterType="org.lanqiao.entity.OrderItem">
+        insert into orderItem (det_id, food_id,
+        order_id, food_number, det_money,
+        det_note)
+        values (#{detId,jdbcType=INTEGER}, #{foodId,jdbcType=INTEGER},
+        #{orderId,jdbcType=INTEGER}, #{foodNumber,jdbcType=INTEGER}, #{detMoney,jdbcType=DOUBLE},
+        #{detNote,jdbcType=VARCHAR})
+    </insert>
+
+
   <insert id="insertSelective" parameterType="org.lanqiao.entity.OrderItem" >
     insert into orderItem
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -45,6 +56,9 @@
       <if test="foodId != null" >
         #{foodId,jdbcType=INTEGER},
       </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=INTEGER},
+      </if>
       <if test="orderId != null" >
         #{orderId,jdbcType=INTEGER},
       </if>
@@ -64,6 +78,9 @@
     <set >
       <if test="foodId != null" >
         food_id = #{foodId,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=INTEGER},
       </if>
       <if test="orderId != null" >
         order_id = #{orderId,jdbcType=INTEGER},

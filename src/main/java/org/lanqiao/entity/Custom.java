@@ -8,14 +8,6 @@ public class Custom {
     private String cusEmail;
     private String cusImg;
 
-    public String getCusImg() {
-        return cusImg;
-    }
-
-    public void setCusImg(String cusImg) {
-        this.cusImg = cusImg;
-    }
-
     public int getCusId() {
         return cusId;
     }

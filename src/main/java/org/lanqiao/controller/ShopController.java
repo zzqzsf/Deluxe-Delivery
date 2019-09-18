@@ -24,6 +24,10 @@ import static com.google.gson.internal.bind.TypeAdapters.UUID;
 public class ShopController {
     @Autowired
     ShopService shopService;
+    @RequestMapping("/getShop")
+    public List<Shop> getShop(Integer shopId){
+        return shopService.getShop(shopId);
+    }
 
 
     @RequestMapping("/uploadFoodImg")

@@ -2,10 +2,13 @@ package org.lanqiao.mapper;
 
 import org.apache.ibatis.annotations.Param;
 import org.lanqiao.entity.Orders;
+import org.springframework.stereotype.Service;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 
+
+import java.util.List;
+@Service
 @Component
 public interface OrdersMapper {
     int deleteByPrimaryKey(Integer orderId);

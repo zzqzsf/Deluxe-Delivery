@@ -1,10 +1,19 @@
 package org.lanqiao.entity;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.solr.core.mapping.Indexed;
+import org.springframework.data.solr.core.mapping.SolrDocument;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
-public class Shop {
+@SolrDocument(solrCoreName = "articles")
+public class Shop implements Serializable {
+    @Id
+    @Indexed
     private Integer shopId;
-
+    @Indexed
     private String shopName;
 
     private String shopPwd;
@@ -17,18 +26,29 @@ public class Shop {
 
     private String shopImg;
 
-    private Integer shopCom;
+    private BigDecimal shopCom;
 
     private Integer shopMonSale;
 
     private Double startPrice;
 
     private Double packagFee;
+        private Double peiFee;
+
+    public Double getPeiFee() {
+        return peiFee;
+    }
+
+    public void setPeiFee(Double peiFee) {
+        this.peiFee = peiFee;
+    }
+
 
     private List<Foodtype> foodtypeList;
 
     private List<Food> foodList;
 
+//
     public List<Foodtype> getFoodtypeList() {
         return foodtypeList;
     }
@@ -101,11 +121,11 @@ public class Shop {
         this.shopImg = shopImg == null ? null : shopImg.trim();
     }
 
-    public Integer getShopCom() {
+    public BigDecimal getShopCom() {
         return shopCom;
     }
 
-    public void setShopCom(Integer shopCom) {
+    public void setShopCom(BigDecimal shopCom) {
         this.shopCom = shopCom;
     }
 
