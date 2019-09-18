@@ -14,31 +14,43 @@ $(function () {
     map.centerAndZoom(point, 13); //初始化地图，设置中心点坐标和地图级别
     var myGeo = new BMap.Geocoder();// 创建地址解析器实例
 
-
+    $("#exist").click(function () {
+        $("#user").css("display","none");
+        $("#admin").css("display","inline");
+        $("#register").css("display","inline");
+        $.ajax({
+            url: "http://localhost:8080/removeSession",
+            type: "post",
+            dataType: "json",
+            data: {},
+            success: function (data) {
+            }
+        });
+    })
     $.ajax({
         url: "http://localhost:8080/getSession",
         type: "post",
         dataType: "json",
         data: {},
         success: function (data) {
-            alert(data);
             if(data != null){
                 $("#admin").css("display","none");
+                $("#register").css("display","none");
                 $.ajax({
                     url: "http://localhost:8080/getUserName",
                     type: "get",
-                    dataType: "json",
+                    dataType: "text",
                     data: {
                         'cusTel':data,
                     },
-                    success: function (data) {
-                        $("#register").html(data);
+                    success: function (data1) {
+                        $("#username").text(data1);
+                        $("#user").css("display","inline");
                     }
                 });
              }
         }
     });
-
 
     function myFun(result) {
         cityName = result.name;

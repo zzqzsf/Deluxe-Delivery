@@ -124,6 +124,11 @@ public class CustomController {
         return session;
     }
 
+    @RequestMapping("/removeSession")
+    public void removeSession(HttpServletRequest request){
+        request.getSession().removeAttribute("cusTel");
+    }
+
 
 
 
