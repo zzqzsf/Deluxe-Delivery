@@ -25,7 +25,7 @@ public class ShopShowController {
 ShopShowService shopShowService;
 
     @RequestMapping("/getAllShare")
-    public PageInfo get(@RequestParam(value = "pageNum") Integer pageNum){
+    public PageInfo get(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum){
 
         PageHelper.startPage(pageNum, 1);
 

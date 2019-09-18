@@ -15,6 +15,7 @@
 
     <script>
         $(function () {
+
             var Num=1
             //vue
                 var vm = new Vue({
@@ -23,31 +24,28 @@
                         shop:[],
                     },
                     method:{
-                       create: function(){
-                                     $.ajax({
-                        url: "/getAllShare",
-                        type: "post",
-                        data: {
-                            pageNum:Num,
-                        },
-                        dataType: "json",
-                        success: function (data) {
-                            for (var i=0;i<data.list.length;i++) {
-                                vm.shop.push({
-                                    shopName: data.list[i].shopName,
-                                    shopCom: data.list[i].shopCom,
-                                    startPrice:data.list[i].startPrice,
-                                    packagFee:data.list[i].packagFee
-                                })
-                            }
-                        }
-                    })
-                                 }
 
+
+                    },
+                });
+                $.ajax({
+                url: "/getAllShare",
+                type: "post",
+                data: {
+                    pageNum:Num,
+                },
+                dataType: "json",
+                success: function (data) {
+                    for (var i=0;i<data.list.length;i++) {
+                        vm.shop.push({
+                            shopName: data.list[i].shopName,
+                            shopCom: data.list[i].shopCom,
+                            startPrice:data.list[i].startPrice,
+                            packagFee:data.list[i].packagFee
+                        })
                     }
-                })
-            vm.create();
-
+                }
+            })
 
 
 
@@ -64,11 +62,11 @@
                 $(this).find(".i3").css('opacity','1')
                 $(this).find(".shouc").hide()
             });
+            //搜索
             $("#h3").click(function () {
-                $("#shopshow").hide()
+                $("#shopshow").detach()
                 $("#shopshow1").show()
             });
-
             //登录部分
             $("#selectAdmin").click(function () {
                 if ($(this).text() == "手机动态码登陆") {
@@ -88,20 +86,39 @@
             //     $(this).css('data-toggle','modal')
             //     $(this).css('data-target','#myModal')
             // })
+            //分页
             $(".w2").click(function () {
+                $(".show1").remove();
                 Num++
-                vm.create();
+                f();
             })
             $(".w1").click(function () {
                 Num--
-                vm.create();
+                f();
             })
-            function yema() {
-
+            function f() {
+                vm.shop=[];
+                $.ajax({
+                    url: "/getAllShare",
+                    type: "post",
+                    data: {
+                        pageNum:Num,
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        for (var i=0;i<data.list.length;i++) {
+                            vm.shop.push({
+                                shopName: data.list[i].shopName,
+                                shopCom: data.list[i].shopCom,
+                                startPrice:data.list[i].startPrice,
+                                packagFee:data.list[i].packagFee
+                            })
+                        }
+                    }
+                })
             }
-
-
         })
+
     </script>
     <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css">
 </head>
@@ -139,7 +156,7 @@
             <div class="s-4">下午茶</div>
             <div id="h1" >
                 <input type="text"id="tet" placeholder="搜索商品，美食">
-                <div id="h3"><img src="image/4~1RPLMD[@B}6EZ5D$999JR.png" id="i1"/></div>
+                <div id="h3"><img src="image/shousuo.png" id="i1"/></div>
             </div>
         </div>
     </div>
@@ -187,23 +204,25 @@
 
     </div>
     <div id="shopshow1">
-        <div id="solr-1">搜索"<div id="neir"></div>"结果如下</div>
-        <div class="solr-2">
-            <div class="show-font">
-                <div class="show-name" >{{aa.shopName}}</div>
-                <!--                评价星星-->
-                <div class="bg"><!--这里是背景，也就是灰色的星星-->
-                    <!--说明，这里的width就是设置分数啦，以我写的为例，一个星星的长度是12px，也就是1分12px，如果是4.3分，就是4.3*12px = 51.6px的长度，当然这个一般是取得数据后用js或者其他模板语言去控制的-->
-                    <div class="over" style="width:54px"></div><!--这里是遮罩，设置宽度以达到评分的效果-->
-                </div>
-                <div class="pinfen">{{aa.shopCom}}分</div>
-                <div class="culue">
-                    <div class="qisong">起送：￥<td>{{aa.startPrice}}</td></div>
-                    <div class="peisong">配送费：￥<td>{{aa.packagFee}}</td></div>
-                    <div class="shijian"><td>30</td>分钟</div>
-                </div>
-            </div>
+        <div id="show2">
+            <div id="solr-1">搜索"<div id="neir"></div>"结果如下</div>
         </div>
+<!--        <div class="solr-2">-->
+<!--            <div class="show-font">-->
+<!--                <div class="show-name" >{{aa.shopName}}</div>-->
+<!--                &lt;!&ndash;                评价星星&ndash;&gt;-->
+<!--                <div class="bg">&lt;!&ndash;这里是背景，也就是灰色的星星&ndash;&gt;-->
+<!--                    &lt;!&ndash;说明，这里的width就是设置分数啦，以我写的为例，一个星星的长度是12px，也就是1分12px，如果是4.3分，就是4.3*12px = 51.6px的长度，当然这个一般是取得数据后用js或者其他模板语言去控制的&ndash;&gt;-->
+<!--                    <div class="over" style="width:54px"></div>&lt;!&ndash;这里是遮罩，设置宽度以达到评分的效果&ndash;&gt;-->
+<!--                </div>-->
+<!--                <div class="pinfen">{{aa.shopCom}}分</div>-->
+<!--                <div class="culue">-->
+<!--                    <div class="qisong">起送：￥<td>{{aa.startPrice}}</td></div>-->
+<!--                    <div class="peisong">配送费：￥<td>{{aa.packagFee}}</td></div>-->
+<!--                    <div class="shijian"><td>30</td>分钟</div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 <!--    右侧滚动二维码-->
     <div id="rool-r">

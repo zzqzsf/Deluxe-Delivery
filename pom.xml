@@ -125,11 +125,6 @@
         </dependency>
 
 <!--         沙箱支付-->
-        <dependency>
-            <groupId>com.alipay.api</groupId>
-            <artifactId>k12-alipay-sdk</artifactId>
-            <version>0.0.1-beta</version>
-        </dependency>
 
         <!-- 前台jar -->
         <dependency>
@@ -172,13 +167,11 @@
 			<version>2.5</version>
 		</dependency>
 
-
-        <!--pagehelper-->
-        <!--		<dependency>-->
-        <!--			<groupId>com.github.pagehelper</groupId>-->
-        <!--			<artifactId>pagehelper</artifactId>-->
-        <!--			<version>4.1.3</version>-->
-        <!--		</dependency>-->
+        		<dependency>
+        			<groupId>com.github.pagehelper</groupId>
+        			<artifactId>pagehelper</artifactId>
+        			<version>4.1.3</version>
+        		</dependency>
 
 
 <!--		solr-->
