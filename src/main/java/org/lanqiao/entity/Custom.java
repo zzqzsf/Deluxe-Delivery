@@ -48,11 +48,4 @@ public class Custom {
         this.cusEmail = cusEmail;
     }
 
-    public String getCusImg() {
-        return cusImg;
-    }
-
-    public void setCusImg(String cusImg) {
-        this.cusImg = cusImg;
-    }
 }

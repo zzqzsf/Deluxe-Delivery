@@ -45,6 +45,7 @@ public class Shop implements Serializable {
 
 
     private List<Foodtype> foodtypeList;
+
     private List<Food> foodList;
 
 //
