@@ -35,21 +35,6 @@ public class ShopShowController {
     private RedisUtil redisUtil;
     @Autowired
     ShopShowService shopShowService;
-
-    @RequestMapping("/getAllShare")
-    public PageInfo get(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum){
-
-        PageHelper.startPage(pageNum, 1);
-
-        List<Shop> shareList = shopShowService.GetAllShops();
-
-        PageInfo<Shop> pageInfo = new PageInfo<>(shareList);
-
-        return pageInfo;
-    }
-//    solr
-@Autowired
-private SolrTemplate solrTemplate;
     @RequestMapping("/getAllShare")
     public PageInfo<Shop> get(@RequestParam(value = "pageNum",defaultValue = "1")Integer pageNum) {
         PageHelper.startPage(pageNum, 1);
