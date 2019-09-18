@@ -83,12 +83,12 @@ public class ShopShowController {
 
 
         // 设置条件
-        Criteria criteria = new Criteria("shopName").is("时间");
+        Criteria criteria = new Criteria("shopName").is("集美");
         query.addCriteria(criteria);
 
         //设置分页
         query.setOffset(0l); //开始索引(默认0)
-        query.setRows(2);  //每页记录数(默认10)
+        query.setRows(3);  //每页记录数(默认10)
 
         //设置排序规则
         Sort sort = new Sort(Sort.Direction.ASC, "");

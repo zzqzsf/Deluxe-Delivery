@@ -208,24 +208,25 @@
     </div>
     <div id="shopshow1">
         <div id="show2">
-            <div id="solr-1">搜索"<div id="neir"></div>"结果如下</div>
+            <div id="solr-1">搜索"<div id="neir">zj</div>"结果如下</div>
+            <div class="solr-2" v-for="(bb,index) in shop">
+            <div class="show-font">
+                <div class="show-name" >{{bb.shopName}}</div>
+                 <div class="qisong">起送：￥<td>{{bb.startPrice}}</td></div>
+                <div class="peisong">配送费：￥<td>{{bb.packagFee}}</td></div>
+
+                <div class="culue">
+                    <div class="bg"><!--这里是背景，也就是灰色的星星-->
+                        <!--说明，这里的width就是设置分数啦，以我写的为例，一个星星的长度是12px，也就是1分12px，如果是4.3分，就是4.3*12px = 51.6px的长度，当然这个一般是取得数据后用js或者其他模板语言去控制的-->
+                        <div class="over" style="width:54px"></div><!--这里是遮罩，设置宽度以达到评分的效果-->
+                    </div>
+                    <div class="pinfen">{{bb.shopCom}}分</div>
+                    <br>
+                    <div class="shijian">配送时间：<td>30</td>分钟</div>
+                </div>
+            </div>
         </div>
-<!--        <div class="solr-2">-->
-<!--            <div class="show-font">-->
-<!--                <div class="show-name" >{{aa.shopName}}</div>-->
-<!--                &lt;!&ndash;                评价星星&ndash;&gt;-->
-<!--                <div class="bg">&lt;!&ndash;这里是背景，也就是灰色的星星&ndash;&gt;-->
-<!--                    &lt;!&ndash;说明，这里的width就是设置分数啦，以我写的为例，一个星星的长度是12px，也就是1分12px，如果是4.3分，就是4.3*12px = 51.6px的长度，当然这个一般是取得数据后用js或者其他模板语言去控制的&ndash;&gt;-->
-<!--                    <div class="over" style="width:54px"></div>&lt;!&ndash;这里是遮罩，设置宽度以达到评分的效果&ndash;&gt;-->
-<!--                </div>-->
-<!--                <div class="pinfen">{{aa.shopCom}}分</div>-->
-<!--                <div class="culue">-->
-<!--                    <div class="qisong">起送：￥<td>{{aa.startPrice}}</td></div>-->
-<!--                    <div class="peisong">配送费：￥<td>{{aa.packagFee}}</td></div>-->
-<!--                    <div class="shijian"><td>30</td>分钟</div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
+        </div>
     </div>
 <!--    右侧滚动二维码-->
     <div id="rool-r">

@@ -469,4 +469,13 @@
 #show2{
     height: 100%;
     width: 100%;
+    padding: 2%;
+}
+#solr-1{
+    width: 100%;
+}
+.solr-2{
+    width: 23%;
+    height: 10%;
+    background: #ffa735;
 }
