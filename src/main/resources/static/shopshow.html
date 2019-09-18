@@ -15,7 +15,8 @@
 
     <script>
         $(function () {
-
+            var $cone1=$("#shopshow1")
+            $("#shopshow1").detach()
             var Num=1
             //vue
                 var vm = new Vue({
@@ -65,7 +66,7 @@
             //搜索
             $("#h3").click(function () {
                 $("#shopshow").detach()
-                $("#shopshow1").show()
+                $("#gongao").after($cone1)
             });
             //登录部分
             $("#selectAdmin").click(function () {
