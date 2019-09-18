@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>美团外卖-订单中心</title>
@@ -7,65 +7,7 @@
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/orderManage.css">
     <script src="js/jquery-3.4.1.min.js"></script>
-    <script>
-        $(function () {
-            /*取订单数据*/
-            var page = 1;
-            $.ajax({
-                url: "http://localhost:8080/getAllOrder",
-                type: "post",
-                dataType: "json",
-                data: {
-                    "pageNum": page,
-                    "pageSize": 3
-                },
-                success: function (data) {
-
-                    for (var i = 0; i < data.length; i++) {
-                        var $node = $model.clone(true);
-                        //2、使用data替换
-                        $node.find(".author").html("用户：" + data[i].author + "<span>" + data[i].id + "#" + "</span>");
-                        $node.find(".content").text(data[i].msg);
-                        $node.find(".time").text("发表于：" + data[i].date);
-                        $("#page").before($node);
-                    }
-
-                }
-
-            });
-            var orderNumber = 0;
-            if(orderNumber==0){
-                $("#noneOrder").show();
-            }else {
-                $("#hasOrder").show();
-            }
-            /*我的账号隐藏*/
-            $("#setting-box").hide();
-            /*订单详情隐藏*/
-            $("#j-shown-order").hide();
-            /*点击订单列表中任意订单一个显示订单详情*/
-            $(".content").click(function () {
-                if($("#j-shown-order").css("display")=="none"){
-                    $("#j-shown-order").show(100);
-                }else{
-                    $("#j-shown-order").hide(100);
-                }
-
-            });
-            /*点击显示订单列表，隐藏我的账号*/
-            $("#orderlist").click(function () {
-                $("#setting-box").hide();
-                $("#hasOrder").show();
-            });
-            /*点击显示我的账号，隐藏订单列表*/
-            $("#myaccount").click(function () {
-                $(".orders-list").hide();
-                $("#setting-box").show();
-            });
-
-        })
-
-    </script>
+    <script src="js/vue.min.js"></script>
 </head>
 <body>
 <!--头部导航栏-->
@@ -127,7 +69,9 @@
             立即下单
 
         </div>
-        <div class="orders-list" id="hasOrder" style="display: none" >
+        <div class="orders-list" id="hasOrder"
+             style="display: none">
+
             <!--订单头部-->
             <div class="order-header">
                 <span class="oh-content">订单内容</span>
@@ -139,19 +83,20 @@
             <!--订单信息-->
             <div data-sid="0" class="order-v order-hidden" data-orderphone="13003911057" data-viewid="66487200144236701"
                  data-status="9" data-shipping="" data-qid="">
+                <!--订单列表-->
                 <div class="brief-intro j-toggle-content open">
 
-                    <div class="brief-intro-topconsole fr">
+                    <div class="brief-intro-topconsole fr" v-for="(order,index) in list">
                         <div class="clearfix">
                             <a href="javascript:;" class="fr order-another j-order-another"
                                data-viewid="66487200144236701"
                                data-poi-id="144746545658991265" data-pv-flag="1">再来一单</a>
                         </div>
                     </div>
-
+                    <!--店铺-->
                     <a href="/restaurant/144746545658991265" target="_blank" class="avatar fl"
                        data-poi-id="144746545658991265" data-pv-flag="1">
-                        <img class="scroll-loading"
+                        <img class="scroll-loading" v-bind:src="Order.shopImg"
                              src="https://p0.meituan.net/120.0/waimaipoi/91851b9251f97ec860fc9d04665884e5801450.jpg"
                              data-src="https://p0.meituan.net/120.0/waimaipoi/91851b9251f97ec860fc9d04665884e5801450.jpg"
                              data-max-height="70">
@@ -161,14 +106,15 @@
                         <div class="rest-name clearfix">
                             <a target="_blank" href="/restaurant/144746545658991265" class="ca-deepgrey j-poi-name"
                                data-poi-id="144746545658991265" data-pv-flag="1">
-                                <span class="poi-name">淮南牛肉汤特色锅贴（集美店）</span>
+                                <span class="poi-name">{{Order.shop_name}}</span>
                             </a>
-                            <span class="order-total">18950095237</span>
-                            <span class="order-money-num">¥ 18.8</span>
+                            <span class="order-total">{{Order.shop_tel}}</span>
+                            <span class="order-money-num">¥ {{Order.goo_smoney}}</span>
                         </div>
                         <div class="rest-detail">
-                            <span class="order-total">2019-09-08 12:00</span>
-                            <span class="order-id">订单号：66487200144236701</span>
+                            <span class="order-total">{{Order.order_time}}</span>
+                            <!-- <span class="order-id">订单号：{{Order.orderId}}</span>-->
+                            <span class="order-id">1</span>
                         </div>
                     </div>
                 </div>
@@ -178,38 +124,37 @@
                         <div class="dish-title">订单详情</div>
                         <div class="list">
                             <div class="dish-list">
-                                <script type="text/template" id="oflist-66487200144236701">
+                                <!--<script type="text/template" id="oflist-66487200144236701">
                                     {"1636796536": {"name": "牛肉粉丝汤+二两锅贴（10只）", "score": 0}}
-                                </script>
+                                </script>-->
                                 <div class="field clearfix">
                                     <div class="fl">
-                                        <div class="food-na"> 牛肉粉丝汤+二两锅贴（
-                                            ...
+                                        <div class="food-na"> {{foodName}}
                                         </div>
                                     </div>
-                                    <span class="food-count">1</span>
-                                    <span class="fr food-pri">¥42</span>
+                                    <span class="food-count">{{foodNumber}}</span>
+                                    <span class="fr food-pri">¥{{foodPrice}}</span>
                                 </div>
                                 <div class="field clearfix">
                                     <span class="fl classify">包装费：</span>
-                                    <span class="fr box-cost">¥2</span>
+                                    <span class="fr box-cost">¥0</span>
                                 </div>
                                 <div class="field clearfix">
                                     <span class="fl classify">配送费：</span>
-                                    <span class="fr delivery-cost">¥2.5</span>
+                                    <span class="fr delivery-cost">¥{{packageFee}}</span>
                                 </div>
 
 
                             </div>
-                            <div class="food-total-info">实际支付：<i>¥</i><span>18.8</span></div>
+                            <div class="food-total-info">实际支付：<i>¥</i><span>{{orderMoney}}</span></div>
 
                         </div>
                         <!--用户信息-->
                         <div class="contact">
-                            <p>地址：集美大学新校区-克立楼 (克立楼219)</p>
-                            <p>姓名：黄文勋(先生)</p>
-                            <p>电话：13003911057</p>
-                            <p>备注：（无）</p>
+                            <p>地址：{{address}}</p>
+                            <p>姓名：{{addrName}}({{sex}})</p>
+                            <p>电话：{{addrTel}}</p>
+                            <p>备注：{{orderNote}}</p>
                         </div>
 
                     </div>
@@ -347,4 +292,168 @@
 </div>-->
 </body>
 
+<script>
+
+    /*/!*取订单数据*!/
+    var page = 1;
+    var customerId = 23;
+    var vm = new Vue({
+        el: ".orders-list",
+        data: {
+            orderListData:[],
+            ordersCount:5
+        },
+        methods: {
+            //删除订单
+            deleteOrder: function (i) {
+                order_id = this.orderList[i].order_id;
+                if (confirm('确实要删除该订单吗?')) {
+                    this.orderList.splice(i, 1);
+                    deleteOrderitem();
+                    deleteOrder();
+                }
+            },
+            //设置goodsSet的值
+            getIndex: function (i) {
+                vm.index = i;
+            },
+            setIndex: function (i) {
+                vm.index = -1;
+            }
+        }
+    })*/
+    var page = 1;
+    var customerId = 23;
+    var vm = new Vue({
+        el: ".orders-list",
+        data: {
+            list:"",
+            name:"nihao"
+        }
+    });
+
+    var vm1 = new Vue({
+        el: ".dishes",
+        data: {
+            foodName: "",
+            foodPrice: "",
+            foodNumber: "",
+            packageFee: "",
+            address: "",
+            addrName: "",
+            addrTel: "",
+            sex: "",
+            orderNote: "(无)",
+            orderMoney: ""
+        }
+    });
+
+    /*取订单*/
+    function getOrder() {
+
+        $.ajax({
+            url: "http://localhost:8080/getAllOrder",
+            type: "post",
+            dataType: "json",
+            data: {
+                "pageNum": page,
+                "pageSize": 3,
+                "customerId": customerId
+            },
+            success: function (data) {
+                vm.list = data;
+//                for (var i = 0; i < data.length; i++) {
+//                    vm.orderListData.push({
+//                        shopName: data[i].shop_name,
+//                        shopTel: data[i].shop_tel,
+//                        shopImg: data[i].shop_img,
+//                        gooSmoney: data[i].goo_smoney,
+//                        orderTime: data[i].order_time,
+//                        orderId: data[i].order_id,
+//                    });
+//
+//                }
+                /*alert(data);
+                vm.orderList = data.orderList;
+                pageCount = data.pageCount;
+                if (data.orderList.length == 0) {
+                    alert("没有订单哦！");
+
+                }*/
+            }
+
+        });
+    }
+
+    function getOrderDetail() {
+        $.ajax({
+            url: "http://localhost:8080/getOrderDetail",
+            type: "post",
+            dataType: "json",
+            data: {
+
+                "orderId": 1
+            },
+            success: function (data) {
+
+                vm1.foodName = data.food_name;
+                vm1.foodPrice = data.food_price;
+                vm1.foodNumber = data.food_number;
+                vm1.packageFee = data.packag_fee;
+                vm1.address = data.address;
+                vm1.addrName = data.addr_name;
+                vm1.addrTel = data.addr_tel;
+                vm1.sex = data.sex;
+                vm1.orderNote = data.det_note;
+                vm1.orderMoney = data.det_money;
+
+            }
+        })
+    }
+
+    $(function () {
+        var orderNumber = 1;
+        getOrder();
+
+        /*取订单数据*/
+
+
+        if (orderNumber == 0) {
+            $("#noneOrder").show();
+        } else {
+            $("#hasOrder").show();
+        }
+        /*我的账号隐藏*/
+        $("#setting-box").hide();
+        /*订单详情隐藏*/
+        $("#j-shown-order").hide();
+        /*点击订单列表中任意订单一个显示订单详情*/
+        $(".content").click(function () {
+            if ($("#j-shown-order").css("display") == "none") {
+                $("#j-shown-order").show(100);
+                var a = parseInt($(this).find(".order-id").val());
+                alert(a);
+                getOrderDetail(1)
+            } else {
+                $("#j-shown-order").hide(100);
+            }
+
+        });
+        /*点击显示订单列表，隐藏我的账号*/
+        $("#orderlist").click(function () {
+            $("#setting-box").hide();
+            $("#hasOrder").show();
+
+            getOrder();
+        });
+        /*点击显示我的账号，隐藏订单列表*/
+        $("#myaccount").click(function () {
+            $(".orders-list").hide();
+            $("#setting-box").show();
+        });
+
+    });
+
+
+</script>
 </html>

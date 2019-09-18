@@ -13,4 +13,6 @@ public interface CommentMapper {
     List<Comment> selectAllComment(Integer shopId,String comLevel);
 
 	List<Comment> SelectOpinion(Integer shopId, Integer level);
+
+	int insertComment(Comment comment);
 }

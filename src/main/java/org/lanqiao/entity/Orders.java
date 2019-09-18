@@ -3,6 +3,9 @@ package org.lanqiao.entity;
 import java.util.Date;
 
 public class Orders {
+
+
+
     private Integer orderId;
 
     private Address address;
@@ -28,6 +31,15 @@ public class Orders {
         this.orderTimeString = orderTimeString;
     }
 
+
+
+    private String estimatedTime;
+
+    private Shop shop;
+
+    private Integer shopId;
+
+
     public Integer getShopId() {
         return shopId;
     }
@@ -36,11 +48,13 @@ public class Orders {
         this.shopId = shopId;
     }
 
-    private String estimatedTime;
+    public Shop getShop() {
+        return shop;
+    }
 
-    private Shop shop;
-
-    private Integer shopId;
+    public void setShop(Shop shop) {
+        this.shop = shop;
+    }
 
     public Integer getOrderId() {
         return orderId;
@@ -114,13 +128,7 @@ public class Orders {
         this.estimatedTime = estimatedTime == null ? null : estimatedTime.trim();
     }
 
-    public Shop getShop() {
-        return shop;
-    }
 
-    public void setShop(Shop shop) {
-        this.shop = shop;
-    }
 
     @Override
     public String toString() {

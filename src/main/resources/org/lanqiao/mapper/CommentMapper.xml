@@ -49,54 +49,42 @@
     delete from comment
     where com_id = #{comId,jdbcType=INTEGER}
   </delete>
-
-  <insert id="insertSelective" parameterType="org.lanqiao.entity.Comment" >
-    insert into comment
+<!--插入评价-->
+  <insert id="insertComment" parameterType="org.lanqiao.entity.Comment" >
+    insert into `comment`
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="comId != null" >
-        com_id,
-      </if>
+
       <if test="shopId != null" >
         shop_id,
       </if>
       <if test="cusId != null" >
         cus_id,
       </if>
-      <if test="comText != null" >
-        com_text,
-      </if>
+
       <if test="comLevel != null" >
         com_level,
       </if>
-      <if test="comTime != null" >
-        com_time,
+      <if test="comText != null" >
+        com_text,
       </if>
-      <if test="shopResponse != null" >
-        shop_response,
-      </if>
+
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="comId != null" >
-        #{comId,jdbcType=INTEGER},
-      </if>
+
       <if test="shopId != null" >
         #{shopId,jdbcType=INTEGER},
       </if>
       <if test="cusId != null" >
         #{cusId,jdbcType=INTEGER},
       </if>
-      <if test="comText != null" >
-        #{comText,jdbcType=VARCHAR},
-      </if>
+
       <if test="comLevel != null" >
         #{comLevel,jdbcType=INTEGER},
       </if>
-      <if test="comTime != null" >
-        #{comTime,jdbcType=TIMESTAMP},
+      <if test="comText != null" >
+        #{comText,jdbcType=VARCHAR},
       </if>
-      <if test="shopResponse != null" >
-        #{shopResponse,jdbcType=VARCHAR},
-      </if>
+
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.Comment" >

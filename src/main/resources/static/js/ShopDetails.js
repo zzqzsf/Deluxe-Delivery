@@ -43,7 +43,6 @@ $(function(){
         }
     });
 
-
     //食物分类和食物展示
     $.ajax({
         url:"http://localhost:8080/foodType",
@@ -87,7 +86,6 @@ $(function(){
                         }
                     }
                 });
-
                 $node1.children(1).children().last().detach();
                 $("#cartShow").before($node1);
             }
@@ -98,7 +96,6 @@ $(function(){
     $("#MenuSort ul li").click(function () {
         let i = $liLIst.index(this);
         let top = document.getElementById(i).offsetTop;
-        alert(top);
         document.getElementById(i).scrollIntoView({
             behavior: 'smooth'
         });
@@ -155,6 +152,7 @@ $(function(){
         $("#cartShow").css("display","block");
         $("#clearCart").show();
         $(".packCharge").show();
+        $("#allMoney").show();
         $("#startSend").text("去结算");
         $("#startSend").css({backgroundColor:"#ffd161"});
         //获得当前商品的下标
@@ -201,10 +199,10 @@ $(function(){
         $(this).nextAll().eq(2).text("￥"+num1*num2);
         calcTotal();
     });
-    var sum1 = 0;
-    var sum2 = 0;
-    function calcTotal(){
 
+    function calcTotal(){
+        var sum1 = 0;
+        var sum2 = 0;
         $(".cartFood").each(function(){
             let str = $(this).children().eq(5).text().substr(1);
             sum1 += parseFloat(str);
