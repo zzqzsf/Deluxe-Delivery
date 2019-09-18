@@ -207,9 +207,10 @@
 </html>
 <script type="text/javascript">
     $(function () {
-        food();
-        address();
         shop();
+        food();
+
+        address();
         var mode;
 
 
@@ -325,13 +326,6 @@
                 location.href = "/goAlipay?price=" + $("#totalPrice").html();  //这个数字只是为了演示，实际应用肯定是写活的。
 
             }
-            else
-            {
-                alert("111");
-            }
-
-
-
 
             }
         );
@@ -387,32 +381,7 @@
         }
 
         //显示订单商品
-        var count = 0;
 
-        function food() {
-
-            $.ajax({
-                url: "http://localhost:8080/getFood",
-                type: "get",
-                data: {},
-                dataType: "json",
-                success: function (data) {
-
-                    for (var i = 0; i < data.length; i++) {
-                        var $node1 = $model1.clone();
-                        $node1.find("#food-name").html(data[i].foodName);
-                        $node1.find("#food-price").html((data[i].foodPrice)+"*"+sessionStorage.getItem('foodNum'));
-                        // $node1.find("#address").text(data[i].address);
-                        // $node.children().eq(1).text(data[i].address);
-                        $("#pPrice").before($node1);
-                        count += (parseInt(data[i].foodPrice));
-                    }
-
-                }
-            });
-
-
-        }
 
         //显示店家信息
 
@@ -433,15 +402,40 @@
                         $("#packPrice").html(data[i].packagFee);
                         sum+=(parseInt((data[i].peiFee))+parseInt(data[i].packagFee));
                     }
+
+                }
+            });
+
+
+        }
+        var count = 0;
+
+        function food() {
+
+            $.ajax({
+                url: "http://localhost:8080/getFood",
+                type: "get",
+                data: {},
+                dataType: "json",
+                success: function (data) {
+
+                    for (var i = 0; i < data.length; i++) {
+                        var $node1 = $model1.clone();
+                        $node1.find("#food-name").html(data[i].foodName);
+                        $node1.find("#food-price").html((data[i].foodPrice)+"*"+sessionStorage.getItem('foodNum'));
+                        // $node1.find("#address").text(data[i].address);
+                        // $node.children().eq(1).text(data[i].address);
+                        $("#pPrice").before($node1);
+                        count += (parseInt(data[i].foodPrice));
+                    }
                     sum1=parseInt(count)+parseInt(sum);
-                      $("#count").html(sum1);
+                    $("#count").html(sum1);
                     $("#totalPrice").text(sum1);
                 }
             });
 
 
         }
-
         // 显示更多地址信息
         function addresss() {
             var $model = $("div[class='address-box']").remove();

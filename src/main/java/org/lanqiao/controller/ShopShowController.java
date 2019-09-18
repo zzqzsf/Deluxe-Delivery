@@ -3,8 +3,13 @@ package org.lanqiao.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.solr.client.solrj.response.UpdateResponse;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.apache.solr.client.solrj.response.UpdateResponse;
+import org.lanqiao.entity.Location;
 import org.lanqiao.entity.Shop;
 import org.lanqiao.service.ShopShowService;
+import org.lanqiao.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.solr.core.SolrTemplate;
@@ -17,12 +22,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class ShopShowController {
-@Autowired
-ShopShowService shopShowService;
+
+
+    List<Location> locationList = new ArrayList<>();
+    @Resource
+    private RedisUtil redisUtil;
+    @Autowired
+    ShopShowService shopShowService;
 
     @RequestMapping("/getAllShare")
     public PageInfo get(@RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum){
@@ -38,6 +50,20 @@ ShopShowService shopShowService;
 //    solr
 @Autowired
 private SolrTemplate solrTemplate;
+    @RequestMapping("/getAllShare")
+    public PageInfo<Shop> get(@RequestParam(value = "pageNum",defaultValue = "1")Integer pageNum) {
+        PageHelper.startPage(pageNum, 1);
+
+        List<Shop> shareList = shopShowService.GetAllShops(locationList);
+
+        PageInfo<Shop> pageInfo = new PageInfo<>(shareList);
+
+        return pageInfo;
+    }
+
+    //    solr
+    @Autowired
+    private SolrTemplate solrTemplate;
 
 //    @RequestMapping("/save")
 //    @ResponseBody
@@ -70,6 +96,7 @@ private SolrTemplate solrTemplate;
         // 查询所有
         Query query = new SimpleQuery();
 
+
         // 设置条件
         Criteria criteria = new Criteria("shopName").is("时间");
         query.addCriteria(criteria);
@@ -87,6 +114,22 @@ private SolrTemplate solrTemplate;
         System.out.println("pages.getTotalElements() = " + pages.getTotalElements());
         List<Shop> content = pages.getContent();
         return content;
+    }
+
+    @RequestMapping("/getAllLocation")
+    public List<Location> getAll() {
+        locationList.clear();
+//      redisUtil.lSet("locations",location);
+        List<Object> objectList = redisUtil.lGet("locations", 0, 1);
+        Object ob = (Object) objectList;
+        List<Location> locationList = (List<Location>) ob;
+        return locationList;
+    }
+
+    @RequestMapping("/getShopInfo")
+    public int getShopInfo(Location storeInfo) {
+        locationList.add(storeInfo);
+        return locationList.size();
     }
 
 

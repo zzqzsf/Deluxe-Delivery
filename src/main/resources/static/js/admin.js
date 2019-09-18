@@ -69,6 +69,18 @@ $(function () {
                 dataType: "json",
                 success: function (data) {
                     if(data==1){
+                        $.ajax({
+                            url: "http://localhost:8080/getUserId",
+                            type: "post",
+                            data: {
+                                'cusTel': $(".tel").val()
+                            },
+                            dataType: "json",
+                            success: function (data) {
+                                getCudID();
+                                window.location.assign("http://localhost:8080/index.html")
+                            }
+                        })
                         window.location.assign("http://localhost:8080/index.html");
                     }else{
                         $(".errorTel").show();
@@ -89,7 +101,7 @@ $(function () {
                     if(data.flag){
                         $(".errorTel").hide();
                         if(data.rowNum==1){
-                            window.location.assign("http://localhost:8080/index.html")
+                            getCudID();
                         }else{
                             $.ajax({
                                 url: "http://localhost:8080/insertCustom1",
@@ -99,7 +111,7 @@ $(function () {
                                 },
                                 dataType: "json",
                                 success: function (data) {
-                                    window.location.assign("http://localhost:8080/index.html")
+                                    getCudID();
                                 }
                             })
                         }
@@ -113,3 +125,18 @@ $(function () {
 
     })
 })
+function getCudID() {
+    $.ajax({
+        url: "http://localhost:8080/getUserId",
+        type: "post",
+        data: {
+            'cusTel': $(".tel").val()
+        },
+        dataType: "json",
+        success: function (data) {
+            sessionStorage.setItem('cusID',data);
+            window.location.assign("http://localhost:8080/index.html")
+        }
+    })
+
+}
