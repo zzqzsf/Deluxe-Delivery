@@ -31,8 +31,20 @@
   </resultMap>
 
 <!--查找该商家的全部订单-->
-  <select id="selectAllShopOrder" parameterType="java.lang.Integer" resultMap="OrdersResultMap">
-    select o.*,a.addr_name,a.address,a.addr_tel,a.sex,c.cus_name,c.cus_img,c.cus_tel,s.packag_fee from orders o,address a,custom c,shop s where o.addr_id=a.addr_id and o.cus_id=c.cus_id and o.shop_id=s.shop_id and o.shop_id=#{shopId} order by order_time
+  <select id="selectAllShopOrder" resultMap="OrdersResultMap">
+    select o.*,a.addr_name,a.address,a.addr_tel,a.sex,c.cus_name,c.cus_img,c.cus_tel,s.packag_fee
+    from orders o,address a,custom c,shop s
+    where o.addr_id=a.addr_id and o.cus_id=c.cus_id and o.shop_id=s.shop_id and o.shop_id=#{shopId}
+    <if test="orderStatus != null">
+      and order_status=#{orderStatus} or order_status="商家已接单"
+    </if>
+    order by order_time desc
+  </select>
+  <select id="selectTodayOrder" resultMap="OrdersResultMap" parameterType="java.lang.Integer">
+    select o.*,a.addr_name,a.address,a.addr_tel,a.sex,c.cus_name,c.cus_img,c.cus_tel,s.packag_fee
+    from orders o,address a,custom c,shop s
+    where o.addr_id=a.addr_id and o.cus_id=c.cus_id and o.shop_id=s.shop_id and o.shop_id=#{shopId}
+    and to_days(o.order_time) = to_days(now())
   </select>
 
   <select id="getAllOrder" resultMap="OrdersResultMap" >

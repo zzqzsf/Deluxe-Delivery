@@ -1,9 +1,6 @@
 package org.lanqiao.controller;
 
-import org.lanqiao.entity.Comment;
-import org.lanqiao.entity.Food;
-import org.lanqiao.entity.Foodtype;
-import org.lanqiao.entity.Shop;
+import org.lanqiao.entity.*;
 import org.lanqiao.service.ShopService;
 import org.lanqiao.util.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,9 +72,6 @@ public class ShopController {
     }
 
 
-
-
-
     @RequestMapping("/selectShopInfo")
     public Shop selectShopInfo(int shopId){
         return shopService.selectShopInfo(shopId);
@@ -89,8 +83,8 @@ public class ShopController {
     }
 //    food
     @RequestMapping("/selectFoodByFoodtype")
-    public List<Food> selectFoodByFoodtype(int foodtypeId){
-        return shopService.selectFoodByFoodtype(foodtypeId);
+    public List<Food> selectFoodByFoodtype(int foodtypeId,String foodStatus,Integer foodStock){
+        return shopService.selectFoodByFoodtype(foodtypeId,foodStatus,foodStock);
     }
     @RequestMapping("/insertFood")
     public int insertFood(Food food){
@@ -121,11 +115,24 @@ public class ShopController {
     public int updateFoodtype(Foodtype foodtype){
         return shopService.updateFoodtype(foodtype);
     }
-//    订单
+//    评价
     @RequestMapping("/selectAllComment")
-    public List<Comment> selectAllComment(int shopId){
-        return shopService.selectAllComment(shopId);
+    public List<Comment> selectAllComment(int shopId,String comLevel){
+        return shopService.selectAllComment(shopId,comLevel);
+    }
+//    添加商家回复
+    @RequestMapping("/submitShopRsp")
+    public int submitShopRsp(Comment comment){
+        return shopService.submitShopRsp(comment);
     }
 
-//    评价
+//    订单
+    @RequestMapping("/selectAllShopOrder")
+    public List<Orders> selectAllShopOrder(int shopId,String orderStatus){
+        return shopService.selectAllShopOrder(shopId,orderStatus);
+    }
+    @RequestMapping("/selectTodayOrder")
+    public List<Orders> selectTodayOrder(int shopId){
+        return  shopService.selectTodayOrder(shopId);
+    }
 }

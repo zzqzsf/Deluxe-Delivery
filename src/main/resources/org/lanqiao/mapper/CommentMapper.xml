@@ -12,7 +12,7 @@
     <association resultMap="CustomResultMap" property="custom"></association>
   </resultMap>
   <resultMap id="CustomResultMap" type="org.lanqiao.entity.Custom" >
-    <id column="cus_id" property="cusID" jdbcType="INTEGER" />
+    <id column="cus_id" property="cusId" jdbcType="INTEGER" />
     <result column="cus_name" property="cusName" jdbcType="INTEGER" />
     <result column="cus_pwd" property="cusPwd" jdbcType="VARCHAR" />
     <result column="cus_tel" property="cusTel" jdbcType="DOUBLE" />
@@ -20,8 +20,17 @@
     <result column="cus_img" property="cusImg" jdbcType="VARCHAR" />
   </resultMap>
 
-  <select id="selectAllComment" parameterType="java.lang.Integer" resultMap="CommentResultMap">
-    select cm.*,cus_name,cus_img from comment cm,custom cu where shop_id=#{shopId} and cm.cus_id=cu.cus_id order by com_time
+  <select id="selectAllComment" resultMap="CommentResultMap">
+    select cm.*,cus_name,cus_img
+    from comment cm,custom cu
+    where shop_id=#{shopId} and cm.cus_id=cu.cus_id
+    <if test="comLevel=='好评'">
+        and com_level <![CDATA[ >= ]]> 4
+    </if>
+    <if test="comLevel=='差评'">
+        and com_level <![CDATA[ < ]]>  4
+    </if>
+    order by com_time desc
   </select>
   <!--通过shopId得到所有评论-->
   <select id="SelectOpinion" resultMap="CommentResultMap">

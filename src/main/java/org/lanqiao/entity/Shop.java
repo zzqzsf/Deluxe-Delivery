@@ -26,6 +26,7 @@ public class Shop {
     private Double packagFee;
 
     private List<Foodtype> foodtypeList;
+
     private List<Food> foodList;
 
     public List<Foodtype> getFoodtypeList() {

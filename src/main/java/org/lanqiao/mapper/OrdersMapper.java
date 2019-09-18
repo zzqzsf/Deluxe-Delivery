@@ -11,6 +11,7 @@ public interface OrdersMapper {
     int deleteByPrimaryKey(Integer orderId);
     int insertSelective(Orders record);
     int updateByPrimaryKeySelective(Orders record);
-
     List<Orders> getAllOrder(@Param("pageNum") int pageNum, @Param("pageSize") int pageSize );
+    List<Orders> selectAllShopOrder(int shopId,String orderStatus);
+    List<Orders> selectTodayOrder(int shopId);
 }

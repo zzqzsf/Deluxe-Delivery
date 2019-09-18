@@ -10,7 +10,7 @@ public interface CommentMapper {
     int deleteByPrimaryKey(Integer comId);
     int insertSelective(Comment record);
     int updateByPrimaryKeySelective(Comment record);
-    List<Comment> selectAllComment(Integer shopId);
+    List<Comment> selectAllComment(Integer shopId,String comLevel);
 
     List<Comment> SelectOpinion(Integer shopId, Integer level);
 }

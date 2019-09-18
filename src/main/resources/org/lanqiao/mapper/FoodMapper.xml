@@ -13,13 +13,17 @@
     <result column="food_mon_sale" property="foodMonSale" jdbcType="INTEGER" />
     <result column="food_status" property="foodStatus" jdbcType="VARCHAR" />
   </resultMap>
-<!--  根据分类查商品-->
-  <select id="selectFoodByFoodtype" parameterType="java.lang.Integer" resultMap="FoodResultMap">
-    select * from food where fty_id=#{foodtypeId}
+<!--  根据分类查商品   全部商品、上架下架-->
+  <select id="selectFoodByFoodtype" resultMap="FoodResultMap">
+    select * from food
+    where fty_id=#{foodtypeId} and food_status!="已删除"
+    <if test="foodStatus!=null">
+      and food_status=#{foodStatus}
+    </if>
+    <if test="foodStock!=null">
+      and food_stock&lt;100
+    </if>
   </select>
-
-
-
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from food
