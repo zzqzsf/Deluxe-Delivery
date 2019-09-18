@@ -6,11 +6,11 @@ import java.util.List;
 
 
 public interface ShopService {
-//	public List<Shop> selectShopInfo(int shopId);
 
 	public List<Shop> getShop(Integer shopId);
 //    shop的
     public Shop selectShopInfo(int shopId);
+
     public int updateShopInfo(Shop shop);
 //    food的
     public List<Food> selectFoodByFoodtype(int foodtypeId,String foodStatus,Integer foodStock);
