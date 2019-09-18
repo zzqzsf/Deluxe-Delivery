@@ -10,4 +10,5 @@ public interface CustomService {
     int checkCustom(Custom custom);
     int updatePass(String cusTel,String cusPwd);
     int getUserId(String cusTel);
+    String getUserName(String cusTel);
 }

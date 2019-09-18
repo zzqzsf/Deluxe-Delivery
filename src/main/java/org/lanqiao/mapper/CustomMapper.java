@@ -18,4 +18,6 @@ public interface CustomMapper {
     int updatePass(String cusTel,String cusPwd);
     //获取用户id
     int getUserId(String cusTel);
+    //根据手机号查询用户名
+    String getUserName(String cusTel);
 }

@@ -36,6 +36,9 @@
         select cus_id from custom where cus_tel = #{cusTel,jdbcType=VARCHAR}
     </select>
 
+    <select id="getUserName" parameterType="java.lang.String" resultType="java.lang.String">
+        select cus_name from custom where cus_tel = #{cusTel,jdbcType=VARCHAR}
+    </select>
 
 
 

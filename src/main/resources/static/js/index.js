@@ -3,6 +3,7 @@ $(function () {
     function G(id) {
         return document.getElementById(id);
     }
+
     var cityName;
     var name;
     var length;
@@ -13,17 +14,38 @@ $(function () {
     map.centerAndZoom(point, 13); //初始化地图，设置中心点坐标和地图级别
     var myGeo = new BMap.Geocoder();// 创建地址解析器实例
 
-    var storeInfo = {
-        name: name,
-        length:length
-    };
+
+    $.ajax({
+        url: "http://localhost:8080/getSession",
+        type: "post",
+        dataType: "json",
+        data: {},
+        success: function (data) {
+            alert(data);
+            if(data != null){
+                $("#admin").css("display","none");
+                $.ajax({
+                    url: "http://localhost:8080/getUserName",
+                    type: "get",
+                    dataType: "json",
+                    data: {
+                        'cusTel':data,
+                    },
+                    success: function (data) {
+                        $("#register").html(data);
+                    }
+                });
+             }
+        }
+    });
 
 
     function myFun(result) {
         cityName = result.name;
+        sessionStorage.setItem("cityName",cityName);
         map.setCenter(cityName);
         $("#test1").val(cityName);
-    }
+    };
 
     var myCity = new BMap.LocalCity();
     myCity.get(myFun);
@@ -98,11 +120,10 @@ $(function () {
 
 
             }
-        })
-    })
-
-
+        });
+    });
 })
+
 
 
 

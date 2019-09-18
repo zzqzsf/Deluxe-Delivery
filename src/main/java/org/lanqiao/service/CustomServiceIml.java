@@ -45,4 +45,7 @@ public class CustomServiceIml implements CustomService {
     public int getUserId(String cusTel){
         return customMapper.getUserId(cusTel);
     }
+    public String getUserName(String cusTel){
+        return customMapper.getUserName(cusTel);
+    }
 }
