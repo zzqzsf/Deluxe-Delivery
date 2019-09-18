@@ -9,4 +9,5 @@ public interface CustomService {
     int insertCustom1(String cusTel);
     int checkCustom(Custom custom);
     int updatePass(String cusTel,String cusPwd);
+    int getUserId(String cusTel);
 }

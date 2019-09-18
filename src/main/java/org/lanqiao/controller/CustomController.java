@@ -25,7 +25,7 @@ public class CustomController {
     @Autowired
     CustomService customService;
 
-    List<Location> locationList = new ArrayList<>();
+
 
     @RequestMapping("/checkTel")
     public int checkTel(String tel){
@@ -91,21 +91,12 @@ public class CustomController {
         return customService.updatePass(cusTel,cusPwd);
     }
 
-
-    @RequestMapping("/getAllLocation")
-    public List<Location> getAll(){
-//      redisUtil.lSet("locations",location);
-        List<Object> objectList = redisUtil.lGet("locations",0,1);
-        Object ob = (Object) objectList;
-        List<Location> locationList = (List<Location>)ob;
-        return locationList;
+    @RequestMapping("/getUserId")
+    public int getUserId(String cusTel){
+        return customService.getUserId(cusTel);
     }
 
-    @RequestMapping("/getShopInfo")
-    public int getShopInfo( Location storeInfo){
-        locationList.add(storeInfo);
-        return locationList.size();
-    }
+
 
 
 

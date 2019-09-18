@@ -1,4 +1,4 @@
-.main{
+ .main{
     height: 1000px;
     width: 100%;
 }
@@ -67,7 +67,7 @@
     margin-left:393px;
     padding-top:220px;
 }
-#register,#admin{
+#register,#admin,#myorder{
     width:70px;
     height: 30px;
     float: right;

@@ -6,9 +6,11 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 
 import java.util.Properties;
+
 
 @SpringBootApplication
 @MapperScan("org.lanqiao.mapper")
@@ -28,9 +30,9 @@ public class DeluxeDeliveryApplication {
 		new SqlSessionFactoryBean().setPlugins(new Interceptor[]{pageHelper});
 		return pageHelper;
 	}
-
 	public static void main(String[] args) {
 		SpringApplication.run(DeluxeDeliveryApplication.class, args);
-	}
 
+	}
 }
+

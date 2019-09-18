@@ -5,189 +5,553 @@
     <title>下单</title>
     <link rel="stylesheet" href="css/takeOrder.css">
     <script src="js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="//api.map.baidu.com/api?v=1.2&ak=NZ27x6yGnQFkPeXfgameH7UAVdDkbE9q"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+    <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+    <script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
 </head>
 <body>
 <!--头部-->
-
+<iframe id="headerFrame" name="headerFrame" src="head.html" frameborder="0" scrolling="no"></iframe>
 <!--中间-->
 <div id="body">
-<!--    确认购买的店名显示-->
+    <!--    确认购买的店名显示-->
     <div id="breadcrumb">
         <a href="" id="ca-brown">绝味鸭脖（泸州店）</a>
         <i> > </i>
         <span>确认购买</span>
     </div>
-<!--    订单详情&&送餐详情-->
+    <!--    订单详情&&送餐详情-->
     <div id="order-confirm">
-<!--     订单详情-->
+        <!--     订单详情-->
         <div id="order-info">
-            <div class="dishes-table">
-                    <div class="bot-border">
-                            <div class="align-left">菜品</div>
-                            <div class="align-right">价格/份数</div>
-                        </div>
+            <div class="dishes-table" id="dishes-tables">
                 <div class="bot-border">
-                    <div class="align-left">手撕鱿鱼</div>
-                    <div class="align-right">¥35</div>
+                    <div class="align-left">菜品</div>
+                    <div class="align-right">价格/份数</div>
                 </div>
-                <div class="bot-border">
+                <div class="bot-border" id="food">
+                    <div class="align-left" id="food-name">手撕鱿鱼</div>
+                    <div class="align-right" id="food-price">¥35</div>
+                </div>
+                <div class="bot-border" id="pPrice">
                     <div class="align-left">配送费</div>
-                    <div class="align-right">¥5</div>
+                    <div class="align-right" id="peiPrice">¥5</div>
                 </div>
                 <div class="bot-border">
-                    <div class="left-count" >合计</div>
-                    <div class="right-count">35</div>
+                    <div class="align-left">打包费</div>
+                    <div class="align-right" id="packPrice">¥5</div>
+                </div>
+                <div class="bot-border">
+                    <div class="left-count">合计</div>
+                    <div class="right-count" id="count">35</div>
                 </div>
             </div>
             <div id="order-info-bottom">
                 <img src="image/bot.png" style="width: 100.6%" alt="">
             </div>
         </div>
-<!--        送餐详情-->
+        <!--        送餐详情-->
         <div id="dishes">
             <div id="dishes-rap">
-            <div id="address-head">
-            <h3 class="address-title">送餐详情</h3>
-                <a href="" id="address-new">
-                    <img src="image/+.png" id="address-img">
-                    添加新地址</a>
-            </div>
+                <div id="address-head">
+                    <h3 class="address-title">送餐详情</h3>
+                    <a href="javascript:void(0)" id="address-new" class="click_pop"><img src="image/+.png"
+                                                                                         id="address-img">
+                        添加新地址</a>
+                </div>
                 <form action="" id="order-form">
                     <div id="order-list">
-                        <div id="order-list-wrp">
-                            <div id="order-list-inner">
-                                <div class="address-box">
-                                    <p class="address-line">
-                        <span>周树凡 女士 ：
-                          17738043914
-                        </span>
-                                        <span class="box-modify fr">
-                          <a class="j-modify-address address-operation cc-lightred-new" href="javascript:;">修改</a>
-                          <a class="j-delete-address address-operation cc-lightred-new" href="javascript:;">删除</a>
-                        </span></p>
-                                    <p class="address-line">西南医科大学(城北校区)&nbsp;&nbsp;海川楼</p>
+                        <!--                        <div id="order-list-wrp">-->
+                        <div id="order-list-inner">
 
+                            <div class="address-box" id="address-box">
+
+                        <span id="name">周树凡 女士 ：
+
+                        </span>  <span id="phone">17738043914</span>
+                                <!--                                        <span class="box-modify ">-->
+                                <!--                          <a class="j-modify-address address-operation cc-lightred-new" href="javascript:;">修改</a>-->
+                                <!--                          <a class="j-delete-address address-operation cc-lightred-new" href="javascript:;">删除</a>-->
+                                <!--                        </span>-->
+                                <div class="address-line" id="address">西南医科大学(城北校区)&nbsp;&nbsp;海川楼</div>
+                                <input type="hidden" value="1" name="addressId">
+                            </div>
+                        </div>
+                        <div id="address-bottom">
+                            <img src="image/address-bottom.png" id="moreAddress" style="width:100% " alt="">
+                            <!--                        </div>-->
+                            <!--                    </div>-->
+                            <!--                    给商家留言-->
+                            <div id="message-short">
+                                <label for="message-short">
+                                    给商家留言:
+                                </label>
+                                <input type="text" id="message" placeholder="不要辣，多放盐等口味要求" maxlength="100">
+                            </div>
+                            <!--                    隐藏部分选备注信息-->
+                            <div id="order-tags">
+                                <ul class="clearfix">
+                                    <li><a class="tag" href="javascript:;">别放辣</a></li>
+                                    <li><a class="tag" href="javascript:;">辣一点</a></li>
+                                    <li><a class="tag" href="javascript:;">米饭多一点</a></li>
+                                    <li><a class="tag" href="javascript:;">没零钱</a></li>
+                                    <li><a class="tag" href="javascript:;">快点送</a></li>
+                                    <li class="last"><a class="tag" href="javascript:;">别放香菜</a></li>
+                                </ul>
+                                <img src="image/xiangxia.png" style="height: 5px;width:30px;">
+                            </div>
+                            <!--                    选择付款方式-->
+                            <div id="pay-field">
+                                <label class="fl">付款方式：</label>
+                                <div id="check">
+                                    <a href="">
+                                        <div id="option-unavail">餐到付款</div>
+                                    </a>
+                                    <a href="">
+                                        <div id="option-margin">在线支付</div>
+                                    </a>
                                 </div>
-                                <div class="address-box">
-                                    <p class="address-line">
-                        <span>周树凡 女士 ：
-                          17738043914
-                        </span>
-                                        <span class="box-modify fr">
-                          <a class="j-modify-address address-operation cc-lightred-new" href="javascript:;">修改</a>
-                          <a class="j-delete-address address-operation cc-lightred-new" href="javascript:;">删除</a>
-                        </span></p>
-                                    <p class="address-line">西南医科大学(城北校区)&nbsp;&nbsp;海川楼</p>
+                            </div>
+
+
+                            <!--                    期望送达时间-->
+                            <div id="order-arrTime">
+                                <span>期望送达时间：</span>
+                                <div id="select-input">
+                                    <span id="time">立即送出</span>
+                                    <img src="image/sm.jpg" alt="">
+                                </div>
+                                <!--                预计送达时间选择 ---显示隐藏-->
+                                <div id="slide-down">
+                                    <ul class="content">
+                                        <li class="selected"><a href="javascript:;" class="">立即送出</a></li>
+                                        <li class=""><a href="javascript:;">16:00</a></li>
+                                        <li class=""><a href="javascript:;">16:20</a></li>
+                                        <li class=""><a href="javascript:;">16:40</a></li>
+                                        <li class=""><a href="javascript:;">17:00</a></li>
+                                        <li class=""><a href="javascript:;">17:20</a></li>
+                                        <li><a href="javascript:;">17:40</a></li>
+                                        <li><a href="javascript:;">18:00</a></li>
+                                        <li class=""><a href="javascript:;">18:20</a></li>
+                                        <li><a href="javascript:;">18:40</a></li>
+                                        <li><a href="javascript:;">19:00</a></li>
+                                        <li><a href="javascript:;">19:20</a></li>
+                                        <li><a href="javascript:;">19:40</a></li>
+                                        <li><a href="javascript:;">20:00</a></li>
+                                        <li class=""><a href="javascript:;">20:20</a></li>
+                                        <li><a href="javascript:;">20:40</a></li>
+                                        <li><a href="javascript:;">21:00</a></li>
+                                    </ul>
 
                                 </div>
                             </div>
-                        </div>
-
-                        <div id="address-bottom">
-                            <img src="image/address-bottom.png" style="width:100% " alt="">
-                        </div>
-                    </div>
-<!--                    给商家留言-->
-                    <div id="message-short">
-                        <label for="message-short">
-                            给商家留言:
-                        </label>
-                        <input  type="text" id="message" placeholder="不要辣，多放盐等口味要求" maxlength="100">
-                    </div>
-<!--                    隐藏部分选备注信息-->
-                    <div id="order-tags">
-                        <ul class="clearfix">
-                            <li><a class="tag" href="javascript:;">别放辣</a></li>
-                            <li><a class="tag" href="javascript:;">辣一点</a></li>
-                            <li><a class="tag" href="javascript:;">米饭多一点</a></li>
-                            <li><a class="tag" href="javascript:;">没零钱</a></li>
-                            <li><a class="tag" href="javascript:;">快点送</a></li>
-                            <li class="last"><a class="tag" href="javascript:;">别放香菜</a></li>
-                        </ul>
-                        <img src="image/xiangxia.png" style="height: 5px;width:30px;">
-                    </div>
-<!--                    选择付款方式-->
-                    <div id="pay-field">
-                        <label class="fl">付款方式：</label>
-                        <div id="check">
-                            <a href=""><div id="option-unavail">餐到付款</div></a>
-                            <a href=""><div id="option-margin">在线支付</div></a>
+                            <!--            付款信息-------支付-->
+                            <div id="pay-area">
+                                <div class="tips">
+                                    您需支付&nbsp;<span class="price">¥<span class="price" id="totalPrice">27</span>
+              </span><br>
+                                    <span class="ct-lightgrey">* 由&nbsp;商家&nbsp;提供外卖服务</span>
+                                </div>
+                                <span id="pay-price">去付款</span>
+                            </div>
                         </div>
                     </div>
                 </form>
+                <!--               右边的下载客户端链接-->
+                <!--            <div id="right-order-tip">-->
             </div>
-            <!--                    期望送达时间-->
-            <div id="order-arrTime">
-            <span>期望送达时间：</span>
-                <div id="select-input">
-                    <span>立即送出</span>
-                    <img src="image/sm.jpg" alt="">
-                </div>
-<!--                预计送达时间选择 ---显示隐藏-->
-                <div id="slide-down">
-                    <ul class="content">
-                        <li class="selected"><a href="javascript:;" class="">立即送出</a></li>
-                        <li class=""><a href="javascript:;">16:00</a></li>
-                        <li class=""><a href="javascript:;">16:20</a></li>
-                        <li class=""><a href="javascript:;">16:40</a></li>
-                        <li class=""><a href="javascript:;">17:00</a></li>
-                        <li class=""><a href="javascript:;">17:20</a></li>
-                        <li><a href="javascript:;">17:40</a></li>
-                        <li><a href="javascript:;">18:00</a></li>
-                        <li class=""><a href="javascript:;">18:20</a></li>
-                        <li><a href="javascript:;">18:40</a></li>
-                        <li><a href="javascript:;">19:00</a></li>
-                        <li><a href="javascript:;">19:20</a></li>
-                        <li><a href="javascript:;">19:40</a></li>
-                        <li><a href="javascript:;">20:00</a></li>
-                        <li class=""><a href="javascript:;">20:20</a></li>
-                        <li><a href="javascript:;">20:40</a></li>
-                        <li><a href="javascript:;">21:00</a></li>
-                    </ul>
-
-                </div>
-            </div>
-<!--            付款信息-------支付-->
-            <div id="pay-area">
-                <div class="tips">
-                    您需支付&nbsp;<span class="price">¥<span class="price" id="totalPrice">27</span>
-              </span><br>
-                    <span class="ct-lightgrey">* 由&nbsp;商家&nbsp;提供外卖服务</span>
-                </div>
-
-            </div>
-
         </div>
     </div>
+    <!--遮罩层-->
+    <div class="bgPop"></div>
+    <!--弹出框-->
+    <form action="" id="addForm">
+        <div class="pop">
+            <div class="pop-top">
+                <h2>添加新地址</h2>
+                <span class="pop-close">Ｘ</span>
+            </div>
+            <div class="pop-content">
+                <div class="pop-content-left">
+                    <img src="" alt="" class="teathumb">
+                </div>
+                <div class="pop-content-right">
+                    *联系人：<br><input type="text" name="name" placeholder="请输入姓名" class="input"><br>
+                    <input type="radio" class="sex" name="sex"><span>先生</span>
+                    <input type="radio" class="sex" name="sex"><span>女士</span><br>
+                    *手机号码：<br><input type="text" name="phone" placeholder="请输入11位手机号码" class="input"><br>
+                    <div id="l-map"></div>
+                    <div id="r-result">
+                        *收餐地址：<br><input type="text" id="suggestId" name="address" placeholder="学校/小区/街道" class="input">
+                        <div id="searchResultPanel"
+                             style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+                    </div>
+                    <br>
+
+                    详细地址：<br><input type="text" name="jutiadd" placeholder="您可以填写门牌号码，宿舍楼等信息" class="input"><br>
+                </div>
+            </div>
+            <div class="pop-foot">
+                <input type="button" value="取消" class="pop-cancel pop-close"/>
+                <input type="submit" value="保存" class="pop-ok"/>
+            </div>
+        </div>
+    </form>
+    <div class="clear"></div>
 </div>
 <!--尾部-->
+<!--尾部引用-->
+<iframe id="footerFrame" name="footerFrame" src="footer.html" frameborder="0" scrolling="no"></iframe>
 </body>
 </html>
 <script type="text/javascript">
-
     $(function () {
+        shop();
+        food();
+
+        address();
+        var mode;
+
+
+        $("#addForm").validate({
+
+            rules: {
+                name: {
+                    required: true,
+                    minlength: 2,
+                },
+                phone: {
+                    required: true,
+                    rangelength: [11, 11],
+
+                },
+
+                address: {
+                    required: true,
+
+                },
+            },
+            messages: {
+                name: {
+                    required: "请输入用户名",
+                    minlength: "用户名至少两位以上"
+                },
+
+                phone: {
+                    required: "请输入手机号",
+                    rangelength: "请输入正确的手机号"
+                },
+                address: {
+                    required: "请输入地址",
+                },
+            },
+
+
+        });
+
+
+        // 结算订单-vue
+
+
+        //选择地址时改变边框颜色
+        $(".address-box").click(function () {
+            mode = $(this);
+            // for (var i = 0; i< $("#address-box").length; i++) {
+            $(".address-box").css("border", "0");
+
+            // }
+            $(this).css("border", "1px red solid");
+            sessionStorage.setItem('phone', $(this).find("#phone").html());
+
+        });
+
+        //点击结算
+        // $("#pay-price").click(function () {
+        //
+        //
+        //
+        //      location.href = "/goAlipay?price=" + $("#totalPrice").html();  //这个数字只是为了演示，实际应用肯定是写活的。
+        // })
+
+        //备注信息选择菜品规格
+        $(".clearfix li").click(function () {
+            var li = $(this).text();
+            var me = $("#message").val();
+            $("#message").val(me + " " + li);
+        });
+
+
+        // 选择时间
+        $(".content li").click(function () {
+            var li = $(this).text();
+            $("#time").html(li);
+        });
+
+        //结算订单
+        // sessionStorage.setItem('telephone', $("input[name='telphone']").val());
+        // var telephone =sessionStorage.getItem("telephone");
+
+        // var addrId1 =sessionStorage.getItem("addrId");
+        var addrId1;
+        sessionStorage.setItem('addrId',addrId1);
+        $("#pay-price").click(function () {
+                $.ajax({
+                    url: "/insertOrder",
+                    data: JSON.stringify(
+                        {
+                            "order": {
+                                addrId: mode.find("input[name='addressId']").val(),
+                                orderNote: $("#message").val(),
+                                orderStatus: "未完成付款",
+                                shopId:sessionStorage.getItem("shopId"),
+                                estimatedTime: $("#time").html(),
+
+                            },
+                            "orderItems": [{
+                                 detNote: "无留言",
+                                 detMoney: $("#count").html(),
+                                 foodNumber:sessionStorage.getItem('foodNum'),
+                            }]
+                        }),
+                    dataType: "text",
+                    type: "post",
+                    contentType: "application/json",//{name:'david',pass：'123'}
+                    success: function (text) {
+                        alert("生成订单成功");
+                    }
+                });
+                addrId1=mode.find("input[name='addressId']").val();
+            if (mode.find("input[name='addressId']").val()!=null){
+                location.href = "/goAlipay?price=" + $("#totalPrice").html();  //这个数字只是为了演示，实际应用肯定是写活的。
+
+            }
+
+            }
+        );
+
+
+        // 新增地址插入数据库
+        $(".pop-ok").click(function () {
+                $.ajax({
+                    url: "http://localhost:8080/addAddress",
+                    type: "post",
+                    data: {
+                        'sex': $('input:radio[name=sex]:checked+span').text(),
+                        'addrName': $("input[name='name']").val(),
+                        'addrTel': $("input[name='phone']").val(),
+                        'address': $("input[name='address']").val(),
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data == true)
+                        {
+                            location.href="takeOrder.html";
+                        }
+
+                    }
+
+                })
+            }
+        );
+
+
+        // 显示地址
+        function address() {
+
+            $.ajax({
+                url: "http://localhost:8080/getAddress",
+                type: "get",
+                data: {},
+                dataType: "json",
+                success: function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        var $node = $model.clone(true);
+                        $node.find("#name").text(data[i].addrName + " " + data[i].sex + " :    ");
+                          $node.find("#phone").text(data[i].addrTel);
+                        $node.find("input").val(data[i].addrId);
+                        $node.find("#address").text(data[i].address);
+                        // $node.children().eq(1).text(data[i].address);
+                        $("#address-bottom").before($node);
+                    }
+                }
+            });
+
+
+        }
+
+        //显示订单商品
+
+
+        //显示店家信息
+
+        var sum=0;
+        function shop() {
+
+            $.ajax({
+                url: "/getShop",
+                type: "post",
+                data: {
+                     shopId:sessionStorage.getItem("shopId"),
+                },
+                dataType: "json",
+                success: function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        $("#ca-brown").html(data[i].shopName);
+                        $("#peiPrice").html;
+                        $("#packPrice").html(data[i].packagFee);
+                        sum+=(parseInt((data[i].peiFee))+parseInt(data[i].packagFee));
+                    }
+
+                }
+            });
+
+
+        }
+        var count = 0;
+
+        function food() {
+
+            $.ajax({
+                url: "http://localhost:8080/getFood",
+                type: "get",
+                data: {},
+                dataType: "json",
+                success: function (data) {
+
+                    for (var i = 0; i < data.length; i++) {
+                        var $node1 = $model1.clone();
+                        $node1.find("#food-name").html(data[i].foodName);
+                        $node1.find("#food-price").html((data[i].foodPrice)+"*"+sessionStorage.getItem('foodNum'));
+                        // $node1.find("#address").text(data[i].address);
+                        // $node.children().eq(1).text(data[i].address);
+                        $("#pPrice").before($node1);
+                        count += (parseInt(data[i].foodPrice));
+                    }
+                    sum1=parseInt(count)+parseInt(sum);
+                    $("#count").html(sum1);
+                    $("#totalPrice").text(sum1);
+                }
+            });
+
+
+        }
+        // 显示更多地址信息
+        function addresss() {
+            var $model = $("div[class='address-box']").remove();
+            $.ajax({
+                url: "http://localhost:8080/getAddresss",
+                type: "get",
+                data: {},
+                dataType: "json",
+                success: function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        var $node = $model.clone(true);
+                        $node.find("span").text(data[i].addrName + " " + data[i].sex + " :    " + data[i].addrTel);
+                        // $node.children().eq(1).text(data[i].address);
+                        $node.find("#address").text(data[i].address);
+                        $("#address-bottom").before($node);
+                    }
+                }
+            });
+        }
+
+
+        // 备注快捷选择菜品规格
         $('#message').click(function () {
-            //取消事件冒泡
-            // event.stopPropagation();
-            //按钮的toggle,如果div是可见的,点击按钮切换为隐藏的;如果是隐藏的,切换为可见的。
             $('#order-tags').toggle();
             return false;
         });
-        //点击空白处隐藏弹出层，下面为滑动消失效果和淡出消失效果。
-        $(document).click(function(){
-            $('#order-tags').hide();          //淡出消失
+        $(document).click(function () {
+            $('#order-tags').hide();
         });
+
+
+        // 选择预计送达时间
         $('#select-input').click(function () {
-            //取消事件冒泡
-            // event.stopPropagation();
-            //按钮的toggle,如果div是可见的,点击按钮切换为隐藏的;如果是隐藏的,切换为可见的。
             $('#slide-down').toggle();
             return false;
         });
-        //点击空白处隐藏弹出层，下面为滑动消失效果和淡出消失效果。
-        $(document).click(function(){
-                $('#slide-down').hide();          //淡出消失
+        $(document).click(function () {
+            $('#slide-down').hide();
         });
+        // $('.address-box').focus(function () {
+        //     $('.box-modify').show();
+        //
+        // });
+
+        // 新增地址弹出框
+        $('.pop-close').click(function () {
+            $('.bgPop,.pop').hide();
+            $(".input").val("");
+            $('input:radio[name=sex]')[0].checked = false;
+            $('input:radio[name=sex]')[1].checked = false;
+        });
+        $('.click_pop').click(function () {
+            $('.bgPop,.pop').show();
+        });
+
+        var $model1 = $("div[id='food']").detach();
+        var $model = $("div[id='order-list-inner']").detach();
     })
 </script>
+
+
+<script type="text/javascript">
+    // 百度地图API功能
+    function G(id) {
+        return document.getElementById(id);
+    }
+
+    var map = new BMap.Map("l-map");
+    map.centerAndZoom("北京", 12);                   // 初始化地图,设置城市和地图级别。
+
+    var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
+        {
+            "input": "suggestId"
+            , "location": map
+        });
+
+    ac.addEventListener("onhighlight", function (e) {  //鼠标放在下拉列表上的事件
+        var str = "";
+        var _value = e.fromitem.value;
+        var value = "";
+        if (e.fromitem.index > -1) {
+            value = _value.province + _value.city + _value.district + _value.street + _value.business;
+        }
+        str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+
+        value = "";
+        if (e.toitem.index > -1) {
+            _value = e.toitem.value;
+            value = _value.province + _value.city + _value.district + _value.street + _value.business;
+        }
+        str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+        G("searchResultPanel").innerHTML = str;
+    });
+
+    var myValue;
+    ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
+        var _value = e.item.value;
+        myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+        G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+
+        setPlace();
+    });
+
+    function setPlace() {
+        map.clearOverlays();    //清除地图上所有覆盖物
+        function myFun() {
+            var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+            map.centerAndZoom(pp, 18);
+            map.addOverlay(new BMap.Marker(pp));    //添加标注
+        }
+
+        var local = new BMap.LocalSearch(map, { //智能搜索
+            onSearchComplete: myFun
+        });
+        local.search(myValue);
+    }
+</script>
+
 

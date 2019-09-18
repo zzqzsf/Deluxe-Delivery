@@ -4,6 +4,8 @@ $(function(){
      var shopId =sessionStorage.getItem("shopId");
     //起送费
     var startMoney = 0;
+    var oi=[];
+    sessionStorage.setItem('foodNum', $("#num").val());
     var opFlag = -1;
     $("#MenuSort").css("display","block");
     $(".foodShow").css("display","block");
@@ -40,6 +42,8 @@ $(function(){
             $("#marktwo").css({width:level+"%"});
         }
     });
+
+
     //食物分类和食物展示
     $.ajax({
         url:"http://localhost:8080/foodType",
@@ -69,6 +73,7 @@ $(function(){
                     dataType: "json",
                     success:function (data2) {
                         let count2 = data2.length;
+
                         for (let j = 0;j<count2;j++){
                             let $node2 = $(".foodSmallBox").eq(0).clone(true);
                             $node2.children().eq(0).attr("src",data2[j].foodPath);
@@ -76,9 +81,13 @@ $(function(){
                             $node2.children().eq(2).empty();
                             $node2.children().eq(2).append("<span>￥</span>"+data2[j].foodPrice);
                             $node1.children().eq(1).prepend($node2);
+                            // obj.detMoney=sum1;
+                            // obj.foodNumber=$("input[name='num']").val;
+                            // oi.push(obj);
                         }
                     }
                 });
+
                 $node1.children(1).children().last().detach();
                 $("#cartShow").before($node1);
             }
@@ -94,6 +103,28 @@ $(function(){
             behavior: 'smooth'
         });
     });
+    //去结算
+
+    // var od={addrId: "1",
+    //     orderNote:"1",
+    //     orderStatus: "未完成付款",
+    //     shopId:"1",
+    //     estimatedTime: "1",}
+    //     var orderVo={"order":od,"orderItems":oi};
+    sessionStorage.setItem('shopId', $("#shopId").text());
+    $("#startSend").click(function () {
+       // $.ajax({
+       //              url: "/insertOrder",
+       //              data: JSON.stringify(orderVo),
+       //              dataType: "text",
+       //              type: "post",
+       //              contentType: "application/json",//{name:'david',pass：'123'}
+       //              success: function (text) {
+       //                  alert("生成订单成功");
+       //              }
+       //          });
+        window.location.href="takeOrder.html";
+    })
     //选项卡功能
     $("#menuAssess ul li").eq(0).click(function () {
         $("#menuAssess ul li").eq(1).css({borderBottom:"0",color:"black"});
@@ -117,35 +148,30 @@ $(function(){
         $(".assessBigBox").css("display","block");
         $("#markBigBox").css("display","block");
     });
-
-
     //添加商品到购物车
-    var addButList = $(".addButton");
-    var cartFoList = $(".cartFood");
+    let addButList = $(".addButton");
     $(".addButton").click(function () {
-        var flag = no;
+        obj=new Object();
         $("#cartShow").css("display","block");
         $("#clearCart").show();
         $(".packCharge").show();
         $("#startSend").text("去结算");
         $("#startSend").css({backgroundColor:"#ffd161"});
         //获得当前商品的下标
-        var i = addButList.index(this);
-        for (var j=0; j< cartFoList.length;j++){
-            if (cartFoList[j].children().eq(0).text() !== addButList[i].prevAll().eq(1).text()){
-                flag = no;
-            }
-        }
-        var $node = $cartFoodmodel.clone(true);
+        let i = addButList.index(this);
+        let $node = $cartFoodmodel.clone(true);
         $node.children().eq(0).empty();
-        $node.children().eq(0).text($(this).prevAll().eq(1).text());//foodName
-        $node.children().eq(4).text($(this).prevAll().eq(0).text());//foodPrice
+        $node.children().eq(0).text($(this).prevAll().eq(1).text());
+        $node.children().eq(4).text($(this).prevAll().eq(0).text());
         $node.children().eq(5).text($(this).prevAll().eq(0).text());
+        $node.find("#foodId").html($(this).foodTypeId);
         $("#clearCart").after($node);
         calcTotal();
+        //$node.children().eq(0).text($(this).prevAll().eq(1).text()).html();
+        obj.detMoney=$("#one-price").html();
+        oi.push(obj);
+
     });
-
-
     //数量加一
     $("button[name='add']").click(function(){
         $(this).prev().val(parseInt($(this).prev().val()) + 1);
@@ -175,9 +201,10 @@ $(function(){
         $(this).nextAll().eq(2).text("￥"+num1*num2);
         calcTotal();
     });
+    var sum1 = 0;
+    var sum2 = 0;
     function calcTotal(){
-        var sum1 = 0;
-        var sum2 = 0;
+
         $(".cartFood").each(function(){
             let str = $(this).children().eq(5).text().substr(1);
             sum1 += parseFloat(str);

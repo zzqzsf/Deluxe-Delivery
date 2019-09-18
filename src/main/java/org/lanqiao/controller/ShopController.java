@@ -1,5 +1,8 @@
 package org.lanqiao.controller;
 
+
+import org.lanqiao.entity.Orders;
+import org.lanqiao.service.OrderService;
 import org.lanqiao.entity.Comment;
 import org.lanqiao.entity.Food;
 import org.lanqiao.entity.Foodtype;
@@ -27,6 +30,10 @@ import static com.google.gson.internal.bind.TypeAdapters.UUID;
 public class ShopController {
     @Autowired
     ShopService shopService;
+    @RequestMapping("/getShop")
+    public List<Shop> getShop(Integer shopId){
+        return shopService.getShop(shopId);
+    }
 
 
     @RequestMapping("/uploadFoodImg")
@@ -109,23 +116,19 @@ public class ShopController {
     public List<Foodtype> selectFoodtype(int shopId){
         return shopService.selectFoodtypeList(shopId);
     }
-    @RequestMapping("/insertFoodtype")
+    @RequestMapping("insertFoodtype")
     public int insertFoodtype(Foodtype foodtype){
         return shopService.insertFoodtype(foodtype);
     }
-    @RequestMapping("/deleteFoodtype")
+    @RequestMapping("deleteFoodtype")
     public int deleteFoodtype(int foodtypeId){
         return shopService.deleteFootype(foodtypeId);
     }
-    @RequestMapping("/updateFoodtype")
+    @RequestMapping("updateFoodtype")
     public int updateFoodtype(Foodtype foodtype){
         return shopService.updateFoodtype(foodtype);
     }
 //    订单
-    @RequestMapping("/selectAllComment")
-    public List<Comment> selectAllComment(int shopId){
-        return shopService.selectAllComment(shopId);
-    }
 
 //    评价
 }
