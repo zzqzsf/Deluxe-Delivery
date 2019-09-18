@@ -229,6 +229,16 @@
     float: left;
 
 }
+#shopshow1{
+    background: #ffffff;
+    height: 82%;
+    width: 75%;
+    margin-left: 12.5%;
+    margin-top: 1%;
+    padding: 1%;
+    float: left;
+
+}
 .show1 {
     width: 25%;
     height: 15%;
@@ -457,6 +467,15 @@
     margin-left: 12px;
 }
 #show2{
-    height: 1%;
-    width: 2%;
+    height: 100%;
+    width: 100%;
+    padding: 2%;
+}
+#solr-1{
+    width: 100%;
+}
+.solr-2{
+    width: 23%;
+    height: 10%;
+    background: #ffa735;
 }

@@ -40,6 +40,8 @@
                     }
                 }
             });
+            var $cone1=$("#shopshow1")
+            $("#shopshow1").detach()
             var Num=1
             //vue
                 var vm = new Vue({
@@ -89,7 +91,7 @@
             //搜索
             $("#h3").click(function () {
                 $("#shopshow").detach()
-                $("#shopshow1").show()
+                $("#gongao").after($cone1)
             });
             //登录部分
             $("#selectAdmin").click(function () {
@@ -158,13 +160,13 @@
         <div id="login-l">
             <div id="l-1"></div>
             <div id="l-2">集美区</div>
-<!--            <div id="l-3">集美大学</div>-->
+            <div id="l-3">集美大学</div>
             <div id="l-4"></div>
-            <div id="l-5"><a href="index.html">切换地址<img  id="top-tools" src="image/top-tools-arrow.png" /></a></div>
+            <div id="l-5">切换地址<img  id="top-tools" src="image/top-tools-arrow.png" /></div>
         </div>
         <div id="login-r">
-            <div data-toggle="modal" data-target="#myModal" class="r-2" id="register">注册</div>
-            <div data-toggle="modal" data-target="#myModal" class="r-2" id="admin">登录</div>
+            <div data-toggle="modal" data-target="#myModal" class="r-2">注册</div>
+            <div data-toggle="modal" data-target="#myModal" class="r-2">登录</div>
             <div id="r-4"><img id="oder-list" src="image/order-list.png"/>我的订单</div>
         </div>
     </div>
