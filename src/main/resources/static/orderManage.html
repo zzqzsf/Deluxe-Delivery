@@ -86,7 +86,7 @@
                 <!--订单列表-->
                 <div class="brief-intro j-toggle-content open">
 
-                    <div class="brief-intro-topconsole fr" v-for="(order,index) in list">
+                    <div class="brief-intro-topconsole fr" >
                         <div class="clearfix">
                             <a href="javascript:;" class="fr order-another j-order-another"
                                data-viewid="66487200144236701"
@@ -102,19 +102,21 @@
                              data-max-height="70">
                     </a>
                     <!--订单内容-->
-                    <div class="content">
-                        <div class="rest-name clearfix">
-                            <a target="_blank" href="/restaurant/144746545658991265" class="ca-deepgrey j-poi-name"
-                               data-poi-id="144746545658991265" data-pv-flag="1">
-                                <span class="poi-name">{{Order.shop_name}}</span>
-                            </a>
-                            <span class="order-total">{{Order.shop_tel}}</span>
-                            <span class="order-money-num">¥ {{Order.goo_smoney}}</span>
-                        </div>
-                        <div class="rest-detail">
-                            <span class="order-total">{{Order.order_time}}</span>
-                            <!-- <span class="order-id">订单号：{{Order.orderId}}</span>-->
-                            <span class="order-id">1</span>
+                    <div class="vue">
+                        <div class="content" v-for="(order,index) in list">
+                            <div class="rest-name clearfix">
+                                <a target="_blank" href="/restaurant/144746545658991265" class="ca-deepgrey j-poi-name"
+                                   data-poi-id="144746545658991265" data-pv-flag="1">
+                                    <span class="poi-name">{{order.shop_name}}</span>
+                                </a>
+                                <span class="order-total">{{order.shop_tel}}</span>
+                                <span class="order-money-num">¥ {{order.goo_smoney}}</span>
+                            </div>
+                            <div class="rest-detail">
+                                <span class="order-total">{{order.order_time}}</span>
+                                <!-- <span class="order-id">订单号：{{Order.orderId}}</span>-->
+                                <span class="order-id">1</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -291,6 +293,7 @@
     </div>
 </div>-->
 </body>
+</html>
 
 <script>
 
@@ -325,7 +328,7 @@
     var page = 1;
     var customerId = 23;
     var vm = new Vue({
-        el: ".orders-list",
+        el: ".vue",
         data: {
             list:"",
             name:"nihao"
@@ -456,4 +459,3 @@
 
 
 </script>
-</html>
