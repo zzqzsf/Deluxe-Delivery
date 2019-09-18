@@ -1,6 +1,9 @@
 $(function(){
+    // sessionStorage.setItem('telephone', $("input[name='telphone']").val());
+    //页面间传参数（己方）
+     var shopId =sessionStorage.getItem("shopId");
     //起送费
-    let startMoney = 0;
+    var startMoney = 0;
     var opFlag = -1;
     $("#MenuSort").css("display","block");
     $(".foodShow").css("display","block");
@@ -33,8 +36,8 @@ $(function(){
             $(".packCharge:eq(1)").children().eq(1).text("￥"+data.packagFee);
             $("#startSend").text("差"+data.startPrice+"元起送");
             $("#allMark").text(data.shopCom);
-            level = data.shopCom*141.3/5;
-            $("#marktwo").css({width:level+"px"});
+            level = data.shopCom*20;
+            $("#marktwo").css({width:level+"%"});
         }
     });
     //食物分类和食物展示
@@ -53,7 +56,7 @@ $(function(){
             for (let i = 0;i <count1;i++){
                 $("#MenuSort ul").append("<li>" +data1[i].ftyName + "</li>");
                 let $node1 = $foodShowModel.clone(true);
-                $node1.children(0).first().text(data1[i].ftyName);
+                $node1.children().eq(0).text(data1[i].ftyName).attr("id",i);
                 $.ajax({
                     url:"http://localhost:8080/food",
                     type: "post",
@@ -81,6 +84,16 @@ $(function(){
             }
         }
     });
+    //菜品分类，当前页面跳转
+    var $liLIst = $("#MenuSort ul li");
+    $("#MenuSort ul li").click(function () {
+        let i = $liLIst.index(this);
+        let top = document.getElementById(i).offsetTop;
+        alert(top);
+        document.getElementById(i).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
     //选项卡功能
     $("#menuAssess ul li").eq(0).click(function () {
         $("#menuAssess ul li").eq(1).css({borderBottom:"0",color:"black"});
@@ -104,25 +117,35 @@ $(function(){
         $(".assessBigBox").css("display","block");
         $("#markBigBox").css("display","block");
     });
+
+
     //添加商品到购物车
-    let addButList = $(".addButton");
-    // let foodList = $(".foodSmallBox");
+    var addButList = $(".addButton");
+    var cartFoList = $(".cartFood");
     $(".addButton").click(function () {
+        var flag = no;
         $("#cartShow").css("display","block");
         $("#clearCart").show();
         $(".packCharge").show();
         $("#startSend").text("去结算");
         $("#startSend").css({backgroundColor:"#ffd161"});
         //获得当前商品的下标
-        let i = addButList.index(this);
-        let $node = $cartFoodmodel.clone(true);
+        var i = addButList.index(this);
+        for (var j=0; j< cartFoList.length;j++){
+            if (cartFoList[j].children().eq(0).text() !== addButList[i].prevAll().eq(1).text()){
+                flag = no;
+            }
+        }
+        var $node = $cartFoodmodel.clone(true);
         $node.children().eq(0).empty();
-        $node.children().eq(0).text($(this).prevAll().eq(1).text());
-        $node.children().eq(4).text($(this).prevAll().eq(0).text());
+        $node.children().eq(0).text($(this).prevAll().eq(1).text());//foodName
+        $node.children().eq(4).text($(this).prevAll().eq(0).text());//foodPrice
         $node.children().eq(5).text($(this).prevAll().eq(0).text());
         $("#clearCart").after($node);
         calcTotal();
     });
+
+
     //数量加一
     $("button[name='add']").click(function(){
         $(this).prev().val(parseInt($(this).prev().val()) + 1);
@@ -189,8 +212,8 @@ $(function(){
                 $node.children().eq(0).attr("src",data[i].custom.cusImg);
                 $node.children().eq(1).text(data[i].custom.cusName);
                 $node.children().eq(2).text(timestampToTime(data[i].comTime));
-                var level = data[i].comLevel*72/5;
-                $node.children().eq(3).children().eq(0).css({width:level+"px"});
+                var level = data[i].comLevel*20;
+                $node.children().eq(3).children().eq(0).css({width:level+"%"});
                 if (data[i].comLevel >3){
                     $node.children().eq(4).text("好评");
                 } else if (data[i].comLevel > 2) {
