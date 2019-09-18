@@ -9,24 +9,33 @@ public class Comment {
 
     private Integer cusId;
 
+    public Integer getCusId() {
+        return cusId;
+    }
+
+    public void setCusId(Integer cusId) {
+        this.cusId = cusId;
+    }
+
+    private Custom custom;
+
     private String comText;
 
     private Integer comLevel;
 
     private Date comTime;
+    private String comTimeString;
 
     private String shopResponse;
 
-    private Custom custom;
-
     private Shop shop;
 
-    public Custom getCustom() {
-        return custom;
+    public String getComTimeString() {
+        return comTimeString;
     }
 
-    public void setCustom(Custom custom) {
-        this.custom = custom;
+    public void setComTimeString(String comTimeString) {
+        this.comTimeString = comTimeString;
     }
 
     public Shop getShop() {
@@ -37,12 +46,12 @@ public class Comment {
         this.shop = shop;
     }
 
-    public Integer getCusId() {
-        return cusId;
+    public Custom getCustom() {
+        return custom;
     }
 
-    public void setCusId(Integer cusId) {
-        this.cusId = cusId;
+    public void setCustom(Custom customs) {
+        this.custom = customs;
     }
 
     public Integer getComId() {

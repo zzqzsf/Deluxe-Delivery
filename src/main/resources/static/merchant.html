@@ -12,19 +12,19 @@
     <link rel="stylesheet" type="text/css" href="css/city-picker.css">
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/star.css">
+    <link rel="stylesheet" type="text/css" href="lib/sweet-alert.css">
 
 <!--    <link rel="stylesheet" type="text/css" href="lib/sweet-alert.css">-->
 
     <script src="js/jquery-3.4.1.min.js"></script>
-    <script src="bootstrap-3.3.7-dist/js/bootstrap.js"></script>
-    <script src="bootstrap-3.3.7-dist/js/npm.js"></script>
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.js" type="text/javascript"></script>
     <script src="js/fileinput.js" type="text/javascript"></script>
 
 
-    <script src="js/locales/zh.js" type="text/javascript" type="text/javascript"></script>
+    <script src="js/locales/zh.js" type="text/javascript"></script>
     <script src="js/vue.min.js" type="text/javascript"></script>
-
-
+    <script src="js/bootstrap-paginator.js" type="text/javascript"></script>
+    <script src="lib/sweet-alert.js" type="text/javascript"></script>
     <script src="js/city-picker.data.js"></script>
     <script src="js/city-picker.js" type="text/javascript"></script>
 <!--    <script src="lib/sweet-alert.js" type="text/javascript"></script>-->
@@ -64,7 +64,39 @@
     </style>
     <script>
         $(function () {
+
+
+            // var currentPage = 2;
+            // var totalPages = 5;
+            // $("#page").bootstrapPaginator({
+            //     bootstrapMajorVersion: 3, //对应的bootstrap版本
+            //     currentPage: currentPage, //当前页数
+            //     numberOfPages: 10, //每次显示页数
+            //     totalPages: totalPages, //总页数
+            //     shouldShowPage: true, //是否显示该按钮
+            //     useBootstrapTooltip: true,
+            //     onPageClicked: function(event, originalEvent, type, page) {
+            //
+            //     },
+            //
+            // });
+
+            /*
+            根据订单编号查订单
+            给订单、商品、评价加分页
+            预订单提醒
+            订单的操作（接单、送餐、完成）
+            订单生命周期的记录 查询
+            商品的编辑和添加
+            评价星星
+            商家资料修改
+            图片上传、手机号验证
+            ajax轮询redis查新订单
+             */
+
             var shopId = 1;
+            selectFoodtype(shopId);
+            selectShopInfo(shopId);
             var vm = new Vue({
                 el: "#all",
                 data: {
@@ -74,22 +106,193 @@
                     shopOrders:"",
                     shopInfo:"",
                 },
-                mathods: {
+                methods: {
+                    //新订单
+                    newOrder:function () {
+                        var orderStatus="等待商家接单";
+                        selectAllShopOrder(shopId,orderStatus);
+                    },
+                    //预计订单
+                    expectOrder:function () {
+                        selectAllShopOrder(shopId);
+                    },
+                    //已取消订单
+                    cancelOrder:function () {
+                        var orderStatus="已取消";
+                        selectAllShopOrder(shopId,orderStatus);
+                    },
+                    //今日订单
+                    todayOrder:function () {
+                        $.ajax({
+                            url:"/selectTodayOrder",
+                            type:"post",
+                            data:{
+                                shopId:shopId,
+                            },
+                            dataType:"json",
+                            success:function (data) {
+                                vm.shopOrders=data;
+                            }
+                        })
+
+                    },
+                    //查询所有订单
+                    allOrder:function () {
+                        selectAllShopOrder(shopId);
+                    },
+                    //点击商品分类查商品
+                    selectFoodByFty:function (index) {
+                        var ftyId=this.foodtype[index].ftyId;
+                        var activeChose=$("#foodTwoBar .active a").text();
+                        selectAllFoodByFty(ftyId,activeChose);
+                    },
+                    //查询所有商品   分类   method方法间相互调用失败
+                    allFood:function () {
+                        var index=$("#foodThreeBar .active span").text();
+                        this.$options.methods.selectFoodByFty(index);
+                    },
+                    //删除商品（因外键约束失败，修改商品状态为已删除）
+                    deleteFood:function (index) {
+                        var foodId=this.food[index].foodId;
+                        swal({
+                                title: "确定要删除该商品吗?",
+                                text: "",
+                                type: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "删除!",
+                                cancelButtonText:"取消",
+                                closeOnConfirm: false
+                            },
+                            function(isSure){
+                                if(isSure){
+                                    $.ajax({
+                                        url:"/deleteFood",
+                                        type:"post",
+                                        data:{
+                                            foodId:foodId,
+                                        },
+                                        dataType:"json",
+                                        success:function (data) {
+                                            swal("删除成功!", "该商品已被删除", "success");
+
+                                        }
+                                    })
+                                }
+                            });
+                        this.food[index]="";
+
+                    },
+                    //更改商品状态 上架/下架
+                    updateFood:function (index) {
+                        var foodId=this.food[index].foodId;
+                        var foodStatus=this.food[index].foodStatus=="上架"?"下架":"上架";
+                        swal({
+                                title: "确定要"+foodStatus+"该商品吗?",
+                                text: "",
+                                type: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: foodStatus,
+                                cancelButtonText:"取消",
+                                closeOnConfirm: false
+                            },
+                            function(isSure){
+                                if(isSure){
+                                    $.ajax({
+                                        url:"/updateFoodInfo",
+                                        type:"post",
+                                        data:{
+                                            foodId:foodId,
+                                            foodStatus:foodStatus,
+                                        },
+                                        dataType:"json",
+                                        success:function (data) {
+                                            swal(foodStatus+"成功!", "", "success");
+                                        }
+                                    })
+                                }
+                            });
+                        this.food[index].foodStatus=foodStatus;
+                    },
+                    selectAllComment:function(){
+                        selectAllComment(shopId);
+                    },
+                    selectGoodComment:function () {
+                        $.ajax({
+                            url:"/selectAllComment",
+                            type:"post",
+                            data:{
+                                shopId:shopId,
+                                comLevel:"好评"
+                            },
+                            dataType:"json",
+                            success:function (data) {
+                                vm.comments=data;
+                            }
+                        })
+                    },
+                    selectBadComment:function () {
+                        $.ajax({
+                            url:"/selectAllComment",
+                            type:"post",
+                            data:{
+                                shopId:shopId,
+                                comLevel:"差评"
+                            },
+                            dataType:"json",
+                            success:function (data) {
+                                vm.comments=data;
+                            }
+                        })
+                    },
+                    submitShopRsp:function (index) {
+                        var comId=this.comments[index].comId;
+                        $.ajax({
+                            url:"/submitShopRsp",
+                            type:"post",
+                            data:{
+                                comId:comId,
+                                shopResponse:$("#shopRespone").val(),
+                            },
+                            dataType:"json",
+                            success:function (data) {
+                                vm.comments[index].shopResponse=$("#shopRespone").val();
+                            }
+                        })
+                    }
                 }
             });
+            //添加商品分类
             $("#submitFoodtype").click(function () {
-                $.ajax({
-                    url: "/insertFoodtype",
-                    type: "post",
-                    data: {
-                        ftyName: $("#insertFoodSort").val(),
-                        shopId: "1",
+                swal({
+                        title: "确定要添加商品分类吗?",
+                        text: "",
+                        type: "info",
+                        showCancelButton: true,
+                        confirmButtonColor: "#5BC0DE",
+                        confirmButtonText: "添加",
+                        cancelButtonText:"取消",
+                        closeOnConfirm: false
                     },
-                    dataType: "text",
-                    success: function () {
-                        selectFoodtype(shopId);
-                    }
-                })
+                    function(isSure) {
+                        if (isSure) {
+                            $.ajax({
+                                url: "/insertFoodtype",
+                                type: "post",
+                                data: {
+                                    ftyName: $("#insertFoodSort").val(),
+                                    shopId: "1",
+                                },
+                                dataType: "text",
+                                success: function () {
+                                    swal("添加成功!", "该商品分类已被添加", "success");
+                                    selectFoodtype(shopId);
+                                }
+                            })
+                        }
+                    });
+
             });
             // $("#submitFood").click(function () {
             //     $.ajax({
@@ -127,37 +330,97 @@
             //         // swal("添加成功!", "你已成功添加"+$("#foodName").val()+"!", "success");
             //     }
             // });
-            // $("#foodImg").fileinput({
-            //     language:'zh',
-            //     uploadUrl: "/uploadFoodImg",
-            //     allowedFileExtensions : ['jpg', 'png','gif'],
-            //     overwriteInitial: false,
-            //     showRemove:true,
-            //     maxFileSize: 100000,
-            //     maxFileCount: 1,
-            //     autoReplace:true,
-            //
-            //     slugCallback: function(filename) {
-            //         return filename.replace('(', '_').replace(']', '_');
-            //     }
-            // });
+            //上传商品图片
+            $("#foodImg").fileinput({
+                language:'zh',
+                uploadUrl: "/uploadFoodImg",
+                allowedFileExtensions : ['jpg', 'png','gif'],
+                overwriteInitial: false,
+                showRemove:true,
+                maxFileSize: 100000,
+                maxFileCount: 1,
+                autoReplace:true,
 
-
-            $("#foodStatus").click(function () {
-                confirm("是否要更改该商品的状态");
+                slugCallback: function(filename) {
+                    return filename.replace('(', '_').replace(']', '_');
+                }
             });
-            $("#deleteFood").click(function () {
-                confirm("确定要删除该商品");
-            })
+            //隐藏订单详情 （失效了）
             $("#orderItemInfo").hide();
+            //点击切换  显示/隐藏 订单详情（失效了）
             $("#orderInfo").click(function () {
                 $("#orderItemInfo").toggle()
             });
-            selectFoodtype(shopId);
+            //更新商品分类
+            $("#updateFoodtype").click(function () {
+                swal({
+                        title: "确定要修改该商品分类吗?",
+                        text: "",
+                        type: "info",
+                        showCancelButton: true,
+                        confirmButtonColor: "#5CB85C",
+                        confirmButtonText: "修改",
+                        cancelButtonText:"取消",
+                        closeOnConfirm: false
+                    },
+                    function(isSure) {
+                        if (isSure) {
+                            $.ajax({
+                                url: "/updateFoodtype",
+                                type: "post",
+                                data: {
+                                    ftyName: $("#newFoodSort").val(),
+                                    ftyId: $('#updateSelectfoodSort option:selected').val(),
+                                },
+                                dataType: "text",
+                                success: function () {
+                                    swal("修改成功!", "该商品分类已被修改", "success");
+                                    selectFoodtype(shopId);
+                                }
+                            })
+                        }
+                    });
+
+
+            })
+            //删除商品分类
+            $("#deleteFoodtype").click(function () {
+                swal({
+                        title: "确定要删除该商品分类吗?",
+                        text: "",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "删除!",
+                        cancelButtonText:"取消",
+                        closeOnConfirm: false
+                    },
+
+                    function(isSure){
+                        if(isSure){
+                            $.ajax({
+                                url: "/deleteFoodtype",
+                                type: "post",
+                                data: {
+                                    foodtypeId:$('#deleteSelectFoodSort option:selected').val(),
+                                },
+                                dataType: "text",
+                                success: function () {
+                                    swal("删除成功!", "该商品分类已被删除", "success");
+                                    selectFoodtype(shopId);
+                                }
+                            })
+
+                        }
+                    });
+
+
+            })
+
             selectAllComment(shopId);
             selectAllShopOrder(shopId);
-            selectShopInfo(shopId);
 
+            //查询商品分类
             function selectFoodtype(shopId) {
                 $.ajax({
                     url:"/selectFoodtype",
@@ -171,6 +434,7 @@
                     }
                 })
             };
+            //查询所有的评价
             function selectAllComment(shopId) {
                 $.ajax({
                     url:"/selectAllComment",
@@ -184,12 +448,14 @@
                     }
                 })
             }
-            function selectAllShopOrder(shopId) {
+            //查询所有订单
+            function selectAllShopOrder(shopId,orderStatus) {
                 $.ajax({
                     url:"/selectAllShopOrder",
                     type:"post",
                     data:{
                         shopId:shopId,
+                        orderStatus:orderStatus,
                     },
                     dataType:"json",
                     success:function (data) {
@@ -197,6 +463,7 @@
                     }
                 })
             };
+            //查询店铺信息
             function selectShopInfo(shopId) {
                 $.ajax({
                     url:"/selectShopInfo",
@@ -210,6 +477,70 @@
                     }
                 })
 
+            }
+            //根据分类查商品
+            function selectAllFoodByFty(ftyId,activeChose) {
+
+                switch (activeChose) {
+                    case "全部商品":
+                        $.ajax({
+                            url:"/selectFoodByFoodtype",
+                            type:"post",
+                            data:{
+                                foodtypeId:ftyId,
+                            },
+                            dataType:"json",
+                            success:function (data) {
+                                vm.food=data;
+                            }
+                        });
+                        break;
+                    case "库存不足":
+                        $.ajax({
+                            url:"/selectFoodByFoodtype",
+                            type:"post",
+                            data:{
+                                foodtypeId:ftyId,
+                                foodStock:1,
+                            },
+                            dataType:"json",
+                            success:function (data) {
+                                vm.food=data;
+                            }
+                        });
+
+                        break;
+                    case "已上架":
+                        $.ajax({
+                            url:"/selectFoodByFoodtype",
+                            type:"post",
+                            data:{
+                                foodtypeId:ftyId,
+                                foodStatus:"上架"
+                            },
+                            dataType:"json",
+                            success:function (data) {
+                                vm.food=data;
+                            }
+                        });
+                        break;
+                    case "已下架":
+                        $.ajax({
+                            url:"/selectFoodByFoodtype",
+                            type:"post",
+                            data:{
+                                foodtypeId:ftyId,
+                                foodStatus:"下架"
+                            },
+                            dataType:"json",
+                            success:function (data) {
+                                vm.food=data;
+                            }
+                        });
+                        break;
+                    default :
+                        break;
+                }
             }
         })
     </script>
@@ -230,11 +561,11 @@
                     <div class="col-md-4"><h3>商家版</h3></div>
                 </div>
                 <div class="col-md-2" style="overflow: hidden">
-                    <h3 >尹正香麻辣香锅</h3>
+                    <h3>{{shopInfo.shopName}}</h3>
                 </div>
                 <div class="col-md-1"><h3>&nbsp;&nbsp;|</h3></div>
                 <div class="col-md-4">
-                    <h3>营业中</h3>
+                    <h3>{{shopInfo.shopState}}</h3>
                 </div>
             </div>
         </div>
@@ -281,12 +612,11 @@
                 <div class="row-fluid">
                     <div class="col-md-12" style="height: 70px">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#orders">新订单</a></li>
-                            <li><a data-toggle="tab" href="#orders">预订单提醒</a></li>
-                            <li><a data-toggle="tab" href="#orders">取消单</a></li>
-                            <li><a data-toggle="tab" href="#orders">今日订单</a></li>
-                            <li><a data-toggle="tab" href="#orders">最近3天订单</a></li>
-                            <li><a data-toggle="tab" href="#orders">全部订单</a></li>
+                            <li class="active"><a data-toggle="tab" href="#orders" @click="newOrder()">新订单</a></li>
+                            <li><a data-toggle="tab" href="#orders" @click="expectOrder()">预订单提醒</a></li>
+                            <li><a data-toggle="tab" href="#orders" @click="cancelOrder()">取消单</a></li>
+                            <li><a data-toggle="tab" href="#orders" @click="todayOrder()">今日订单</a></li>
+                            <li><a data-toggle="tab" href="#orders" @click="allOrder()">全部订单</a></li>
                         </ul>
                     </div>
                     <div class="tab-content position" >
@@ -311,7 +641,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <span class="col-md-3">{{shopOrder.orderTime}}</span>
+                                                    <span class="col-md-3">{{shopOrder.orderTimeString}}</span>
                                                     <span class="col-md-7">订单号：<span>{{shopOrder.orderId}}</span></span>
                                                 </div>
                                             </div>
@@ -386,15 +716,8 @@
                                 </div>
                                 </div>
                             </div>
-                            <div class="col-md-8 pull-right">
-                                <ul class="pagination">
-                                    <li><a href="#">&laquo;</a></li>
-                                    <li class="active"><a href="#">1</a></li>
-                                    <li class="disabled"><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
-                                    <li><a href="#">&raquo;</a></li>
+                            <div style="text-align:center;">
+                                <ul id="page">
                                 </ul>
                             </div>
 
@@ -413,19 +736,19 @@
 <!--                商品管理二级导航栏-->
                 <div class="row-fluid">
                     <div class="col-md-12" style="height: 70px">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#allfoods">全部商品</a></li>
-                            <li><a data-toggle="tab" href="#allfoods">库存不足</a></li>
-                            <li><a data-toggle="tab" href="#allfoods">已上架</a></li>
-                            <li><a data-toggle="tab" href="#allfoods">已下架</a></li>
+                        <ul class="nav nav-tabs" id="foodTwoBar">
+                            <li class="active"><a data-toggle="tab" href="#allfoods" @click="allFood()">全部商品</a></li>
+                            <li><a data-toggle="tab" href="#allfoods" @click="allFood()">库存不足</a></li>
+                            <li><a data-toggle="tab" href="#allfoods" @click="allFood()">已上架</a></li>
+                            <li><a data-toggle="tab" href="#allfoods" @click="allFood()">已下架</a></li>
                         </ul>
                     </div>
                     <div class="tab-content position" >
                         <div id="allfoods" class="tab-pane fade in active">
                             <div class="col-md-2">
 <!--                                商品管理三级导航栏-->
-                                <ul class="nav nav-pills nav-stacked" >
-                                        <li v-for="(foodtype,index) in foodtype"><a data-toggle="tab" href="#foods">{{foodtype.ftyName}}</a></li>
+                                <ul class="nav nav-pills nav-stacked" id="foodThreeBar">
+                                    <li v-for="(foodtype,index) in foodtype" @click="selectFoodByFty(index)"><a data-toggle="tab" href="#foods">{{foodtype.ftyName}}</a><span class="hidden">{{index}}</span></li>
 
 
 <!--                                添加商品分类按钮，insertFoodSortModel-->
@@ -446,7 +769,7 @@
                                 <div id="foods" class="tab-pane fade in active">
 <!--                                    商品行-->
                                     <div class="row" style="height: 50px">
-                                        <div class="col-md-1"><input type="checkbox" /></div>
+                                        <div class="col-md-1"></div>
                                         <div class="col-md-4" style="padding-left: 50px"><p>商品</p></div>
                                         <div class="col-md-2"><p>价格</p></div>
                                         <div class="col-md-2"><p>库存</p></div>
@@ -454,26 +777,26 @@
                                     </div>
                                     <h5 class="page-header" style="margin-top: 0"></h5>
 <!--                                    商品详细数据-->
-                                    <div class="row" style="height:70px ;border: 2px solid #eeeeee;padding: 10px 0">
-                                        <div class="col-md-1"><input type="checkbox"></div>
+                                    <div class="row" style="height:70px ;border: 2px solid #eeeeee;padding: 10px 0" v-for="(food,index) in food">
+                                        <div class="col-md-1"></div>
                                         <div class="col-md-4">
                                             <div class="col-md-3">
-                                                <img src="" class="img-responsive" alt="商品图片">
+                                                <img :src="food.foodPath" class="img-responsive" alt="商品图片">
                                             </div>
                                             <div class="col-md-9">
-                                                <div class="row">*****米饭******</div>
+                                                <div class="row">{{food.foodName}}</div>
                                                 <div class="row">
-                                                    <div class="col-md-4" style="padding: 0 5px 0 0"><label>月售：</label><span>1000</span></div>
+                                                    <div class="col-md-4" style="padding: 0 5px 0 0"><label>月售：</label><span>{{food.foodMonSale}}</span></div>
                                                     <div class="col-md-4" style="padding: 0 5px 0 0"><label>好评：</label><span>100%</span></div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-2"><p>￥2.00</p></div>
-                                        <div class="col-md-2"><p>9999</p></div>
+                                        <div class="col-md-2"><p>￥{{food.foodPrice}}</p></div>
+                                        <div class="col-md-2"><p>{{food.foodStock}}</p></div>
                                         <div class="col-md-3">
                                             <div class="col-md-2" style="padding:0 5px 0 0"><a data-toggle="modal" data-target="#updateFoodModal" >编辑</a></div>
-                                            <div class="col-md-2" style="padding:0 5px 0 0"><a id="foodStatus">下架</a></div>
-                                            <div class="col-md-2" style="padding:0 5px 0 0"><a id="deleteFood">删除</a></div>
+                                            <div class="col-md-2" style="padding:0 5px 0 0"><a id="foodStatus" @click="updateFood(index)">{{food.foodStatus}}</a></div>
+                                            <div class="col-md-2" style="padding:0 5px 0 0"><a id="deleteFood" @click="deleteFood(index)">删除</a></div>
                                         </div>
                                     </div>
 <!--                                    添加商品-->
@@ -515,7 +838,7 @@
                                                             <div class="form-group">
                                                                 <label for="foodImg" class="col-md-2 control-label">商品图片</label>
                                                                 <div class="col-md-10">
-                                                                    <input type="file" id="foodImg" name="foodImg" >
+                                                                    <input type="file" id="foodImg" class="file-loading" name="foodImg" data-overwrite-initial="false" data-min-file-count="1">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
@@ -657,7 +980,7 @@
                                                         <label for="updateSelectfoodSort" class="col-md-2 control-label">选择商品分类</label>
                                                         <div class="col-md-10">
                                                             <select class="form-control" id="updateSelectfoodSort">
-                                                                <option value="foodtype.ftyId" v-for="(foodtype,index) in foodtype">{{foodtype.ftyName}}</option>
+                                                                <option :value="foodtype.ftyId" v-for="(foodtype,index) in foodtype">{{foodtype.ftyName}}</option>
                                                             </select>
                                                         </div>
 
@@ -673,7 +996,7 @@
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                                                 </button>
-                                                <button type="button" class="btn btn-primary">
+                                                <button type="button" class="btn btn-primary" id="updateFoodtype">
                                                     修改
                                                 </button>
                                             </div>
@@ -698,7 +1021,7 @@
                                                         <label for="deleteSelectFoodSort" class="col-md-2 control-label">选择商品分类</label>
                                                         <div class="col-md-10">
                                                             <select class="form-control" id="deleteSelectFoodSort">
-                                                                <option value="foodtype.ftyId" v-for="(foodtype,index) in foodtype">{{foodtype.ftyName}}</option>
+                                                                <option :value="foodtype.ftyId" v-for="(foodtype,index) in foodtype">{{foodtype.ftyName}}</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -707,7 +1030,7 @@
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                                                 </button>
-                                                <button type="button" class="btn btn-primary">
+                                                <button type="button" class="btn btn-primary" id="deleteFoodtype">
                                                     删除
                                                 </button>
                                             </div>
@@ -730,9 +1053,9 @@
                 <div class="row-fluid">
                     <div class="col-md-12" style="height: 70px">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#comments">全部评价</a></li>
-                            <li><a data-toggle="tab" href="#comments">好评</a></li>
-                            <li><a data-toggle="tab" href="#comments">差评</a></li>
+                            <li class="active"><a data-toggle="tab" href="#comments" @click="selectAllComment()">全部评价</a></li>
+                            <li><a data-toggle="tab" href="#comments" @click="selectGoodComment()">好评</a></li>
+                            <li><a data-toggle="tab" href="#comments" @click="selectBadComment()">差评</a></li>
                         </ul>
                     </div>
 <!--                具体评价-->
@@ -759,7 +1082,7 @@
                                             <span class="col-md-3" style="line-height: 30px" v-if="comment.comLevel>3">好评</span>
                                             <span class="col-md-3" style="line-height: 30px" v-else="comment.comLevel>3">差评</span>
                                         </div>
-                                        <div class="col-md-2 pull-right" style="line-height: 30px">{{comment.comTime}}</div>
+                                        <div class="col-md-2 pull-right" style="line-height: 30px">{{comment.comTimeString}}</div>
                                     </div>
                                     <div class="row" style="margin-top: 10px ; padding:0 30px 0 15px">
                                         {{comment.comText}}
@@ -771,6 +1094,7 @@
                                                 <label for="shopRespone" class="col-md-1 control-label" style="color:#ffb700 ; padding:0 15px 0 15px">商家回复:</label>
                                                 <div class="col-md-10">
                                                     <textarea class="form-control" rows="3" id="shopRespone" placeholder="请回复" v-if="comment.shopResponse==null"></textarea>
+                                                    <button class="btn btn-default" v-if="comment.shopResponse==null" @click="submitShopRsp(index)">提交</button>
                                                     <span v-else>{{comment.shopResponse}}</span>
                                                 </div>
                                             </div>
@@ -815,7 +1139,12 @@
                                     <tbody>
                                     <tr>
                                         <td class="col-md-2">店铺名</td>
-                                        <td class="col-md-10">{{shopInfo.shopName}}</td>
+<!--                                        <td class="col-md-10">{{shopInfo.shopName}}&nbsp;&nbsp;&nbsp;<span class ="glyphicon glyphicon-edit"style ="color:#000000;"></span></td>-->
+                                        <td class="col-md-10">
+
+                                                <input type="text" class="form-control" id="updateShopName" placeholder="请输入店铺名称" value="尹正香麻辣香锅">
+
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="col-md-2">店铺地址</td>
@@ -857,16 +1186,16 @@
                         <div id="updateShopInfo" class="tab-pane fade">
                             <form class="form-horizontal">
 <!--                                店铺名-->
-                                <div class="form-group">
-                                    <label for="updateShopName" class="col-md-2 control-label">店铺名称</label>
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" id="updateShopName" placeholder="请输入店铺名称" value="尹正香麻辣香锅">
-                                    </div>
-                                </div>
+<!--                                <div class="form-group">-->
+<!--                                    <label for="updateShopName" class="col-md-2 control-label">店铺名称</label>-->
+<!--                                    <div class="col-md-10">-->
+<!--                                        <input type="text" class="form-control" id="updateShopName" placeholder="请输入店铺名称" value="尹正香麻辣香锅">-->
+<!--                                    </div>-->
+<!--                                </div>-->
 <!--                                店铺地址-->
                                 <div class="form-group">
                                     <label for="updateShopAddr" class="col-md-2 control-label">店铺地址</label>
-                                    <div style="position: relative;" class="col-md-10">
+                                    <div style="position: relative" class="col-md-10">
                                         <!-- container -->
                                         <input readonly type="text" id="updateShopAddr" data-toggle="city-picker" placeholder="点击从下拉面板中选择省/市/区县/镇">
                                     </div>

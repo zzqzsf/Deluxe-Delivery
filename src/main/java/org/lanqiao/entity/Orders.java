@@ -10,10 +10,23 @@ public class Orders {
     private Custom custom;
 
     private Date orderTime;
+    private String orderTimeString;
 
     private Double gooYmoney;
 
     private Double gooSmoney;
+
+    private String orderStatus;
+
+    private String orderNote;
+
+    public String getOrderTimeString() {
+        return orderTimeString;
+    }
+
+    public void setOrderTimeString(String orderTimeString) {
+        this.orderTimeString = orderTimeString;
+    }
 
     public Integer getShopId() {
         return shopId;
@@ -23,11 +36,9 @@ public class Orders {
         this.shopId = shopId;
     }
 
-    private String orderStatus;
-
-    private String orderNote;
-
     private String estimatedTime;
+
+    private Shop shop;
 
     private Integer shopId;
 
@@ -103,6 +114,14 @@ public class Orders {
         this.estimatedTime = estimatedTime == null ? null : estimatedTime.trim();
     }
 
+    public Shop getShop() {
+        return shop;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
+    }
+
     @Override
     public String toString() {
         return "Orders{" +
@@ -115,7 +134,7 @@ public class Orders {
                 ", orderStatus='" + orderStatus + '\'' +
                 ", orderNote='" + orderNote + '\'' +
                 ", estimatedTime='" + estimatedTime + '\'' +
-                ", shopId=" + shopId +
+                ", shop=" + shop +
                 '}';
     }
 }

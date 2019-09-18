@@ -3,12 +3,12 @@ body,img,p,span,ul,li{
     padding: 0;
     list-style: none;
     font:12px/1.125 Microsoft Yahei,Arial,Helvetica,sans-serif;
-
 }
 #mainBody{
-    height: 1600px;
     width: 100%;
     background-color: #F5F5F5;
+    position: absolute;
+    margin-top: 70px;
 }
 #header{
     height: 70px;
@@ -20,9 +20,6 @@ body,img,p,span,ul,li{
 #footer{
     height: 220px;
     width: 100%;
-    float: left;
-    position: absolute;
-    bottom: 0;
 }
 .w{
     margin-top: 10px;
@@ -32,8 +29,6 @@ body,img,p,span,ul,li{
 #partOne{
     height: 150px;
     width: 80%;
-    position: absolute;
-    top: 70px;
     background-color: white;
 }
 /*店铺名Box左部分*/
@@ -158,13 +153,19 @@ body,img,p,span,ul,li{
     height: 30px;
     width: 35px;
     margin-left: 36%;
+    margin-top: 5px;
     background-image: url(https://waimai.meituan.com/static/img/restaurant/favorite-grey.svg);
+}
+#redHeart{
+    height: 30px;
+    width: 35px;
+    background-image: url(https://waimai.meituan.com/static/img/restaurant/favorite-red.svg);
+    display: none;
 }
 /*菜单部分*/
 #partTwoMenu{
     width: 80%;
-    position: absolute;
-    top: 230px;
+    position: relative;
 }
 #menuAssess{
     height: 40px;
@@ -204,7 +205,11 @@ body,img,p,span,ul,li{
     overflow: hidden;
     float: left;
     margin: 3px;
+    color: black;
     cursor: pointer;
+}
+#MenuSort li:hover{
+    color: orangered;
 }
 /*菜品展示*/
 .foodShow{
@@ -215,11 +220,11 @@ body,img,p,span,ul,li{
     display: none;
 }
 .sortName{
-    height: 35px;
+    height: 40px;
     width: 95%;
     font-size: 16px;
     text-align: left;
-    line-height: 30px;
+    line-height: 40px;
     margin-left: 10px;
 }
 .foodBigBox{
