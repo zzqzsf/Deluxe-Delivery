@@ -43,7 +43,9 @@ public class Shop implements Serializable {
         this.peiFee = peiFee;
     }
 
+
     private List<Foodtype> foodtypeList;
+
     private List<Food> foodList;
 
 //

@@ -296,6 +296,55 @@
             $("#time").html(li);
         });
 
+        //结算订单
+        // sessionStorage.setItem('telephone', $("input[name='telphone']").val());
+        // var telephone =sessionStorage.getItem("telephone");
+
+        // var addrId1 =sessionStorage.getItem("addrId");
+        var addrId1;
+        sessionStorage.setItem('addrId',addrId1);
+        $("#pay-price").click(function () {
+                $.ajax({
+                    url: "/insertOrder",
+                    data: JSON.stringify(
+                        {
+                            "order": {
+                                addrId: mode.find("input[name='addressId']").val(),
+                                orderNote: $("#message").val(),
+                                orderStatus: "未完成付款",
+                                shopId:sessionStorage.getItem("shopId"),
+                                estimatedTime: $("#time").html(),
+
+                            },
+                            "orderItems": [{
+                                 detNote: "无留言",
+                                 detMoney: $("#count").html(),
+                                 foodNumber:sessionStorage.getItem('foodNum'),
+                            }]
+                        }),
+                    dataType: "text",
+                    type: "post",
+                    contentType: "application/json",//{name:'david',pass：'123'}
+                    success: function (text) {
+                        alert("生成订单成功");
+                    }
+                });
+                addrId1=mode.find("input[name='addressId']").val();
+            if (mode.find("input[name='addressId']").val()!=null){
+                location.href = "/goAlipay?price=" + $("#totalPrice").html();  //这个数字只是为了演示，实际应用肯定是写活的。
+
+            }
+            else
+            {
+                alert("111");
+            }
+
+
+
+
+            }
+        );
+
 
         // 新增地址插入数据库
         $(".pop-ok").click(function () {

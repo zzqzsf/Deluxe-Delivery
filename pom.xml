@@ -153,6 +153,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
+
         <dependency>
             <groupId>com.vaadin.external.google</groupId>
             <artifactId>android-json</artifactId>
@@ -172,45 +173,44 @@
 			<version>2.5</version>
 		</dependency>
 
-
-        <!--pagehelper-->
-        <!--		<dependency>-->
-        <!--			<groupId>com.github.pagehelper</groupId>-->
-        <!--			<artifactId>pagehelper</artifactId>-->
-        <!--			<version>4.1.3</version>-->
-        <!--		</dependency>-->
+        		<dependency>
+        			<groupId>com.github.pagehelper</groupId>
+        			<artifactId>pagehelper</artifactId>
+        			<version>4.1.3</version>
+        		</dependency>
 
 
-<!--		solr-->
+        <!--		solr-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-solr</artifactId>
 		</dependency>
 	</dependencies>
 
-    <build>
-        <plugins>
+	<build>
+		<plugins>
 			<!--反向工具插件-->
-            <plugin>
-                <groupId>org.mybatis.generator</groupId>
-                <artifactId>mybatis-generator-maven-plugin</artifactId>
-                <version>1.3.2</version>
-                <configuration>
-                    <verbose>true</verbose>
-                    <overwrite>true</overwrite>
-                </configuration>
-            </plugin>
+			<plugin>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-maven-plugin</artifactId>
+				<version>1.3.2</version>
+				<configuration>
+					<verbose>true</verbose>
+					<overwrite>true</overwrite>
+				</configuration>
+			</plugin>
 
 			<!--            springboot插件-->
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
 					<fork>true</fork><!--必须添加这个配置-->
-                </configuration>
-            </plugin>
+				</configuration>
+			</plugin>
 
-        </plugins>
-    </build>
+		</plugins>
+	</build>
 
 </project>
+

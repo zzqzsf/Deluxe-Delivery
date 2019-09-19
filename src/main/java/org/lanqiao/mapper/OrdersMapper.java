@@ -5,9 +5,12 @@ import org.lanqiao.entity.Orders;
 import org.springframework.stereotype.Service;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 
 
 import java.util.List;
+import java.util.Map;
+
 @Service
 @Component
 public interface OrdersMapper {
@@ -22,6 +25,12 @@ public interface OrdersMapper {
 	int updateByPrimaryKeySelective(Orders record);
 
 	int updateByPrimaryKey(Orders record);
+
+	List<Orders> getOrderList( @Param("customerId") int customerId);
+
+
+    List<Orders> selectAllShopOrder(int shopId,String orderStatus);
+    List<Orders> selectTodayOrder(int shopId);
 
     List<Orders> getAllOrder(@Param("pageNum") int pageNum, @Param("pageSize") int pageSize );
 }

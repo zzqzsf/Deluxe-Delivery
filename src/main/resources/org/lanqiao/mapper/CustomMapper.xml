@@ -31,7 +31,14 @@
     <update id="updatePass" parameterType="java.lang.String">
         update custom set cus_pwd = #{cusPwd,jdbcType=VARCHAR} where cus_tel = #{cusTel,jdbcType=VARCHAR}
     </update>
+    
+    <select id="getUserId" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select cus_id from custom where cus_tel = #{cusTel,jdbcType=VARCHAR}
+    </select>
 
+    <select id="getUserName" parameterType="java.lang.String" resultType="java.lang.String">
+        select cus_name from custom where cus_tel = #{cusTel,jdbcType=VARCHAR}
+    </select>
 
 
 

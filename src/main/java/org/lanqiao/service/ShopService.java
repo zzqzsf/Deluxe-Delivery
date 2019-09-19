@@ -1,21 +1,19 @@
 package org.lanqiao.service;
 
-import org.lanqiao.entity.Comment;
-import org.lanqiao.entity.Food;
-import org.lanqiao.entity.Foodtype;
-import org.lanqiao.entity.Shop;
+import org.lanqiao.entity.*;
+
 import java.util.List;
 
 
 public interface ShopService {
-//	public List<Shop> selectShopInfo(int shopId);
 
 	public List<Shop> getShop(Integer shopId);
 //    shop的
     public Shop selectShopInfo(int shopId);
+
     public int updateShopInfo(Shop shop);
 //    food的
-    public List<Food> selectFoodByFoodtype(int shopId);
+    public List<Food> selectFoodByFoodtype(int foodtypeId,String foodStatus,Integer foodStock);
     public int insertFood(Food food);
     public int updateFoodInfo(Food food);
     public int deleteFood(int foodId);
@@ -25,6 +23,13 @@ public interface ShopService {
     public int updateFoodtype(Foodtype foodtype);
     public int deleteFootype(int foodtypeId);
 //Comment评价的
+    public List<Comment> selectAllComment(int shopId,String comLevel);
+    public int submitShopRsp(Comment comment);
+
+//    order订单
+//    全部订单
+    public List<Orders> selectAllShopOrder(int shopId,String orderStatus);
+    public List<Orders> selectTodayOrder(int shopId);
     public List<Comment> selectAllComment(int shopId);
     //检查商铺手机是否被注册
      public String checkShopName(String shopName);

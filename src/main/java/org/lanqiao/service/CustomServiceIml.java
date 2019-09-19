@@ -19,7 +19,6 @@ public class CustomServiceIml implements CustomService {
     private RedisUtil redisUtil;
 
     public int checkTel(String tel){
-
         return customMapper.checkTel(tel);
     }
     public int insertCustom(Custom custom){
@@ -42,5 +41,11 @@ public class CustomServiceIml implements CustomService {
     }
     public int updatePass(String cusTel,String cusPwd){
         return customMapper.updatePass(cusTel,cusPwd);
+    }
+    public int getUserId(String cusTel){
+        return customMapper.getUserId(cusTel);
+    }
+    public String getUserName(String cusTel){
+        return customMapper.getUserName(cusTel);
     }
 }

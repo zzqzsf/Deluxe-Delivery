@@ -10,9 +10,17 @@
     <result column="order_note" property="orderNote" jdbcType="VARCHAR" />
     <result column="estimated_time" property="estimatedTime" jdbcType="VARCHAR" />
     <result column="shop_id" property="shopId" jdbcType="INTEGER" />
-    <association property="address" resultMap="AddressResultMap"></association>
-    <association property="custom" resultMap="CustomResultMap"></association>
-    <association property="shop" resultMap="ShopResultMap"></association>
+    <association property="shop" javaType="org.lanqiao.entity.Shop">
+      <id column="shop_id" property="shopId" jdbcType="INTEGER" />
+      <result column="shop_tel" property="shopTel" jdbcType="VARCHAR" />
+      <result column="shop_name" property="shopName" jdbcType="VARCHAR" />
+      <result column="shop_img" property="shopImg" jdbcType="VARCHAR" />
+      <result column="start_price" property="startPrice" jdbcType="DOUBLE" />
+    <result column="packag_fee" property="packagFee" jdbcType="DOUBLE" />
+    </association>
+    <association property="address" resultMap="AddressResultMap"/>
+    <association property="custom" resultMap="CustomResultMap"/>
+    <!--<association property="shop" resultMap="ShopResultMap"/>-->
   </resultMap>
   <resultMap id="AddressResultMap" type="org.lanqiao.entity.Address" >
     <result column="address" property="address" jdbcType="VARCHAR" />
@@ -25,20 +33,40 @@
     <result column="cus_tel" property="cusTel" jdbcType="DOUBLE" />
     <result column="cus_img" property="cusImg" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap id="ShopResultMap" type="org.lanqiao.entity.Shop" >
+  <!--<resultMap id="ShopResultMap" type="org.lanqiao.entity.Shop" >
     <result column="start_price" property="startPrice" jdbcType="DOUBLE" />
     <result column="packag_fee" property="packagFee" jdbcType="DOUBLE" />
-  </resultMap>
+  </resultMap>-->
 
 <!--查找该商家的全部订单-->
-  <select id="selectAllShopOrder" parameterType="java.lang.Integer" resultMap="OrdersResultMap">
-    select o.*,a.addr_name,a.address,a.addr_tel,a.sex,c.cus_name,c.cus_img,c.cus_tel,s.packag_fee from orders o,address a,custom c,shop s where o.addr_id=a.addr_id and o.cus_id=c.cus_id and o.shop_id=s.shop_id and o.shop_id=#{shopId} order by order_time
+  <select id="selectAllShopOrder" resultMap="OrdersResultMap">
+    select o.*,a.addr_name,a.address,a.addr_tel,a.sex,c.cus_name,c.cus_img,c.cus_tel,s.packag_fee
+    from orders o,address a,custom c,shop s
+    where o.addr_id=a.addr_id and o.cus_id=c.cus_id and o.shop_id=s.shop_id and o.shop_id=#{shopId}
+    <if test="orderStatus != null">
+      and order_status=#{orderStatus} or order_status="商家已接单"
+    </if>
+    order by order_time desc
+  </select>
+  <select id="selectTodayOrder" resultMap="OrdersResultMap" parameterType="java.lang.Integer">
+    select o.*,a.addr_name,a.address,a.addr_tel,a.sex,c.cus_name,c.cus_img,c.cus_tel,s.packag_fee
+    from orders o,address a,custom c,shop s
+    where o.addr_id=a.addr_id and o.cus_id=c.cus_id and o.shop_id=s.shop_id and o.shop_id=#{shopId}
+    and to_days(o.order_time) = to_days(now())
   </select>
 
-  <select id="getAllOrder" resultMap="OrdersResultMap" >
+  <!--<select id="getAllOrder" resultMap="OrdersResultMap" >
     /*select * from orders order by id desc*/
     select * from orders limit #{pageNum},#{pageSize}
+
+  </select>-->
+
+  <select id="getOrderList" resultType="java.util.Map">
+
+    select s.shop_img,s.shop_name,o.order_id,o.order_time,s.shop_tel,o.goo_smoney from orders o,shop s
+    where o.shop_id=s.shop_id and cus_id=#{customerId}
   </select>
+
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from orders

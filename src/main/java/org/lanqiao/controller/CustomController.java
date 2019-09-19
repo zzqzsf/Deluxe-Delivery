@@ -6,11 +6,15 @@ import org.lanqiao.service.CustomService;
 import org.lanqiao.util.RedisUtil;
 import org.lanqiao.util.SMSUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 @RestController
@@ -25,7 +29,7 @@ public class CustomController {
     @Autowired
     CustomService customService;
 
-    List<Location> locationList = new ArrayList<>();
+
 
     @RequestMapping("/checkTel")
     public int checkTel(String tel){
@@ -64,12 +68,15 @@ public class CustomController {
         return customService.insertCustom1(cusTel);
     }
     @RequestMapping("/checkVerifyCode1")
-    public Map cheeckCode1(String tel,String verifyCode){
+    public Map cheeckCode1(String tel, String verifyCode, HttpServletRequest request){
         int rowNum = customService.checkTel(tel);
         boolean flag = verifyCode.equals(redisUtil.get(tel));
         Map map = new HashMap();
         map.put("rowNum",rowNum);
         map.put("flag",flag);
+        if(flag){
+            addSession(tel,request);
+        }
         return map;
     }
 
@@ -82,8 +89,12 @@ public class CustomController {
         return true;
     }
     @RequestMapping("/checkCustom")
-    public int checkCustom(Custom custom){
-        return customService.checkCustom(custom);
+    public int checkCustom(Custom custom,HttpServletRequest request){
+        int count = customService.checkCustom(custom);
+        if(count == 1){
+            addSession(custom.getCusTel(),request);
+        }
+        return count;
     }
 
     @RequestMapping("/updatePass")
@@ -91,26 +102,32 @@ public class CustomController {
         return customService.updatePass(cusTel,cusPwd);
     }
 
-
-    @RequestMapping("/getAllLocation")
-    public List<Location> getAll(){
-        Location location = new Location();
-        location.setName("集美万达");
-        location.setJingdu(118.1);
-        location.setWeidu(24.1);
-//      redisUtil.lSet("locations",location);
-        List<Object> objectList = redisUtil.lGet("locations",0,1);
-        Object ob = (Object) objectList;
-        List<Location> locationList = (List<Location>)ob;
-        return locationList;
+    @RequestMapping("/getUserId")
+    public int getUserId(String cusTel){
+        return customService.getUserId(cusTel);
     }
 
-    @RequestMapping("/getShopInfo")
-    public int getShopInfo( Location storeInfo){
-        locationList.add(storeInfo);
-        return locationList.size();
+    public void addSession(String cusTel, HttpServletRequest request){
+        request.getSession().setAttribute("cusTel",cusTel);
     }
 
+    @RequestMapping("/getUserName")
+    public String getUserName(String cusTel){
+        String name = customService.getUserName(cusTel);
+        return customService.getUserName(cusTel);
+    }
+
+    @RequestMapping("/getSession")
+    public String getSession(HttpServletRequest request){
+        Object sessionobj = request.getSession().getAttribute("cusTel");
+        String session = (String) sessionobj;
+        return session;
+    }
+
+    @RequestMapping("/removeSession")
+    public void removeSession(HttpServletRequest request){
+        request.getSession().removeAttribute("cusTel");
+    }
 
 
 

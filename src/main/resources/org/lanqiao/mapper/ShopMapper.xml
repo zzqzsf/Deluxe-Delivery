@@ -9,7 +9,7 @@
     <result column="shop_tel" property="shopTel" jdbcType="VARCHAR" />
     <result column="shop_state" property="shopState" jdbcType="VARCHAR" />
     <result column="shop_img" property="shopImg" jdbcType="VARCHAR" />
-    <result column="shop_com" property="shopCom" jdbcType="INTEGER" />
+    <result column="shop_com" property="shopCom" jdbcType="DECIMAL" />
     <result column="shop_mon_sale" property="shopMonSale" jdbcType="INTEGER" />
     <result column="start_price" property="startPrice" jdbcType="DOUBLE" />
     <result column="packag_fee" property="packagFee" jdbcType="DOUBLE" />
@@ -50,12 +50,6 @@
     where food.fty_id = foodtype.fty_id and food.shop_id = #{shopId} and food.fty_id =#{foodTypeId}
   </select>
 
-    <select id="GetAllShops" resultMap="ShopResultMap">
-        select
-        *
-        from shop
-    </select>
-
     <select id="getShop" resultMap="ShopResultMap" parameterType="java.lang.Integer">
         select * from shop where shop_id=#{shopId}
     </select>
@@ -63,6 +57,12 @@
       <select id="checkShopName" resultType="java.lang.String" parameterType="java.lang.String">
         select shop_name from shop where shop_name=#{shopName}
     </select>
+  <select id="GetAllShops" resultMap="ShopResultMap">
+    select * from shop where shop_name in
+    <foreach collection="list" item="location" index="index" open="(" close=")" separator=",">
+         #{location.name}
+    </foreach>
+  </select>
 <!--  豪 查找店铺信息-->
   <select id="SelectShopInfo" parameterType="java.lang.Integer" resultMap="ShopResultMap">
     select * from shop where shop_id=#{shopId}
@@ -137,7 +137,7 @@
         #{shopImg,jdbcType=VARCHAR},
       </if>
       <if test="shopCom != null" >
-        #{shopCom,jdbcType=INTEGER},
+        #{shopCom,jdbcType=DECIMAL},
       </if>
       <if test="shopMonSale != null" >
         #{shopMonSale,jdbcType=INTEGER},

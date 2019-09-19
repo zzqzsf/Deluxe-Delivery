@@ -2,10 +2,13 @@
 
 $(function(){
 
+    // sessionStorage.setItem('telephone', $("input[name='telphone']").val());
+    //页面间传参数（己方）
+     var shopId =sessionStorage.getItem("shopId");
     //起送费
+    var startMoney = 0;
     var oi=[];
     sessionStorage.setItem('foodNum', $("#num").val());
-    let startMoney = 0;
     var opFlag = -1;
     $("#MenuSort").css("display","block");
     $(".foodShow").css("display","block");
@@ -38,8 +41,8 @@ $(function(){
             $(".packCharge:eq(1)").children().eq(1).text("￥"+data.packagFee);
             $("#startSend").text("差"+data.startPrice+"元起送");
             $("#allMark").text(data.shopCom);
-            level = data.shopCom*141.3/5;
-            $("#marktwo").css({width:level+"px"});
+            level = data.shopCom*20;
+            $("#marktwo").css({width:level+"%"});
         }
     });
 
@@ -60,7 +63,7 @@ $(function(){
             for (let i = 0;i <count1;i++){
                 $("#MenuSort ul").append("<li>" +data1[i].ftyName + "</li>");
                 let $node1 = $foodShowModel.clone(true);
-                $node1.children(0).first().text(data1[i].ftyName);
+                $node1.children().eq(0).text(data1[i].ftyName).attr("id",i);
                 $.ajax({
                     url:"http://localhost:8080/food",
                     type: "post",
@@ -93,6 +96,15 @@ $(function(){
             }
         }
     });
+    //菜品分类，当前页面跳转
+    var $liLIst = $("#MenuSort ul li");
+    $("#MenuSort ul li").click(function () {
+        let i = $liLIst.index(this);
+        let top = document.getElementById(i).offsetTop;
+        document.getElementById(i).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
     //去结算
 
     sessionStorage.setItem('shopId', $("#shopId").text());
@@ -114,7 +126,7 @@ $(function(){
 
 
         for (var j=0;j<$mode.length;j++){
-            
+
         }
 
 
@@ -147,25 +159,41 @@ $(function(){
     });
     //添加商品到购物车
     let addButList = $(".addButton");
-    // let foodList = $(".foodSmallBox");
     $(".addButton").click(function () {
+        var flag = 0;
+        //获得当前商品的下标
+        let i = addButList.index(this);
+        var node1 = $(".foodSmallBox");
+        var node = $(".cartFood");
+        for(var j = 0;j<node.length;j++){
+            if($(this).prevAll().eq(1).text() == node.eq(j).children().eq(0).text()){
+                var num =parseInt($(node.eq(j).children().eq(2)).val()) ;
+                $(node.eq(j).children().eq(2)).val(num+1);
+                flag = 1;
+                break;
+            }
+        }
+
 
         var fooName=$(".foName");
         obj=new Object();
         $("#cartShow").css("display","block");
         $("#clearCart").show();
         $(".packCharge").show();
+        $("#allMoney").show();
         $("#startSend").text("去结算");
         $("#startSend").css({backgroundColor:"#ffd161"});
-        //获得当前商品的下标
-        let i = addButList.index(this);
-        let $node = $cartFoodmodel.clone(true);
-        $node.children().eq(0).empty();
-        $node.children().eq(0).text($(this).prevAll().eq(1).text());
-        $node.children().eq(4).text($(this).prevAll().eq(0).text());
-        $node.children().eq(5).text($(this).prevAll().eq(0).text());
-        $node.find("#foodId").html($(this).foodTypeId);
-        $("#clearCart").after($node);
+
+        if(flag == 0){
+            let $node = $cartFoodmodel.clone(true);
+            $node.children().eq(0).empty();
+            $node.children().eq(0).text($(this).prevAll().eq(1).text());
+            $node.children().eq(4).text($(this).prevAll().eq(0).text());
+            $node.children().eq(5).text($(this).prevAll().eq(0).text());
+            $node.find("#foodId").html($(this).foodTypeId);
+            $("#clearCart").after($node);
+        }
+
         calcTotal();
 
         //$node.children().eq(0).text($(this).prevAll().eq(1).text()).html();
@@ -199,15 +227,22 @@ $(function(){
         $(this).nextAll().eq(2).empty();
         $(this).nextAll().eq(2).text("￥"+num1*num2);
         calcTotal();
-    });  var sum1 = 0;
-    var sum2 = 0;
-    function calcTotal(){
+    });
 
-        $(".cartFood").each(function(){
-            let str = $(this).children().eq(5).text().substr(1);
-            sum1 += parseFloat(str);
-            sum2 += parseFloat($(this).children().eq(2).val());
-        });
+    function calcTotal(){
+        var sum1 = 0;
+        var sum2 = 0;
+        var node = $(".cartFood");
+        for(var i = 0;i<node.length;i++){
+            sum1 += parseInt($(node.eq(i).children().eq(2)).val())*
+                parseInt(node.eq(i).children().eq(4).text().substr(1));
+            sum2 += parseFloat($(node.eq(i).children().eq(2)).val())
+        }
+        // $(".cartFood").each(function(){
+        //     let str = $(this).children().eq(5).text().substr(1);
+        //     sum1 += parseFloat(str);
+        //     sum2 += parseFloat($(this).children().eq(2).val());
+        // });
         sum1 += parseFloat($(".packCharge:eq(0)").children().eq(1).text().substr(1));
         sum1 += parseFloat($(".packCharge:eq(1)").children().eq(1).text().substr(1));
         $("#allMoney p").children().eq(1).text("￥"+sum1);
@@ -237,8 +272,8 @@ $(function(){
                 $node.children().eq(0).attr("src",data[i].custom.cusImg);
                 $node.children().eq(1).text(data[i].custom.cusName);
                 $node.children().eq(2).text(timestampToTime(data[i].comTime));
-                var level = data[i].comLevel*72/5;
-                $node.children().eq(3).children().eq(0).css({width:level+"px"});
+                var level = data[i].comLevel*20;
+                $node.children().eq(3).children().eq(0).css({width:level+"%"});
                 if (data[i].comLevel >3){
                     $node.children().eq(4).text("好评");
                 } else if (data[i].comLevel > 2) {
