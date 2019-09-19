@@ -15,7 +15,34 @@
 
     <script>
         $(function () {
+            var cityName = sessionStorage.getItem("cityName");
+            $("#l-2").html(cityName);
 
+            $.ajax({
+                url: "http://localhost:8080/getSession",
+                type: "post",
+                dataType: "json",
+                data: {},
+                success: function (data) {
+                    if(data != null){
+                        $("#admin").css("display","none");
+                        $.ajax({
+                            url: "http://localhost:8080/getUserName",
+                            type: "get",
+                            dataType: "text",
+                            data: {
+                                'cusTel':data,
+                            },
+                            success: function (data1) {
+                                $("#register").css("width","100px");
+                                $("#register").html(data1);
+                            }
+                        });
+                    }
+                }
+            });
+            var $cone1=$("#shopshow1")
+            // $("#shopshow1").detach()
             var Num=1
             //vue
                 var vm = new Vue({
@@ -196,13 +223,13 @@
         <div id="login-l">
             <div id="l-1"></div>
             <div id="l-2">集美区</div>
-            <div id="l-3">集美大学</div>
+<!--            <div id="l-3">集美大学</div>-->
             <div id="l-4"></div>
-            <div id="l-5">切换地址<img  id="top-tools" src="image/top-tools-arrow.png" /></div>
+            <div id="l-5"><a href="index.html">切换地址<img  id="top-tools" src="image/top-tools-arrow.png" /></a></div>
         </div>
         <div id="login-r">
-            <div data-toggle="modal" data-target="#myModal" class="r-2">注册</div>
-            <div data-toggle="modal" data-target="#myModal" class="r-2">登录</div>
+            <div data-toggle="modal" data-target="#myModal" class="r-2" id="register">注册</div>
+            <div data-toggle="modal" data-target="#myModal" class="r-2" id="admin">登录</div>
             <div id="r-4"><img id="oder-list" src="image/order-list.png"/>我的订单</div>
         </div>
     </div>

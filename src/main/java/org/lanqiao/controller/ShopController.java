@@ -3,12 +3,14 @@ package org.lanqiao.controller;
 import org.lanqiao.entity.*;
 import org.lanqiao.service.ShopService;
 import org.lanqiao.util.UUIDUtil;
+import org.lanqiao.util.faceUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,7 +20,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import static com.google.gson.internal.bind.TypeAdapters.UUID;
 
 @RestController
 public class ShopController {
@@ -76,6 +77,24 @@ public class ShopController {
     }
 
 
+
+    @RequestMapping("/checkShopName")
+    public Boolean checkShopName(String shopName){
+        if (shopService.checkShopName(shopName)==null){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    //新增商铺
+    @RequestMapping("/insertShop")
+    public int insertShop(Shop shop, MultipartFile file, HttpServletRequest request) throws Exception {
+        shop.setShopImg(new faceUpload().upload(request,file));
+        return  shopService.insertShop(shop);
+
+    }
     @RequestMapping("/selectShopInfo")
     public Shop selectShopInfo(int shopId){
         return shopService.selectShopInfo(shopId);
@@ -139,4 +158,24 @@ public class ShopController {
     public List<Orders> selectTodayOrder(int shopId){
         return  shopService.selectTodayOrder(shopId);
     }
+
+//    检查店铺手机号是否存在
+    @RequestMapping("/checkShopTel")
+    public  boolean checkShopTel(String shopTel){
+        if (shopService.checkShopName(shopTel)!=null){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+   @RequestMapping("/checkShopPass")
+    public  boolean checkShopTel(String shopTel,String shopPwd){
+      if (shopService.checkShopPass(shopTel,shopPwd)==1){
+      return true;
+      }
+      else {
+          return false;
+      }
+   }
 }

@@ -19,9 +19,16 @@ public class OrdersServiceIml implements OrdersService {
 	OrderItemMapper orderItemMapper;
 
 	@Override
-	public int insert(Orders orders) {
-		return ordersMapper.insertSelective(orders);
+	public int updateByPrimaryKey(Orders record)
+ {
+		return ordersMapper.updateByPrimaryKey(record);
 	}
+
+	@Override
+	public int updateOrderState(Integer orderId) {
+		return ordersMapper.updateOrderState(orderId);
+	}
+
 
 	@Override
 	public int createOrder(List<OrderItem> orderItems, Orders orders) {
@@ -30,7 +37,8 @@ public class OrdersServiceIml implements OrdersService {
 			oi.setOrderId(orders.getOrderId());
 			orderItemMapper.insert(oi);
 		}
-		return 0;
+
+		return orders.getOrderId();
 	}
 
 }

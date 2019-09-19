@@ -24,4 +24,13 @@ public interface ShopMapper {
     Shop selectShopById(Integer shopId);
     List<Foodtype> selectFoodType(Integer shopId);
     List<Food> selectAllFood(Integer shopId,Integer foodTypeId);
+
+    String checkShopName(String shopName);
+
+    int insertShop(Shop shop);
+
+        //检查用户名和密码是否匹配
+    int checkShopTel(String shopTel);
+
+    int checkShopPass(String cusTel,String cusName);
 }

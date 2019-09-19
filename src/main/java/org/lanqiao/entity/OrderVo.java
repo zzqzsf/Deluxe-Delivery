@@ -3,15 +3,15 @@ package org.lanqiao.entity;
 import java.util.List;
 
 public class OrderVo {
-	private Orders order;
+	private Orders orders;
 	private List<OrderItem> orderItems;
 
-	public Orders getOrder() {
-		return order;
+	public Orders getOrders() {
+		return orders;
 	}
 
-	public void setOrder(Orders order) {
-		this.order = order;
+	public void setOrders(Orders order) {
+		this.orders = order;
 	}
 
 	public List<OrderItem> getOrderItems() {

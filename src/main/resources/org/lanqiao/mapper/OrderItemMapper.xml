@@ -1,16 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.lanqiao.mapper.OrderItemMapper" >
-  <resultMap id="OrderItemResultMap" type="org.lanqiao.entity.OrderItem" >
-    <id column="det_id" property="detId" jdbcType="INTEGER" />
-    <result column="food_id" property="foodId" jdbcType="INTEGER" />
-    <result column="order_id" property="orderId" jdbcType="INTEGER" />
-    <result column="food_number" property="foodNumber" jdbcType="INTEGER" />
-    <result column="det_money" property="detMoney" jdbcType="DOUBLE" />
-    <result column="det_note" property="detNote" jdbcType="VARCHAR" />
-  </resultMap>
+<mapper namespace="org.lanqiao.mapper.OrderItemMapper">
+    <resultMap id="OrderItemResultMap" type="org.lanqiao.entity.OrderItem">
+        <id column="det_id" property="detId" jdbcType="INTEGER"/>
+        <result column="food_id" property="foodId" jdbcType="INTEGER"/>
+        <result column="order_id" property="orderId" jdbcType="INTEGER"/>
+        <result column="food_number" property="foodNumber" jdbcType="INTEGER"/>
+        <result column="det_money" property="detMoney" jdbcType="DOUBLE"/>
+        <result column="det_note" property="detNote" jdbcType="VARCHAR"/>
+        <association property="address" resultMap="AddressResultMap"/>
+        <association property="shop" resultMap="ShopResultMap"/>
+        <association property="food" resultMap="FoodResultMap"/>
+    </resultMap>
+    <resultMap id="AddressResultMap" type="org.lanqiao.entity.Address">
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="addr_name" property="addrName" jdbcType="VARCHAR"/>
+        <result column="addr_tel" property="addrTel" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="VARCHAR"/>
+    </resultMap>
+    <resultMap id="ShopResultMap" type="org.lanqiao.entity.Shop">
+        <result column="start_price" property="startPrice" jdbcType="DOUBLE"/>
+        <result column="packag_fee" property="packagFee" jdbcType="DOUBLE"/>
+        <result column="pei_fee" property="peiFee" jdbcType="DOUBLE"/>
+    </resultMap>
+    <resultMap id="FoodResultMap" type="org.lanqiao.entity.Food">
+        <id column="food_id" property="foodId" jdbcType="INTEGER"/>
+        <result column="shop_id" property="shopId" jdbcType="INTEGER"/>
+        <result column="food_name" property="foodName" jdbcType="VARCHAR"/>
+        <result column="food_price" property="foodPrice" jdbcType="VARCHAR"/>
+        <result column="food_path" property="foodPath" jdbcType="VARCHAR"/>
+    </resultMap>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <!--查订单详情-->
+    <select id="getOrderDetail" resultType="Map" parameterType="java.lang.Integer">
+    select f.food_name,f.food_price,oi.food_number,s.packag_fee,a.address,a.addr_name,a.addr_tel,a.sex,oi.det_note,oi.det_money,s.pei_fee
+from food f,orderItem oi,shop s,address a
+
+where f.food_id = oi.food_id and oi.address_id = a.addr_id and f.shop_id = s.shop_id and oi.order_id=#{orderId};
+
+  </select>
+
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from orderItem
     where det_id = #{detId,jdbcType=INTEGER}
   </delete>
@@ -26,75 +57,75 @@
     </insert>
 
 
-  <insert id="insertSelective" parameterType="org.lanqiao.entity.OrderItem" >
-    insert into orderItem
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="detId != null" >
-        det_id,
-      </if>
-      <if test="foodId != null" >
-        food_id,
-      </if>
+    <insert id="insertSelective" parameterType="org.lanqiao.entity.OrderItem">
+        insert into orderItem
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="detId != null">
+                det_id,
+            </if>
+            <if test="foodId != null">
+                food_id,
+            </if>
 
-      <if test="orderId != null" >
-        order_id,
-      </if>
-      <if test="foodNumber != null" >
-        food_number,
-      </if>
-      <if test="detMoney != null" >
-        det_money,
-      </if>
-      <if test="detNote != null" >
-        det_note,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="detId != null" >
-        #{detId,jdbcType=INTEGER},
-      </if>
-      <if test="foodId != null" >
-        #{foodId,jdbcType=INTEGER},
-      </if>
-      <if test="shopId != null" >
-        #{shopId,jdbcType=INTEGER},
-      </if>
-      <if test="orderId != null" >
-        #{orderId,jdbcType=INTEGER},
-      </if>
-      <if test="foodNumber != null" >
-        #{foodNumber,jdbcType=INTEGER},
-      </if>
-      <if test="detMoney != null" >
-        #{detMoney,jdbcType=DOUBLE},
-      </if>
-      <if test="detNote != null" >
-        #{detNote,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.OrderItem" >
-    update orderItem
-    <set >
-      <if test="foodId != null" >
-        food_id = #{foodId,jdbcType=INTEGER},
-      </if>
-      <if test="shopId != null" >
-        shop_id = #{shopId,jdbcType=INTEGER},
-      </if>
-      <if test="orderId != null" >
-        order_id = #{orderId,jdbcType=INTEGER},
-      </if>
-      <if test="foodNumber != null" >
-        food_number = #{foodNumber,jdbcType=INTEGER},
-      </if>
-      <if test="detMoney != null" >
-        det_money = #{detMoney,jdbcType=DOUBLE},
-      </if>
-      <if test="detNote != null" >
-        det_note = #{detNote,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where det_id = #{detId,jdbcType=INTEGER}
-  </update>
+            <if test="orderId != null">
+                order_id,
+            </if>
+            <if test="foodNumber != null">
+                food_number,
+            </if>
+            <if test="detMoney != null">
+                det_money,
+            </if>
+            <if test="detNote != null">
+                det_note,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="detId != null">
+                #{detId,jdbcType=INTEGER},
+            </if>
+            <if test="foodId != null">
+                #{foodId,jdbcType=INTEGER},
+            </if>
+            <if test="shopId != null">
+                #{shopId,jdbcType=INTEGER},
+            </if>
+            <if test="orderId != null">
+                #{orderId,jdbcType=INTEGER},
+            </if>
+            <if test="foodNumber != null">
+                #{foodNumber,jdbcType=INTEGER},
+            </if>
+            <if test="detMoney != null">
+                #{detMoney,jdbcType=DOUBLE},
+            </if>
+            <if test="detNote != null">
+                #{detNote,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.OrderItem">
+        update orderItem
+        <set>
+            <if test="foodId != null">
+                food_id = #{foodId,jdbcType=INTEGER},
+            </if>
+            <if test="shopId != null">
+                shop_id = #{shopId,jdbcType=INTEGER},
+            </if>
+            <if test="orderId != null">
+                order_id = #{orderId,jdbcType=INTEGER},
+            </if>
+            <if test="foodNumber != null">
+                food_number = #{foodNumber,jdbcType=INTEGER},
+            </if>
+            <if test="detMoney != null">
+                det_money = #{detMoney,jdbcType=DOUBLE},
+            </if>
+            <if test="detNote != null">
+                det_note = #{detNote,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where det_id = #{detId,jdbcType=INTEGER}
+    </update>
 </mapper>

@@ -60,6 +60,9 @@
 <!--         #{location.name}-->
 <!--    </foreach>-->
 <!--  </select>-->
+    <select id="checkShopName" resultType="java.lang.String" parameterType="java.lang.String">
+        select shop_name from shop where shop_name=#{shopName}
+    </select>
   <select id="GetAllShops" resultMap="ShopResultMap">
     select * from shop
   </select>
@@ -69,6 +72,16 @@
   <select id="SelectShopInfo" parameterType="java.lang.Integer" resultMap="ShopResultMap">
     select * from shop where shop_id=#{shopId}
   </select>
+
+<!--  检查店铺手机是否存在信息-->
+    <select id="checkShopTel" parameterType="java.lang.String" resultMap="ShopResultMap">
+    select * from shop where shop_tel=#{shopTel}
+  </select>
+
+   <select id="checkShopPass" parameterType="java.lang.String" resultMap="ShopResultMap">
+    select count(*) from shop where shop_tel=#{shopTel} and shop_pwd=#{shopPwd};
+  </select>
+
   <update id="updateShopStatus">
     update shop set order_State=#{#shopStatus} where shop_id=#{shopId}
   </update>
@@ -76,7 +89,7 @@
     delete from shop
     where shop_id = #{shopId,jdbcType=INTEGER}
   </delete>
-  <insert id="insertSelective" parameterType="org.lanqiao.entity.Shop" >
+  <insert id="insertShop" parameterType="org.lanqiao.entity.Shop" >
     insert into shop
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="shopId != null" >
@@ -112,6 +125,9 @@
       <if test="packagFee != null" >
         packag_fee,
       </if>
+      <if test="peiFee != null" >
+        pei_fee,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="shopId != null" >
@@ -146,6 +162,9 @@
       </if>
       <if test="packagFee != null" >
         #{packagFee,jdbcType=DOUBLE},
+      </if>
+       <if test="peiFee != null" >
+        #{peiFee,jdbcType=DOUBLE},
       </if>
     </trim>
   </insert>

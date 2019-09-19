@@ -1,10 +1,13 @@
 package org.lanqiao.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import org.lanqiao.entity.Food;
 import org.lanqiao.entity.OrderItem;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 
 
@@ -24,4 +27,6 @@ public interface OrderItemMapper {
 	int updateByPrimaryKey(OrderItem record);
 
 	List<Food> getFood(Integer foodId);
+
+	Map getOrderDetail(@Param("orderId") Integer orderId);
 }

@@ -1,5 +1,7 @@
 package org.lanqiao.entity;
 
+import java.util.List;
+
 public class OrderItem {
     private Integer detId;
 
@@ -12,6 +14,17 @@ public class OrderItem {
     private Double detMoney;
 
     private String detNote;
+
+    private Integer addressId;
+
+
+    public Integer getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(Integer addressId) {
+        this.addressId = addressId;
+    }
 
     public Integer getDetId() {
         return detId;

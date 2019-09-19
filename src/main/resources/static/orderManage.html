@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>美团外卖-订单中心</title>
@@ -7,65 +7,7 @@
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/orderManage.css">
     <script src="js/jquery-3.4.1.min.js"></script>
-    <script>
-        $(function () {
-            /*取订单数据*/
-            var page = 1;
-            $.ajax({
-                url: "http://localhost:8080/getAllOrder",
-                type: "post",
-                dataType: "json",
-                data: {
-                    "pageNum": page,
-                    "pageSize": 3
-                },
-                success: function (data) {
-
-                    for (var i = 0; i < data.length; i++) {
-                        var $node = $model.clone(true);
-                        //2、使用data替换
-                        $node.find(".author").html("用户：" + data[i].author + "<span>" + data[i].id + "#" + "</span>");
-                        $node.find(".content").text(data[i].msg);
-                        $node.find(".time").text("发表于：" + data[i].date);
-                        $("#page").before($node);
-                    }
-
-                }
-
-            });
-            var orderNumber = 0;
-            if(orderNumber==0){
-                $("#noneOrder").show();
-            }else {
-                $("#hasOrder").show();
-            }
-            /*我的账号隐藏*/
-            $("#setting-box").hide();
-            /*订单详情隐藏*/
-            $("#j-shown-order").hide();
-            /*点击订单列表中任意订单一个显示订单详情*/
-            $(".content").click(function () {
-                if($("#j-shown-order").css("display")=="none"){
-                    $("#j-shown-order").show(100);
-                }else{
-                    $("#j-shown-order").hide(100);
-                }
-
-            });
-            /*点击显示订单列表，隐藏我的账号*/
-            $("#orderlist").click(function () {
-                $("#setting-box").hide();
-                $("#hasOrder").show();
-            });
-            /*点击显示我的账号，隐藏订单列表*/
-            $("#myaccount").click(function () {
-                $(".orders-list").hide();
-                $("#setting-box").show();
-            });
-
-        })
-
-    </script>
+    <script src="js/vue.min.js"></script>
 </head>
 <body>
 <!--头部导航栏-->
@@ -127,7 +69,9 @@
             立即下单
 
         </div>
-        <div class="orders-list" id="hasOrder" style="display: none" >
+        <div class="orders-list" id="hasOrder"
+             style="display: none">
+
             <!--订单头部-->
             <div class="order-header">
                 <span class="oh-content">订单内容</span>
@@ -139,6 +83,7 @@
             <!--订单信息-->
             <div data-sid="0" class="order-v order-hidden" data-orderphone="13003911057" data-viewid="66487200144236701"
                  data-status="9" data-shipping="" data-qid="">
+                <!--订单列表-->
                 <div class="brief-intro j-toggle-content open">
 
                     <div class="brief-intro-topconsole fr">
@@ -148,27 +93,29 @@
                                data-poi-id="144746545658991265" data-pv-flag="1">再来一单</a>
                         </div>
                     </div>
-
+                    <!--店铺-->
                     <a href="/restaurant/144746545658991265" target="_blank" class="avatar fl"
                        data-poi-id="144746545658991265" data-pv-flag="1">
-                        <img class="scroll-loading"
+                        <img class="scroll-loading" v-bind:src="Order.shopImg"
                              src="https://p0.meituan.net/120.0/waimaipoi/91851b9251f97ec860fc9d04665884e5801450.jpg"
                              data-src="https://p0.meituan.net/120.0/waimaipoi/91851b9251f97ec860fc9d04665884e5801450.jpg"
                              data-max-height="70">
                     </a>
                     <!--订单内容-->
-                    <div class="content">
-                        <div class="rest-name clearfix">
-                            <a target="_blank" href="/restaurant/144746545658991265" class="ca-deepgrey j-poi-name"
-                               data-poi-id="144746545658991265" data-pv-flag="1">
-                                <span class="poi-name">淮南牛肉汤特色锅贴（集美店）</span>
-                            </a>
-                            <span class="order-total">18950095237</span>
-                            <span class="order-money-num">¥ 18.8</span>
-                        </div>
-                        <div class="rest-detail">
-                            <span class="order-total">2019-09-08 12:00</span>
-                            <span class="order-id">订单号：66487200144236701</span>
+                    <div class="vue">
+                        <div class="content" v-for="(order,index) in list">
+                            <div class="rest-name clearfix">
+                                <a target="_blank" href="/restaurant/144746545658991265" class="ca-deepgrey j-poi-name"
+                                   data-poi-id="144746545658991265" data-pv-flag="1">
+                                    <span class="poi-name">{{order.shop_name}}</span>
+                                </a>
+                                <span class="order-total">{{order.shop_tel}}</span>
+                                <span class="order-money-num">¥ {{order.goo_smoney}}</span>
+                            </div>
+                            <div class="rest-detail">
+                                <span class="order-total">{{order.order_time}}</span>
+                                <span class="order-id">订单号：{{order.order_id}}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -178,56 +125,61 @@
                         <div class="dish-title">订单详情</div>
                         <div class="list">
                             <div class="dish-list">
-                                <script type="text/template" id="oflist-66487200144236701">
+                                <!--<script type="text/template" id="oflist-66487200144236701">
                                     {"1636796536": {"name": "牛肉粉丝汤+二两锅贴（10只）", "score": 0}}
-                                </script>
+                                </script>-->
                                 <div class="field clearfix">
                                     <div class="fl">
-                                        <div class="food-na"> 牛肉粉丝汤+二两锅贴（
-                                            ...
+                                        <div class="food-na"> {{foodName}}
                                         </div>
                                     </div>
-                                    <span class="food-count">1</span>
-                                    <span class="fr food-pri">¥42</span>
+                                    <span class="food-count">{{foodNumber}}</span>
+                                    <span class="fr food-pri">¥{{foodPrice}}</span>
                                 </div>
                                 <div class="field clearfix">
                                     <span class="fl classify">包装费：</span>
-                                    <span class="fr box-cost">¥2</span>
+                                    <span class="fr box-cost">¥{{packageFee}}</span>
                                 </div>
                                 <div class="field clearfix">
                                     <span class="fl classify">配送费：</span>
-                                    <span class="fr delivery-cost">¥2.5</span>
+                                    <span class="fr delivery-cost">¥{{peiSongFee}}</span>
                                 </div>
 
 
                             </div>
-                            <div class="food-total-info">实际支付：<i>¥</i><span>18.8</span></div>
+                            <div class="food-total-info">实际支付：<i>¥</i><span>{{orderMoney}}</span></div>
 
                         </div>
                         <!--用户信息-->
                         <div class="contact">
-                            <p>地址：集美大学新校区-克立楼 (克立楼219)</p>
-                            <p>姓名：黄文勋(先生)</p>
-                            <p>电话：13003911057</p>
-                            <p>备注：（无）</p>
+                            <p>地址：{{address}}</p>
+                            <p>姓名：{{addrName}}({{sex}})</p>
+                            <p>电话：{{addrTel}}</p>
+                            <p>备注：{{orderNote}}</p>
                         </div>
 
                     </div>
                     <!--订单状态-->
                     <div class="order-content">
-                        <div class="procedure">
+                        <div class="procedure" style="display: none">
                             <div class="pro-order-status">订单状态</div>
                             <div class="fl process-bar">
                                 <i class="icon i-orderok"></i>
                                 <i class="i-orderarrow"></i>
-                                <i class="icon i-ordernotok"></i>
+                                <i class="icon i-orderok"></i>
+                                <i class="i-orderarrow"></i>
+                                <i class="icon i-orderok"></i>
+                                <i class="i-orderarrow"></i>
+                                <i class="icon i-orderok"></i>
+                                <i class="i-orderarrow"></i>
+                                <i class="icon i-orderok"></i>
                             </div>
                             <div class="fl tips">
-                                <div class="step-1 ">
-                                    <span class="fr t-1">2019-09-08 12:00</span>
-                                    <p class="bold">订单提交成功，等待付款</p>
+                                <div class="step-1 " v-for="(orderStatus,index) in OrderStatusList">
+                                    <span class="fr t-1">{{orderStatus.orderTime}}</span>
+                                    <p class="bold">{{orderStatus.order_status}}</p>
                                 </div>
-                                <div class="step-cancel">
+                                <!--<div class="step-cancel">
                                     <span class="fr t-cancel">2019-09-08 12:01</span>
                                     <p class="bold">订单取消</p>
                                     <p class="sub">订单已被取消</p>
@@ -243,9 +195,57 @@
                                         <a href="javascript:;" class="not-yet  ">
                                             <span class="s-btn-white">订单反馈</span></a>
                                     </p>
-                                </div>
+                                </div>-->
                             </div>
 
+                        </div>
+                        <!--订单评价-->
+                        <div class="comment-box" >
+                            <p class="comment-header font-18">订单评价</p>
+                            <div class="comment-star ct-deepgrey clearfix">
+                                <span class="fl f14"><i class="ct-red">*</i>总体评价 </span>
+                                <span class="stars-rank fl">
+                                        <i class="fl icon i-star-empty-n"></i>
+                                    <i class="fl icon i-star-empty-n"></i>
+                                    <i class="fl icon i-star-empty-n"></i>
+                                    <i class="fl icon i-star-empty-n"></i>
+                                    <i class="fl icon i-star-empty-n"></i>
+                                    </span>
+                            </div>
+                            <div class="comment-time ct-deepgrey clearfix">
+                                <span class="fl f14"><i class="ct-red">*</i>送达时间 </span>
+                                <a href="javascript:;" class="select-input j-select-input" data-start="1568346600">
+                                    <span>请选择时间</span>
+                                    <i class="icon i-triangle-dn"></i>
+                                </a>
+                                <span class="j-time-text time-text ct-b5gray"></span>
+                            </div>
+                            <div class="comment-dishes ct-deepgrey clearfix">
+                                <span class="fl f14 dishes-head">&nbsp;推荐美食 </span>
+                                <div class="fl dishes-content">
+                                    <a href="javascript:;" class="ordered-dishes ct-deepgrey j-zan-dishes"
+                                       data-fid="1479195630" data-attr="511126734">
+                                        <i class="i-zan-n"></i>
+                                        <span class="dishes-left">
+                        <span class="dishes-right" title="水煮肉片+米饭">
+    水煮肉片+米饭
+
+                            正宗川菜
+                        </span>
+                      </span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="comment-text ct-deepgrey clearfix">
+                                <span class="fl f14">&nbsp;补充评价 </span>
+                                <textarea class="comment-input j-comment-input" maxlength="140"></textarea>
+                            </div>
+                            <p class="error-box cc-red font-14 j-error-box">
+                            </p>
+                            <p class="comment-submit ">
+                                <a class="s-btn submit-btn j-submit-btn" data-oid="23105591278649873"
+                                   href="javascript:;"><span class="s-btn">提交</span></a>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -258,18 +258,40 @@
             <div class="user-info clearfix ct-commonblack">
                 <div class="user-info-item">
                     <span class="ui-title">我的头像：</span>
-                    <i class="icon i-user-circle"></i>
+                    <img class="icon i-user-circle" v-bind:src="customerImg" src="image/cus_default_img.png">
                 </div>
                 <div class="user-info-item">
-                    <span class="ui-title">用户&nbsp;&nbsp;I&nbsp;D：</span>
-                    <span class="source-label">YdG773494809</span>
+                    <span class="ui-title">用户昵称：</span>
+                    <span class="source-label">{{customerName}}</span>
                 </div>
                 <div class="user-info-item">
                     <span class="ui-title">手机号码：</span>
-                    <span class="source-label">1300****1057</span>
+                    <span class="source-label">{{customerTel}}</span>
                 </div>
                 <a href="https://www.meituan.com/account/settings" target="_blank" class="s-btn j-modify-info">修改</a>
             </div>
+        </div>
+        <!--我的收藏-->
+        <div class="shop" style="min-height: 500px">
+        <div class="show1" v-for="(aa,index) in collectionList ">
+            <div class="show-img">
+                <div class="i3"> <img data-toggle="modal" data-target="#myModal" class="shouc" src="image/icon-new-heart.png" /></div>
+            </div>
+            <div class="show-font">
+                <div class="show-name" >{{aa.shopName}}</div>
+                <!--评价星星-->
+                <div class="bg"><!--这里是背景，也就是灰色的星星-->
+                    <!--说明，这里的width就是设置分数啦，以我写的为例，一个星星的长度是12px，也就是1分12px，如果是4.3分，就是4.3*12px = 51.6px的长度，当然这个一般是取得数据后用js或者其他模板语言去控制的-->
+                    <div class="over" style="width:54px"></div><!--这里是遮罩，设置宽度以达到评分的效果-->
+                </div>
+                <div class="pinfen">{{aa.shopCom}}分</div>
+                <div class="culue">
+                    <div class="qisong">起送：￥<td>{{aa.startPrice}}</td></div>
+                    <div class="peisong">配送费：￥<td>{{aa.packagFee}}</td></div>
+                    <div class="shijian"><td>30</td>分钟</div>
+                </div>
+            </div>
+        </div>
         </div>
     </div>
 </div>
@@ -346,5 +368,281 @@
     </div>
 </div>-->
 </body>
-
 </html>
+
+<script>
+
+    /*/!*取订单数据*!/
+    var page = 1;
+    var customerId = 23;
+    var vm = new Vue({
+        el: ".orders-list",
+        data: {
+            orderListData:[],
+            ordersCount:5
+        },
+        methods: {
+            //删除订单
+            deleteOrder: function (i) {
+                order_id = this.orderList[i].order_id;
+                if (confirm('确实要删除该订单吗?')) {
+                    this.orderList.splice(i, 1);
+                    deleteOrderitem();
+                    deleteOrder();
+                }
+            },
+            //设置goodsSet的值
+            getIndex: function (i) {
+                vm.index = i;
+            },
+            setIndex: function (i) {
+                vm.index = -1;
+            }
+        }
+    })*/
+    var page = 1;
+    var customerId = 23;
+    var vm = new Vue({
+        el: ".vue",
+        data: {
+            list: ""
+        }
+    });
+
+    var vm1 = new Vue({
+        el: ".dishes",
+        data: {
+            foodName: "",
+            foodPrice: "",
+            foodNumber: "",
+            packageFee: "",
+            peiSongFee: "",
+            address: "",
+            addrName: "",
+            addrTel: "",
+            sex: "",
+            orderNote: "(无)",
+            orderMoney: ""
+        }
+    });
+
+    var OrderStatus = new Vue({
+        el: ".tips",
+        data: {
+            OrderStatusList: ""
+        }
+    });
+
+    var userInfo = new Vue({
+        el: ".ct-commonblack",
+        data: {
+            customerName: "hhh123",
+            customerImg: "image/cus_default_img.png",
+            customerTel: "13011112222",
+        }
+    });
+
+    var collectionShop = new Vue({
+        el: ".shop",
+        data: {
+            collectionList: ""
+        }
+    });
+
+    /*取订单*/
+    function getOrder() {
+
+        $.ajax({
+            url: "http://localhost:8080/getAllOrder",
+            type: "post",
+            dataType: "json",
+            data: {
+                "pageNum": page,
+                "pageSize": 3,
+                "customerId": customerId
+            },
+            success: function (data) {
+                vm.list = data;
+//                for (var i = 0; i < data.length; i++) {
+//                    vm.orderListData.push({
+//                        shopName: data[i].shop_name,
+//                        shopTel: data[i].shop_tel,
+//                        shopImg: data[i].shop_img,
+//                        gooSmoney: data[i].goo_smoney,
+//                        orderTime: data[i].order_time,
+//                        orderId: data[i].order_id,
+//                    });
+//
+//                }
+                /*alert(data);
+                vm.orderList = data.orderList;
+                pageCount = data.pageCount;
+                if (data.orderList.length == 0) {
+                    alert("没有订单哦！");
+
+                }*/
+            }
+
+        });
+    }
+
+    /*取订单详情*/
+    function getOrderDetail() {
+        $.ajax({
+            url: "http://localhost:8080/getOrderDetail",
+            type: "post",
+            dataType: "json",
+            data: {
+
+                "orderId": 1
+            },
+            success: function (data) {
+
+                vm1.foodName = data.food_name;
+                vm1.foodPrice = data.food_price;
+                vm1.foodNumber = data.food_number;
+                vm1.packageFee = data.packag_fee;
+                vm1.peiSongFee = data.pei_fee;
+                vm1.address = data.address;
+                vm1.addrName = data.addr_name;
+                vm1.addrTel = data.addr_tel;
+                vm1.sex = data.sex;
+                vm1.orderNote = data.det_note;
+                vm1.orderMoney = data.det_money;
+
+            }
+        })
+    }
+
+    /*取订单状态*/
+    function getOrderStatus() {
+        $.ajax({
+            url: "http://localhost:8080/getOrderStatus",
+            type: "post",
+            dataType: "json",
+            data: {
+
+                "orderId": 1
+            },
+            success: function (data) {
+                OrderStatus.OrderStatusList = data;
+            }
+        })
+    }
+
+    /*插入评价*/
+    function insertComment() {
+        $.ajax({
+            url: "http://localhost:8080/insertComment",
+            type: "post",
+            dataType: "json",
+            data: {
+
+                "shopId": 1,
+                "cusId": 1,
+                "comLevel": 1,
+                "comText": 1,
+
+
+            },
+            success: function (data) {
+                if(data==1){
+                    alert("评价成功！")
+                }else alert("评价失败！")           }
+        })
+    }
+
+    /*取用户信息，显示我的账号*/
+    function getUserInfo() {
+        $.ajax({
+            url: "http://localhost:8080/getUserInfo",
+            type: "post",
+            dataType: "json",
+            data: {
+
+                "customerId": customerId
+            },
+            success: function (data) {
+
+                userInfo.customerName = data.cus_name;
+                userInfo.customerImg = data.cus_img;
+                userInfo.customerTel = data.cus_tel;
+            }
+        })
+    }
+
+    function getCollectionShop() {
+        $.ajax({
+            url: "http://localhost:8080/getCollectionShop",
+            type: "post",
+            dataType: "json",
+            data: {
+
+                "customerId": customerId
+            },
+            success: function (data) {
+                collectionShop.collectionList = data;
+            }
+        })
+    }
+
+    $(function () {
+        var orderNumber = 1;
+        getOrder();
+        getUserInfo();
+
+        /*取订单数据*/
+
+
+        if (orderNumber == 0) {
+            $("#noneOrder").show();
+        } else {
+            $("#hasOrder").show();
+        }
+        /*我的账号隐藏*/
+        $("#setting-box").hide();
+        /*订单详情隐藏*/
+        $("#j-shown-order").hide();
+        /*收藏店铺隐藏*/
+        $(".shop").hide();
+        /*点击订单列表中任意订单一个显示订单详情*/
+        $(".vue").click(function () {
+            if ($("#j-shown-order").css("display") == "none") {
+                $("#j-shown-order").show(100);
+                var a = parseInt($(this).find(".order-id").val());
+
+                getOrderDetail();
+                getOrderStatus()
+            } else {
+                $("#j-shown-order").hide(100);
+            }
+
+        });
+        /*点击显示订单列表，隐藏我的账号*/
+        $("#orderlist").click(function () {
+            $("#setting-box").hide();
+            $(".shop").hide();
+            $("#hasOrder").show();
+
+            getOrder();
+        });
+        /*点击显示我的账号，隐藏订单列表*/
+        $("#myaccount").click(function () {
+            $(".orders-list").hide();
+            $(".shop").hide();
+            $("#setting-box").show();
+            getUserInfo()
+        });
+
+        $("#collections").click(function () {
+            $("#setting-box").hide();
+            $(".orders-list").hide();
+            $(".shop").show();
+
+            getCollectionShop();
+        });
+
+    });
+
+
+</script>

@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.lanqiao.entity.Custom;
 import org.springframework.stereotype.Repository;
 
+import java.util.Map;
+
 @Repository
 public interface CustomMapper {
     //检查手机号是否被注册
@@ -18,4 +20,8 @@ public interface CustomMapper {
     int updatePass(String cusTel,String cusPwd);
     //获取用户id
     int getUserId(String cusTel);
+    //根据手机号查询用户名
+    String getUserName(String cusTel);
+    //查用户信息，显示我的账号
+    Map getUserInfo(Integer customerId);
 }

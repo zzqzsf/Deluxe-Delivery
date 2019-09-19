@@ -36,6 +36,13 @@
         select cus_id from custom where cus_tel = #{cusTel,jdbcType=VARCHAR}
     </select>
 
+    <select id="getUserName" parameterType="java.lang.String" resultType="java.lang.String">
+        select cus_name from custom where cus_tel = #{cusTel,jdbcType=VARCHAR}
+    </select>
+<!--查用户信息，显示我的账号-->
+    <select id="getUserInfo" parameterType="Integer" resultType="Map">
+        select cus_name,cus_tel,cus_img from custom where cus_id =#{customerId};
+    </select>
 
 
 

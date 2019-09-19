@@ -1,12 +1,52 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="org.lanqiao.mapper.CollectionMapper" >
-  <resultMap id="CollectionResultMap" type="org.lanqiao.entity.Collections" >
-    <result column="cus_id" property="cusId" jdbcType="INTEGER" />
-    <result column="shop_id" property="shopId" jdbcType="INTEGER" />
-  </resultMap>
+<mapper namespace="org.lanqiao.mapper.CollectionMapper">
+    <resultMap id="CollectionResultMap" type="org.lanqiao.entity.Collections">
+        <result column="cus_id" property="cusId" jdbcType="INTEGER"/>
+        <result column="shop_id" property="shopId" jdbcType="INTEGER"/>
+        <collection property="shop" resultMap="CustomResultMap"/>
+    </resultMap>
+    <resultMap id="ShopResultMap" type="org.lanqiao.entity.Shop">
+        <id column="shop_id" property="shopId" jdbcType="INTEGER"/>
+        <result column="shop_name" property="shopName" jdbcType="VARCHAR"/>
+        <result column="shop_state" property="shopState" jdbcType="VARCHAR"/>
+        <result column="shop_img" property="shopImg" jdbcType="VARCHAR"/>
+        <result column="shop_com" property="shopCom" jdbcType="DECIMAL"/>
+        <result column="shop_mon_sale" property="shopMonSale" jdbcType="INTEGER"/>
+        <result column="start_price" property="startPrice" jdbcType="DOUBLE"/>
+        <result column="pei_fee" property="peiFee" jdbcType="DOUBLE"/>
+        <result column="packag_fee" property="packagFee" jdbcType="DOUBLE"/>
+    </resultMap>
 
-  <insert id="insertSelective" >
+    <!--查收藏店铺-->
+    <select id="getCollectionShop" resultMap="ShopResultMap" parameterType="Integer">
+
+    select shop_name,shop_state,shop_img,shop_com,shop_mon_sale,start_price,pei_fee,packag_fee FROM shop
+    where
+    shop_id in(SELECT shop_id from collection where cus_id = #{customerId})
+  </select>
+
+
+    <insert id="insertSelective" parameterType="org.lanqiao.entity.Collections">
+        insert into collection
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cusId != null">
+                cus_id,
+            </if>
+            <if test="shopId != null">
+                shop_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cusId != null">
+                #{cusId,jdbcType=INTEGER},
+            </if>
+            <if test="shopId != null">
+                #{shopId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertSelectives" >
 
 insert into collection (cus_id,shop_id) value (#{param1},#{param2})
   </insert>

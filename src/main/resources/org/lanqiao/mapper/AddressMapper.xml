@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.lanqiao.mapper.AddressMapper">
-    <resultMap id="BaseResultMap" type="org.lanqiao.entity.Address">
+    <resultMap id="AddressResultMap" type="org.lanqiao.entity.Address">
         <id column="addr_id" property="addrId" jdbcType="INTEGER"/>
         <result column="cus_id" property="cusId" jdbcType="INTEGER"/>
         <result column="address" property="address" jdbcType="VARCHAR"/>
@@ -12,28 +12,28 @@
     <sql id="Base_Column_List">
         addr_id, cus_id, address, addr_name, addr_tel, sex
     </sql>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    <select id="selectByPrimaryKey" resultMap="AddressResultMap" parameterType="Integer">
         select
         <include refid="Base_Column_List"/>
         from address
         where addr_id = #{addrId,jdbcType=INTEGER}
     </select>
 
-    <select id="getAllAddress" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        select * from address where cus_id=23 limit 2 ;
+    <select id="getAllAddress" resultMap="AddressResultMap" parameterType="Integer">
+        select * from address where cus_id=#{cusId} order by  addr_id DESC limit 2 ;
     </select>
 
-    <select id="getAllAddresss" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    <select id="getAllAddresss" resultMap="AddressResultMap" parameterType="Integer">
         select
         <include refid="Base_Column_List"/>
         from address;
     </select>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <delete id="deleteByPrimaryKey" parameterType="Integer">
         delete from address
         where addr_id = #{addrId,jdbcType=INTEGER}
     </delete>
-    <insert id="insert" parameterType="org.lanqiao.entity.Address">
+    <insert id="insert" parameterType="Address">
         insert into address (addr_id, cus_id, address,
         addr_name, addr_tel, sex
         )
@@ -41,7 +41,7 @@
         #{addrName,jdbcType=VARCHAR}, #{addrTel,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}
         )
     </insert>
-    <insert id="insertSelective" parameterType="org.lanqiao.entity.Address">
+    <insert id="insertSelective" parameterType="Address">
         insert into address
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="addrId != null">
@@ -84,7 +84,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.Address">
+    <update id="updateByPrimaryKeySelective" parameterType="Address">
         update address
         <set>
             <if test="cusId != null">
@@ -105,7 +105,7 @@
         </set>
         where addr_id = #{addrId,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.Address">
+    <update id="updateByPrimaryKey" parameterType="Address">
         update address
         set cus_id = #{cusId,jdbcType=INTEGER},
         address = #{address,jdbcType=VARCHAR},

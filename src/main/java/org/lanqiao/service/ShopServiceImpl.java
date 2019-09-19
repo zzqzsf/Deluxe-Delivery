@@ -129,5 +129,30 @@ public class ShopServiceImpl implements ShopService {
         return orderList;
     }
 
+    @Override
+    public List<Comment> selectAllComment(int shopId) {
+        return null;
+    }
+
+    @Override
+    public String checkShopName(String shopName) {
+        return shopMapper.checkShopName(shopName);
+    }
+
+    @Override
+    public int insertShop(Shop shop) {
+        return shopMapper.insertShop(shop);
+    }
+
+    @Override
+    public int checkShopTel(String shopTel) {
+        return shopMapper.checkShopTel(shopTel);
+    }
+
+    @Override
+    public int checkShopPass(String cusTel, String cusName) {
+        return shopMapper.checkShopPass(cusTel,cusName);
+    }
+
 
 }
