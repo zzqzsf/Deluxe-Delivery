@@ -15,8 +15,6 @@
 
     <script>
         $(function () {
-            var $cone1=$("#shopshow1")
-            $("#shopshow1").detach()
             var Num=1
             //vue
                 var vm = new Vue({
@@ -79,8 +77,7 @@
             });
             //搜索
             $("#h3").click(function () {
-                $("#shopshow").detach()
-                $("#gongao").after($cone1)
+                $(".show1").remove();
                 e()
             });
             //登录部分
@@ -110,6 +107,7 @@
                 f();
             })
             $(".w1").click(function () {
+                $(".show1").remove();
                 Num--
                 f();
             })
@@ -137,7 +135,7 @@
                 })
             }
             function e() {
-                vm.shops=[];
+                vm.shop=[];
                 $.ajax({
                     url: "/select",
                     type: "post",
@@ -147,7 +145,7 @@
                     dataType: "json",
                     success: function (data) {
                         for (var i=0;i<data.length;i++) {
-                            vm.shops.push({
+                            vm.shop.push({
                                 shopId:data[i].shopId,
                                 shopName: data[i].shopName,
                                 shopCom:  data[i].shopCom,
@@ -261,29 +259,6 @@
         </ul>
 
 
-    </div>
-    <div id="shopshow1">
-        <div id="show2">
-            <div id="solr-1">搜索"<div id="neir">zj</div>"结果如下</div>
-                <div class="solr-2" v-for="(bb,index) in shops ">
-                    <div class="show-font">
-                        <div class="show-name" >{{bb.shopName}}</div>
-                        <div class="qisong">起送：￥<td>{{bb.startPrice}}</td></div>
-                        <div class="peisong">配送费：￥<td>{{bb.peiFee}}</td></div>
-
-                        <div class="culue">
-                            <div class="bg"><!--这里是背景，也就是灰色的星星-->
-                                <!--说明，这里的width就是设置分数啦，以我写的为例，一个星星的长度是12px，也就是1分12px，如果是4.3分，就是4.3*12px = 51.6px的长度，当然这个一般是取得数据后用js或者其他模板语言去控制的-->
-                                <div class="over" style="width:54px"></div><!--这里是遮罩，设置宽度以达到评分的效果-->
-                            </div>
-                            <div class="pinfen">{{bb.shopCom}}分</div>
-                            <br>
-                            <div class="shijian">配送时间：<td>30</td>分钟</div>
-                        </div>
-                    </div>
-                </div>
-
-        </div>
     </div>
 <!--    右侧滚动二维码-->
     <div id="rool-r">
