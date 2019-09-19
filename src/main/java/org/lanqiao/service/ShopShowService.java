@@ -12,4 +12,6 @@ public interface ShopShowService {
 //    List<Shop> GetAllShops(List<Location> locationList);
     List<Shop> GetAllShops();
     public int selects(int cusId,int shopId );
+
+    int getShopId(String shopName);
 }
