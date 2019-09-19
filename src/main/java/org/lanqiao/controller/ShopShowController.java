@@ -58,8 +58,10 @@ public class ShopShowController {
         return pageInfo;
     }
     @RequestMapping("/sc")
-    public int selects(Collections collections){
-        return shopShowService.selects(collections);
+    public int selects(int cusId,int shopId){
+
+      int s=  shopShowService.selects(cusId,shopId);
+        return s;
     }
 
     //    solr

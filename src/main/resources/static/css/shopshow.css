@@ -302,6 +302,13 @@
     height: 100%;
     width: 20%;
 }
+.shijian1{
+    float: right;
+    font-size: 75%;
+    color: #707070;
+    height: 100%;
+    width: 99%;
+}
 /*右侧滚动下载栏*/
 #rool-r{
     float: right;
@@ -478,5 +485,9 @@
 .solr-2{
     width: 23%;
     height: 10%;
-    background: #ffa735;
+    background: #d6d6d6;
+    float: left;
+    border: solid 1px ;
+    margin-top: 2%;
+    margin-left: 2%;
 }

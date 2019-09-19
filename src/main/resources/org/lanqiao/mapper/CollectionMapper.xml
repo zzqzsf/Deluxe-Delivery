@@ -6,23 +6,8 @@
     <result column="shop_id" property="shopId" jdbcType="INTEGER" />
   </resultMap>
 
-  <insert id="insertSelective" parameterType="org.lanqiao.entity.Collections" >
-    insert into collection
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="cusId != null" >
-        cus_id,
-      </if>
-      <if test="shopId != null" >
-        shop_id,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="cusId != null" >
-        #{cusId,jdbcType=INTEGER},
-      </if>
-      <if test="shopId != null" >
-        #{shopId,jdbcType=INTEGER},
-      </if>
-    </trim>
+  <insert id="insertSelective" >
+
+insert into collection (cus_id,shop_id) value (#{param1},#{param2})
   </insert>
 </mapper>

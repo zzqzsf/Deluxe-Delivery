@@ -63,25 +63,7 @@
   <select id="GetAllShops" resultMap="ShopResultMap">
     select * from shop
   </select>
-  <insert id="selects" parameterType="org.lanqiao.entity.Collections" >
-    insert into collection
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="cusId != null" >
-        cus_id,
-      </if>
-      <if test="shopId != null" >
-        shop_id,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="cusId != null" >
-        #{shopId,jdbcType=INTEGER},
-      </if>
-      <if test="shopId != null" >
-        #{shopName,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
+
 
 <!--  豪 查找店铺信息-->
   <select id="SelectShopInfo" parameterType="java.lang.Integer" resultMap="ShopResultMap">

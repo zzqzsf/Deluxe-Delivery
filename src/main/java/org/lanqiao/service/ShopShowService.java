@@ -11,5 +11,5 @@ import java.util.List;
 public interface ShopShowService {
 //    List<Shop> GetAllShops(List<Location> locationList);
     List<Shop> GetAllShops();
-    public int selects(Collections collections);
+    public int selects(int cusId,int shopId );
 }
