@@ -7,13 +7,41 @@ public class Orders {
 
     private Address address;
 
+    private Integer addrId;
+
     private Custom custom;
+
+    private Integer cusId;
 
     private Date orderTime;
 
     private Double gooYmoney;
 
     private Double gooSmoney;
+
+    private String orderStatus;
+
+    private String orderNote;
+
+    private String estimatedTime;
+
+    private Integer shopId;
+
+    public Integer getCusId() {
+        return cusId;
+    }
+
+    public void setCusId(Integer cusId) {
+        this.cusId = cusId;
+    }
+
+    public Integer getAddrId() {
+        return addrId;
+    }
+
+    public void setAddrId(Integer addrId) {
+        this.addrId = addrId;
+    }
 
     public Integer getShopId() {
         return shopId;
@@ -23,13 +51,6 @@ public class Orders {
         this.shopId = shopId;
     }
 
-    private String orderStatus;
-
-    private String orderNote;
-
-    private String estimatedTime;
-
-    private Integer shopId;
 
     public Integer getOrderId() {
         return orderId;

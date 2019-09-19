@@ -26,4 +26,8 @@ public interface ShopService {
     public int deleteFootype(int foodtypeId);
 //Comment评价的
     public List<Comment> selectAllComment(int shopId);
+    //检查商铺手机是否被注册
+     public String checkShopName(String shopName);
+
+     public  int insertShop(Shop shop);
 }

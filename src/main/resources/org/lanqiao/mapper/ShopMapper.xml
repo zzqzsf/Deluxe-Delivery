@@ -60,6 +60,9 @@
         select * from shop where shop_id=#{shopId}
     </select>
 
+      <select id="checkShopName" resultType="java.lang.String" parameterType="java.lang.String">
+        select shop_name from shop where shop_name=#{shopName}
+    </select>
 <!--  豪 查找店铺信息-->
   <select id="SelectShopInfo" parameterType="java.lang.Integer" resultMap="ShopResultMap">
     select * from shop where shop_id=#{shopId}
@@ -71,7 +74,7 @@
     delete from shop
     where shop_id = #{shopId,jdbcType=INTEGER}
   </delete>
-  <insert id="insertSelective" parameterType="org.lanqiao.entity.Shop" >
+  <insert id="insertShop" parameterType="org.lanqiao.entity.Shop" >
     insert into shop
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="shopId != null" >
@@ -107,6 +110,9 @@
       <if test="packagFee != null" >
         packag_fee,
       </if>
+      <if test="peiFee != null" >
+        pei_fee,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="shopId != null" >
@@ -141,6 +147,9 @@
       </if>
       <if test="packagFee != null" >
         #{packagFee,jdbcType=DOUBLE},
+      </if>
+       <if test="peiFee != null" >
+        #{peiFee,jdbcType=DOUBLE},
       </if>
     </trim>
   </insert>

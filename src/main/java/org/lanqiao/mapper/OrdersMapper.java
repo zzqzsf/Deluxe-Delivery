@@ -22,5 +22,6 @@ public interface OrdersMapper {
 	int updateByPrimaryKeySelective(Orders record);
 
 	int updateByPrimaryKey(Orders record);
+
     List<Orders> getAllOrder(@Param("pageNum") int pageNum, @Param("pageSize") int pageSize );
 }

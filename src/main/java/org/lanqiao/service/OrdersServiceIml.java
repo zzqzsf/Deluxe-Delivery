@@ -19,8 +19,9 @@ public class OrdersServiceIml implements OrdersService {
 	OrderItemMapper orderItemMapper;
 
 	@Override
-	public int insert(Orders orders) {
-		return ordersMapper.insert(orders);
+	public int updateByPrimaryKey(Orders record)
+ {
+		return ordersMapper.updateByPrimaryKey(record);
 	}
 
 	@Override

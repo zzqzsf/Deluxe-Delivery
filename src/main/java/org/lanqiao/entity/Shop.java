@@ -33,7 +33,7 @@ public class Shop implements Serializable {
     private Double startPrice;
 
     private Double packagFee;
-        private Double peiFee;
+    private Double peiFee;
 
     public Double getPeiFee() {
         return peiFee;

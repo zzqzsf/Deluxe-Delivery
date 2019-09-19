@@ -1,4 +1,7 @@
+
+
 $(function(){
+
     //起送费
     var oi=[];
     sessionStorage.setItem('foodNum', $("#num").val());
@@ -92,24 +95,31 @@ $(function(){
     });
     //去结算
 
-    // var od={addrId: "1",
-    //     orderNote:"1",
-    //     orderStatus: "未完成付款",
-    //     shopId:"1",
-    //     estimatedTime: "1",}
-    //     var orderVo={"order":od,"orderItems":oi};
     sessionStorage.setItem('shopId', $("#shopId").text());
     $("#startSend").click(function () {
-       // $.ajax({
-       //              url: "/insertOrder",
-       //              data: JSON.stringify(orderVo),
-       //              dataType: "text",
-       //              type: "post",
-       //              contentType: "application/json",//{name:'david',pass：'123'}
-       //              success: function (text) {
-       //                  alert("生成订单成功");
-       //              }
-       //          });
+        var $mode=$(".cartFood");
+        var oi=[];
+        var ob=[];
+        for (var i=0;i<$mode.length;i++)
+        {
+
+            var op= {
+                foodName:$mode.eq(i).children().eq(0).text(),
+                foodPrice: $mode.eq(i).children().eq(5).text($(this).prevAll().eq(0).text()).html(),
+            }
+            oi.push(op);
+        }
+        sessionStorage.setItem("oi",JSON.stringify(oi));
+
+
+
+        for (var j=0;j<$mode.length;j++){
+            
+        }
+
+
+
+
         window.location.href="takeOrder.html";
     })
     //选项卡功能
@@ -139,6 +149,8 @@ $(function(){
     let addButList = $(".addButton");
     // let foodList = $(".foodSmallBox");
     $(".addButton").click(function () {
+
+        var fooName=$(".foName");
         obj=new Object();
         $("#cartShow").css("display","block");
         $("#clearCart").show();
@@ -155,12 +167,8 @@ $(function(){
         $node.find("#foodId").html($(this).foodTypeId);
         $("#clearCart").after($node);
         calcTotal();
+
         //$node.children().eq(0).text($(this).prevAll().eq(1).text()).html();
-        obj.detMoney=$("#one-price").html();
-
-
-
-        oi.push(obj);
 
     });
     //数量加一

@@ -88,5 +88,15 @@ public class ShopServiceImpl implements ShopService {
         return commentMapper.selectAllComment(shopId);
     }
 
+    @Override
+    public String checkShopName(String shopName) {
+        return shopMapper.checkShopName(shopName);
+    }
+
+    @Override
+    public int insertShop(Shop shop) {
+        return shopMapper.insertShop(shop);
+    }
+
 
 }

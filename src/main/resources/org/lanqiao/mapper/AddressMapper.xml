@@ -20,7 +20,7 @@
     </select>
 
     <select id="getAllAddress" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        select * from address where cus_id=23 limit 2 ;
+        select * from address where cus_id=23 order by  addr_id DESC limit 2 ;
     </select>
 
     <select id="getAllAddresss" resultMap="BaseResultMap" parameterType="java.lang.Integer">
