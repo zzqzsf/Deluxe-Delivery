@@ -20,16 +20,13 @@
             var Num=1
             //vue
                 var vm = new Vue({
-                    el: '#shopshow',
+                    el: '#show',
                     data: {
                         shop:[],
-                    },
-                    method:{
-
-
+                        shops:[],
                     },
                 });
-                $.ajax({
+            $.ajax({
                 url: "/getAllShare",
                 type: "post",
                 data: {
@@ -39,6 +36,7 @@
                 success: function (data) {
                     for (var i=0;i<data.list.length;i++) {
                         vm.shop.push({
+                            shopId:data.list[i].shopId,
                             shopName: data.list[i].shopName,
                             shopCom: data.list[i].shopCom,
                             startPrice:data.list[i].startPrice,
@@ -47,19 +45,35 @@
                     }
                 }
             })
-
-
-
+            $.ajax({
+                url: "/select",
+                type: "post",
+                data: {
+                    shopName:$("#tet").val()
+                },
+                dataType: "json",
+                success: function (data) {
+                    for (var i=0;i<data.length;i++) {
+                        vm.shops.push({
+                            shopId:data[i].shopId,
+                            shopName: data[i].shopName,
+                            shopCom:  data[i].shopCom,
+                            startPrice: data[i].startPrice,
+                            peiFee: data[i].peiFee,
+                        })
+                    }
+                }
+            })
             //点击文字变黄
             $(".s-4").click(function () {
                 $(".s-4").css('color', '')
                 $(this).css('color', 'orange')
             })
             // 图片透明度特效
-            $(".show1").hover(function () {
+            $(".show1").click(function () {
                 $(this).find(".i3").css('opacity','0.6')
                 $(this).find(".shouc").show()
-            }, function () {
+             }, function () {
                 $(this).find(".i3").css('opacity','1')
                 $(this).find(".shouc").hide()
             });
@@ -67,6 +81,7 @@
             $("#h3").click(function () {
                 $("#shopshow").detach()
                 $("#gongao").after($cone1)
+                e()
             });
             //登录部分
             $("#selectAdmin").click(function () {
@@ -88,6 +103,7 @@
             //     $(this).css('data-target','#myModal')
             // })
             //分页
+            //分页
             $(".w2").click(function () {
                 $(".show1").remove();
                 Num++
@@ -97,6 +113,8 @@
                 Num--
                 f();
             })
+            收藏
+            // $(".shouc").click(sc())
             function f() {
                 vm.shop=[];
                 $.ajax({
@@ -114,6 +132,44 @@
                                 startPrice:data.list[i].startPrice,
                                 packagFee:data.list[i].packagFee
                             })
+                        }
+                    }
+                })
+            }
+            function e() {
+                vm.shops=[];
+                $.ajax({
+                    url: "/select",
+                    type: "post",
+                    data: {
+                        shopName:$("#tet").val()
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        for (var i=0;i<data.length;i++) {
+                            vm.shops.push({
+                                shopId:data[i].shopId,
+                                shopName: data[i].shopName,
+                                shopCom:  data[i].shopCom,
+                                startPrice: data[i].startPrice,
+                                peiFee: data[i].peiFee,
+                            })
+                        }
+                    }
+                })
+            }
+            function sc() {
+                $.ajax({
+                    url: "/sc",
+                    type: "post",
+                    data: {
+                        cusId:35,
+                        shopId:2,
+                    },
+                    dataType: "json",
+                    success: function () {
+                        for (var i=0;i<data.length;i++) {
+                            alert("提交成功");
                         }
                     }
                 })
@@ -178,7 +234,7 @@
 <!--                评价星星-->
                 <div class="bg"><!--这里是背景，也就是灰色的星星-->
                     <!--说明，这里的width就是设置分数啦，以我写的为例，一个星星的长度是12px，也就是1分12px，如果是4.3分，就是4.3*12px = 51.6px的长度，当然这个一般是取得数据后用js或者其他模板语言去控制的-->
-                    <div class="over" style="width:54px"></div><!--这里是遮罩，设置宽度以达到评分的效果-->
+                    <div class="over"  ></div><!--这里是遮罩，设置宽度以达到评分的效果-->
                 </div>
                 <div class="pinfen">{{aa.shopCom}}分</div>
                 <div class="culue">
@@ -209,23 +265,24 @@
     <div id="shopshow1">
         <div id="show2">
             <div id="solr-1">搜索"<div id="neir">zj</div>"结果如下</div>
-            <div class="solr-2" v-for="(bb,index) in shop">
-            <div class="show-font">
-                <div class="show-name" >{{bb.shopName}}</div>
-                 <div class="qisong">起送：￥<td>{{bb.startPrice}}</td></div>
-                <div class="peisong">配送费：￥<td>{{bb.packagFee}}</td></div>
+                <div class="solr-2" v-for="(bb,index) in shops ">
+                    <div class="show-font">
+                        <div class="show-name" >{{bb.shopName}}</div>
+                        <div class="qisong">起送：￥<td>{{bb.startPrice}}</td></div>
+                        <div class="peisong">配送费：￥<td>{{bb.peiFee}}</td></div>
 
-                <div class="culue">
-                    <div class="bg"><!--这里是背景，也就是灰色的星星-->
-                        <!--说明，这里的width就是设置分数啦，以我写的为例，一个星星的长度是12px，也就是1分12px，如果是4.3分，就是4.3*12px = 51.6px的长度，当然这个一般是取得数据后用js或者其他模板语言去控制的-->
-                        <div class="over" style="width:54px"></div><!--这里是遮罩，设置宽度以达到评分的效果-->
+                        <div class="culue">
+                            <div class="bg"><!--这里是背景，也就是灰色的星星-->
+                                <!--说明，这里的width就是设置分数啦，以我写的为例，一个星星的长度是12px，也就是1分12px，如果是4.3分，就是4.3*12px = 51.6px的长度，当然这个一般是取得数据后用js或者其他模板语言去控制的-->
+                                <div class="over" style="width:54px"></div><!--这里是遮罩，设置宽度以达到评分的效果-->
+                            </div>
+                            <div class="pinfen">{{bb.shopCom}}分</div>
+                            <br>
+                            <div class="shijian">配送时间：<td>30</td>分钟</div>
+                        </div>
                     </div>
-                    <div class="pinfen">{{bb.shopCom}}分</div>
-                    <br>
-                    <div class="shijian">配送时间：<td>30</td>分钟</div>
                 </div>
-            </div>
-        </div>
+
         </div>
     </div>
 <!--    右侧滚动二维码-->

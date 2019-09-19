@@ -1,6 +1,7 @@
 package org.lanqiao.service;
 
 import org.apache.ibatis.annotations.Param;
+import org.lanqiao.entity.Collections;
 import org.lanqiao.entity.Location;
 import org.lanqiao.entity.Shop;
 import org.lanqiao.mapper.ShopMapper;
@@ -13,9 +14,19 @@ import java.util.List;
 public class ShopShowServiceImpl  implements ShopShowService{
     @Autowired
     ShopMapper shopMapper;
+//    @Override
+//    public List<Shop> GetAllShops(List<Location> locationList) {
+//        return shopMapper.GetAllShops(locationList);
+//
+//    }
     @Override
-    public List<Shop> GetAllShops(List<Location> locationList) {
-        return shopMapper.GetAllShops(locationList);
+    public List<Shop> GetAllShops() {
+        return shopMapper.GetAllShops();
 
+    }
+
+    @Override
+    public int selects(Collections collections) {
+        return shopMapper.selects(collections);
     }
 }

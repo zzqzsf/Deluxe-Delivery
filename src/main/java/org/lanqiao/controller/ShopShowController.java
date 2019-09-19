@@ -6,6 +6,7 @@ import org.apache.solr.client.solrj.response.UpdateResponse;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.solr.client.solrj.response.UpdateResponse;
+import org.lanqiao.entity.Collections;
 import org.lanqiao.entity.Location;
 import org.lanqiao.entity.Shop;
 import org.lanqiao.service.ShopShowService;
@@ -17,6 +18,7 @@ import org.springframework.data.solr.core.query.Criteria;
 import org.springframework.data.solr.core.query.Query;
 import org.springframework.data.solr.core.query.SimpleQuery;
 import org.springframework.data.solr.core.query.result.ScoredPage;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,15 +37,29 @@ public class ShopShowController {
     private RedisUtil redisUtil;
     @Autowired
     ShopShowService shopShowService;
+//    @RequestMapping("/getAllShare")
+//    public PageInfo<Shop> get(@RequestParam(value = "pageNum",defaultValue = "1")Integer pageNum) {
+//        PageHelper.startPage(pageNum, 1);
+//
+//        List<Shop> shareList = shopShowService.GetAllShops(locationList);
+//
+//        PageInfo<Shop> pageInfo = new PageInfo<>(shareList);
+//
+//        return pageInfo;
+//    }
     @RequestMapping("/getAllShare")
     public PageInfo<Shop> get(@RequestParam(value = "pageNum",defaultValue = "1")Integer pageNum) {
         PageHelper.startPage(pageNum, 1);
 
-        List<Shop> shareList = shopShowService.GetAllShops(locationList);
+        List<Shop> shareList = shopShowService.GetAllShops();
 
         PageInfo<Shop> pageInfo = new PageInfo<>(shareList);
 
         return pageInfo;
+    }
+    @RequestMapping("/sc")
+    public int selects(Collections collections){
+        return shopShowService.selects(collections);
     }
 
     //    solr
@@ -77,13 +93,13 @@ public class ShopShowController {
 
     @RequestMapping("/select")
     @ResponseBody
-    public List<Shop> select() {
+    public List<Shop> select(String shopName) {
         // 查询所有
         Query query = new SimpleQuery();
 
 
         // 设置条件
-        Criteria criteria = new Criteria("shopName").is("集美");
+        Criteria criteria = new Criteria("shopName").is(shopName);
         query.addCriteria(criteria);
 
         //设置分页
@@ -91,7 +107,7 @@ public class ShopShowController {
         query.setRows(3);  //每页记录数(默认10)
 
         //设置排序规则
-        Sort sort = new Sort(Sort.Direction.ASC, "");
+        Sort sort = new Sort(Sort.Direction.ASC, "id");
         query.addSort(sort);
 
         //查询
