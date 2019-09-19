@@ -10,7 +10,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/upload/**").addResourceLocations("file:D:/test/");
+        registry.addResourceHandler("/upload/**").addResourceLocations("file:D:/ideaworkspace/Deluxe-Delivery/target/classes/static");
+        super.addResourceHandlers(registry);
     }
 
 }

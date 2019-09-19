@@ -4,6 +4,7 @@ import org.lanqiao.entity.*;
 import org.lanqiao.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,6 +25,10 @@ public class ShopServiceImpl implements ShopService {
     CommentMapper commentMapper;
     @Autowired
     OrdersMapper ordersMapper;
+    @Autowired
+    OrderItemMapper orderItemMapper;
+    @Autowired
+    OrderStatusMapper orderStatusMapper;
 
     @Override
     public Shop selectShopInfo(int shopId) {
@@ -112,7 +117,9 @@ public class ShopServiceImpl implements ShopService {
             SimpleDateFormat sdf = new SimpleDateFormat(str);
             String time=sdf.format(order.getOrderTime());
             order.setOrderTimeString(time);
+            order.setShowOrderItem(false);
         }
+
         return orderList;
     }
 
@@ -125,8 +132,45 @@ public class ShopServiceImpl implements ShopService {
             SimpleDateFormat sdf = new SimpleDateFormat(str);
             String time=sdf.format(order.getOrderTime());
             order.setOrderTimeString(time);
+
+            order.setShowOrderItem(false);
         }
         return orderList;
+    }
+
+    @Override
+    public List<Orders> selectExpectOrder(int shopId) {
+        return ordersMapper.selectExpectOrder(shopId);
+    }
+
+    @Transactional
+    @Override
+    public void updateOrderStatus(Orders orders) {
+        OrderStatus orderStatus = new OrderStatus();
+        orderStatus.setOrderId(orders.getOrderId());
+        orderStatus.setOrderStatus(orders.getOrderStatus());
+
+        orderStatusMapper.insertSelective(orderStatus);
+        ordersMapper.updateByPrimaryKeySelective(orders);
+
+    }
+
+    @Override
+    public List<OrderItem> selectOrderItemByOrderId(int orderId) {
+        return orderItemMapper.selectOrderItemByOrderId(orderId);
+    }
+
+    @Override
+    public List<OrderStatus> selectOrderStatus(int orderId) {
+        List<OrderStatus> orderStatusList = new ArrayList<OrderStatus>();
+        orderStatusList = orderStatusMapper.selectOrderStatus(orderId);
+        for (OrderStatus orderStatus:orderStatusList) {
+            String str = "yyy-MM-dd HH:mm";
+            SimpleDateFormat sdf = new SimpleDateFormat(str);
+            String time=sdf.format(orderStatus.getOrderStatusUpdateTime());
+            orderStatus.setOrderStatusUpdateTimeString(time);
+        }
+        return orderStatusList;
     }
 
     @Override

@@ -9,6 +9,8 @@ public class OrderStatus {
 
 	private Date orderStatusUpdateTime;
 
+	private String orderStatusUpdateTimeString;
+
 	public Integer getOrderId() {
 		return orderId;
 	}
@@ -31,5 +33,13 @@ public class OrderStatus {
 
 	public void setOrderStatusUpdateTime(Date orderStatusUpdateTime) {
 		this.orderStatusUpdateTime = orderStatusUpdateTime;
+	}
+
+	public String getOrderStatusUpdateTimeString() {
+		return orderStatusUpdateTimeString;
+	}
+
+	public void setOrderStatusUpdateTimeString(String orderStatusUpdateTimeString) {
+		this.orderStatusUpdateTimeString = orderStatusUpdateTimeString;
 	}
 }

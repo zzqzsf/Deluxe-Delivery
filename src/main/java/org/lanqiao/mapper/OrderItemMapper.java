@@ -28,5 +28,7 @@ public interface OrderItemMapper {
 
 	List<Food> getFood(Integer foodId);
 
+	List<OrderItem> selectOrderItemByOrderId(Integer orderId);
+
 	Map getOrderDetail(@Param("orderId") Integer orderId);
 }

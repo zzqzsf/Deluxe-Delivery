@@ -3,17 +3,11 @@ package org.lanqiao.entity;
 import java.util.Date;
 
 public class Orders {
-
     private Integer orderId;
-
     private Address address;
-
-    private Integer addrId;
-
-    private Custom custom;
-
     private Integer cusId;
-
+    private Integer addrId;
+    private Custom custom;
     private Date orderTime;
     private String orderTimeString;
 
@@ -25,27 +19,14 @@ public class Orders {
 
     private String orderNote;
 
-    private String estimatedTime;
+    private boolean showOrderItem;
 
-    private Shop shop;
-
-    private Integer shopId;
-
-
-    public String getOrderTimeString() {
-        return orderTimeString;
+    public boolean isShowOrderItem() {
+        return showOrderItem;
     }
 
-    public void setOrderTimeString(String orderTimeString) {
-        this.orderTimeString = orderTimeString;
-    }
-
-    public Integer getCusId() {
-        return cusId;
-    }
-
-    public void setCusId(Integer cusId) {
-        this.cusId = cusId;
+    public void setShowOrderItem(boolean showOrderItem) {
+        this.showOrderItem = showOrderItem;
     }
 
     public Integer getAddrId() {
@@ -56,6 +37,22 @@ public class Orders {
         this.addrId = addrId;
     }
 
+    public Integer getCusId() {
+        return cusId;
+    }
+
+    public void setCusId(Integer cusId) {
+        this.cusId = cusId;
+    }
+
+    public String getOrderTimeString() {
+        return orderTimeString;
+    }
+
+    public void setOrderTimeString(String orderTimeString) {
+        this.orderTimeString = orderTimeString;
+    }
+
     public Integer getShopId() {
         return shopId;
     }
@@ -64,14 +61,11 @@ public class Orders {
         this.shopId = shopId;
     }
 
+    private String estimatedTime;
 
-    public Shop getShop() {
-        return shop;
-    }
+    private Shop shop;
 
-    public void setShop(Shop shop) {
-        this.shop = shop;
-    }
+    private Integer shopId;
 
     public Integer getOrderId() {
         return orderId;
@@ -145,6 +139,14 @@ public class Orders {
         this.estimatedTime = estimatedTime == null ? null : estimatedTime.trim();
     }
 
+    public Shop getShop() {
+        return shop;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
+    }
+
     @Override
     public String toString() {
         return "Orders{" +
@@ -157,7 +159,7 @@ public class Orders {
                 ", orderStatus='" + orderStatus + '\'' +
                 ", orderNote='" + orderNote + '\'' +
                 ", estimatedTime='" + estimatedTime + '\'' +
-                ", shopId=" + shopId +
+                ", shop=" + shop +
                 '}';
     }
 }

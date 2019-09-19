@@ -30,6 +30,14 @@ public interface ShopService {
 //    全部订单
     public List<Orders> selectAllShopOrder(int shopId,String orderStatus);
     public List<Orders> selectTodayOrder(int shopId);
+//    预计订单
+    public List<Orders> selectExpectOrder(int shopId);
+//    修改订单状态，同时往订单状态表插一条数据
+    public void updateOrderStatus(Orders orders);
+//    查询订单详情
+    public List<OrderItem> selectOrderItemByOrderId(int orderId);
+//    查询订单状态
+    public List<OrderStatus> selectOrderStatus(int orderId);
     public List<Comment> selectAllComment(int shopId);
     //检查商铺手机是否被注册
      public String checkShopName(String shopName);
