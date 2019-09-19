@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface ShopShowService {
     List<Shop> GetAllShops(List<Location> locationList);
+    int getShopId(String shopName);
 }

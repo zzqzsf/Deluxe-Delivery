@@ -8,6 +8,8 @@ $(function(){
     //起送费
     var startMoney = 0;
     var oi=[];
+    var shopId = sessionStorage.getItem("shopId");
+    var session = "";
     sessionStorage.setItem('foodNum', $("#num").val());
     var opFlag = -1;
     $("#MenuSort").css("display","block");
@@ -20,12 +22,23 @@ $(function(){
     $cartFoodmodel = $(".cartFood:eq(0)");
     //设置评论模板
     $assessModel = $(".assessBigBox:eq(0)");
+
+    $.ajax({
+        url: "http://localhost:8080/getSession",
+        type: "post",
+        dataType: "json",
+        data: {},
+        success: function (data) {
+            session = data;
+        }
+    });
+
     //购物车的包装费和配送费
     $.ajax({
         url:"http://localhost:8080/shop",
         type:"post",
         data:{
-            'shopId':$("#shopId").text()
+            'shopId':shopId
         },
         dataType:"json",
         success:function (data) {
@@ -36,9 +49,9 @@ $(function(){
             $("#startwo").css({width:level+"px"});
             $("#OpenTime").children().eq(1).text("地点："+data.shopAddr);
             $(".OneCenterBigBox:eq(1)").children().eq(1).children().eq(0).text(data.startPrice);
-            $(".OneCenterBigBox:eq(2)").children().eq(1).children().eq(0).text(data.packagFee);
+            $(".OneCenterBigBox:eq(2)").children().eq(1).children().eq(0).text(data.peiFee);
             $(".packCharge:eq(0)").children().eq(1).text("￥"+data.packagFee);
-            $(".packCharge:eq(1)").children().eq(1).text("￥"+data.packagFee);
+            $(".packCharge:eq(1)").children().eq(1).text("￥"+data.peiFee);
             $("#startSend").text("差"+data.startPrice+"元起送");
             $("#allMark").text(data.shopCom);
             level = data.shopCom*20;
@@ -54,7 +67,7 @@ $(function(){
         cache:false,
         async:false,
         data:{
-            'shopId':$("#shopId").text()
+            'shopId':shopId
         },
         dataType:"json",
         success:function(data1){
@@ -70,7 +83,7 @@ $(function(){
                     cache:false,
                     async:false,
                     data:{
-                        'shopId':$("#shopId").text(),
+                        'shopId':shopId,
                         'foodTypeId':data1[i].ftyId
                     },
                     dataType: "json",
@@ -106,33 +119,26 @@ $(function(){
         });
     });
     //去结算
-
-    sessionStorage.setItem('shopId', $("#shopId").text());
     $("#startSend").click(function () {
-        var $mode=$(".cartFood");
-        var oi=[];
-        for (var i=0;i<$mode.length;i++)
-        {
-
-            var op= {
-                foodName:$mode.eq(i).children().eq(0).text(),
-                foodPrice: $mode.eq(i).children().eq(5).eq(0).text().substr(1),
-                foodNum:$mode.eq(i).children().eq(2).val(),
+        if(session == ""){
+            window.location.href="admin.html";
+        }else{
+            $("#admin").css("display","none");
+            var $mode=$(".cartFood");
+            var oi=[];
+            for (var i=0;i<$mode.length;i++)
+            {
+                var op= {
+                    foodName:$mode.eq(i).children().eq(0).text(),
+                    foodPrice: $mode.eq(i).children().eq(5).eq(0).text().substr(1),
+                    foodNum:$mode.eq(i).children().eq(2).val(),
+                }
+                oi.push(op);
             }
-            oi.push(op);
-        }
-        sessionStorage.setItem("oi",JSON.stringify(oi));
-
-
-
-        for (var j=0;j<$mode.length;j++){
-
+            sessionStorage.setItem("oi",JSON.stringify(oi));
+            window.location.href="takeOrder.html";
         }
 
-
-
-
-        window.location.href="takeOrder.html";
     })
     //选项卡功能
     $("#menuAssess ul li").eq(0).click(function () {

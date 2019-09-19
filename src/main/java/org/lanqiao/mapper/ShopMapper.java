@@ -31,4 +31,6 @@ public interface ShopMapper {
     String checkShopName(String shopName);
 
     int insertShop(Shop shop);
+    //根据商店名字查询shopid
+    int getShopId(String shopName);
 }

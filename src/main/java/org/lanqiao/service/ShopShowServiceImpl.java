@@ -16,6 +16,9 @@ public class ShopShowServiceImpl  implements ShopShowService{
     @Override
     public List<Shop> GetAllShops(List<Location> locationList) {
         return shopMapper.GetAllShops(locationList);
+    }
 
+    public int getShopId(String shopName){
+        return shopMapper.getShopId(shopName);
     }
 }

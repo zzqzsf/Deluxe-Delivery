@@ -13,7 +13,7 @@ import java.io.IOException;
  *该代码仅供学习和研究支付宝接口使用，只是提供一个参考。
  */
 
-public class AlipayConfig {
+public class AlipayConfig{
 
 //↓↓↓↓↓↓↓↓↓↓请在这里配置您的基本信息↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 

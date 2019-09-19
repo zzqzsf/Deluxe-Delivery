@@ -12,7 +12,7 @@ public class faceUpload {
         //如果文件不为空，写入上传路径
         if (!file.isEmpty()) {
             //上传文件路径
-            String serverPath = System.getProperty("user.dir")+"/src/main/resources/static/images/shop";
+            String serverPath = System.getProperty("user.dir")+"\\src\\main\\resources\\static\\images\\shop";
             //上传文件名
             System.out.println(serverPath);
             String filename = file.getOriginalFilename();

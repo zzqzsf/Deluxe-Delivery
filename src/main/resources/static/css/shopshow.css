@@ -1,3 +1,134 @@
+.header {
+    width: 100%;
+    height: 64px;
+}
+
+.ad, .admin {
+    width: 435px;
+    height: 225px;
+    float: left;
+    margin-left: 37px;
+}
+
+.ad {
+    margin-top: 100px;
+    background-image: url("../image/ad.png");
+}
+
+.admin {
+    margin-top: 46px;
+}
+
+#selectAdmin {
+    margin-left: 140px;
+}
+
+.tel {
+    width: 280px;
+    height: 28px;
+    margin-top: 10px;
+    float: left;
+}
+
+.ex {
+    margin-top: 10px;
+    float: left;
+}
+
+.pass {
+    width: 282px;
+    height: 35px;
+    margin-top: 20px;
+    border: solid 1px #cccccc;
+}
+
+.passPic {
+    width: 20px;
+    height: 20px;
+    background-image: url(../image/smallFlag.png);
+    background-position: -151px -371px;
+    margin-top: 8px;
+    margin-left: 3px;
+    float: left;
+}
+
+.msg {
+    float: left;
+    height: 26px;
+    margin-top: 3px;
+    margin-left: 3px;
+    border: none;
+    width: 150px;
+}
+
+.admin span {
+    font-size: 12px;
+}
+
+#selectAdmin:hover {
+    cursor: pointer;
+}
+
+#getMsg:hover {
+    cursor: pointer;
+}
+
+.forgetPass {
+    margin-left: 230px;
+    color: #FA9700;
+    display: block;
+    margin-top: 8px;
+}
+
+.admin1 {
+    width: 282px;
+    height: 35px;
+    border-color: #FFD705;
+    color: #6B450A;
+    background-color: #FFD705;
+    margin-top: 8px;
+}
+.errorTel{
+    color: red;
+    width: 282px;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    font-size: 14px;
+    background-color: #cccccc;
+    display: none;
+}
+.errorPic{
+    width: 20px;
+    height: 20px;
+    background-image: url(../image/smallFlag.png);
+    background-position: -211px -371px;
+    float: left;
+    margin-left: 75px;
+    margin-top: 8px;
+}
+.tel1{
+    display: block;
+    float: left;
+}
+#getMsg{
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.sendMsg{
+    color: red;
+    display: none;
+}
+
+
+
 /*整体大布局*/
 #headerFrame{
     position: fixed;
@@ -368,67 +499,6 @@
      display: none;
  }
 /* 登录小页面*/
-.admin{
-    width: 305px;
-    height: 270px;
-    float: left;
-    margin-left: 40px;
-    margin-top: 20px;
-}
-#selectAdmin{
-    margin-left:140px;
-}
-.pass{
-    width: 282px;
-    height: 35px;
-    margin-top: 20px;
-    border:solid 1px #cccccc;
-}
-#selectAdmin:hover{
-    cursor: pointer;
-}
-.tel{
-    width: 280px;
-    height: 28px;
-    margin-top: 10px;
-    float: left;
-}
-.passPic{
-    width: 20px;
-    height: 20px;
-    background-image: url(../image/smallFlag.png);
-    background-position: -151px -371px;
-    margin-top: 8px;
-    margin-left: 3px;
-    float: left;
-}
-.msg{
-    float: left;
-    height: 26px;
-    margin-top: 3px;
-    margin-left: 3px;
-    border: none;
-}
-.admin span{
-    font-size: 12px;
-}
-#getMsg:hover{
-    cursor: pointer;
-}
-.forgetPass{
-    margin-left: 230px;
-    color: #FA9700;
-    display: block;
-    margin-top: 8px;
-}
-.admin1{
-    width: 282px;
-    height: 35px;
-    border-color: #FFD705;
-    color: #6B450A;
-    background-color: #FFD705;
-    margin-top: 8px;
-}
 .ex{
     margin-top: 10px;
     float: left;

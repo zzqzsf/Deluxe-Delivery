@@ -117,5 +117,12 @@ public class ShopShowController {
         return locationList.size();
     }
 
+    @RequestMapping("/getShopId")
+    public int getShopId(String shopName){
+        return shopShowService.getShopId(shopName);
+    }
+
+
+
 
 }
