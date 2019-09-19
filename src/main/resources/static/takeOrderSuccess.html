@@ -9,7 +9,7 @@
 <body>
 <div id="body">
     <!--头部-->
-<iframe id="headerFrame" name="headerFrame" src="head.html" frameborder="0" scrolling="no"></iframe>
+    <iframe id="headerFrame" name="headerFrame" src="head.html" frameborder="0" scrolling="no"></iframe>
     <!--    支付成功页面-->
     <div id="pay-success">
         <!--        支付成功左侧-->
@@ -66,18 +66,44 @@
 </html>
 <script type="text/javascript">
     $(function () {
-        var myDate=new Date();
-       var shopId= sessionStorage.getItem("shopId")
+        var myDate = new Date();
+        var shopId = sessionStorage.getItem("shopId");
         address();
+
         function address() {
-           var phone =sessionStorage.getItem("phone");
-           $("#phone").html(phone);
-            $("#bold-time").text(parseInt(myDate.getHours())+":"+parseInt(myDate.getMinutes()));
+            var phone = sessionStorage.getItem("phone");
+            $("#phone").html(phone);
+            $("#bold-time").text(parseInt(myDate.getHours()) + ":" + parseInt(myDate.getMinutes()));
         }
+        var OrderId=sessionStorage.getItem("orderId");
+        $.ajax({
+            url: "http://localhost:8080/updateOrderState",
+            type: "post",
+            data: {
+                orderId:OrderId,
+            },
+            dataType: "json",
+            success: function (data) {
+
+            }
+        });
+
+          $.ajax({
+            url: "http://localhost:8080/getShopId1",
+            type: "post",
+            data: {
+                shopId:shopId,
+            },
+            dataType: "json",
+            success: function (data) {
+
+            }
+        });
 
         $("#checkOrder").click(function () {
+            window.location.href = "orderManage.html";
 
-        })
+                })
 
     })
 

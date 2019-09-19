@@ -152,4 +152,24 @@ public class Shop implements Serializable {
     public void setPackagFee(Double packagFee) {
         this.packagFee = packagFee;
     }
+
+    @Override
+    public String toString() {
+        return "Shop{" +
+                "shopId=" + shopId +
+                ", shopName='" + shopName + '\'' +
+                ", shopPwd='" + shopPwd + '\'' +
+                ", shopAddr='" + shopAddr + '\'' +
+                ", shopTel='" + shopTel + '\'' +
+                ", shopState='" + shopState + '\'' +
+                ", shopImg='" + shopImg + '\'' +
+                ", shopCom=" + shopCom +
+                ", shopMonSale=" + shopMonSale +
+                ", startPrice=" + startPrice +
+                ", packagFee=" + packagFee +
+                ", peiFee=" + peiFee +
+                ", foodtypeList=" + foodtypeList +
+                ", foodList=" + foodList +
+                '}';
+    }
 }

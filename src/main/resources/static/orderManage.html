@@ -185,19 +185,17 @@
                                             <a href="javascript:;" class="s-btn other-rests j-other-rests">
                                                 <span class="s-btn">选择其他商家</span>
 
-                                            </a>
-                                            <a href="javascript:;" class="not-yet  ">
-                                                <span class="s-btn-white">订单反馈</span></a>
-                                        </p>
-                                    </div>-->
-                                </div>
-
+                                        </a>
+                                        <a href="javascript:;" class="not-yet  ">
+                                            <span class="s-btn-white">订单反馈</span></a>
+                                    </p>
+                                </div>-->
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
-
 
 
         </div>
@@ -222,55 +220,55 @@
     </div>
 </div>
 <!--底部-->
-<!--<div id="footer">-->
-<!--    &lt;!&ndash;    白线上部分&ndash;&gt;-->
-<!--    <div id="footer-t">-->
-<!--        &lt;!&ndash;        白线上左边导航字&ndash;&gt;-->
-<!--        <div id="left">-->
-<!--            <div class="l">-->
-<!--                <div class="float">开放平台</div>-->
-<!--                <div class="float">媒体报道</div>-->
-<!--                <div class="float">潜质规则</div>-->
-<!--                <div class="float">入驻加盟</div>-->
-<!--            </div>-->
-<!--            <div class="r">-->
-<!--                <div class="float">常见问题</div>-->
-<!--                <div class="float">用户反馈</div>-->
-<!--                <div class="float">诚信举报</div>-->
-<!--                <div class="float">加入我们</div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        &lt;!&ndash;        白线上右边二维码&ndash;&gt;-->
-<!--        <div id="right">-->
-<!--            <div class="m-1">更多商家，更多优惠</div>-->
-<!--            <div>-->
-<!--                &lt;!&ndash;                二维码&ndash;&gt;-->
-<!--                <div class="ma-1"></div>-->
-<!--                <div class="ma-2"></div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        &lt;!&ndash;        白线上中间部分&ndash;&gt;-->
-<!--        <div id="mid">-->
-<!--            <div class="m-1">品牌合作</div>-->
-<!--            <div id="m-2">www.baidu.com</div>-->
-<!--            <div id="m-3">客服 110-119</div>-->
-<!--            <div id="m-4">周一至周日 9:00-21:00<br>客服不受理商业合作</div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    &lt;!&ndash;    白线&ndash;&gt;-->
-<!--    <div id="write"></div>-->
-<!--    &lt;!&ndash;    白线下部分&ndash;&gt;-->
-<!--    <div id="footer-d">-->
-<!--        &lt;!&ndash;        字体及图标六块&ndash;&gt;-->
-<!--        &lt;!&ndash;        蓝桥图标&ndash;&gt;-->
-<!--        <div id="d2"></div>-->
-<!--        <div class="d1">蓝桥科技有限公司</div>-->
-<!--        <div id="d3">©️ meituan.com 京ICP证078341号</div>-->
-<!--        &lt;!&ndash;        公安局图标&ndash;&gt;-->
-<!--        <div id="d4"></div>-->
-<!--        <div class="d1">厦门公网安备110748295003632号</div>-->
-<!--    </div>-->
-<!--</div>-->
+<div id="footer">
+    <!--    白线上部分-->
+    <div id="footer-t">
+        <!--        白线上左边导航字-->
+        <div id="left">
+            <div class="l">
+                <div class="float">开放平台</div>
+                <div class="float">媒体报道</div>
+                <div class="float">潜质规则</div>
+                <div class="float">入驻加盟</div>
+            </div>
+            <div class="r">
+                <div class="float">常见问题</div>
+                <div class="float">用户反馈</div>
+                <div class="float">诚信举报</div>
+                <div class="float">加入我们</div>
+            </div>
+        </div>
+        <!--        白线上右边二维码-->
+        <div id="right">
+            <div class="m-1">更多商家，更多优惠</div>
+            <div>
+                <!--                二维码-->
+                <div class="ma-1"></div>
+                <div class="ma-2"></div>
+            </div>
+        </div>
+        <!--        白线上中间部分-->
+        <div id="mid">
+            <div class="m-1">品牌合作</div>
+            <div id="m-2">www.baidu.com</div>
+            <div id="m-3">客服 110-119</div>
+            <div id="m-4">周一至周日 9:00-21:00<br>客服不受理商业合作</div>
+        </div>
+    </div>
+    <!--    白线-->
+    <div id="write"></div>
+    <!--    白线下部分-->
+    <div id="footer-d">
+        <!--        字体及图标六块-->
+        <!--        蓝桥图标-->
+        <div id="d2"></div>
+        <div class="d1">蓝桥科技有限公司</div>
+        <div id="d3">©️ meituan.com 京ICP证078341号</div>
+        <!--        公安局图标-->
+        <div id="d4"></div>
+        <div class="d1">厦门公网安备110748295003632号</div>
+    </div>
+</div>
 <!--<div data-options="region:'east',split:true,collapsed:true,title:'East'" style="width:100px;padding:10px;">east region
 </div>
 <div data-options="region:'south',border:false" style="height:50px;background:#A9FACD;padding:10px;">south region</div>
@@ -298,22 +296,6 @@
 
 <script>
 
-    $.ajax({
-        url: "http://localhost:8080/getSession",
-        type: "post",
-        dataType: "text",
-        data: {},
-        success: function (data) {
-            if(data != ""){
-                $(".orderItem").css("display","inline");
-                $(".orders-list").css("display","none");
-            }else{
-                $(".orderItem").css("display","none");
-                $(".orders-list").css("display","inline");
-            }
-
-        }
-    });
     /*/!*取订单数据*!/
     var page = 1;
     var customerId = 23;
@@ -385,7 +367,7 @@
     });
 
     var collectionShop = new Vue({
-        el: ".setting-box",
+        el: ".shop",
         data: {
             collectionList: ""
         }
@@ -472,6 +454,28 @@
         })
     }
 
+    /*插入评价*/
+    function insertComment() {
+        $.ajax({
+            url: "http://localhost:8080/insertComment",
+            type: "post",
+            dataType: "json",
+            data: {
+
+                "shopId": 1,
+                "cusId": 1,
+                "comLevel": 1,
+                "comText": 1,
+
+
+            },
+            success: function (data) {
+                if(data==1){
+                    alert("评价成功！")
+                }else alert("评价失败！")           }
+        })
+    }
+
     /*取用户信息，显示我的账号*/
     function getUserInfo() {
         $.ajax({
@@ -522,6 +526,8 @@
         $("#setting-box").hide();
         /*订单详情隐藏*/
         $("#j-shown-order").hide();
+        /*收藏店铺隐藏*/
+        $(".shop").hide();
         /*点击订单列表中任意订单一个显示订单详情*/
         $(".vue").click(function () {
             if ($("#j-shown-order").css("display") == "none") {
@@ -538,6 +544,7 @@
         /*点击显示订单列表，隐藏我的账号*/
         $("#orderlist").click(function () {
             $("#setting-box").hide();
+            $(".shop").hide();
             $("#hasOrder").show();
 
             getOrder();
@@ -545,8 +552,17 @@
         /*点击显示我的账号，隐藏订单列表*/
         $("#myaccount").click(function () {
             $(".orders-list").hide();
+            $(".shop").hide();
             $("#setting-box").show();
             getUserInfo()
+        });
+
+        $("#collections").click(function () {
+            $("#setting-box").hide();
+            $(".orders-list").hide();
+            $(".shop").show();
+
+            getCollectionShop();
         });
 
     });

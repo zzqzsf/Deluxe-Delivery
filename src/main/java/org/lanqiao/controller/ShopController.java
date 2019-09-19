@@ -22,7 +22,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import static com.google.gson.internal.bind.TypeAdapters.UUID;
 
 @RestController
 public class ShopController {
@@ -117,7 +116,8 @@ public class ShopController {
 //        redisUtil.lSet("locations",location);
 
         shop.setShopImg(new faceUpload().upload(request,file));
-        return shopService.insertShop(shop);
+        return  shopService.insertShop(shop);
+
     }
     @RequestMapping("/selectShopInfo")
     public Shop selectShopInfo(int shopId){
@@ -182,4 +182,24 @@ public class ShopController {
     public List<Orders> selectTodayOrder(int shopId){
         return  shopService.selectTodayOrder(shopId);
     }
+
+//    检查店铺手机号是否存在
+    @RequestMapping("/checkShopTel")
+    public  boolean checkShopTel(String shopTel){
+        if (shopService.checkShopName(shopTel)!=null){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+   @RequestMapping("/checkShopPass")
+    public  boolean checkShopTel(String shopTel,String shopPwd){
+      if (shopService.checkShopPass(shopTel,shopPwd)==1){
+      return true;
+      }
+      else {
+          return false;
+      }
+   }
 }

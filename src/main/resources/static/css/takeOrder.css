@@ -10,7 +10,19 @@
     margin-left: 34px;
     color: red;
 }
-
+#pay-message{
+    margin-top: -17px;
+    /* border: blue; */
+    border: 1px solid blue;
+    /* line-height: 19px; */
+    padding-top: -6px;
+    height: 16px;
+    width: 105px;
+    /* margin-right: auto; */
+    margin-left: -523px;
+    /* display: block; */
+    display: none;
+}
 #body {
     width: 100%;
     height: auto;

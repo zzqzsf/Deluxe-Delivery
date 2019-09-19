@@ -25,13 +25,20 @@ public class OrdersServiceIml implements OrdersService {
 	}
 
 	@Override
+	public int updateOrderState(Integer orderId) {
+		return ordersMapper.updateOrderState(orderId);
+	}
+
+
+	@Override
 	public int createOrder(List<OrderItem> orderItems, Orders orders) {
-		ordersMapper.insert(orders);//获得orderId
+		ordersMapper.insertSelective(orders);//获得orderId
 		for (OrderItem oi : orderItems) {
 			oi.setOrderId(orders.getOrderId());
 			orderItemMapper.insert(oi);
 		}
-		return 0;
+
+		return orders.getOrderId();
 	}
 
 }

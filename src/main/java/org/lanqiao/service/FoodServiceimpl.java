@@ -16,4 +16,9 @@ public class FoodServiceimpl implements FoodService {
 	public List<Food> getFood(Integer ftyId) {
 		return foodMapper.getFood(ftyId);
 	}
+
+	@Override
+	public int getFoodId(String foodName) {
+		return foodMapper.getFoodId(foodName);
+	}
 }

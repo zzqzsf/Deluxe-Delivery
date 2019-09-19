@@ -27,16 +27,16 @@
     <div id="order-confirm">
         <!--     订单详情-->
         <div id="order-info">
-            <div class="dishes-table" id="dishes-tables" >
+            <div class="dishes-table" id="dishes-tables">
                 <div class="bot-border">
                     <div class="align-left">菜品</div>
                     <div class="align-right">价格/份数</div>
                 </div>
                 <div class="fooN">
-                <div class="bot-border" id="food" v-for="(orders,index) in list">
-                    <div class="align-left" id="food-name">{{orders.foodName}}</div>
-                    <div class="align-right" id="food-price">{{orders.foodPrice}}*{{orders.foodNum}}</div>
-                </div>
+                    <div class="bot-border" id="food" v-for="(orders,index) in list">
+                        <div class="align-left" id="food-name">{{orders.foodName}}</div>
+                        <div class="align-right" id="food-price">{{orders.foodPrice}}*{{orders.foodNum}}</div>
+                    </div>
                 </div>
                 <div class="bot-border" id="pPrice">
                     <div class="align-left">配送费</div>
@@ -65,102 +65,100 @@
                         添加新地址</a>
                 </div>
 
-                    <div id="order-list">
-                        <!--                        <div id="order-list-wrp">-->
-                        <div id="order-list-inner">
+                <div id="order-list">
+                    <!--                        <div id="order-list-wrp">-->
+                    <div id="order-list-inner">
 
-                            <div class="address-box" id="address-box">
+                        <div class="address-box" id="address-box">
 
                         <span id="name">周树凡 女士 ：
 
-                        </span>  <span id="phone">17738043914</span>
-                                <!--                                        <span class="box-modify ">-->
-                                <!--                          <a class="j-modify-address address-operation cc-lightred-new" href="javascript:;">修改</a>-->
-                                <!--                          <a class="j-delete-address address-operation cc-lightred-new" href="javascript:;">删除</a>-->
-                                <!--                        </span>-->
-                                <div class="address-line" id="address">西南医科大学(城北校区)&nbsp;&nbsp;海川楼</div>
-                                <input type="hidden" value="1" name="addressId">
-                            </div>
-                        </div>
-                        <div id="address-bottom">
-                            <img src="image/address-bottom.png" id="moreAddress" style="width:100% " alt="">
-                            <!--                        </div>-->
-                            <!--                    </div>-->
-                            <!--                    给商家留言-->
-                            <div id="message-short">
-                                <label for="message-short">
-                                    给商家留言:
-                                </label>
-                                <input type="text" id="message" placeholder="不要辣，多放盐等口味要求" maxlength="100">
-                            </div>
-                            <!--                    隐藏部分选备注信息-->
-                            <div id="order-tags">
-                                <ul class="clearfix">
-                                    <li><a class="tag" href="javascript:;">别放辣</a></li>
-                                    <li><a class="tag" href="javascript:;">辣一点</a></li>
-                                    <li><a class="tag" href="javascript:;">米饭多一点</a></li>
-                                    <li><a class="tag" href="javascript:;">没零钱</a></li>
-                                    <li><a class="tag" href="javascript:;">快点送</a></li>
-                                    <li class="last"><a class="tag" href="javascript:;">别放香菜</a></li>
-                                </ul>
-                                <img src="image/xiangxia.png" style="height: 5px;width:30px;">
-                            </div>
-                            <!--                    选择付款方式-->
-                            <div id="pay-field">
-                                <label class="fl">付款方式：</label>
-                                <div id="check">
-                                    <a href="">
-                                        <div id="option-unavail">餐到付款</div>
-                                    </a>
-                                    <a href="">
-                                        <div id="option-margin">在线支付</div>
-                                    </a>
-                                </div>
-                            </div>
-
-
-                            <!--                    期望送达时间-->
-                            <div id="order-arrTime">
-                                <span>期望送达时间：</span>
-                                <div id="select-input">
-                                    <span id="time">立即送出</span>
-                                    <img src="image/sm.jpg" alt="">
-                                </div>
-                                <!--                预计送达时间选择 ---显示隐藏-->
-                                <div id="slide-down">
-                                    <ul class="content">
-                                        <li class="selected"><a href="javascript:;" class="">立即送出</a></li>
-                                        <li class=""><a href="javascript:;">16:00</a></li>
-                                        <li class=""><a href="javascript:;">16:20</a></li>
-                                        <li class=""><a href="javascript:;">16:40</a></li>
-                                        <li class=""><a href="javascript:;">17:00</a></li>
-                                        <li class=""><a href="javascript:;">17:20</a></li>
-                                        <li><a href="javascript:;">17:40</a></li>
-                                        <li><a href="javascript:;">18:00</a></li>
-                                        <li class=""><a href="javascript:;">18:20</a></li>
-                                        <li><a href="javascript:;">18:40</a></li>
-                                        <li><a href="javascript:;">19:00</a></li>
-                                        <li><a href="javascript:;">19:20</a></li>
-                                        <li><a href="javascript:;">19:40</a></li>
-                                        <li><a href="javascript:;">20:00</a></li>
-                                        <li class=""><a href="javascript:;">20:20</a></li>
-                                        <li><a href="javascript:;">20:40</a></li>
-                                        <li><a href="javascript:;">21:00</a></li>
-                                    </ul>
-
-                                </div>
-                            </div>
-                            <!--            付款信息-------支付-->
-                            <div id="pay-area">
-                                <div class="tips">
-                                    您需支付&nbsp;<span class="price">¥<span class="price" id="totalPrice">27</span>
-              </span><br>
-                                    <span class="ct-lightgrey">* 由&nbsp;商家&nbsp;提供外卖服务</span>
-                                </div>
-                                <span id="pay-price">去付款</span>
-                            </div>
+                        </span> <span id="phone">17738043914</span>
+                            <!--                                        <span class="box-modify ">-->
+                            <!--                          <a class="j-modify-address address-operation cc-lightred-new" href="javascript:;">修改</a>-->
+                            <!--                          <a class="j-delete-address address-operation cc-lightred-new" href="javascript:;">删除</a>-->
+                            <!--                        </span>-->
+                            <div class="address-line" id="address">西南医科大学(城北校区)&nbsp;&nbsp;海川楼</div>
+                            <input type="hidden" value="1" name="addressId">
                         </div>
                     </div>
+                    <div id="address-bottom">
+                        <img src="image/address-bottom.png" id="moreAddress" style="width:100% " alt="">
+                        <!--                        </div>-->
+                        <!--                    </div>-->
+                        <!--                    给商家留言-->
+                        <div id="message-short">
+                            <label for="message-short">
+                                给商家留言:
+                            </label>
+                            <input type="text" id="message" placeholder="不要辣，多放盐等口味要求" maxlength="100">
+                        </div>
+                        <!--                    隐藏部分选备注信息-->
+                        <div id="order-tags">
+                            <ul class="clearfix">
+                                <li><a class="tag" href="javascript:;">别放辣</a></li>
+                                <li><a class="tag" href="javascript:;">辣一点</a></li>
+                                <li><a class="tag" href="javascript:;">米饭多一点</a></li>
+                                <li><a class="tag" href="javascript:;">没零钱</a></li>
+                                <li><a class="tag" href="javascript:;">快点送</a></li>
+                                <li class="last"><a class="tag" href="javascript:;">别放香菜</a></li>
+                            </ul>
+                            <img src="image/xiangxia.png" style="height: 5px;width:30px;">
+                        </div>
+                        <!--                    选择付款方式-->
+                        <div id="pay-field">
+                            <label class="fl">付款方式：</label>
+                            <div id="check">
+
+                                <div id="option-unavail">餐到付款</div>
+
+                                <div id="option-margin">在线支付</div>
+                            </div>
+                        </div>
+
+
+                        <!--                    期望送达时间-->
+                        <div id="order-arrTime">
+                            <span>期望送达时间：</span>
+                            <div id="select-input">
+                                <span id="time">立即送出</span>
+                                <img src="image/sm.jpg" alt="">
+                            </div>
+                            <!--                预计送达时间选择 ---显示隐藏-->
+                            <div id="slide-down">
+                                <ul class="content">
+                                    <li class="selected"><a href="javascript:;" class="">立即送出</a></li>
+                                    <li class=""><a href="javascript:;">16:00</a></li>
+                                    <li class=""><a href="javascript:;">16:20</a></li>
+                                    <li class=""><a href="javascript:;">16:40</a></li>
+                                    <li class=""><a href="javascript:;">17:00</a></li>
+                                    <li class=""><a href="javascript:;">17:20</a></li>
+                                    <li><a href="javascript:;">17:40</a></li>
+                                    <li><a href="javascript:;">18:00</a></li>
+                                    <li class=""><a href="javascript:;">18:20</a></li>
+                                    <li><a href="javascript:;">18:40</a></li>
+                                    <li><a href="javascript:;">19:00</a></li>
+                                    <li><a href="javascript:;">19:20</a></li>
+                                    <li><a href="javascript:;">19:40</a></li>
+                                    <li><a href="javascript:;">20:00</a></li>
+                                    <li class=""><a href="javascript:;">20:20</a></li>
+                                    <li><a href="javascript:;">20:40</a></li>
+                                    <li><a href="javascript:;">21:00</a></li>
+                                </ul>
+
+                            </div>
+                        </div>
+                        <!--            付款信息-------支付-->
+                        <div id="pay-area">
+                            <div class="tips">
+                                您需支付&nbsp;<span class="price">¥<span class="price" id="totalPrice">27</span>
+              </span><br>
+                                <span class="ct-lightgrey">* 由&nbsp;商家&nbsp;提供外卖服务</span>
+                            </div>
+                            <span id="pay-price">去付款</span>
+                        </div>
+                    </div>
+                </div>
                 </form>
                 <!--               右边的下载客户端链接-->
                 <!--            <div id="right-order-tip">-->
@@ -208,18 +206,22 @@
     $(function () {
 
 
+        var flag = 0;
 
+        if (flag == 0) {
+            address();
+        }
         // food();
-        address();
+
         shop();
         var mode;
 
-    var vm = new Vue({
-        el: ".fooN",
-        data: {
-            list:"",
-        }
-    });
+        var vm = new Vue({
+            el: ".fooN",
+            data: {
+                list: "",
+            }
+        });
 
 
         $("#addForm").validate({
@@ -302,7 +304,7 @@
 
         // var addrId1 =sessionStorage.getItem("addrId");
         var addrId1;
-        sessionStorage.setItem('addrId',addrId1);
+        sessionStorage.setItem('addrId', addrId1);
         // $("#pay-price").click(function () {
         //         $.ajax({
         //             url: "/insertOrder",
@@ -353,16 +355,15 @@
                     type: "post",
                     data: {
                         'sex': $('input:radio[name=sex]:checked+span').text(),
-                        cusId:23,
+                         cusId: 23,
                         'addrName': $("input[name='name']").val(),
                         'addrTel': $("input[name='phone']").val(),
                         'address': $("input[name='address']").val(),
                     },
                     dataType: "json",
                     success: function (data) {
-                        if (data == true)
-                        {
-                           window.location.href="takeOrder.html";
+                        if (data == true) {
+                            window.location.href = "takeOrder.html";
                         }
 
                     }
@@ -372,21 +373,21 @@
         );
 
 
-        // 显示地址
+        // 显示地址    sessionStorage.getItem("cusId")
         function address() {
 
             $.ajax({
                 url: "http://localhost:8080/getAddress",
                 type: "post",
                 data: {
-
+                    cusId: 23,
                 },
                 dataType: "json",
                 success: function (data) {
                     for (var i = 0; i < data.length; i++) {
                         var $node = $model.clone(true);
                         $node.find("#name").text(data[i].addrName + " " + data[i].sex + " :    ");
-                          $node.find("#phone").text(data[i].addrTel);
+                        $node.find("#phone").text(data[i].addrTel);
                         $node.find("input").val(data[i].addrId);
                         $node.find("#address").text(data[i].address);
                         // $node.children().eq(1).text(data[i].address);
@@ -400,48 +401,49 @@
 
         //显示订单商品
         var count = 0;
-        vm.list=JSON.parse(sessionStorage.getItem('oi'));
-         // var $node1 = $model1.clone(true);
+        vm.list = JSON.parse(sessionStorage.getItem('oi'));
+        // var $node1 = $model1.clone(true);
         // function food() {
 
 
-            // for (var j=0;j<data1.length;j++) {
-            //
-            //     $node1.find("#food-name").html(data1[j].foodName)
-            // }
-            // $.ajax({
-            //     url: "http://localhost:8080/getFood",
-            //     type: "get",
-            //     data: {},
-            //     dataType: "json",
-            //     success: function (data) {
-            //
-            //         for (var i = 0; i < data.length; i++) {
-            //             var $node1 = $model1.clone();
-            //             // $node1.find("#food-name").html(data1.foodName);
-            //             $node1.find("#food-price").html((data[i].foodPrice)+"*"+sessionStorage.getItem('foodNum'));
-            //             // $node1.find("#address").text(data[i].address);
-            //             // $node.children().eq(1).text(data[i].address);
-            //             $("#pPrice").before($node1);
-            //             count += (parseInt(data[i].foodPrice));
-            //         }
-            //
-            //     }
-            // });
+        // for (var j=0;j<data1.length;j++) {
+        //
+        //     $node1.find("#food-name").html(data1[j].foodName)
+        // }
+        // $.ajax({
+        //     url: "http://localhost:8080/getFood",
+        //     type: "get",
+        //     data: {},
+        //     dataType: "json",
+        //     success: function (data) {
+        //
+        //         for (var i = 0; i < data.length; i++) {
+        //             var $node1 = $model1.clone();
+        //             // $node1.find("#food-name").html(data1.foodName);
+        //             $node1.find("#food-price").html((data[i].foodPrice)+"*"+sessionStorage.getItem('foodNum'));
+        //             // $node1.find("#address").text(data[i].address);
+        //             // $node.children().eq(1).text(data[i].address);
+        //             $("#pPrice").before($node1);
+        //             count += (parseInt(data[i].foodPrice));
+        //         }
+        //
+        //     }
+        // });
 
 
         // }
 
         //显示店家信息
 
-        var sum=0;
+        var sum = 0;
+
         function shop() {
 
             $.ajax({
                 url: "/getShop",
                 type: "post",
                 data: {
-                     shopId:sessionStorage.getItem("shopId"),
+                    shopId: sessionStorage.getItem("shopId"),
                 },
                 dataType: "json",
                 success: function (data) {
@@ -449,10 +451,10 @@
                         $("#ca-brown").html(data[i].shopName);
                         $("#peiPrice").html(data[i].peiFee);
                         $("#packPrice").html(data[i].packagFee);
-                        sum+=(parseInt((data[i].peiFee))+parseInt(data[i].packagFee));
+                        sum += (parseInt((data[i].peiFee)) + parseInt(data[i].packagFee));
                     }
-                    sum1=parseInt(count)+parseInt(sum);
-                      $("#count").html(sessionStorage.getItem("countPrice"));
+                    sum1 = parseInt(count) + parseInt(sum);
+                    $("#count").html(sessionStorage.getItem("countPrice"));
                     $("#totalPrice").text(sessionStorage.getItem("countPrice"));
                 }
             });
@@ -460,25 +462,27 @@
 
         }
 
-        // 显示更多地址信息
-        function addresss() {
-            var $model = $("div[class='address-box']").remove();
-            $.ajax({
-                url: "http://localhost:8080/getAddresss",
-                type: "get",
-                data: {},
-                dataType: "json",
-                success: function (data) {
-                    for (var i = 0; i < data.length; i++) {
-                        var $node = $model.clone(true);
-                        $node.find("span").text(data[i].addrName + " " + data[i].sex + " :    " + data[i].addrTel);
-                        // $node.children().eq(1).text(data[i].address);
-                        $node.find("#address").text(data[i].address);
-                        $("#address-bottom").before($node);
-                    }
-                }
-            });
-        }
+        //
+        //     $("#moreAddress").click(function () {
+        //         var $model = $("div[class='address-box']").remove();
+        //         $.ajax({
+        //             url: "http://localhost:8080/getAddresss",
+        //             type: "post",
+        //             data: {},
+        //             dataType: "json",
+        //             success: function (data) {
+        //                for (var i = 0; i < data.length; i++) {
+        //                     var $node = $model.clone(true);
+        //                     $node.find("#name").text(data[i].addrName + " " + data[i].sex + " :    ");
+        //                     $node.find("#phone").text(data[i].addrTel);
+        //                     $node.find("input").val(data[i].addrId);
+        //                     $node.find("#address").text(data[i].address);
+        //                     // $node.children().eq(1).text(data[i].address);
+        //                     $("#address-bottom").before($node);
+        //                 }
+        //             }
+        //         });
+        // })
 
         //结算订单
         // sessionStorage.setItem('telephone', $("input[name='telphone']").val());
@@ -486,32 +490,33 @@
 
         // var addrId1 =sessionStorage.getItem("addrId");
         var addrId1;
-        sessionStorage.setItem('addrId',addrId1);
-
+        sessionStorage.setItem('addrId', addrId1);
 
 
         $("#pay-price").click(function () {
-            var date=JSON.parse(sessionStorage.getItem('oi'));
-            var oi=[];
-            var orders={
-                addrId:mode.find("input[name='addressId']").val(),
-                orderNote: $("#message").val(),
-                orderStatus: "未完成付款",
-                shopId:sessionStorage.getItem("shopId"),
-                estimatedTime: $("#time").html(),
-                gooYmoney:$("#count").html(),
-                gooSmoney:$("#count").html(),
+                var date = JSON.parse(sessionStorage.getItem('oi'));
+                var oi = [];
+                var orders = {
+                    addrId: mode.find("input[name='addressId']").val(),
+                    orderNote: $("#message").val(),
+                    orderStatus: "未完成付款",
+                    shopId: sessionStorage.getItem("shopId"),
+                    estimatedTime: $("#time").html(),
+                    gooYmoney: $("#count").html(),
+                    gooSmoney: $("#count").html(),
+                    cusId: sessionStorage.getItem("cusId"),
 
-            };
-            for (var j=0;j<date.length;j++){
-                var op={
-                    foodNumber:date[j].foodNum,
-                    detNote: "无留言",
-                    detMoney: date[j].foodPrice,
                 };
-                oi.push(op);
-            }
-                var OrderVo={"orders":orders,"orderItems":oi};
+                for (var j = 0; j < date.length; j++) {
+                    var op = {
+                        foodId: date[j].foodId,
+                        foodNumber: date[j].foodNum,
+                        detNote: "无留言",
+                        detMoney: date[j].foodPrice,
+                    };
+                    oi.push(op);
+                }
+                var OrderVo = {"orders": orders, "orderItems": oi};
                 $.ajax({
                     url: "/insertOrder",
                     data: JSON.stringify(OrderVo),
@@ -519,19 +524,14 @@
                     type: "post",
                     contentType: "application/json;charset-UTF-8",//{name:'david',pass：'123'}
                     success: function (text) {
-                        addrId1=mode.find("input[name='addressId']").val();
-                        if (mode.find("input[name='addressId']").val()==null){
-                            alert("111"); //这个数字只是为了演示，实际应用肯定是写活的。
-
+                        sessionStorage.setItem("orderId",text);
+                        addrId1 = mode.find("input[name='addressId']").val();
+                        if (mode.find("input[name='addressId']").val() == null) {
                         }
                         location.href = "/goAlipay?price=" + $("#totalPrice").html();
+
                     }
                 });
-
-
-
-
-
             }
         );
 
@@ -545,7 +545,6 @@
             $('#order-tags').hide();
         });
 
-
         // 选择预计送达时间
         $('#select-input').click(function () {
             $('#slide-down').toggle();
@@ -554,10 +553,6 @@
         $(document).click(function () {
             $('#slide-down').hide();
         });
-        // $('.address-box').focus(function () {
-        //     $('.box-modify').show();
-        //
-        // });
 
         // 新增地址弹出框
         $('.pop-close').click(function () {
@@ -571,7 +566,7 @@
         });
 
         var $model = $("div[id='order-list-inner']").detach();
-         // var $model1 = $("div[id='food']").detach();
+        // var $model1 = $("div[id='food']").detach();
 
     })
 </script>

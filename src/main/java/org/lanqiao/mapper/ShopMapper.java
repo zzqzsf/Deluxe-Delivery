@@ -1,9 +1,6 @@
 package org.lanqiao.mapper;
 import org.apache.ibatis.annotations.Param;
-import org.lanqiao.entity.Food;
-import org.lanqiao.entity.Foodtype;
-import org.lanqiao.entity.Location;
-import org.lanqiao.entity.Shop;
+import org.lanqiao.entity.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -31,6 +28,9 @@ public interface ShopMapper {
     String checkShopName(String shopName);
 
     int insertShop(Shop shop);
-    //根据商店名字查询shopid
-    int getShopId(String shopName);
+
+        //检查用户名和密码是否匹配
+    int checkShopTel(String shopTel);
+
+    int checkShopPass(String cusTel,String cusName);
 }

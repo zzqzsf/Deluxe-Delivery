@@ -15,14 +15,15 @@
         <result column="shop_mon_sale" property="shopMonSale" jdbcType="INTEGER"/>
         <result column="start_price" property="startPrice" jdbcType="DOUBLE"/>
         <result column="pei_fee" property="peiFee" jdbcType="DOUBLE"/>
+        <result column="packag_fee" property="packagFee" jdbcType="DOUBLE"/>
     </resultMap>
 
     <!--查收藏店铺-->
     <select id="getCollectionShop" resultMap="ShopResultMap" parameterType="Integer">
 
-    select shop_name,shop_state,shop_img,shop_com,shop_mon_sale,start_price,pei_fee FROM shop
+    select shop_name,shop_state,shop_img,shop_com,shop_mon_sale,start_price,pei_fee,packag_fee FROM shop
     where
-    shop_id=(SELECT shop_id from collection where cus_id = #{customerId})
+    shop_id in(SELECT shop_id from collection where cus_id = #{customerId})
   </select>
 
 
