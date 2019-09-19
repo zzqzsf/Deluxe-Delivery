@@ -10,17 +10,17 @@
     <result column="order_note" property="orderNote" jdbcType="VARCHAR" />
     <result column="estimated_time" property="estimatedTime" jdbcType="VARCHAR" />
     <result column="shop_id" property="shopId" jdbcType="INTEGER" />
-    <association property="shop" javaType="org.lanqiao.entity.Shop">
+    <!--<association property="shop" javaType="org.lanqiao.entity.Shop">
       <id column="shop_id" property="shopId" jdbcType="INTEGER" />
       <result column="shop_tel" property="shopTel" jdbcType="VARCHAR" />
       <result column="shop_name" property="shopName" jdbcType="VARCHAR" />
       <result column="shop_img" property="shopImg" jdbcType="VARCHAR" />
       <result column="start_price" property="startPrice" jdbcType="DOUBLE" />
     <result column="packag_fee" property="packagFee" jdbcType="DOUBLE" />
-    </association>
+    </association>-->
     <association property="address" resultMap="AddressResultMap"/>
     <association property="custom" resultMap="CustomResultMap"/>
-    <!--<association property="shop" resultMap="ShopResultMap"/>-->
+    <association property="shop" resultMap="ShopResultMap"/>
   </resultMap>
   <resultMap id="AddressResultMap" type="org.lanqiao.entity.Address" >
     <result column="address" property="address" jdbcType="VARCHAR" />
@@ -33,10 +33,14 @@
     <result column="cus_tel" property="cusTel" jdbcType="DOUBLE" />
     <result column="cus_img" property="cusImg" jdbcType="VARCHAR" />
   </resultMap>
-  <!--<resultMap id="ShopResultMap" type="org.lanqiao.entity.Shop" >
-    <result column="start_price" property="startPrice" jdbcType="DOUBLE" />
-    <result column="packag_fee" property="packagFee" jdbcType="DOUBLE" />
-  </resultMap>-->
+  <resultMap id="ShopResultMap" type="org.lanqiao.entity.Shop" >
+      <result column="shop_id" property="shopId" jdbcType="INTEGER" />
+      <result column="shop_tel" property="shopTel" jdbcType="VARCHAR" />
+      <result column="shop_name" property="shopName" jdbcType="VARCHAR" />
+      <result column="shop_img" property="shopImg" jdbcType="VARCHAR" />
+      <result column="start_price" property="startPrice" jdbcType="DOUBLE" />
+      <result column="packag_fee" property="packagFee" jdbcType="DOUBLE" />
+  </resultMap>
 
 <!--查找该商家的全部订单-->
   <select id="selectAllShopOrder" resultMap="OrdersResultMap">
@@ -55,13 +59,8 @@
     and to_days(o.order_time) = to_days(now())
   </select>
 
-  <!--<select id="getAllOrder" resultMap="OrdersResultMap" >
-    /*select * from orders order by id desc*/
-    select * from orders limit #{pageNum},#{pageSize}
-
-  </select>-->
-
-  <select id="getOrderList" resultType="java.util.Map">
+<!--查用户所有订单-->
+    <select id="getOrderList" resultMap="OrdersResultMap">
 
     select s.shop_img,s.shop_name,o.order_id,o.order_time,s.shop_tel,o.goo_smoney from orders o,shop s
     where o.shop_id=s.shop_id and cus_id=#{customerId}
