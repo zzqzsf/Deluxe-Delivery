@@ -33,7 +33,8 @@ public class Shop implements Serializable {
     private Double startPrice;
 
     private Double packagFee;
-        private Double peiFee;
+
+    private Double peiFee;
 
     public Double getPeiFee() {
         return peiFee;
@@ -48,7 +49,7 @@ public class Shop implements Serializable {
 
     private List<Food> foodList;
 
-//
+    //
     public List<Foodtype> getFoodtypeList() {
         return foodtypeList;
     }

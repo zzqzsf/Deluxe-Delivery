@@ -1,5 +1,6 @@
 package org.lanqiao.service;
 
+import org.lanqiao.entity.Collections;
 import org.lanqiao.entity.Comment;
 import org.lanqiao.entity.OrderStatus;
 import org.lanqiao.entity.Orders;
@@ -18,4 +19,8 @@ public interface OrderService {
     public int insertComment(Comment comment);
 
     public Map getOrderDetail(Integer orderId);
+
+    public Map getUserInfo(Integer customerId);
+
+    public List<Collections> getCollectionShop(Integer customerId);
 }
