@@ -33,4 +33,6 @@ public interface ShopMapper {
     int checkShopTel(String shopTel);
 
     int checkShopPass(String cusTel,String cusName);
+
+    public int getShopId(String shopName);
 }

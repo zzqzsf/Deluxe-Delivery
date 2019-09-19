@@ -9,7 +9,6 @@ $(function(){
     var startMoney = 0;
     var oi=[];
     var session = "";
-    var oi = [];
     sessionStorage.setItem('foodNum', $("#num").val());
     var opFlag = -1;
     $("#MenuSort").css("display", "block");
@@ -22,12 +21,23 @@ $(function(){
     $cartFoodmodel = $(".cartFood:eq(0)");
     //设置评论模板
     $assessModel = $(".assessBigBox:eq(0)");
+
+    $.ajax({
+        url: "http://localhost:8080/getSession",
+        type: "post",
+        dataType: "json",
+        data: {},
+        success: function (data) {
+            session = data;
+        }
+    });
+
     //购物车的包装费和配送费
     $.ajax({
         url: "http://localhost:8080/shop",
         type: "post",
         data: {
-            'shopId': $("#shopId").text()
+            'shopId': shopId
         },
         dataType: "json",
         success: function (data) {
@@ -71,13 +81,8 @@ $(function(){
                     type: "post",
                     cache:false,
                     async:false,
-                    data:{
-                        'shopId':shopId,
-                        'foodTypeId':data1[i].ftyId
-                    cache: false,
-                    async: false,
                     data: {
-                        'shopId': $("#shopId").text(),
+                        'shopId': shopId,
                         'foodTypeId': data1[i].ftyId
                     },
                     dataType: "json",
@@ -115,30 +120,26 @@ $(function(){
         });
     });
     //去结算
-    sessionStorage.setItem('shopId', $("#shopId").text());
     $("#startSend").click(function () {
-        var $mode = $(".cartFood");
-        var oi = [];
-        var foodd;
-        for (var i = 0; i < $mode.length; i++) {
+        if(session == ""){
+            window.location.href = "admin.html";
+        }else{
+            var $mode = $(".cartFood");
+            var oi = [];
+            for (var i = 0; i < $mode.length; i++) {
 
-            var op = {
-                foodName: $mode.eq(i).children().eq(0).text(),
-                foodPrice: $mode.eq(i).children().eq(5).eq(0).text().substr(1),
-                foodNum: $mode.eq(i).children().eq(2).val(),
-                foodId: $mode.eq(i).children().eq(6).val(),
+                var op = {
+                    foodName: $mode.eq(i).children().eq(0).text(),
+                    foodPrice: $mode.eq(i).children().eq(5).eq(0).text().substr(1),
+                    foodNum: $mode.eq(i).children().eq(2).val(),
+                    foodId: $mode.eq(i).children().eq(6).val(),
+                }
+                oi.push(op);
             }
-            oi.push(op);
-        }
-        sessionStorage.setItem("oi", JSON.stringify(oi));
-
-
-        for (var j = 0; j < $mode.length; j++) {
-
+            sessionStorage.setItem("oi", JSON.stringify(oi));
+            window.location.href = "takeOrder.html";
         }
 
-
-        window.location.href = "takeOrder.html";
     })
     //选项卡功能
     $("#menuAssess ul li").eq(0).click(function () {
@@ -196,7 +197,7 @@ $(function(){
             $node.children().eq(0).text($(this).prevAll().eq(1).text());
             $node.children().eq(4).text($(this).prevAll().eq(0).text());
             $node.children().eq(5).text($(this).prevAll().eq(0).text());
-            $node.find("#foodId").html($(this).foodTypeId);
+            $node.children().eq(6).val($(this).next().val());
             $("#clearCart").after($node);
         }
 

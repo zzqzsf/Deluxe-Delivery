@@ -232,11 +232,5 @@ $("#suggestId").blur(function () {
     })
 })
 
-//插入用户注册数据
-$("#registerButton").click(function () {
 
-    if ($("#pass").val() != $("#repass").val()) {
-        flag = 0;
-    } else {
-        flag = 1;
-    }
+
