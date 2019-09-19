@@ -22,5 +22,9 @@ public class FoodController {
 	public List<Food> getFood(Integer ftyId) {
 		return foodService.getFood(ftyId);
 	}
+	@RequestMapping("/getFoodId")
+	public int getFood(String foodName) {
+		return foodService.getFoodId(foodName);
+	}
 
 }

@@ -35,4 +35,7 @@ public interface ShopService {
      public String checkShopName(String shopName);
 
      public  int insertShop(Shop shop);
+
+     public int checkShopTel(String shopTel);
+     public int checkShopPass(String cusTel,String cusName);
 }

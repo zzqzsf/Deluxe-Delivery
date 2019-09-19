@@ -9,4 +9,5 @@ import java.util.List;
 @Service
 public interface FoodService {
 	public List<Food> getFood(Integer ftyId);
+	public int getFoodId(String foodName);
 }

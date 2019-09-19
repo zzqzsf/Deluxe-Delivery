@@ -144,5 +144,15 @@ public class ShopServiceImpl implements ShopService {
         return shopMapper.insertShop(shop);
     }
 
+    @Override
+    public int checkShopTel(String shopTel) {
+        return shopMapper.checkShopTel(shopTel);
+    }
+
+    @Override
+    public int checkShopPass(String cusTel, String cusName) {
+        return shopMapper.checkShopPass(cusTel,cusName);
+    }
+
 
 }

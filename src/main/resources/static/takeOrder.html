@@ -109,12 +109,10 @@
                             <div id="pay-field">
                                 <label class="fl">付款方式：</label>
                                 <div id="check">
-                                    <a href="">
+
                                         <div id="option-unavail">餐到付款</div>
-                                    </a>
-                                    <a href="">
+
                                         <div id="option-margin">在线支付</div>
-                                    </a>
                                 </div>
                             </div>
 
@@ -209,8 +207,13 @@
 
 
 
+        var flag=0;
+
+if (flag==0){
+    address();
+}
         // food();
-        address();
+
         shop();
         var mode;
 
@@ -459,26 +462,27 @@
 
 
         }
-
-        // 显示更多地址信息
-        function addresss() {
-            var $model = $("div[class='address-box']").remove();
-            $.ajax({
-                url: "http://localhost:8080/getAddresss",
-                type: "get",
-                data: {},
-                dataType: "json",
-                success: function (data) {
-                    for (var i = 0; i < data.length; i++) {
-                        var $node = $model.clone(true);
-                        $node.find("span").text(data[i].addrName + " " + data[i].sex + " :    " + data[i].addrTel);
-                        // $node.children().eq(1).text(data[i].address);
-                        $node.find("#address").text(data[i].address);
-                        $("#address-bottom").before($node);
-                    }
-                }
-            });
-        }
+    //
+    //     $("#moreAddress").click(function () {
+    //         var $model = $("div[class='address-box']").remove();
+    //         $.ajax({
+    //             url: "http://localhost:8080/getAddresss",
+    //             type: "post",
+    //             data: {},
+    //             dataType: "json",
+    //             success: function (data) {
+    //                for (var i = 0; i < data.length; i++) {
+    //                     var $node = $model.clone(true);
+    //                     $node.find("#name").text(data[i].addrName + " " + data[i].sex + " :    ");
+    //                     $node.find("#phone").text(data[i].addrTel);
+    //                     $node.find("input").val(data[i].addrId);
+    //                     $node.find("#address").text(data[i].address);
+    //                     // $node.children().eq(1).text(data[i].address);
+    //                     $("#address-bottom").before($node);
+    //                 }
+    //             }
+    //         });
+    // })
 
         //结算订单
         // sessionStorage.setItem('telephone', $("input[name='telphone']").val());
@@ -527,11 +531,6 @@
                         location.href = "/goAlipay?price=" + $("#totalPrice").html();
                     }
                 });
-
-
-
-
-
             }
         );
 
@@ -545,7 +544,6 @@
             $('#order-tags').hide();
         });
 
-
         // 选择预计送达时间
         $('#select-input').click(function () {
             $('#slide-down').toggle();
@@ -554,10 +552,6 @@
         $(document).click(function () {
             $('#slide-down').hide();
         });
-        // $('.address-box').focus(function () {
-        //     $('.box-modify').show();
-        //
-        // });
 
         // 新增地址弹出框
         $('.pop-close').click(function () {

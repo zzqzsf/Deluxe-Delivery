@@ -111,8 +111,20 @@ $(function(){
     $("#startSend").click(function () {
         var $mode=$(".cartFood");
         var oi=[];
+        var foodd;
         for (var i=0;i<$mode.length;i++)
         {
+              $.ajax({
+                url: "/getFoodId",
+                type: "post",
+                data: {
+                     foodName:$mode.eq(i).children().eq(0).text(),
+                },
+                dataType: "json",
+                success: function (data) {
+                    foodd=data;
+                }
+            })
 
             var op= {
                 foodName:$mode.eq(i).children().eq(0).text(),

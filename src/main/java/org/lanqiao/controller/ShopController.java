@@ -158,4 +158,24 @@ public class ShopController {
     public List<Orders> selectTodayOrder(int shopId){
         return  shopService.selectTodayOrder(shopId);
     }
+
+//    检查店铺手机号是否存在
+    @RequestMapping("/checkShopTel")
+    public  boolean checkShopTel(String shopTel){
+        if (shopService.checkShopName(shopTel)!=null){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+   @RequestMapping("/checkShopPass")
+    public  boolean checkShopTel(String shopTel,String shopPwd){
+      if (shopService.checkShopPass(shopTel,shopPwd)==1){
+      return true;
+      }
+      else {
+          return false;
+      }
+   }
 }

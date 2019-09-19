@@ -67,6 +67,16 @@
   <select id="SelectShopInfo" parameterType="java.lang.Integer" resultMap="ShopResultMap">
     select * from shop where shop_id=#{shopId}
   </select>
+
+<!--  检查店铺手机是否存在信息-->
+    <select id="SelectShopInfo" parameterType="java.lang.String" resultMap="ShopResultMap">
+    select * from shop where shop_tel=#{shopTel}
+  </select>
+
+   <select id="SelectShopInfo" parameterType="java.lang.String" resultMap="ShopResultMap">
+    select count(*) from shop where shop_tel=#{shopTel} and shop_pwd=#{shopPwd};
+  </select>
+
   <update id="updateShopStatus">
     update shop set order_State=#{#shopStatus} where shop_id=#{shopId}
   </update>
