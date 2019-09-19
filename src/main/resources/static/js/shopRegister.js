@@ -83,57 +83,21 @@ $(function () {
             },
             dataType: "json",
             success: function (data) {
-                if (data!=true) {
+                if (data != true) {
                     $("#shopNameMsg").text("该商家名已被注册");
-                    return flag=0;
+                    return flag = 0;
                 }
             }
         })
     })
 
-      $('#suggestId').focus(function () {
-            $('#l-map').show();
-        });
-     $('#suggestId').blur(function () {
-            $('#l-map').hide();
-        });
+    $('#suggestId').focus(function () {
+        $('#l-map').show();
+    });
+    $('#suggestId').blur(function () {
+        $('#l-map').hide();
+    });
 
-    // //插入用户注册数据
-    // $("#registerButton").click(function () {
-    //     if ($("#pass").val() != $("#repass").val()) {
-    //         flag = 0;
-    //     } else {
-    //         flag = 1;
-    //     }
-    //     if (flag == 0) {
-    //
-    //     } else {
-    //         $.ajax({
-    //             url: "http://localhost:8080/insertShop",
-    //             type: "post",
-    //             data: {
-    //
-    //                 'shopName': $("#shopName").val(),
-    //                 'shopTel': $("#tel").val(),
-    //                 'shopPwd':$("#pass").val(),
-    //                 'shopAddr':$("#suggestId").val(),
-    //                 'shopImg':1,
-    //                 'shopState':"正在营业",
-    //                 'shopMonSale':0,
-    //                 'shopCom':5.0,
-    //                 'startPrice':15,
-    //                 'packagFee':2,
-    //                 'peiFee':3,
-    //
-    //             },
-    //             dataType: "json",
-    //             success:function (data) {
-    //                 alert(data);
-    //                 window.location.href = "http://localhost:8080/index.html";
-    //             }
-    //         })
-    //     }
-    // })
 
     $("#registerForm").validate({
         success: function (label) {
@@ -182,57 +146,91 @@ $(function () {
         }
     });
 });
-    // 百度地图API功能
-    function G(id) {
-        return document.getElementById(id);
-    }
 
-    var map = new BMap.Map("l-map");
-    map.centerAndZoom("北京", 12);                   // 初始化地图,设置城市和地图级别。
+// 百度地图API功能
+function G(id) {
+    return document.getElementById(id);
+}
 
-    var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
-        {
-            "input": "suggestId"
-            , "location": map
-        });
+var map = new BMap.Map("l-map");
+var point = new BMap.Point(116.331398,39.897445);
+map.centerAndZoom(point,12);                  // 初始化地图,设置城市和地图级别。
+// 创建地址解析器实例
+var myGeo = new BMap.Geocoder();
 
-    ac.addEventListener("onhighlight", function (e) {  //鼠标放在下拉列表上的事件
-        var str = "";
-        var _value = e.fromitem.value;
-        var value = "";
-        if (e.fromitem.index > -1) {
-            value = _value.province + _value.city + _value.district + _value.street + _value.business;
-        }
-        str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
 
-        value = "";
-        if (e.toitem.index > -1) {
-            _value = e.toitem.value;
-            value = _value.province + _value.city + _value.district + _value.street + _value.business;
-        }
-        str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
-        G("searchResultPanel").innerHTML = str;
+
+var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
+    {
+        "input": "suggestId"
+        , "location": map
     });
 
-    var myValue;
-    ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
-        var _value = e.item.value;
-        myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
-        G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
-
-        setPlace();
-    });
-
-    function setPlace() {
-        map.clearOverlays();    //清除地图上所有覆盖物
-        function myFun() {
-            var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
-            map.centerAndZoom(pp, 18);
-            map.addOverlay(new BMap.Marker(pp));    //添加标注
-        }
-
-        var local = new BMap.LocalSearch(map, { //智能搜索
-            onSearchComplete: myFun
-        });
-        local.search(myValue);
+ac.addEventListener("onhighlight", function (e) {  //鼠标放在下拉列表上的事件
+    var str = "";
+    var _value = e.fromitem.value;
+    var value = "";
+    if (e.fromitem.index > -1) {
+        value = _value.province + _value.city + _value.district + _value.street + _value.business;
     }
+    str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+
+    value = "";
+    if (e.toitem.index > -1) {
+        _value = e.toitem.value;
+        value = _value.province + _value.city + _value.district + _value.street + _value.business;
+    }
+    str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+    G("searchResultPanel").innerHTML = str;
+});
+
+var myValue;
+ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
+    var _value = e.item.value;
+    myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+    G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+
+    setPlace();
+});
+
+function setPlace() {
+    map.clearOverlays();    //清除地图上所有覆盖物
+    function myFun() {
+        var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+        map.centerAndZoom(pp, 18);
+        map.addOverlay(new BMap.Marker(pp));    //添加标注
+    }
+
+    var local = new BMap.LocalSearch(map, { //智能搜索
+        onSearchComplete: myFun
+    });
+    local.search(myValue);
+}
+var jingdu;
+var weidu;
+$("#suggestId").blur(function () {
+    myGeo.getPoint($("#suggestId").val(), function (point) {
+        if (point) {
+            jingdu = point.lng;
+            weidu = point.lat;
+            map.centerAndZoom(point, 16);
+            map.addOverlay(new BMap.Marker(point));
+        }
+    }, "厦门市");
+    $.ajax({
+        url: "http://localhost:8080/insertLoction",
+        type: "post",
+        data: {
+            "jingdu":jingdu,
+            "weidu":weidu,
+            'name':$("#shopName").val(),
+        },
+        dataType: "json",
+        success: function (data) {
+            alert(data);
+        }
+    })
+})
+
+
+

@@ -32,6 +32,7 @@ $(function () {
                 },
                 dataType: "json",
                 success: function (data) {
+                    $(".sendMsg").css("display","inline");
                     if(data){
                         var time=60;
                         var code=$("#getMsg");
@@ -43,6 +44,7 @@ $(function () {
                                 code.val("重新获取"+time+"秒");
                                 code.css({"cursor": "not-allowed", "opacity": "0.5"});
                                 if (time==0) {
+
                                     code.attr("disabled","false");
                                     code.css({"cursor": "pointer", "opacity": "1"});
                                     clearInterval(t);

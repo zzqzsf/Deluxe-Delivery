@@ -2,6 +2,7 @@ package org.lanqiao.controller;
 
 import org.lanqiao.entity.*;
 import org.lanqiao.service.ShopService;
+import org.lanqiao.util.RedisUtil;
 import org.lanqiao.util.UUIDUtil;
 import org.lanqiao.util.faceUpload;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
@@ -25,6 +27,9 @@ import java.util.List;
 public class ShopController {
     @Autowired
     ShopService shopService;
+
+    @Resource
+    private RedisUtil redisUtil;
     @RequestMapping("/getShop")
     public List<Shop> getShop(Integer shopId){
         return shopService.getShop(shopId);
@@ -87,10 +92,29 @@ public class ShopController {
             return false;
         }
     }
+    //向Redis插入店铺信息
+    @RequestMapping("/insertLoction")
+    public int insertShop(String jingdu,String weidu,String name){
 
+        Location location = new Location();
+        location.setName(name);
+        location.setJingdu(Double.parseDouble(jingdu));
+        location.setWeidu(Double.parseDouble(weidu));
+        //将店名、经纬度存入redis
+        redisUtil.lSet("locations",location);
+        return 1;
+    }
     //新增商铺
     @RequestMapping("/insertShop")
-    public int insertShop(Shop shop, MultipartFile file, HttpServletRequest request) throws Exception {
+    public int insertShop(Shop shop,MultipartFile file, HttpServletRequest request) throws Exception {
+
+//        Location location = new Location();
+//        location.setName(shop.getShopName());
+//        location.setJingdu(Double.parseDouble(jingdu));
+//        location.setWeidu(Double.parseDouble(weidu));
+//        //将店名、经纬度存入redis
+//        redisUtil.lSet("locations",location);
+
         shop.setShopImg(new faceUpload().upload(request,file));
         return  shopService.insertShop(shop);
 
