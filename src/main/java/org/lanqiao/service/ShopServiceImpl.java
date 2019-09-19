@@ -130,6 +130,11 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
+    public List<Comment> selectAllComment(int shopId) {
+        return null;
+    }
+
+    @Override
     public String checkShopName(String shopName) {
         return shopMapper.checkShopName(shopName);
     }

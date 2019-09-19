@@ -35,7 +35,7 @@
                 <div class="fooN">
                 <div class="bot-border" id="food" v-for="(orders,index) in list">
                     <div class="align-left" id="food-name">{{orders.foodName}}</div>
-                    <div class="align-right" id="food-price">¥35</div>
+                    <div class="align-right" id="food-price">{{orders.foodPrice}}*{{orders.foodNum}}</div>
                 </div>
                 </div>
                 <div class="bot-border" id="pPrice">
@@ -303,47 +303,47 @@
         // var addrId1 =sessionStorage.getItem("addrId");
         var addrId1;
         sessionStorage.setItem('addrId',addrId1);
-        $("#pay-price").click(function () {
-                $.ajax({
-                    url: "/insertOrder",
-                    data: JSON.stringify(
-                        {
-                            "order": {
-                                addrId: mode.find("input[name='addressId']").val(),
-                                orderNote: $("#message").val(),
-                                orderStatus: "未完成付款",
-                                shopId:sessionStorage.getItem("shopId"),
-                                estimatedTime: $("#time").html(),
-
-                            },
-                            "orderItems": [{
-                                 detNote: "无留言",
-                                 detMoney: $("#count").html(),
-                                 foodNumber:sessionStorage.getItem('foodNum'),
-                            }]
-                        }),
-                    dataType: "text",
-                    type: "post",
-                    contentType: "application/json",//{name:'david',pass：'123'}
-                    success: function (text) {
-                        alert("生成订单成功");
-                    }
-                });
-                addrId1=mode.find("input[name='addressId']").val();
-            if (mode.find("input[name='addressId']").val()!=null){
-                location.href = "/goAlipay?price=" + $("#totalPrice").html();  //这个数字只是为了演示，实际应用肯定是写活的。
-
-            }
-            else
-            {
-                alert("111");
-            }
-
-
-
-
-            }
-        );
+        // $("#pay-price").click(function () {
+        //         $.ajax({
+        //             url: "/insertOrder",
+        //             data: JSON.stringify(
+        //                 {
+        //                     "order": {
+        //                         addrId: mode.find("input[name='addressId']").val(),
+        //                         orderNote: $("#message").val(),
+        //                         orderStatus: "未完成付款",
+        //                         shopId:sessionStorage.getItem("shopId"),
+        //                         estimatedTime: $("#time").html(),
+        //
+        //                     },
+        //                     "orderItems": [{
+        //                          detNote: "无留言",
+        //                          detMoney: $("#count").html(),
+        //                          foodNumber:sessionStorage.getItem('foodNum'),
+        //                     }]
+        //                 }),
+        //             dataType: "text",
+        //             type: "post",
+        //             contentType: "application/json",//{name:'david',pass：'123'}
+        //             success: function (text) {
+        //                 alert("生成订单成功");
+        //             }
+        //         });
+        //         addrId1=mode.find("input[name='addressId']").val();
+        //     if (mode.find("input[name='addressId']").val()!=null){
+        //         location.href = "/goAlipay?price=" + $("#totalPrice").html();  //这个数字只是为了演示，实际应用肯定是写活的。
+        //
+        //     }
+        //     else
+        //     {
+        //         alert("111");
+        //     }
+        //
+        //
+        //
+        //
+        //     }
+        // );
 
 
         // 新增地址插入数据库
@@ -452,8 +452,8 @@
                         sum+=(parseInt((data[i].peiFee))+parseInt(data[i].packagFee));
                     }
                     sum1=parseInt(count)+parseInt(sum);
-                      $("#count").html(sum1);
-                    $("#totalPrice").text(sum1);
+                      $("#count").html(sessionStorage.getItem("countPrice"));
+                    $("#totalPrice").text(sessionStorage.getItem("countPrice"));
                 }
             });
 
@@ -491,22 +491,26 @@
 
 
         $("#pay-price").click(function () {
+            var date=JSON.parse(sessionStorage.getItem('oi'));
+            var oi=[];
             var orders={
                 addrId:mode.find("input[name='addressId']").val(),
                 orderNote: $("#message").val(),
                 orderStatus: "未完成付款",
                 shopId:sessionStorage.getItem("shopId"),
                 estimatedTime: $("#time").html(),
-                gooYmoney:$("#totalPrice").text(),
-                gooSmoney:$("#totalPrice").text(),
+                gooYmoney:$("#count").html(),
+                gooSmoney:$("#count").html(),
 
             };
-                var oi=
-                    [{
-                        detNote: "无留言",
-                        detMoney: $("#count").html(),
-                        foodNumber:sessionStorage.getItem('foodNum'),
-                    }]
+            for (var j=0;j<date.length;j++){
+                var op={
+                    foodNumber:date[j].foodNum,
+                    detNote: "无留言",
+                    detMoney: date[j].foodPrice,
+                };
+                oi.push(op);
+            }
                 var OrderVo={"orders":orders,"orderItems":oi};
                 $.ajax({
                     url: "/insertOrder",
@@ -520,10 +524,7 @@
                             alert("111"); //这个数字只是为了演示，实际应用肯定是写活的。
 
                         }
-                        else
-                        {  location.href = "/goAlipay?price=" + $("#totalPrice").html();
-
-                        }
+                        location.href = "/goAlipay?price=" + $("#totalPrice").html();
                     }
                 });
 
@@ -576,61 +577,6 @@
 </script>
 
 
-<script type="text/javascript">
-    // 百度地图API功能
-    function G(id) {
-        return document.getElementById(id);
-    }
 
-    var map = new BMap.Map("l-map");
-    map.centerAndZoom("北京", 12);                   // 初始化地图,设置城市和地图级别。
-
-    var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
-        {
-            "input": "suggestId"
-            , "location": map
-        });
-
-    ac.addEventListener("onhighlight", function (e) {  //鼠标放在下拉列表上的事件
-        var str = "";
-        var _value = e.fromitem.value;
-        var value = "";
-        if (e.fromitem.index > -1) {
-            value = _value.province + _value.city + _value.district + _value.street + _value.business;
-        }
-        str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
-
-        value = "";
-        if (e.toitem.index > -1) {
-            _value = e.toitem.value;
-            value = _value.province + _value.city + _value.district + _value.street + _value.business;
-        }
-        str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
-        G("searchResultPanel").innerHTML = str;
-    });
-
-    var myValue;
-    ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
-        var _value = e.item.value;
-        myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
-        G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
-
-        setPlace();
-    });
-
-    function setPlace() {
-        map.clearOverlays();    //清除地图上所有覆盖物
-        function myFun() {
-            var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
-            map.centerAndZoom(pp, 18);
-            map.addOverlay(new BMap.Marker(pp));    //添加标注
-        }
-
-        var local = new BMap.LocalSearch(map, { //智能搜索
-            onSearchComplete: myFun
-        });
-        local.search(myValue);
-    }
-</script>
 
 
