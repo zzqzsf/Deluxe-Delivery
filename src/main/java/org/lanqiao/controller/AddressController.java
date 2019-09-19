@@ -14,8 +14,8 @@ public class AddressController {
 	@Autowired
 	AddressService addressService;
 
-	@RequestMapping("/addAddress")
-	public int insert(Address address) {
+	@RequestMapping(value = "/addAddress")
+	public int insert(Address address ) {
 		return addressService.insert(address);
 	}
 

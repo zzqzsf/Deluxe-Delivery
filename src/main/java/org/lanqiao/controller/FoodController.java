@@ -15,8 +15,6 @@ import java.util.List;
 public class FoodController {
 	@Autowired
 	FoodService foodService;
-	@Autowired
-	ShopService shopService;
 
 
 

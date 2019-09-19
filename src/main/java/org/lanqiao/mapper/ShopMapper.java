@@ -27,4 +27,8 @@ public interface ShopMapper {
     Shop selectShopById(Integer shopId);
     List<Foodtype> selectFoodType(Integer shopId);
     List<Food> selectAllFood(Integer shopId,Integer foodTypeId);
+
+    String checkShopName(String shopName);
+
+    int insertShop(Shop shop);
 }

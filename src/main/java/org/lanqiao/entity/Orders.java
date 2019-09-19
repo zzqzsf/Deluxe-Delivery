@@ -10,7 +10,11 @@ public class Orders {
 
     private Address address;
 
+    private Integer addrId;
+
     private Custom custom;
+
+    private Integer cusId;
 
     private Date orderTime;
     private String orderTimeString;
@@ -39,6 +43,21 @@ public class Orders {
 
     private Integer shopId;
 
+    public Integer getCusId() {
+        return cusId;
+    }
+
+    public void setCusId(Integer cusId) {
+        this.cusId = cusId;
+    }
+
+    public Integer getAddrId() {
+        return addrId;
+    }
+
+    public void setAddrId(Integer addrId) {
+        this.addrId = addrId;
+    }
 
     public Integer getShopId() {
         return shopId;
@@ -47,6 +66,7 @@ public class Orders {
     public void setShopId(Integer shopId) {
         this.shopId = shopId;
     }
+
 
     public Shop getShop() {
         return shop;
@@ -128,8 +148,6 @@ public class Orders {
         this.estimatedTime = estimatedTime == null ? null : estimatedTime.trim();
     }
 
-
-
     @Override
     public String toString() {
         return "Orders{" +
@@ -142,7 +160,7 @@ public class Orders {
                 ", orderStatus='" + orderStatus + '\'' +
                 ", orderNote='" + orderNote + '\'' +
                 ", estimatedTime='" + estimatedTime + '\'' +
-                ", shop=" + shop +
+                ", shopId=" + shopId +
                 '}';
     }
 }

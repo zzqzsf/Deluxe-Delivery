@@ -19,16 +19,16 @@ public class OrdersController {
 	@Autowired
 	OrdersService ordersService;
 
-	@RequestMapping("/insertOrders")
-	public int insertOrders(Orders orders) {
-		return ordersService.insert(orders);
+	@RequestMapping("/upOrder")
+	public int upOrder(Orders orders) {
+		return ordersService.updateByPrimaryKey(orders);
 	}
 
 	@RequestMapping("/insertOrder")
 	public int createOrder(@RequestBody OrderVo orderVo) {
-		Orders order = orderVo.getOrder();
+		Orders orders = orderVo.getOrders();
 		List<OrderItem> orderItems = orderVo.getOrderItems();
-		return ordersService.createOrder(orderItems, order);
+		return ordersService.createOrder(orderItems, orders);
 	}
 
 }

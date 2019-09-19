@@ -30,4 +30,9 @@ public interface ShopService {
 //    全部订单
     public List<Orders> selectAllShopOrder(int shopId,String orderStatus);
     public List<Orders> selectTodayOrder(int shopId);
+    public List<Comment> selectAllComment(int shopId);
+    //检查商铺手机是否被注册
+     public String checkShopName(String shopName);
+
+     public  int insertShop(Shop shop);
 }
