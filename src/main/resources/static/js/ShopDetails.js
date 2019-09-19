@@ -111,13 +111,13 @@ $(function(){
     $("#startSend").click(function () {
         var $mode=$(".cartFood");
         var oi=[];
-        var ob=[];
         for (var i=0;i<$mode.length;i++)
         {
 
             var op= {
                 foodName:$mode.eq(i).children().eq(0).text(),
-                foodPrice: $mode.eq(i).children().eq(5).text($(this).prevAll().eq(0).text()).html(),
+                foodPrice: $mode.eq(i).children().eq(5).eq(0).text().substr(1),
+                foodNum:$mode.eq(i).children().eq(2).val(),
             }
             oi.push(op);
         }
@@ -245,6 +245,8 @@ $(function(){
         // });
         sum1 += parseFloat($(".packCharge:eq(0)").children().eq(1).text().substr(1));
         sum1 += parseFloat($(".packCharge:eq(1)").children().eq(1).text().substr(1));
+
+        sessionStorage.setItem("countPrice",sum1);
         $("#allMoney p").children().eq(1).text("￥"+sum1);
         $("#allMoney p").children().eq(0).text(sum2);
     }
