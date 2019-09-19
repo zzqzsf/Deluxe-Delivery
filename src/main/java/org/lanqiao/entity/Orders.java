@@ -4,8 +4,6 @@ import java.util.Date;
 
 public class Orders {
 
-
-
     private Integer orderId;
 
     private Address address;
@@ -27,6 +25,13 @@ public class Orders {
 
     private String orderNote;
 
+    private String estimatedTime;
+
+    private Shop shop;
+
+    private Integer shopId;
+
+
     public String getOrderTimeString() {
         return orderTimeString;
     }
@@ -34,14 +39,6 @@ public class Orders {
     public void setOrderTimeString(String orderTimeString) {
         this.orderTimeString = orderTimeString;
     }
-
-
-
-    private String estimatedTime;
-
-    private Shop shop;
-
-    private Integer shopId;
 
     public Integer getCusId() {
         return cusId;
