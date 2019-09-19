@@ -69,11 +69,11 @@
   </select>
 
 <!--  检查店铺手机是否存在信息-->
-    <select id="SelectShopInfo" parameterType="java.lang.String" resultMap="ShopResultMap">
+    <select id="checkShopTel" parameterType="java.lang.String" resultMap="ShopResultMap">
     select * from shop where shop_tel=#{shopTel}
   </select>
 
-   <select id="SelectShopInfo" parameterType="java.lang.String" resultMap="ShopResultMap">
+   <select id="checkShopPass" parameterType="java.lang.String" resultMap="ShopResultMap">
     select count(*) from shop where shop_tel=#{shopTel} and shop_pwd=#{shopPwd};
   </select>
 

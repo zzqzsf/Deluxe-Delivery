@@ -43,6 +43,7 @@ $(function(){
             $("#allMark").text(data.shopCom);
             level = data.shopCom*20;
             $("#marktwo").css({width:level+"%"});
+
         }
     });
 
@@ -83,10 +84,12 @@ $(function(){
                             $node2.children().eq(1).text(data2[j].foodName);
                             $node2.children().eq(2).empty();
                             $node2.children().eq(2).append("<span>￥</span>"+data2[j].foodPrice);
+                            $node2.children().eq(4).val(data2[j].foodId);
                             $node1.children().eq(1).prepend($node2);
                             // obj.detMoney=sum1;
                             // obj.foodNumber=$("input[name='num']").val;
                             // oi.push(obj);
+
                         }
                     }
                 });
@@ -106,7 +109,6 @@ $(function(){
         });
     });
     //去结算
-
     sessionStorage.setItem('shopId', $("#shopId").text());
     $("#startSend").click(function () {
         var $mode=$(".cartFood");
@@ -114,22 +116,12 @@ $(function(){
         var foodd;
         for (var i=0;i<$mode.length;i++)
         {
-              $.ajax({
-                url: "/getFoodId",
-                type: "post",
-                data: {
-                     foodName:$mode.eq(i).children().eq(0).text(),
-                },
-                dataType: "json",
-                success: function (data) {
-                    foodd=data;
-                }
-            })
 
             var op= {
                 foodName:$mode.eq(i).children().eq(0).text(),
                 foodPrice: $mode.eq(i).children().eq(5).eq(0).text().substr(1),
                 foodNum:$mode.eq(i).children().eq(2).val(),
+                foodId:$mode.eq(i).children().eq(6).val(),
             }
             oi.push(op);
         }
@@ -202,7 +194,7 @@ $(function(){
             $node.children().eq(0).text($(this).prevAll().eq(1).text());
             $node.children().eq(4).text($(this).prevAll().eq(0).text());
             $node.children().eq(5).text($(this).prevAll().eq(0).text());
-            $node.find("#foodId").html($(this).foodTypeId);
+            $node.children().eq(6).val($(this).next().val());
             $("#clearCart").after($node);
         }
 

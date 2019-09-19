@@ -382,7 +382,7 @@ if (flag==0){
                 url: "http://localhost:8080/getAddress",
                 type: "post",
                 data: {
-
+                    cusId:sessionStorage.getItem("cusId"),
                 },
                 dataType: "json",
                 success: function (data) {
@@ -505,10 +505,12 @@ if (flag==0){
                 estimatedTime: $("#time").html(),
                 gooYmoney:$("#count").html(),
                 gooSmoney:$("#count").html(),
+                cusId:sessionStorage.getItem("cusId"),
 
             };
             for (var j=0;j<date.length;j++){
                 var op={
+                    foodId:date[j].foodId,
                     foodNumber:date[j].foodNum,
                     detNote: "无留言",
                     detMoney: date[j].foodPrice,

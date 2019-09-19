@@ -28,7 +28,7 @@ public class OrdersController {
 	public int createOrder(@RequestBody OrderVo orderVo) {
 		Orders orders = orderVo.getOrders();
 		List<OrderItem> orderItems = orderVo.getOrderItems();
-		return ordersService.createOrder(orderItems, orders);
+		return ordersService.createOrder(orderItems,orders);
 	}
 
 }

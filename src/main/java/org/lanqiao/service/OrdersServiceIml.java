@@ -26,11 +26,12 @@ public class OrdersServiceIml implements OrdersService {
 
 	@Override
 	public int createOrder(List<OrderItem> orderItems, Orders orders) {
-		ordersMapper.insert(orders);//获得orderId
+		ordersMapper.insertSelective(orders);//获得orderId
 		for (OrderItem oi : orderItems) {
 			oi.setOrderId(orders.getOrderId());
 			orderItemMapper.insert(oi);
 		}
+
 		return 0;
 	}
 

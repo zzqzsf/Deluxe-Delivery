@@ -34,7 +34,7 @@
         select * from food where fty_id=1;
     </select>
 
-   <select id="getFoodId" resultType="java.lang.Integer" parameterType="java.l">
+   <select id="getFoodId" resultType="java.lang.Integer" >
        select food_id FROM food where food.food_name = "绝味鸭脖"
     </select>
 
