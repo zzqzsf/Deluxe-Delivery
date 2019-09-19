@@ -20,7 +20,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import static com.google.gson.internal.bind.TypeAdapters.UUID;
 
 @RestController
 public class ShopController {
@@ -93,7 +92,8 @@ public class ShopController {
     @RequestMapping("/insertShop")
     public int insertShop(Shop shop, MultipartFile file, HttpServletRequest request) throws Exception {
         shop.setShopImg(new faceUpload().upload(request,file));
-        return shopService.insertShop(shop);
+        return  shopService.insertShop(shop);
+
     }
     @RequestMapping("/selectShopInfo")
     public Shop selectShopInfo(int shopId){

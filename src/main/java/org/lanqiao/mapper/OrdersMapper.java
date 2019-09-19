@@ -31,6 +31,8 @@ public interface OrdersMapper {
 
     List<Orders> selectAllShopOrder(int shopId,String orderStatus);
     List<Orders> selectTodayOrder(int shopId);
+//    更新订单状态
+     int updateOrderState(Integer orderId);
 
     List<Orders> getAllOrder(@Param("pageNum") int pageNum, @Param("pageSize") int pageSize );
 }

@@ -98,42 +98,42 @@ $(function () {
             $('#l-map').hide();
         });
 
-    //插入用户注册数据
-    $("#registerButton").click(function () {
-        if ($("#pass").val() != $("#repass").val()) {
-            flag = 0;
-        } else {
-            flag = 1;
-        }
-        if (flag == 0) {
-
-        } else {
-            $.ajax({
-                url: "http://localhost:8080/insertShop",
-                type: "post",
-                data: {
-
-                    'shopName': $("#shopName").val(),
-                    'shopTel': $("#tel").val(),
-                    'shopPwd':$("#pass").val(),
-                    'shopAddr':$("#suggestId").val(),
-                    'shopImg':1,
-                    'shopState':"正在营业",
-                    'shopMonSale':0,
-                    'shopCom':5.0,
-                    'startPrice':15,
-                    'packagFee':2,
-                    'peiFee':3,
-
-                },
-                dataType: "json",
-                success:function (data) {
-                    alert(data);
-                    window.location.href = "http://localhost:8080/index.html";
-                }
-            })
-        }
-    })
+    // //插入用户注册数据
+    // $("#registerButton").click(function () {
+    //     if ($("#pass").val() != $("#repass").val()) {
+    //         flag = 0;
+    //     } else {
+    //         flag = 1;
+    //     }
+    //     if (flag == 0) {
+    //
+    //     } else {
+    //         $.ajax({
+    //             url: "http://localhost:8080/insertShop",
+    //             type: "post",
+    //             data: {
+    //
+    //                 'shopName': $("#shopName").val(),
+    //                 'shopTel': $("#tel").val(),
+    //                 'shopPwd':$("#pass").val(),
+    //                 'shopAddr':$("#suggestId").val(),
+    //                 'shopImg':1,
+    //                 'shopState':"正在营业",
+    //                 'shopMonSale':0,
+    //                 'shopCom':5.0,
+    //                 'startPrice':15,
+    //                 'packagFee':2,
+    //                 'peiFee':3,
+    //
+    //             },
+    //             dataType: "json",
+    //             success:function (data) {
+    //                 alert(data);
+    //                 window.location.href = "http://localhost:8080/index.html";
+    //             }
+    //         })
+    //     }
+    // })
 
     $("#registerForm").validate({
         success: function (label) {

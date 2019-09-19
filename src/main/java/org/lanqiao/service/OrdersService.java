@@ -14,4 +14,6 @@ public interface OrdersService {
 	public int createOrder(List<OrderItem> orderItems, Orders orders);
 
 	public int updateByPrimaryKey(Orders record);
+
+	public int updateOrderState(Integer orderId);
 }
