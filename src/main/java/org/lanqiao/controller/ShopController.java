@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -46,6 +47,13 @@ public class ShopController {
     }
 
 
+    @RequestMapping("/getShopId")
+    public int getShopId(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        int shopId = (int)session.getAttribute("shopId");
+        return shopId;
+
+    }
 
 
     @RequestMapping("/insertFood")
@@ -56,7 +64,6 @@ public class ShopController {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
         // 获得文件：
 //        name是input的name值
-
         MultipartFile file= multipartRequest.getFile("foodImg");
         String a=null;
         try{
@@ -127,7 +134,84 @@ public class ShopController {
         }
         return result;
     }
+@RequestMapping("/updateFood")
+    public Map<String,Object> updateFood(HttpServletRequest request, HttpServletResponse response){
+        Map<String,Object> result= new HashMap<String, Object>();
 
+        // 转型为MultipartHttpRequest：
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        // 获得文件：
+//        name是input的name值
+        MultipartFile file= multipartRequest.getFile("updateFoodImg");
+        String a=null;
+        try{
+//            构建上传目标路径，找到项目的target的classes目录
+            File destFile = new File(ResourceUtils.getURL("classpath:").getPath());
+            if (!destFile.exists()) {
+                destFile = new File("");
+            }
+//            输出目标文件的绝对路径
+            System.out.println("file path:" + destFile.getAbsolutePath());
+//            拼接子路径，已时间日期创建文件夹
+            Date date = new Date();
+            File upload = new File(destFile.getAbsolutePath(), "static/" + new SimpleDateFormat("yyyyMMdd").format(date));
+//            若目标文件夹不存在，则创建
+            if (!upload.exists()) {
+                upload.mkdirs();
+            }
+//            使用UUID重命名文件
+            String fileName = file.getOriginalFilename();
+            String fileExtension = fileName.substring(fileName.lastIndexOf("."), fileName.length());
+            System.out.println("完整的上传路径:" + upload.getAbsolutePath() + "/" + fileExtension);
+//            根据foodImg大小，准备一个字节数组
+            byte[] bytes = file.getBytes();
+//            通过项目路径，拼接上传路径
+            a= upload.getAbsolutePath() + "/" + UUIDUtil.get32UUID() + fileExtension;
+            Path path = Paths.get(a);
+//            开始将源文件写入目标地址
+            Files.write(path,bytes);
+            String b=a.replace("D:\\ideaworkspace\\Deluxe-Delivery\\target\\classes\\tatic","/upload");
+            Map<String, String[]> map = multipartRequest.getParameterMap();
+            Food food = new Food();
+
+            String shopId= map.get("shopId")[0];
+            String foodName = map.get("foodName")[0];
+            String foodPrice = map.get("foodPrice")[0];
+            String foodStock = map.get("foodStock")[0];
+            String foodIntro = map.get("foodIntro")[0];
+            String ftyId = map.get("ftyId")[0];
+            String isInsert = map.get("isInsert")[0];
+
+            int f1=Integer.parseInt(shopId);
+            int f2=Integer.parseInt(foodStock);
+            int f3=Integer.parseInt(ftyId);
+            food.setShopId(f1);
+            food.setFoodPath(b);
+            food.setFoodName(foodName);
+            food.setFoodPrice(foodPrice);
+            food.setFoodIntro(foodIntro);
+            food.setFtyId(f3);
+
+            if(isInsert!=null){
+                food.setFoodStatus("上架");
+                shopService.insertFood(food);
+            }else{
+                shopService.updateFoodInfo(food);
+            }
+
+            result.put("msg", "上传成功！");
+            result.put("result", true);
+            result.put("foodImg",b);
+
+        }catch(IOException e){
+            result.put("msg","出错了");
+            result.put("result",false);
+            e.printStackTrace();
+        }catch (Exception e1){
+            e1.printStackTrace();
+        }
+        return result;
+    }
 
     @RequestMapping("/updateShopImg")
     public Map<String,Object> updateShopImg(HttpServletRequest request, HttpServletResponse response){
@@ -185,23 +269,6 @@ public class ShopController {
         }
         return result;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     @RequestMapping("/checkShopName")
     public Boolean checkShopName(String shopName){

@@ -87,16 +87,26 @@
             ajax轮询redis查新订单
              */
 
-            var shopId = 1;
+            var shopId ;
             var fImg=null;
             var foodindex;
 
+
+            $.ajax({
+                url:"/getShopId",
+                type:"post",
+                dataType:"json",
+                success:function (data) {
+                    shopId=data;
+                }
+            })
             selectFoodtype(shopId);
             selectShopInfo(shopId);
 
 
-            setInterval("test()",5000);
-            function test() {
+
+            setInterval("getNewOrder()",5000);
+            function getNewOrder() {
                 $.ajax({
                     url:"/ajaxRedis",
                     async:true,
@@ -104,6 +114,8 @@
                     success: function (data) {
                         if(data){
                             alert("您有一个新订单");
+                            $("#remind").play()
+
                         }
                     }
                 })
@@ -401,20 +413,7 @@
                         }
                     },
                 }
-
             });
-
-
-
-
-
-
-
-
-
-
-
-
             //添加商品分类
             $("#submitFoodtype").click(function () {
                 swal({
@@ -446,42 +445,6 @@
                     });
 
             });
-            // $("#submitFood").click(function () {
-            //     $.ajax({
-            //         url:"/insertFood",
-            //         type:"post",
-            //         data:{
-            //             shopId:shopId,
-            //             foodName:$("#foodName").val(),
-            //             foodPrice:$("#foodPrice").val(),
-            //             foodStock:$("#foodStock").val(),
-            //             foodIntro:$("#foodIntro").val(),
-            //             ftyId:$("#foodSort option:selected").val(),
-            //             foodStatus:"上架"
-            //         },
-            //         dataType:"json",
-            //         success:function (data) {
-            //             var foodId=data;
-            //             uploadImg(foodId);
-            //
-            //         }
-            //
-            //
-            //     })
-            // });
-            // $("#foodImg").fileinput({
-            //     language:'zh',
-            //     uploadUrl: '/uploadFoodImg',
-            //     allowedFileExtensions : ['jpg', 'png','gif'],
-            //     overwriteInitial: false,
-            //     showRemove:true,
-            //     maxFileSize: 100000,
-            //     maxFileCount: 1,
-            //     autoReplace: true,
-            //     slugCallback: function(filename) {
-            //         // swal("添加成功!", "你已成功添加"+$("#foodName").val()+"!", "success");
-            //     }
-            // });
             //上传商品图片
             //传图片
             $("#foodImg").fileinput({
@@ -516,7 +479,7 @@
             //修改商品信息
             $("#updateFoodImg").fileinput({
                 language:'zh',
-                uploadUrl: "/insertFood",
+                uploadUrl: "/updateFood",
                 allowedFileExtensions : ['jpg', 'png','gif'],
                 uploadAsync: true, //默认异步上传
                 showUpload: true, //是否显示上传按钮
@@ -582,13 +545,6 @@
                 $("#updateShopImg").parent().hide();
                 $("#updateShopImg").parent().prev().show();
             });
-
-
-
-
-
-
-
             //更新商品分类
             $("#updateFoodtype").click(function () {
                 swal({
@@ -932,6 +888,11 @@
             <button class="btn btn-block btn-primary active btn-lg" type="button"><img src="image/logo.jpg" style="max-width: 2.8%;height: auto; "></button>
         </div>
     </div>
+
+<!--    新订单处理-->
+    <audio src="mp3/newOrder.mp3" class="hidden" id="remind"></audio>
+
+
     <div class="clearfix" style="margin-bottom: 10px;"></div><!-- 清除浮动 -->
     <div class="row-fluid">
         <div class="col-md-8">
