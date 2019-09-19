@@ -86,7 +86,7 @@
                 <!--订单列表-->
                 <div class="brief-intro j-toggle-content open">
 
-                    <div class="brief-intro-topconsole fr" >
+                    <div class="brief-intro-topconsole fr">
                         <div class="clearfix">
                             <a href="javascript:;" class="fr order-another j-order-another"
                                data-viewid="66487200144236701"
@@ -114,8 +114,7 @@
                             </div>
                             <div class="rest-detail">
                                 <span class="order-total">{{order.order_time}}</span>
-                                <!-- <span class="order-id">订单号：{{Order.orderId}}</span>-->
-                                <span class="order-id">1</span>
+                                <span class="order-id">订单号：{{order.orderId}}</span>
                             </div>
                         </div>
                     </div>
@@ -139,11 +138,11 @@
                                 </div>
                                 <div class="field clearfix">
                                     <span class="fl classify">包装费：</span>
-                                    <span class="fr box-cost">¥0</span>
+                                    <span class="fr box-cost">¥{{packageFee}}</span>
                                 </div>
                                 <div class="field clearfix">
                                     <span class="fl classify">配送费：</span>
-                                    <span class="fr delivery-cost">¥{{packageFee}}</span>
+                                    <span class="fr delivery-cost">¥{{peiSongFee}}</span>
                                 </div>
 
 
@@ -170,11 +169,11 @@
                                 <i class="icon i-ordernotok"></i>
                             </div>
                             <div class="fl tips">
-                                <div class="step-1 ">
-                                    <span class="fr t-1">2019-09-08 12:00</span>
-                                    <p class="bold">订单提交成功，等待付款</p>
+                                <div class="step-1 " v-for="(orderStatus,index) in OrderStatusList">
+                                    <span class="fr t-1">{{orderStatus.orderTime}}</span>
+                                    <p class="bold">{{orderStatus.order_status}}</p>
                                 </div>
-                                <div class="step-cancel">
+                                <!--<div class="step-cancel">
                                     <span class="fr t-cancel">2019-09-08 12:01</span>
                                     <p class="bold">订单取消</p>
                                     <p class="sub">订单已被取消</p>
@@ -190,7 +189,7 @@
                                         <a href="javascript:;" class="not-yet  ">
                                             <span class="s-btn-white">订单反馈</span></a>
                                     </p>
-                                </div>
+                                </div>-->
                             </div>
 
                         </div>
@@ -205,15 +204,15 @@
             <div class="user-info clearfix ct-commonblack">
                 <div class="user-info-item">
                     <span class="ui-title">我的头像：</span>
-                    <i class="icon i-user-circle"></i>
+                    <img class="icon i-user-circle" v-bind:src="customerImg" src="image/cus_default_img.png">
                 </div>
                 <div class="user-info-item">
-                    <span class="ui-title">用户&nbsp;&nbsp;I&nbsp;D：</span>
-                    <span class="source-label">YdG773494809</span>
+                    <span class="ui-title">用户昵称：</span>
+                    <span class="source-label">{{customerName}}</span>
                 </div>
                 <div class="user-info-item">
                     <span class="ui-title">手机号码：</span>
-                    <span class="source-label">1300****1057</span>
+                    <span class="source-label">{{customerTel}}</span>
                 </div>
                 <a href="https://www.meituan.com/account/settings" target="_blank" class="s-btn j-modify-info">修改</a>
             </div>
@@ -330,8 +329,7 @@
     var vm = new Vue({
         el: ".vue",
         data: {
-            list:"",
-            name:"nihao"
+            list: ""
         }
     });
 
@@ -342,12 +340,36 @@
             foodPrice: "",
             foodNumber: "",
             packageFee: "",
+            peiSongFee: "",
             address: "",
             addrName: "",
             addrTel: "",
             sex: "",
             orderNote: "(无)",
             orderMoney: ""
+        }
+    });
+
+    var OrderStatus = new Vue({
+        el: ".tips",
+        data: {
+            OrderStatusList: ""
+        }
+    });
+
+    var userInfo = new Vue({
+        el: ".user-info",
+        data: {
+            customerName: "hhh123",
+            customerImg: "image/cus_default_img.png",
+            customerTel: "13011112222",
+        }
+    });
+
+    var collectionShop = new Vue({
+        el: ".setting-box",
+        data: {
+            collectionList: ""
         }
     });
 
@@ -388,6 +410,7 @@
         });
     }
 
+    /*取订单详情*/
     function getOrderDetail() {
         $.ajax({
             url: "http://localhost:8080/getOrderDetail",
@@ -403,6 +426,7 @@
                 vm1.foodPrice = data.food_price;
                 vm1.foodNumber = data.food_number;
                 vm1.packageFee = data.packag_fee;
+                vm1.peiSongFee = data.pei_fee;
                 vm1.address = data.address;
                 vm1.addrName = data.addr_name;
                 vm1.addrTel = data.addr_tel;
@@ -414,10 +438,60 @@
         })
     }
 
+    /*取订单状态*/
+    function getOrderStatus() {
+        $.ajax({
+            url: "http://localhost:8080/getOrderStatus",
+            type: "post",
+            dataType: "json",
+            data: {
+
+                "orderId": 1
+            },
+            success: function (data) {
+                OrderStatus.OrderStatusList = data;
+            }
+        })
+    }
+
+    /*取用户信息，显示我的账号*/
+    function getUserInfo() {
+        $.ajax({
+            url: "http://localhost:8080/getUserInfo",
+            type: "post",
+            dataType: "json",
+            data: {
+
+                "customerId": customerId
+            },
+            success: function (data) {
+
+                userInfo.customerName = data.cus_name;
+                userInfo.customerImg = data.cus_img;
+                userInfo.customerTel = data.cus_tel;
+            }
+        })
+    }
+
+    function getCollectionShop() {
+        $.ajax({
+            url: "http://localhost:8080/getCollectionShop",
+            type: "post",
+            dataType: "json",
+            data: {
+
+                "customerId": customerId
+            },
+            success: function (data) {
+                collectionShop.collectionList = data;
+            }
+        })
+    }
+
     $(function () {
         var orderNumber = 1;
         getOrder();
-
+        getUserInfo();
         /*取订单数据*/
 
 
@@ -431,12 +505,13 @@
         /*订单详情隐藏*/
         $("#j-shown-order").hide();
         /*点击订单列表中任意订单一个显示订单详情*/
-        $(".content").click(function () {
+        $(".vue").click(function () {
             if ($("#j-shown-order").css("display") == "none") {
                 $("#j-shown-order").show(100);
                 var a = parseInt($(this).find(".order-id").val());
-                alert(a);
-                getOrderDetail(1)
+
+                getOrderDetail();
+                getOrderStatus()
             } else {
                 $("#j-shown-order").hide(100);
             }
@@ -453,6 +528,7 @@
         $("#myaccount").click(function () {
             $(".orders-list").hide();
             $("#setting-box").show();
+            getUserInfo()
         });
 
     });
