@@ -1,12 +1,10 @@
 package org.lanqiao.service;
 
+import org.lanqiao.entity.Collections;
 import org.lanqiao.entity.Comment;
 import org.lanqiao.entity.OrderStatus;
 import org.lanqiao.entity.Orders;
-import org.lanqiao.mapper.CommentMapper;
-import org.lanqiao.mapper.OrderItemMapper;
-import org.lanqiao.mapper.OrderStatusMapper;
-import org.lanqiao.mapper.OrdersMapper;
+import org.lanqiao.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +21,10 @@ public class OrderServiceImpl implements OrderService {
     CommentMapper commentMapper;
     @Autowired
     OrderItemMapper orderItemMapper;
+    @Autowired
+    CustomMapper customMapper;
+    @Autowired
+    CollectionMapper collectionMapper;
 
     public List<Orders> getAllOrder(int pageNum, int pageSize, Integer customerId) {
 
@@ -44,5 +46,15 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Map getOrderDetail(Integer orderId) {
         return orderItemMapper.getOrderDetail(orderId);
+    }
+
+    @Override
+    public Map getUserInfo(Integer customerId) {
+        return customMapper.getUserInfo(customerId);
+    }
+
+    @Override
+    public List<Collections> getCollectionShop(Integer customerId) {
+        return collectionMapper.getCollectionShop(customerId);
     }
 }

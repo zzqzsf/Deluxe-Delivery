@@ -122,5 +122,9 @@
     margin: 4px 2px;
     cursor: pointer;
 }
+.sendMsg{
+    color: red;
+    display: none;
+ }
 
 

@@ -37,7 +37,7 @@
   <!-- 琳 通过shopId，得到一个shop详情-->
   <select id="selectShopById" resultType="org.lanqiao.entity.Shop" parameterType="java.lang.Integer">
     select shop_id as shopId,shop_name as shopName,shop_pwd as shopPwd,shop_addr as shopAddr,shop_tel as shopTel,shop_state as shopState,
-    shop_img as shopImg,shop_com as shopCom,shop_mon_sale as shopMonSale,start_price as startPrice,packag_fee as packagFee
+    shop_img as shopImg,shop_com as shopCom,shop_mon_sale as shopMonSale,start_price as startPrice,packag_fee as packagFee,pei_fee as peiFee
     from shop where shop_id = #{shopId}
   </select>
   <!-- 琳 通过shopId，得到食物所属类型-->
@@ -47,23 +47,45 @@
   <!--通过shopId，得到食物-->
   <select id="selectAllFood" resultMap="FoodResultMap">
     select food.* from food,foodtype
-    where food.fty_id = foodtype.fty_id and food.shop_id = #{shopId} and food.fty_id =#{foodTypeId}
+    where food.fty_id = foodtype.fty_id and food.shop_id = foodtype.shop_id and food.shop_id = #{shopId} and food.fty_id =#{foodTypeId}
+  </select>
+
+  <select id="getShopId" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select shop_id from shop where shop_name = #{shopName}
   </select>
 
     <select id="getShop" resultMap="ShopResultMap" parameterType="java.lang.Integer">
         select * from shop where shop_id=#{shopId}
     </select>
 
+<!--  <select id="GetAllShops" resultMap="ShopResultMap">-->
+<!--    select * from shop where shop_name in-->
+<!--    <foreach collection="list" item="location" index="index" open="(" close=")" separator=",">-->
+<!--         #{location.name}-->
+<!--    </foreach>-->
+<!--  </select>-->
+    <select id="checkShopName" resultType="java.lang.String" parameterType="java.lang.String">
+        select shop_name from shop where shop_name=#{shopName}
+    </select>
   <select id="GetAllShops" resultMap="ShopResultMap">
-    select * from shop where shop_name in
-    <foreach collection="list" item="location" index="index" open="(" close=")" separator=",">
-         #{location.name}
-    </foreach>
+    select * from shop
   </select>
+
+
 <!--  豪 查找店铺信息-->
   <select id="SelectShopInfo" parameterType="java.lang.Integer" resultMap="ShopResultMap">
     select * from shop where shop_id=#{shopId}
   </select>
+
+<!--  检查店铺手机是否存在信息-->
+    <select id="checkShopTel" parameterType="java.lang.String" resultMap="ShopResultMap">
+    select * from shop where shop_tel=#{shopTel}
+  </select>
+
+   <select id="checkShopPass" parameterType="java.lang.String" resultMap="ShopResultMap">
+    select count(*) from shop where shop_tel=#{shopTel} and shop_pwd=#{shopPwd};
+  </select>
+
   <update id="updateShopStatus">
     update shop set order_State=#{#shopStatus} where shop_id=#{shopId}
   </update>
@@ -71,7 +93,7 @@
     delete from shop
     where shop_id = #{shopId,jdbcType=INTEGER}
   </delete>
-  <insert id="insertSelective" parameterType="org.lanqiao.entity.Shop" >
+  <insert id="insertShop" parameterType="org.lanqiao.entity.Shop" >
     insert into shop
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="shopId != null" >
@@ -107,6 +129,9 @@
       <if test="packagFee != null" >
         packag_fee,
       </if>
+      <if test="peiFee != null" >
+        pei_fee,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="shopId != null" >
@@ -141,6 +166,9 @@
       </if>
       <if test="packagFee != null" >
         #{packagFee,jdbcType=DOUBLE},
+      </if>
+       <if test="peiFee != null" >
+        #{peiFee,jdbcType=DOUBLE},
       </if>
     </trim>
   </insert>

@@ -13,7 +13,7 @@ import java.io.IOException;
  *该代码仅供学习和研究支付宝接口使用，只是提供一个参考。
  */
 
-public class AlipayConfig {
+public class AlipayConfig{
 
 //↓↓↓↓↓↓↓↓↓↓请在这里配置您的基本信息↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 
@@ -31,7 +31,7 @@ public class AlipayConfig {
 	public static String notify_url = "http://localhost/notify_url.jsp";
 
 	// 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-	public static String return_url = "http://localhost/return_url.jsp";
+	public static String return_url = "http://localhost:8080/takeOrderSuccess.html";
 
 	// 签名方式
 	public static String sign_type = "RSA2";

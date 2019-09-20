@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/shoPregister.css" type="text/css">
+    <title>注册</title>
+
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/jquery.validate.js" type="application/javascript"></script>
+    <script src="js/jquery.validate.regex.js" type="application/javascript"></script>
+    <script type="text/javascript" src="//api.map.baidu.com/api?v=1.2&ak=NZ27x6yGnQFkPeXfgameH7UAVdDkbE9q"></script>
+    	<style type="text/css">
+		body, html{width: 100%;height: 100%;margin:0;font-family:"微软雅黑";font-size:14px;}
+		#l-map{height:300px;width:100%;  margin-left: 317px; display: none}
+		#r-result{width:100%;}
+	</style>
+</head>
+<body>
+<div class="header">
+    <img src="image/reglogo.png" style="padding-left: 100px">
+    <hr color="#FFD705">
+</div>
+<div class="registerInfo">
+    <form id="registerForm" action="/insertShop" method="post" enctype="multipart/form-data">
+        <div class="phone">
+            <span>手机号 </span><input type="text" id="tel" name="shopTel">
+            <span id="error"></span>
+        </div>
+
+        <div style="margin-top: 5px;margin-bottom: 5px">
+            <input type='button' value='获取验证码' class='getMsg'>
+            <span class="errorReg"></span>
+        </div>
+        <div class="msgCheck"><span style="margin-left: -32px">
+            短信动态码 </span><input type="text" name="verifyCode" id="msgCheck">
+            <span id="codeMsg"></span>
+        </div>
+        <br>
+        <div class="shopName"><span style="margin-left: -16px">
+            商铺名称 </span><input type="text" name="shopName" id="shopName">
+            <span id="shopNameMsg"></span>
+        </div>
+        <br>
+        <div id="r-result" class="shopAddress"  style="margin-left: -16px;" >
+            商铺地址 <input type="text" id="suggestId" name="shopAddr" placeholder="学校/小区/街道" class="input">
+            <div id="searchResultPanel"
+                 style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+        </div>
+        <br>
+        <br>
+        <div class="shopImg"><span style="margin-left: -32px">
+            商铺图片</span><input type="file" name="file" id="shopImg" style="margin-left: 18px;">
+        </div>
+        <br>
+        <div class="password">
+            <span style="margin-left: -17px">创建密码 </span>
+            <input type="password" name="shopPwd" id="pass">
+        </div>
+        <br>
+        <div class="repassword">
+            <span style="margin-left: -17px">确认密码 </span>
+            <input type="password" name="repass" id="repass">
+        </div>
+        <br>
+        <input type="text" name="jingdu" style="display: none">
+        <input type="text" name="weidu" style="display: none">
+        <div class="register"><input type="submit" id="registerButton" value="注 册"></div>
+    </form>
+    <div id="l-map"></div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="js/shopRegister.js"></script>
+

@@ -1,10 +1,15 @@
 package org.lanqiao.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.lanqiao.entity.Collections;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface CollectionMapper {
+import java.util.List;
 
-    int insertSelective(Collections record);
+@Repository
+@Mapper
+public interface CollectionMapper {
+    List<Collections> getCollectionShop(Integer customerId);
+
+    int insertSelective(int cusId,int shopId);
 }

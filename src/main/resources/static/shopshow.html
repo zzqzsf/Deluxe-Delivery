@@ -12,11 +12,13 @@
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/star.css">
     <script src="js/vue.min.js"></script>
+    <script src="js/admin.js"></script>
 
     <script>
         $(function () {
             var cityName = sessionStorage.getItem("cityName");
             $("#l-2").html(cityName);
+            var session = "";
 
             $.ajax({
                 url: "http://localhost:8080/getSession",
@@ -24,7 +26,8 @@
                 dataType: "json",
                 data: {},
                 success: function (data) {
-                    if(data != null){
+                    if(data != ""){
+                        session = data;
                         $("#admin").css("display","none");
                         $.ajax({
                             url: "http://localhost:8080/getUserName",
@@ -42,20 +45,44 @@
                 }
             });
             var $cone1=$("#shopshow1")
-            $("#shopshow1").detach()
+            // $("#shopshow1").detach()
             var Num=1
             //vue
                 var vm = new Vue({
-                    el: '#shopshow',
+                    el: '#show',
                     data: {
                         shop:[],
+                        shops:[],
                     },
-                    method:{
+                    methods:{
+                        //图片透明度特效
+                        abc:function () {
+                            $(".show1").find(".i3").css('opacity','0.6');
+                            $(".show1").find(".shouc").show()
+                        },
+                        abd:function () {
+                            $(".show1").find(".i3").css('opacity','1')
+                            $(".show1").find(".shouc").hide()
+                        },
+                        sc:function () {
+                            $.ajax({
+                                url: "/sc",
+                                type: "post",
+                                data: {
+                                    cusId:35,
+                                    shopId:2,
+                                },
+                                dataType: "json",
+                                success: function () {
+                                    alert("提交成功");
 
+                                }
+                            })
+                        }
 
-                    },
+                    }
                 });
-                $.ajax({
+            $.ajax({
                 url: "/getAllShare",
                 type: "post",
                 data: {
@@ -65,6 +92,7 @@
                 success: function (data) {
                     for (var i=0;i<data.list.length;i++) {
                         vm.shop.push({
+                            shopId:data.list[i].shopId,
                             shopName: data.list[i].shopName,
                             shopCom: data.list[i].shopCom,
                             startPrice:data.list[i].startPrice,
@@ -73,46 +101,52 @@
                     }
                 }
             })
-
-
-
+            $(".test").click(function () {
+                $.ajax({
+                    url: "/getShopId",
+                    type: "post",
+                    data: {
+                        'shopName':$(this).find(".show-name").html()
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        sessionStorage.setItem("shopId",data);
+                        window.location.href="ShopDetails.html";
+                    }
+                })
+            });
+            $.ajax({
+                url: "/select",
+                type: "post",
+                data: {
+                    shopName:$("#tet").val()
+                },
+                dataType: "json",
+                success: function (data) {
+                    for (var i=0;i<data.length;i++) {
+                        vm.shops.push({
+                            shopId:data[i].shopId,
+                            shopName: data[i].shopName,
+                            shopCom:  data[i].shopCom,
+                            startPrice: data[i].startPrice,
+                            peiFee: data[i].peiFee,
+                        })
+                    }
+                }
+            })
             //点击文字变黄
             $(".s-4").click(function () {
                 $(".s-4").css('color', '')
                 $(this).css('color', 'orange')
             })
-            // 图片透明度特效
-            $(".show1").hover(function () {
-                $(this).find(".i3").css('opacity','0.6')
-                $(this).find(".shouc").show()
-            }, function () {
-                $(this).find(".i3").css('opacity','1')
-                $(this).find(".shouc").hide()
-            });
             //搜索
+            var $cone1=$("#shopshow1")
+            $("#shopshow1").detach()
             $("#h3").click(function () {
                 $("#shopshow").detach()
                 $("#gongao").after($cone1)
+                e()
             });
-            //登录部分
-            $("#selectAdmin").click(function () {
-                if ($(this).text() == "手机动态码登陆") {
-                    $(this).text("普通方式登陆");
-                    $(".tel").attr("placeholder", "手机号");
-                    $(".msg").attr("placeholder", "密码");
-                    $("#getMsg").text("");
-
-                } else {
-                    $(this).text("手机动态码登陆");
-                    $(".tel").attr("placeholder", "请输入手机号，未注册将自动注册");
-                    $(".msg").attr("placeholder", "动态码");
-                    $("#getMsg").text("获取手机动态码");
-                }
-            })
-            // $(".shouc").click()(function () {
-            //     $(this).css('data-toggle','modal')
-            //     $(this).css('data-target','#myModal')
-            // })
             //分页
             $(".w2").click(function () {
                 $(".show1").remove();
@@ -133,12 +167,41 @@
                     },
                     dataType: "json",
                     success: function (data) {
+
+                        var count = null;
+                        var s =null;
                         for (var i=0;i<data.list.length;i++) {
+                            count  = data.list[i].shopCom;
+                            count = (12 * count).toString();
+                            s = count + "px";
+                            $(".over").attr("width",s);
                             vm.shop.push({
                                 shopName: data.list[i].shopName,
                                 shopCom: data.list[i].shopCom,
                                 startPrice:data.list[i].startPrice,
                                 packagFee:data.list[i].packagFee
+                            })
+                        }
+                    }
+                })
+            }
+            function e() {
+                vm.shops=[];
+                $.ajax({
+                    url: "/select",
+                    type: "post",
+                    data: {
+                        shopName:$("#tet").val()
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        for (var i=0;i<data.length;i++) {
+                            vm.shops.push({
+                                shopId:data[i].shopId,
+                                shopName: data[i].shopName,
+                                shopCom:  data[i].shopCom,
+                                startPrice: data[i].startPrice,
+                                peiFee: data[i].peiFee,
                             })
                         }
                     }
@@ -166,7 +229,7 @@
             <div id="l-5"><a href="index.html">切换地址<img  id="top-tools" src="image/top-tools-arrow.png" /></a></div>
         </div>
         <div id="login-r">
-            <div data-toggle="modal" data-target="#myModal" class="r-2" id="register">注册</div>
+            <div class="r-2" id="register"><a href="register.html" style="color: black"> 注册</a></div>
             <div data-toggle="modal" data-target="#myModal" class="r-2" id="admin">登录</div>
             <div id="r-4"><img id="oder-list" src="image/order-list.png"/>我的订单</div>
         </div>
@@ -194,17 +257,17 @@
         <div id="g1">美团外卖向消费者郑重承诺：</div>
         <div id="g2">平台公示</div>
     </div>
-    <div id="shopshow">
-        <div class="show1" v-for="(aa,index) in shop ">
+    <div id="shopshow"class="test">
+        <div class="show1" @mouseenter="abc" @mouseleave="abd" v-for="(aa,index) in shop ">
             <div class="show-img">
-                <div class="i3"> <img data-toggle="modal" data-target="#myModal" class="shouc" src="image/icon-new-heart.png" /></div>
+                <div class="i3"> <img @click="sc"  class="shouc" src="image/icon-new-heart.png" /></div>
             </div>
             <div class="show-font">
                 <div class="show-name" >{{aa.shopName}}</div>
 <!--                评价星星-->
                 <div class="bg"><!--这里是背景，也就是灰色的星星-->
                     <!--说明，这里的width就是设置分数啦，以我写的为例，一个星星的长度是12px，也就是1分12px，如果是4.3分，就是4.3*12px = 51.6px的长度，当然这个一般是取得数据后用js或者其他模板语言去控制的-->
-                    <div class="over" style="width:54px"></div><!--这里是遮罩，设置宽度以达到评分的效果-->
+                    <div class="over" ></div><!--这里是遮罩，设置宽度以达到评分的效果-->
                 </div>
                 <div class="pinfen">{{aa.shopCom}}分</div>
                 <div class="culue">
@@ -234,24 +297,25 @@
     </div>
     <div id="shopshow1">
         <div id="show2">
-            <div id="solr-1">搜索"<div id="neir"></div>"结果如下</div>
+            <div id="solr-1">搜索"<div id="neir">zj</div>"结果如下</div>
+                <div class="solr-2" v-for="(bb,index) in shops ">
+                    <div class="show-font">
+                        <div class="show-name" >{{bb.shopName}}</div>
+                        <div class="qisong">起送：￥<td>{{bb.startPrice}}</td></div>
+                        <div class="peisong">配送费：￥<td>{{bb.peiFee}}</td></div>
+
+                        <div class="culue">
+                            <div class="bg"><!--这里是背景，也就是灰色的星星-->
+                                <!--说明，这里的width就是设置分数啦，以我写的为例，一个星星的长度是12px，也就是1分12px，如果是4.3分，就是4.3*12px = 51.6px的长度，当然这个一般是取得数据后用js或者其他模板语言去控制的-->
+                                <div class="over" style="width:54px"></div><!--这里是遮罩，设置宽度以达到评分的效果-->
+                            </div>
+                            <div class="pinfen">{{bb.shopCom}}分</div>
+                            <div class="shijian1">配送时间：<td>30</td>分钟</div>
+                        </div>
+                    </div>
+                </div>
+
         </div>
-<!--        <div class="solr-2">-->
-<!--            <div class="show-font">-->
-<!--                <div class="show-name" >{{aa.shopName}}</div>-->
-<!--                &lt;!&ndash;                评价星星&ndash;&gt;-->
-<!--                <div class="bg">&lt;!&ndash;这里是背景，也就是灰色的星星&ndash;&gt;-->
-<!--                    &lt;!&ndash;说明，这里的width就是设置分数啦，以我写的为例，一个星星的长度是12px，也就是1分12px，如果是4.3分，就是4.3*12px = 51.6px的长度，当然这个一般是取得数据后用js或者其他模板语言去控制的&ndash;&gt;-->
-<!--                    <div class="over" style="width:54px"></div>&lt;!&ndash;这里是遮罩，设置宽度以达到评分的效果&ndash;&gt;-->
-<!--                </div>-->
-<!--                <div class="pinfen">{{aa.shopCom}}分</div>-->
-<!--                <div class="culue">-->
-<!--                    <div class="qisong">起送：￥<td>{{aa.startPrice}}</td></div>-->
-<!--                    <div class="peisong">配送费：￥<td>{{aa.packagFee}}</td></div>-->
-<!--                    <div class="shijian"><td>30</td>分钟</div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
     </div>
 <!--    右侧滚动二维码-->
     <div id="rool-r">
@@ -274,18 +338,25 @@
             </div>
 <!--            登录小页面-->
             <div class="admin">
-                <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">登陆账号</font></font></span>
-                <span id="selectAdmin"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">手机动态码登陆</font></font></span>
-                <form id="myFrom">
-                    <div style="width: 260px;height: 35px"><input type="text" name="tel" placeholder="请输入手机号，未注册将自动注册" class="tel"></div>
-                    <div class="pass">
-                        <div class="passPic"></div>
+                <div class="errorTel"><div class="errorPic"></div><span class="tel1">请输入正确的手机号</span></div>
+                <span>账号登陆</span>
+                <span id="selectAdmin">普通方式登录</span>
+                <!--            <form id="myFrom" method="post" action="">-->
+                <div style="width: 260px;height: 35px"><input type="text" name="tel" placeholder="请输入手机号，未注册将自动注册" class="tel"></div>
+                <div class="pass">
+                    <div class="passPic"></div>
+                    <div style="float: left">
                         <input type="text" name="msg" placeholder="动态码" class="msg">
-                        <div style="margin-top: 4px;float: left"><span id="getMsg"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">获取手机动态码</font></font></span></div>
                     </div>
-                    <span class="forgetPass"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">忘记密码？</font></font></span>
-                    <font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><input type="submit" value="登录" class="admin1"></font></font>
-                </form></div>
+                    <div style="margin-top: 4px;float: left">
+                        <input type="button" value="获取验证码" id="getMsg" />
+                    </div>
+                </div>
+                <span class="sendMsg">已发送，一分钟后可重新获取</span>
+                <span class="forgetPass"><a href="getPass.html">忘记密码?</a></span>
+                <input type="submit" value="登 录" class="admin1">
+                <!--            </form>-->
+            </div>
             <div class="modal-footer">
             </div>
         </div><!-- /.modal-content -->

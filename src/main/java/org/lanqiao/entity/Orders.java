@@ -3,15 +3,11 @@ package org.lanqiao.entity;
 import java.util.Date;
 
 public class Orders {
-
-
-
     private Integer orderId;
-
     private Address address;
-
+    private Integer cusId;
+    private Integer addrId;
     private Custom custom;
-
     private Date orderTime;
     private String orderTimeString;
 
@@ -23,6 +19,32 @@ public class Orders {
 
     private String orderNote;
 
+    private boolean showOrderItem;
+
+    public boolean isShowOrderItem() {
+        return showOrderItem;
+    }
+
+    public void setShowOrderItem(boolean showOrderItem) {
+        this.showOrderItem = showOrderItem;
+    }
+
+    public Integer getAddrId() {
+        return addrId;
+    }
+
+    public void setAddrId(Integer addrId) {
+        this.addrId = addrId;
+    }
+
+    public Integer getCusId() {
+        return cusId;
+    }
+
+    public void setCusId(Integer cusId) {
+        this.cusId = cusId;
+    }
+
     public String getOrderTimeString() {
         return orderTimeString;
     }
@@ -30,15 +52,6 @@ public class Orders {
     public void setOrderTimeString(String orderTimeString) {
         this.orderTimeString = orderTimeString;
     }
-
-
-
-    private String estimatedTime;
-
-    private Shop shop;
-
-    private Integer shopId;
-
 
     public Integer getShopId() {
         return shopId;
@@ -48,13 +61,11 @@ public class Orders {
         this.shopId = shopId;
     }
 
-    public Shop getShop() {
-        return shop;
-    }
+    private String estimatedTime;
 
-    public void setShop(Shop shop) {
-        this.shop = shop;
-    }
+    private Shop shop;
+
+    private Integer shopId;
 
     public Integer getOrderId() {
         return orderId;
@@ -128,7 +139,13 @@ public class Orders {
         this.estimatedTime = estimatedTime == null ? null : estimatedTime.trim();
     }
 
+    public Shop getShop() {
+        return shop;
+    }
 
+    public void setShop(Shop shop) {
+        this.shop = shop;
+    }
 
     @Override
     public String toString() {

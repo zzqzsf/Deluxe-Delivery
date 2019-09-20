@@ -1,6 +1,7 @@
 package org.lanqiao.controller;
 
 import org.apache.ibatis.annotations.Param;
+import org.lanqiao.entity.Collections;
 import org.lanqiao.entity.Comment;
 import org.lanqiao.entity.OrderStatus;
 import org.lanqiao.entity.Orders;
@@ -37,6 +38,16 @@ public class OrderController {
     @RequestMapping("/insertComment")
     public int insertComment(Comment comment) {
         return orderService.insertComment(comment);
+    }
+
+    @RequestMapping("/getUserInfo")
+    public Map getUserInfo(Integer customerId) {
+        return orderService.getUserInfo(customerId);
+    }
+
+    @RequestMapping("/getCollectionShop")
+    public List<Collections> getCollectionShop(Integer customerId) {
+        return orderService.getCollectionShop(customerId);
     }
 
 

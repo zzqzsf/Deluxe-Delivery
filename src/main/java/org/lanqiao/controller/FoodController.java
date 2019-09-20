@@ -15,14 +15,16 @@ import java.util.List;
 public class FoodController {
 	@Autowired
 	FoodService foodService;
-	@Autowired
-	ShopService shopService;
 
 
 
 	@RequestMapping("/getFood")
 	public List<Food> getFood(Integer ftyId) {
 		return foodService.getFood(ftyId);
+	}
+	@RequestMapping("/getFoodId")
+	public int getFood(String foodName) {
+		return foodService.getFoodId(foodName);
 	}
 
 }

@@ -10,7 +10,7 @@ spring:
 
 mybatis:
   mapper-locations: classpath:org/lanqiao/mapper/*.xml
-#  type-aliases-package: org.lanqiao.entity
+  type-aliases-package: org.lanqiao.entity
 
 #showSql
 logging:

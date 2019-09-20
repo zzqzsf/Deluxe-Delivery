@@ -12,5 +12,9 @@ public class OrdersItemController {
 	@Autowired
 	OrderItemService orderItemService;
 
+	@RequestMapping("/test")
+	public boolean test(){
+		return true;
+	}
 
 }

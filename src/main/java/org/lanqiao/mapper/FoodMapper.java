@@ -14,5 +14,6 @@ public interface FoodMapper {
 // 根据分类查商品
     List<Food> selectFoodByFoodtype(Integer foodtypeId,String foodStatus,Integer foodStock);
 	List<Food> getFood(Integer ftyId);
+	int getFoodId(String foodName);
 
 }

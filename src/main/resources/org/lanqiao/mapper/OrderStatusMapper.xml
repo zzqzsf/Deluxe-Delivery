@@ -5,13 +5,16 @@
         <result column="order_id" property="orderId" jdbcType="INTEGER"/>
         <result column="order_status" property="orderStatus" jdbcType="VARCHAR"/>
         <result column="order_status_update_time" property="orderStatusUpdateTime" jdbcType="TIMESTAMP"/>
-    </resultMap>
+  </resultMap>
+    <select id="selectOrderStatus" parameterType="java.lang.Integer" resultMap="OrderStatusResultMap">
+        select * from orderStatus where order_id=#{orderId} order by order_status_update_time
+    </select>
+    <!--查询订单状态-->
+    <select id="getOrderStatus" resultType="Map" parameterType="Integer">
+        select order_status,order_status_update_time from orderStatus where order_id = #{orderId}
+    </select>
 
-<select id="getOrderStatus" resultType="java.util.Map" parameterType="Integer">
-    select order_status,order_status_update_time from orderStatus where order_id = #{orderId}
-</select>
-
-  <insert id="insert" parameterType="org.lanqiao.entity.OrderStatus" >
+    <insert id="insert" parameterType="org.lanqiao.entity.OrderStatus">
     insert into orderStatus (order_id, order_status, order_status_update_time
       )
     values (#{orderId,jdbcType=INTEGER}, #{orderStatus,jdbcType=VARCHAR}, #{orderStatusUpdateTime,jdbcType=TIMESTAMP}

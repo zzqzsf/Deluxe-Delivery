@@ -61,42 +61,66 @@
             border-radius: 50%;
             /* background-position: -290px -284px; */
         }
+        /*星星*/
+        .bg{
+            width: 60px;
+            height: 12px;
+            background: url("/image/imagex.png") ;
+            position: relative;
+            float: left;
+
+        }
+        .over{
+            height:11px;
+            background:url("/image/imagex2.png");
+            position: relative;
+
+        }
     </style>
     <script>
         $(function () {
 
-
-            // var currentPage = 2;
-            // var totalPages = 5;
-            // $("#page").bootstrapPaginator({
-            //     bootstrapMajorVersion: 3, //对应的bootstrap版本
-            //     currentPage: currentPage, //当前页数
-            //     numberOfPages: 10, //每次显示页数
-            //     totalPages: totalPages, //总页数
-            //     shouldShowPage: true, //是否显示该按钮
-            //     useBootstrapTooltip: true,
-            //     onPageClicked: function(event, originalEvent, type, page) {
-            //
-            //     },
-            //
-            // });
-
             /*
-            根据订单编号查订单
-            给订单、商品、评价加分页
-            预订单提醒
-            订单的操作（接单、送餐、完成）
-            订单生命周期的记录 查询
-            商品的编辑和添加
-            评价星星
-            商家资料修改
-            图片上传、手机号验证
+            预订单提醒（未测试，未实现）
+
+            手机号验证
             ajax轮询redis查新订单
              */
 
-            var shopId = 1;
+            var shopId ;
+            var fImg=null;
+            var foodindex;
+
+
+            $.ajax({
+                url:"/getShopId",
+                type:"post",
+                dataType:"json",
+                success:function (data) {
+                    shopId=data;
+                }
+            })
             selectFoodtype(shopId);
             selectShopInfo(shopId);
+
+
+
+            setInterval("getNewOrder()",5000);
+            function getNewOrder() {
+                $.ajax({
+                    url:"/ajaxRedis",
+                    async:true,
+                    type: 'post',
+                    success: function (data) {
+                        if(data){
+                            alert("您有一个新订单");
+                            $("#remind").play()
+
+                        }
+                    }
+                })
+            };
+
             var vm = new Vue({
                 el: "#all",
                 data: {
@@ -105,16 +129,58 @@
                     comments:"",
                     shopOrders:"",
                     shopInfo:"",
+                    shopOrderItems:[],
+                    shopOrderStatus:[],
                 },
                 methods: {
                     //新订单
                     newOrder:function () {
-                        var orderStatus="等待商家接单";
+                        var orderStatus="付款成功，等待商家接单";
                         selectAllShopOrder(shopId,orderStatus);
                     },
                     //预计订单
                     expectOrder:function () {
-                        selectAllShopOrder(shopId);
+                        $.ajax({
+                            url:"/selectExpectOrder",
+                            type:"post",
+                            data:{
+                                shopId:shopId,
+                            },
+                            dataType:"json",
+                            success:function (data) {
+                                vm.shopOrders=data;
+                                for (i = 0; i <vm.shopOrders.length ; i++) {
+                                    var orderId=vm.shopOrders[i].orderId;
+                                    $.ajax({
+                                        url:"/selectOrderItemByOrderId",
+                                        type:"post",
+                                        data:{
+                                            orderId:orderId,
+                                        },
+                                        async:false,
+                                        dataType:"json",
+                                        success:function (data) {
+                                            vm.shopOrderItems[i]=data;
+                                        }
+                                    })
+                                };
+                                for (i = 0; i <vm.shopOrders.length ; i++) {
+                                    var orderId=vm.shopOrders[i].orderId;
+                                    $.ajax({
+                                        url:"/selectOrderStatus",
+                                        type:"post",
+                                        data:{
+                                            orderId:orderId,
+                                        },
+                                        async:false,
+                                        dataType:"json",
+                                        success:function (data) {
+                                            vm.shopOrderStatus[i]=data;
+                                        }
+                                    })
+                                }
+                            }
+                        })
                     },
                     //已取消订单
                     cancelOrder:function () {
@@ -132,6 +198,36 @@
                             dataType:"json",
                             success:function (data) {
                                 vm.shopOrders=data;
+                                for (i = 0; i <vm.shopOrders.length ; i++) {
+                                    var orderId=vm.shopOrders[i].orderId;
+                                    $.ajax({
+                                        url:"/selectOrderItemByOrderId",
+                                        type:"post",
+                                        data:{
+                                            orderId:orderId,
+                                        },
+                                        async:false,
+                                        dataType:"json",
+                                        success:function (data) {
+                                            vm.shopOrderItems[i]=data;
+                                        }
+                                    })
+                                };
+                                for (i = 0; i <vm.shopOrders.length ; i++) {
+                                    var orderId=vm.shopOrders[i].orderId;
+                                    $.ajax({
+                                        url:"/selectOrderStatus",
+                                        type:"post",
+                                        data:{
+                                            orderId:orderId,
+                                        },
+                                        async:false,
+                                        dataType:"json",
+                                        success:function (data) {
+                                            vm.shopOrderStatus[i]=data;
+                                        }
+                                    })
+                                }
                             }
                         })
 
@@ -139,6 +235,26 @@
                     //查询所有订单
                     allOrder:function () {
                         selectAllShopOrder(shopId);
+                    },
+                    //确认接单
+                    sureAccept:function(index){
+                        updateOrderStatus(index,"商家接单成功，制作中");
+                        this.$options.methods.newOrder();
+                    },
+                    //确认送出
+                    sureSend:function(index){
+                        updateOrderStatus(index,"配送中");
+                        this.$options.methods.newOrder();
+                    },
+                    //确认完成
+                    sureSuccess:function(index){
+                        updateOrderStatus(index,"已完成");
+                        this.$options.methods.newOrder();
+                    },
+                    //取消订单和拒绝接单
+                    cancelOd:function(index){
+                        updateOrderStatus(index,"已取消");
+                        this.$options.methods.newOrder();
                     },
                     //点击商品分类查商品
                     selectFoodByFty:function (index) {
@@ -151,6 +267,19 @@
                         var index=$("#foodThreeBar .active span").text();
                         this.$options.methods.selectFoodByFty(index);
                     },
+                    //添加商品
+                    submitFood:function(){
+                        $("#foodImg").fileinput('upload');
+
+                    },
+                    editFood:function(index){
+                        foodindex=index;
+                    },
+                    udatefoodInfo:function(){
+                        fImg=vm.food[foodindex].foodPath;
+                        $("#updateFoodImg").fileinput('upload');
+                    },
+
                     //删除商品（因外键约束失败，修改商品状态为已删除）
                     deleteFood:function (index) {
                         var foodId=this.food[index].foodId;
@@ -215,9 +344,11 @@
                             });
                         this.food[index].foodStatus=foodStatus;
                     },
+                    //所有评价
                     selectAllComment:function(){
                         selectAllComment(shopId);
                     },
+                    //好评
                     selectGoodComment:function () {
                         $.ajax({
                             url:"/selectAllComment",
@@ -232,6 +363,7 @@
                             }
                         })
                     },
+                    //差评
                     selectBadComment:function () {
                         $.ajax({
                             url:"/selectAllComment",
@@ -246,6 +378,7 @@
                             }
                         })
                     },
+                    //提交商家回复
                     submitShopRsp:function (index) {
                         var comId=this.comments[index].comId;
                         $.ajax({
@@ -260,7 +393,25 @@
                                 vm.comments[index].shopResponse=$("#shopRespone").val();
                             }
                         })
-                    }
+                    },
+                    //订单详情的显示与隐藏
+                    showOrderItem:function (index) {
+
+                        if(vm.shopOrders[index].showOrderItem){
+                            vm.shopOrders[index].showOrderItem=false;
+                        }else{
+                            vm.shopOrders[index].showOrderItem=true;
+                        }
+                    },
+
+                },
+                directives:{
+                    trigger:{
+                        inserted(el){
+                            el.click();
+                            //$(el).trigger('click')
+                        }
+                    },
                 }
             });
             //添加商品分类
@@ -294,62 +445,105 @@
                     });
 
             });
-            // $("#submitFood").click(function () {
-            //     $.ajax({
-            //         url:"/insertFood",
-            //         type:"post",
-            //         data:{
-            //             shopId:shopId,
-            //             foodName:$("#foodName").val(),
-            //             foodPrice:$("#foodPrice").val(),
-            //             foodStock:$("#foodStock").val(),
-            //             foodIntro:$("#foodIntro").val(),
-            //             ftyId:$("#foodSort option:selected").val(),
-            //             foodStatus:"上架"
-            //         },
-            //         dataType:"json",
-            //         success:function (data) {
-            //             var foodId=data;
-            //             uploadImg(foodId);
-            //
-            //         }
-            //
-            //
-            //     })
-            // });
-            // $("#foodImg").fileinput({
-            //     language:'zh',
-            //     uploadUrl: '/uploadFoodImg',
-            //     allowedFileExtensions : ['jpg', 'png','gif'],
-            //     overwriteInitial: false,
-            //     showRemove:true,
-            //     maxFileSize: 100000,
-            //     maxFileCount: 1,
-            //     autoReplace: true,
-            //     slugCallback: function(filename) {
-            //         // swal("添加成功!", "你已成功添加"+$("#foodName").val()+"!", "success");
-            //     }
-            // });
             //上传商品图片
+            //传图片
             $("#foodImg").fileinput({
                 language:'zh',
-                uploadUrl: "/uploadFoodImg",
+                uploadUrl: "/insertFood",
                 allowedFileExtensions : ['jpg', 'png','gif'],
+                uploadAsync: true, //默认异步上传
+                showUpload: true, //是否显示上传按钮
+                showPreview : true, //是否显示预览
+                showCaption: false,//是否显示标题
+                browseClass: "btn btn-primary", //按钮样式
+                enctype: 'multipart/form-data',
+                validateInitialCount:true,
                 overwriteInitial: false,
                 showRemove:true,
                 maxFileSize: 100000,
                 maxFileCount: 1,
                 autoReplace:true,
-
-                slugCallback: function(filename) {
-                    return filename.replace('(', '_').replace(']', '_');
-                }
+                uploadExtraData:function(){//向后台传递参数
+                    var data={
+                        shopId:shopId,
+                        foodName:$("#foodName").val(),
+                        foodPrice:$("#foodPrice").val(),
+                        foodStock:$("#foodStock").val(),
+                        foodIntro:$("#foodIntro").val(),
+                        ftyId:$("#foodSort option:selected").val(),
+                        isInsert:true,
+                    };
+                    return data;
+                },
             });
-            //隐藏订单详情 （失效了）
-            $("#orderItemInfo").hide();
-            //点击切换  显示/隐藏 订单详情（失效了）
-            $("#orderInfo").click(function () {
-                $("#orderItemInfo").toggle()
+            //修改商品信息
+            $("#updateFoodImg").fileinput({
+                language:'zh',
+                uploadUrl: "/updateFood",
+                allowedFileExtensions : ['jpg', 'png','gif'],
+                uploadAsync: true, //默认异步上传
+                showUpload: true, //是否显示上传按钮
+                showPreview : true, //是否显示预览
+                showCaption: false,//是否显示标题
+                browseClass: "btn btn-primary", //按钮样式
+                enctype: 'multipart/form-data',
+                validateInitialCount:true,
+                overwriteInitial: false,
+                showRemove:true,
+                maxFileSize: 100000,
+                maxFileCount: 1,
+                autoReplace:true,
+                showPreview: true,// 是否预展示图片
+                initialPreviewAsData: true,
+                initialPreviewFileType: 'image',
+                initialPreview:fImg , //要显示的图片的路径
+                initialPreviewConfig: [{
+                    caption: "food.jpg",// 展示的图片名称
+                    width: '120px',// 图片高度
+                }],
+            uploadExtraData:function(){//向后台传递参数
+                    var data={
+                        shopId:shopId,
+                        foodName:$("#foodName").val(),
+                        foodPrice:$("#foodPrice").val(),
+                        foodStock:$("#foodStock").val(),
+                        foodIntro:$("#foodIntro").val(),
+                        ftyId:$("#foodSort option:selected").val(),
+                        isInsert:"",
+                    };
+                    return data;
+                },
+            });
+            //更改店铺图片
+            $("#updateShopImg").fileinput({
+                language:'zh',
+                uploadUrl: "/updateShopImg",
+                allowedFileExtensions : ['jpg', 'png','gif'],
+                uploadAsync: true, //默认异步上传
+                showUpload: true, //是否显示上传按钮
+                showPreview : true, //是否显示预览
+                showCaption: false,//是否显示标题
+                browseClass: "btn btn-primary", //按钮样式
+                enctype: 'multipart/form-data',
+                validateInitialCount:true,
+                overwriteInitial: false,
+                showRemove:true,
+                maxFileSize: 100000,
+                maxFileCount: 1,
+                autoReplace:true,
+                uploadExtraData:function(){//向后台传递参数
+                    var data={
+                        shopId:shopId
+                    };
+                    return data;
+                },
+            });
+            //异步上传返回结果处理
+            $("#updateShopImg").on("fileuploaded", function (event, data, previewId, index) {
+                var result = data.result;
+                vm.shopInfo.shopImg=result;
+                $("#updateShopImg").parent().hide();
+                $("#updateShopImg").parent().prev().show();
             });
             //更新商品分类
             $("#updateFoodtype").click(function () {
@@ -420,6 +614,103 @@
             selectAllComment(shopId);
             selectAllShopOrder(shopId);
 
+
+            //点击编辑商品，显现input
+            $(".editShopInfo").click(function () {
+                $(this).parent().hide();
+                $(this).parent().next().show();
+            })
+            //input 商品名称，失去焦点时，更新、隐藏、显示上一个
+            $(".editShopName").blur(function () {
+                var info = $(this).val();
+                $.ajax({
+                    url:"/updateShopInfo",
+                    type:"post",
+                    data:{
+                        shopId:shopId,
+                        shopName:info,
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        vm.shopInfo.shopName=info;
+                    }
+                });
+                $(this).parent().hide();
+                $(this).parent().prev().show();
+            });
+            //input 商品地址，失去焦点时，更新、隐藏、显示上一个
+            $(".editShopAddr").blur(function () {
+                var info = $(this).val();
+                $.ajax({
+                    url:"/updateShopInfo",
+                    type:"post",
+                    data:{
+                        shopId:shopId,
+                        shopName:info,
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        vm.shopInfo.shopAddr=info;
+                    }
+                });
+                $(this).parent().hide();
+                $(this).parent().prev().show();
+            });
+            //input 商品电话，失去焦点时，更新、隐藏、显示上一个
+            $(".editShopTel").blur(function () {
+                var info = $(this).val();
+                $.ajax({
+                    url:"/updateShopInfo",
+                    type:"post",
+                    data:{
+                        shopId:shopId,
+                        shopTel:info,
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        vm.shopInfo.shopTel=info;
+                    }
+                });
+                $(this).parent().hide();
+                $(this).parent().prev().show();
+            });
+
+            //input 商品起送价，失去焦点时，更新、隐藏、显示上一个
+            $(".editShopStartPrice").blur(function () {
+                var info = $(this).val();
+                $.ajax({
+                    url:"/updateShopInfo",
+                    type:"post",
+                    data:{
+                        shopId:shopId,
+                        startPrice:info,
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        vm.shopInfo.startPrice=info;
+                    }
+                });
+                $(this).parent().hide();
+                $(this).parent().prev().show();
+            });
+            //input 商品包装费，失去焦点时，更新、隐藏、显示上一个
+            $(".editShopPackagFee").blur(function () {
+                var info = $(this).val();
+                $.ajax({
+                    url:"/updateShopInfo",
+                    type:"post",
+                    data:{
+                        shopId:shopId,
+                        packagFee:info,
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                        vm.shopInfo.packagFee=info;
+                    }
+                });
+                $(this).parent().hide();
+                $(this).parent().prev().show();
+            });
             //查询商品分类
             function selectFoodtype(shopId) {
                 $.ajax({
@@ -460,9 +751,40 @@
                     dataType:"json",
                     success:function (data) {
                         vm.shopOrders=data;
+                        for (i = 0; i <vm.shopOrders.length ; i++) {
+                            var orderId=vm.shopOrders[i].orderId;
+                            $.ajax({
+                                url:"/selectOrderItemByOrderId",
+                                type:"post",
+                                data:{
+                                    orderId:orderId,
+                                },
+                                async:false,
+                                dataType:"json",
+                                success:function (data) {
+                                    vm.shopOrderItems[i]=data;
+                                }
+                            })
+                        };
+                        for (i = 0; i <vm.shopOrders.length ; i++) {
+                            var orderId=vm.shopOrders[i].orderId;
+                            $.ajax({
+                                url:"/selectOrderStatus",
+                                type:"post",
+                                data:{
+                                    orderId:orderId,
+                                },
+                                async:false,
+                                dataType:"json",
+                                success:function (data) {
+                                    vm.shopOrderStatus[i]=data;
+                                }
+                            })
+                        }
                     }
                 })
             };
+
             //查询店铺信息
             function selectShopInfo(shopId) {
                 $.ajax({
@@ -476,7 +798,6 @@
                         vm.shopInfo=data;
                     }
                 })
-
             }
             //根据分类查商品
             function selectAllFoodByFty(ftyId,activeChose) {
@@ -542,6 +863,21 @@
                         break;
                 }
             }
+        //    修改订单状态
+            function updateOrderStatus(index,orderStatus) {
+                var orderId = vm.shopOrders[index].orderId;
+                $.ajax({
+                    url:"/updateOrderStatus",
+                    type:"post",
+                    data:{
+                        orderId:orderId,
+                        orderStatus:orderStatus,
+                    },
+                    dataType:"json",
+                    success:function (data) {
+                    }
+                });
+            }
         })
     </script>
 </head>
@@ -549,16 +885,21 @@
 <div class="container-fluid" id="all">
     <div class="row-fluid">
         <div class="col-md-12" style="height: 60px">
-            <button class="btn btn-block btn-primary active btn-lg" type="button">这是一个logo</button>
+            <button class="btn btn-block btn-primary active btn-lg" type="button"><img src="image/logo.jpg" style="max-width: 2.8%;height: auto; "></button>
         </div>
     </div>
+
+<!--    新订单处理-->
+    <audio src="mp3/newOrder.mp3" class="hidden" id="remind"></audio>
+
+
     <div class="clearfix" style="margin-bottom: 10px;"></div><!-- 清除浮动 -->
     <div class="row-fluid">
         <div class="col-md-8">
             <div class="row">
                 <div class="col-md-4">
-                    <div class="col-md-7"><img src="image/reglogo.png" class="img-responsive" alt="Cinque Terre" style="float: left"></div>
-                    <div class="col-md-4"><h3>商家版</h3></div>
+                    <div class="col-md-7" style="padding-left: 0px;background-color: #265a88"><img src="image/logo.jpg" class="img-responsive" alt="Cinque Terre" style="float: left;max-width: 50%;margin: 0 25%"></div>
+                    <div class="col-md-4" ><h3>商家版</h3></div>
                 </div>
                 <div class="col-md-2" style="overflow: hidden">
                     <h3>{{shopInfo.shopName}}</h3>
@@ -568,20 +909,6 @@
                     <h3>{{shopInfo.shopState}}</h3>
                 </div>
             </div>
-        </div>
-        <div>
-            <form class="bs-example bs-example-form" role="form">
-                <div class="row">
-                    <div class="col-md-4 " style="margin-top: 20px">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="订单编号">
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">搜索</button>
-                            </span>
-                        </div><!-- /input-group -->
-                    </div><!-- /.col-lg-6 -->
-                </div><!-- /.row -->
-            </form>
         </div>
     </div>
     <div><ul class="nav nav-list"><li class="divider"></li></ul></div>
@@ -612,15 +939,16 @@
                 <div class="row-fluid">
                     <div class="col-md-12" style="height: 70px">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#orders" @click="newOrder()">新订单</a></li>
-                            <li><a data-toggle="tab" href="#orders" @click="expectOrder()">预订单提醒</a></li>
+                            <li class="active"><a data-toggle="tab" href="#newOrders" @click="newOrder()" ref="newOd" >新订单</a></li>
+                            <li><a data-toggle="tab" href="#estimatedOrders" @click="expectOrder()" v-trigger>预订单提醒</a></li>
                             <li><a data-toggle="tab" href="#orders" @click="cancelOrder()">取消单</a></li>
                             <li><a data-toggle="tab" href="#orders" @click="todayOrder()">今日订单</a></li>
                             <li><a data-toggle="tab" href="#orders" @click="allOrder()">全部订单</a></li>
                         </ul>
                     </div>
                     <div class="tab-content position" >
-                        <div id="orders" class="tab-pane fade in active">
+<!--                        新订单-->
+                        <div id="newOrders" class="tab-pane fade in active">
                             <ul class="list-inline nav nav-list">
                                 <li class="col-md-6" style="padding-left: 30px">订单内容</li>
                                 <li class="col-md-2">顾客电话</li>
@@ -628,8 +956,8 @@
                                 <li class="col-md-2" style="padding: 0 30px">操作</li>
                             </ul>
                             <h5 class="page-header" style="margin-top: 20px"></h5>
-                            <div v-for="(shopOrder,index) in shopOrders">
-                                <div class="row" id="orderInfo" style="border: 2px solid #eeeeee;padding: 10px 0"  >
+                            <div v-for="(shopOrder,index) in shopOrders" >
+                                <div class="row orderInfo"  style="border: 2px solid #eeeeee;padding: 10px 0" @click="showOrderItem(index)">
 
                                     <div class="col-md-6" style="padding: 0">
                                         <div class="col-md-1" style="padding: 0;margin-left: 40px">
@@ -650,72 +978,287 @@
                                     <div class="col-md-2" style="padding: 0">{{shopOrder.custom.cusTel}}</div>
                                     <div class="col-md-2" style="padding: 0">￥<span>{{shopOrder.gooSmoney}}</span></div>
                                     <div class="col-md-2" style="padding: 0">
-                                        <div class="col-md-4" style="padding: 0"><button class="btn btn-primary">确认接单</button></div>
-                                        <div class="col-md-4"><button class="btn btn-primary">拒接接单</button></div>
+                                        <div class="col-md-4" style="padding: 0" v-if="shopOrder.orderStatus=='付款成功，等待商家接单'"><button class="btn btn-primary" @click="sureAccept(index)">确认接单</button></div>
+                                        <div class="col-md-4" v-if="shopOrder.orderStatus=='付款成功，等待商家接单'"><button class="btn btn-primary" @click="cancelOd(index)">拒接接单</button></div>
+                                        <div class="col-md-4" style="padding: 0" v-if="shopOrder.orderStatus=='商家接单成功，制作中'"><button class="btn btn-primary" @click="sureSend(index)">确认送出</button></div>
+                                        <div class="col-md-4" v-if="shopOrder.orderStatus=='商家接单成功，制作中'"><button class="btn btn-primary" @click="cancelOd(index)">取消订单</button></div>
+                                        <div class="col-md-4" style="padding: 0" v-if="shopOrder.orderStatus=='配送中'"><button class="btn btn-primary" @click="sureSuccess(index)">确认完成</button></div>
+                                        <div class="col-md-4" v-if="shopOrder.orderStatus=='配送中'"><button class="btn btn-primary" @click="cancelOd(index)">取消订单</button></div>
                                     </div>
                                 </div>
-                                <div class="row" id="orderItemInfo" style="border: 2px solid #bbbbbb;padding: 10px 0;">
-                                    <div class="col-md-4" style="border-right: 1px solid #999999 ">
-                                        <div style="float: left ;width: 95%;padding-left: 25px;overflow:hidden;">
-                                            <div>
-                                                <h4 style="color: #aaaaaa">订单详情</h4>
+                                <div class="row" style="border: 2px solid #bbbbbb;padding: 10px 0;" v-if="shopOrder.showOrderItem">
+                                    <div v-if="shopOrder.showOrderItem">
+                                        <div class="col-md-4" style="border-right: 1px solid #999999 ">
+                                            <div style="float: left ;width: 95%;padding-left: 25px;overflow:hidden;">
                                                 <div>
-                                                    <span class="col-md-7">牛肉粉丝汤+二两锅贴</span>
-                                                    <span class="col-md-1">1</span>
-                                                    <span class="col-md-2"><i>¥</i>42.00</span>
+                                                    <h4 style="color: #aaaaaa">订单详情</h4>
+                                                    <div v-for="(shopOrderItem,i) in shopOrderItems[index]" >
+                                                        <span class="col-md-7">{{shopOrderItem.food.foodName}}</span>
+                                                        <span class="col-md-1">{{shopOrderItem.foodNumber}}</span>
+                                                        <span class="col-md-2"><i>¥</i>{{shopOrderItem.detMoney}}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span class="col-md-8" style="margin-top: 10px">包装费</span>
+                                                        <span class="col-md-2" style="margin-top: 10px"><i>¥</i>{{shopOrder.shop.packagFee}}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span class="col-md-8" >配送费</span>
+                                                        <span class="col-md-2" ><i>¥</i>1.50</span>
+                                                    </div>
+                                                    <div style="clear:both;"></div>
+                                                    <hr style="border:1px dashed #987cb9; width:94%; color:#987cb9;margin: 15px 20px 10px 0px">
+                                                    <div class="col-md-7 pull-right" style="padding-left:20px;margin-top: 5px;font-size: large "><b>实际支付：¥</b><i>{{shopOrder.gooSmoney}}</i></div>
+                                                    <div style="clear:both;"></div>
+                                                    <div style="width:95%;height: 2px;background-color:#987cb9 ;margin-top: 5px"></div>
+                                                    <div style="color:#999999 ;padding-top: 10px">
+                                                        <p>地址：<span>{{shopOrder.address.address}}</span></p>
+                                                        <p>姓名：<span>{{shopOrder.address.addrName}}</span><span v-if="shopOrder.address.sex=='男士'">(先生)</span><span v-else>(女士)</span></p>
+                                                        <p>电话：<span>{{shopOrder.address.addrTel}}</span></p>
+                                                        <p>备注：<span v-if="shopOrder.orderNote!=null">{{shopOrder.orderNote}}</span><span v-else>(无)</span></p>
+                                                    </div>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <!--                                订单状态-->
+                                        <div class="col-md-4">
+                                            <div style="float: left ;width: 95%;padding-left: 25px;overflow:hidden;border-right: 0px solid #999999 ">
                                                 <div>
-                                                    <span class="col-md-8" style="margin-top: 10px">包装费</span>
-                                                    <span class="col-md-2" style="margin-top: 10px"><i>¥</i>{{shopOrder.shop.packagFee}}</span>
-                                                </div>
-                                                <div>
-                                                    <span class="col-md-8" >配送费</span>
-                                                    <span class="col-md-2" ><i>¥</i>1.50</span>
-                                                </div>
-                                                <div>
-                                                    <span class="col-md-8" >优惠券</span>
-                                                    <span class="col-md-2" style="padding-left: 10px"><h4 style="margin: 0;padding: 0;float: left">-</h4><i>¥</i>7.00</span>
-                                                </div>
-                                                <div style="clear:both;"></div>
-                                                <hr style="border:1px dashed #987cb9; width:94%; color:#987cb9;margin: 15px 20px 10px 0px">
-                                                <div class="col-md-7 pull-right" style="padding-left:20px;margin-top: 5px;font-size: large "><b>实际支付：¥</b><i>{{shopOrder.gooSmoney}}</i></div>
-                                                <div style="clear:both;"></div>
-                                                <div style="width:95%;height: 2px;background-color:#987cb9 ;margin-top: 5px"></div>
-                                                <div style="color:#999999 ;padding-top: 10px">
-                                                    <p>地址：<span>{{shopOrder.address.address}}</span></p>
-                                                    <p>姓名：<span>{{shopOrder.address.addrName}}</span><span v-if="shopOrder.address.sex=='男士'">(先生)</span><span v-else>(女士)</span></p>
-                                                    <p>电话：<span>{{shopOrder.address.addrTel}}</span></p>
-                                                    <p>备注：<span v-if="shopOrder.orderNote!=null">{{shopOrder.orderNote}}</span><span v-else>(无)</span></p>
+                                                    <h4 style="color:#aaaaaa">订单状态</h4>
+                                                    <div class="col-md-1" style="float: left">
+                                                        <div v-for="(shopOrderStatu,m) in shopOrderStatus[index]">
+                                                            <i style="display: block;height: 40px ;width: 1px;margin: 0 0px 0 3px; background-color: #ffd161" v-if="m!=0"></i>
+                                                            <i class="icon i-orderok" v-if="shopOrderStatu.orderStatus=='已完成'||m!=shopOrderStatus[index].length-1"></i>
+                                                            <i class="icon i-ordernotok" style="border-radius: 50%" v-else></i>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <div v-for="(shopOrderStatus,m) in shopOrderStatus[index]">
+                                                            <div>
+                                                                <span>{{shopOrderStatus.orderStatus}}</span>
+                                                                <span class="pull-right">{{shopOrderStatus.orderStatusUpdateTimeString}}</span>
+                                                            </div>
+                                                            <div style="height: 40px"></div>
+                                                        </div>
+
+
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-<!--                                订单状态-->
-                                    <div class="col-md-4">
-                                    <div style="float: left ;width: 95%;padding-left: 25px;overflow:hidden;border-right: 0px solid #999999 ">
-                                        <div>
-                                            <h4 style="color:#aaaaaa">订单状态</h4>
-                                            <div class="col-md-1" style="float: left">
-                                                <i class="icon i-orderok"></i>
-                                                <i style="display: block;height: 40px ;width: 1px;margin: 0 0px 0 3px; background-color: #ffd161"></i>
-                                                <i class="icon i-ordernotok" style="border-radius: 50%"></i>
-                                            </div>
-                                            <div class="col-md-9">
-                                                <div>
-                                                    <span>订单提交成功</span>
-                                                    <span class="pull-right">2019-09-08 12:00</span>
-                                                </div>
-                                                <div style="height: 40px"></div>
-                                                <div>
-                                                    <span>订单取消</span>
-                                                    <span class="pull-right">2019-09-08 12:01</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                    <div v-show></div>
+
                                 </div>
                             </div>
+                            <div style="text-align:center;">
+                                <ul id="">
+                                </ul>
+                            </div>
+
+                        </div>
+<!--                        预订单-->
+                        <div id="estimatedOrders" class="tab-pane fade in active">
+                            <ul class="list-inline nav nav-list">
+                                <li class="col-md-6" style="padding-left: 30px">订单内容</li>
+                                <li class="col-md-2">顾客电话</li>
+                                <li class="col-md-2">支付金额</li>
+                                <li class="col-md-2" style="padding: 0 30px">预计时间</li>
+                            </ul>
+                            <h5 class="page-header" style="margin-top: 20px"></h5>
+                            <div v-for="(shopOrder,index) in shopOrders" >
+                                <div class="row orderInfo"  style="border: 2px solid #eeeeee;padding: 10px 0" @click="showOrderItem(index)">
+
+                                    <div class="col-md-6" style="padding: 0">
+                                        <div class="col-md-1" style="padding: 0;margin-left: 40px">
+                                            <img :src="shopOrder.custom.cusImg" class="img-responsive" alt="顾客头像">
+                                        </div>
+                                        <div class="col-md-10" style="padding: 0">
+                                            <div class="row-fluid" >
+                                                <span class="col-md-12" style="margin-bottom: 10px">{{shopOrder.custom.cusName}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <span class="col-md-3">{{shopOrder.orderTimeString}}</span>
+                                                    <span class="col-md-7">订单号：<span>{{shopOrder.orderId}}</span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2" style="padding: 0">{{shopOrder.custom.cusTel}}</div>
+                                    <div class="col-md-2" style="padding: 0">￥<span>{{shopOrder.gooSmoney}}</span></div>
+                                    <div class="col-md-2" style="padding: 0">
+                                        {{shopOrder.estimatedTime}}
+                                    </div>
+                                </div>
+                                <div class="row" style="border: 2px solid #bbbbbb;padding: 10px 0;" v-if="shopOrder.showOrderItem">
+                                    <div v-if="shopOrder.showOrderItem">
+                                        <div class="col-md-4" style="border-right: 1px solid #999999 ">
+                                            <div style="float: left ;width: 95%;padding-left: 25px;overflow:hidden;">
+                                                <div>
+                                                    <h4 style="color: #aaaaaa">订单详情</h4>
+                                                    <div v-for="(shopOrderItem,i) in shopOrderItems[index]" >
+                                                        <span class="col-md-7">{{shopOrderItem.food.foodName}}</span>
+                                                        <span class="col-md-1">{{shopOrderItem.foodNumber}}</span>
+                                                        <span class="col-md-2"><i>¥</i>{{shopOrderItem.detMoney}}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span class="col-md-8" style="margin-top: 10px">包装费</span>
+                                                        <span class="col-md-2" style="margin-top: 10px"><i>¥</i>{{shopOrder.shop.packagFee}}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span class="col-md-8" >配送费</span>
+                                                        <span class="col-md-2" ><i>¥</i>1.50</span>
+                                                    </div>
+                                                    <div style="clear:both;"></div>
+                                                    <hr style="border:1px dashed #987cb9; width:94%; color:#987cb9;margin: 15px 20px 10px 0px">
+                                                    <div class="col-md-7 pull-right" style="padding-left:20px;margin-top: 5px;font-size: large "><b>实际支付：¥</b><i>{{shopOrder.gooSmoney}}</i></div>
+                                                    <div style="clear:both;"></div>
+                                                    <div style="width:95%;height: 2px;background-color:#987cb9 ;margin-top: 5px"></div>
+                                                    <div style="color:#999999 ;padding-top: 10px">
+                                                        <p>地址：<span>{{shopOrder.address.address}}</span></p>
+                                                        <p>姓名：<span>{{shopOrder.address.addrName}}</span><span v-if="shopOrder.address.sex=='男士'">(先生)</span><span v-else>(女士)</span></p>
+                                                        <p>电话：<span>{{shopOrder.address.addrTel}}</span></p>
+                                                        <p>备注：<span v-if="shopOrder.orderNote!=null">{{shopOrder.orderNote}}</span><span v-else>(无)</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--                                订单状态-->
+                                        <div class="col-md-4">
+                                            <div style="float: left ;width: 95%;padding-left: 25px;overflow:hidden;border-right: 0px solid #999999 ">
+                                                <div>
+                                                    <h4 style="color:#aaaaaa">订单状态</h4>
+                                                    <div class="col-md-1" style="float: left">
+                                                        <div v-for="(shopOrderStatu,m) in shopOrderStatus[index]">
+                                                            <i style="display: block;height: 40px ;width: 1px;margin: 0 0px 0 3px; background-color: #ffd161" v-if="m!=0"></i>
+                                                            <i class="icon i-orderok" v-if="shopOrderStatu.orderStatus=='已完成'||m!=shopOrderStatus[index].length-1"></i>
+                                                            <i class="icon i-ordernotok" style="border-radius: 50%" v-else></i>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <div v-for="(shopOrderStatus,m) in shopOrderStatus[index]">
+                                                            <div>
+                                                                <span>{{shopOrderStatus.orderStatus}}</span>
+                                                                <span class="pull-right">{{shopOrderStatus.orderStatusUpdateTimeString}}</span>
+                                                            </div>
+                                                            <div style="height: 40px"></div>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div v-show></div>
+
+                                </div>
+                            </div>
+                            <!--                            分页-->
+                            <div style="text-align:center;">
+                                <ul>
+                                </ul>
+                            </div>
+
+                        </div>
+<!--                        其他订单-->
+                        <div id="orders" class="tab-pane fade in active">
+                            <ul class="list-inline nav nav-list">
+                                <li class="col-md-6" style="padding-left: 30px">订单内容</li>
+                                <li class="col-md-2">顾客电话</li>
+                                <li class="col-md-2">支付金额</li>
+                            </ul>
+                            <h5 class="page-header" style="margin-top: 20px"></h5>
+                            <div v-for="(shopOrder,index) in shopOrders" >
+                                <div class="row orderInfo"  style="border: 2px solid #eeeeee;padding: 10px 0" @click="showOrderItem(index)">
+
+                                    <div class="col-md-6" style="padding: 0">
+                                        <div class="col-md-1" style="padding: 0;margin-left: 40px">
+                                            <img :src="shopOrder.custom.cusImg" class="img-responsive" alt="顾客头像">
+                                        </div>
+                                        <div class="col-md-10" style="padding: 0">
+                                            <div class="row-fluid" >
+                                                <span class="col-md-12" style="margin-bottom: 10px">{{shopOrder.custom.cusName}}</span>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <span class="col-md-3">{{shopOrder.orderTimeString}}</span>
+                                                    <span class="col-md-7">订单号：<span>{{shopOrder.orderId}}</span></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2" style="padding: 0">{{shopOrder.custom.cusTel}}</div>
+                                    <div class="col-md-2" style="padding: 0">￥<span>{{shopOrder.gooSmoney}}</span></div>
+                                </div>
+                                <div class="row" style="border: 2px solid #bbbbbb;padding: 10px 0;" v-if="shopOrder.showOrderItem">
+                                    <div v-if="shopOrder.showOrderItem">
+                                        <div class="col-md-4" style="border-right: 1px solid #999999 ">
+                                            <div style="float: left ;width: 95%;padding-left: 25px;overflow:hidden;">
+                                                <div>
+                                                    <h4 style="color: #aaaaaa">订单详情</h4>
+                                                    <div v-for="(shopOrderItem,i) in shopOrderItems[index]" >
+                                                        <span class="col-md-7">{{shopOrderItem.food.foodName}}</span>
+                                                        <span class="col-md-1">{{shopOrderItem.foodNumber}}</span>
+                                                        <span class="col-md-2"><i>¥</i>{{shopOrderItem.detMoney}}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span class="col-md-8" style="margin-top: 10px">包装费</span>
+                                                        <span class="col-md-2" style="margin-top: 10px"><i>¥</i>{{shopOrder.shop.packagFee}}</span>
+                                                    </div>
+                                                    <div>
+                                                        <span class="col-md-8" >配送费</span>
+                                                        <span class="col-md-2" ><i>¥</i>1.50</span>
+                                                    </div>
+                                                    <div style="clear:both;"></div>
+                                                    <hr style="border:1px dashed #987cb9; width:94%; color:#987cb9;margin: 15px 20px 10px 0px">
+                                                    <div class="col-md-7 pull-right" style="padding-left:20px;margin-top: 5px;font-size: large "><b>实际支付：¥</b><i>{{shopOrder.gooSmoney}}</i></div>
+                                                    <div style="clear:both;"></div>
+                                                    <div style="width:95%;height: 2px;background-color:#987cb9 ;margin-top: 5px"></div>
+                                                    <div style="color:#999999 ;padding-top: 10px">
+                                                        <p>地址：<span>{{shopOrder.address.address}}</span></p>
+                                                        <p>姓名：<span>{{shopOrder.address.addrName}}</span><span v-if="shopOrder.address.sex=='男士'">(先生)</span><span v-else>(女士)</span></p>
+                                                        <p>电话：<span>{{shopOrder.address.addrTel}}</span></p>
+                                                        <p>备注：<span v-if="shopOrder.orderNote!=null">{{shopOrder.orderNote}}</span><span v-else>(无)</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--                                订单状态-->
+                                        <div class="col-md-4">
+                                            <div style="float: left ;width: 95%;padding-left: 25px;overflow:hidden;border-right: 0px solid #999999 ">
+                                                <div>
+                                                    <h4 style="color:#aaaaaa">订单状态</h4>
+                                                    <div class="col-md-1" style="float: left">
+                                                        <div v-for="(shopOrderStatu,m) in shopOrderStatus[index]">
+                                                            <i style="display: block;height: 40px ;width: 1px;margin: 0 0px 0 3px; background-color: #ffd161" v-if="m!=0"></i>
+                                                            <i class="icon i-orderok" v-if="shopOrderStatu.orderStatus=='已完成'||m!=shopOrderStatus[index].length-1"></i>
+                                                            <i class="icon i-ordernotok" style="border-radius: 50%" v-else></i>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <div v-for="(shopOrderStatus,m) in shopOrderStatus[index]">
+                                                            <div>
+                                                                <span>{{shopOrderStatus.orderStatus}}</span>
+                                                                <span class="pull-right">{{shopOrderStatus.orderStatusUpdateTimeString}}</span>
+                                                            </div>
+                                                            <div style="height: 40px"></div>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div v-show></div>
+
+                                </div>
+                            </div>
+<!--                            分页-->
                             <div style="text-align:center;">
                                 <ul id="page">
                                 </ul>
@@ -748,7 +1291,7 @@
                             <div class="col-md-2">
 <!--                                商品管理三级导航栏-->
                                 <ul class="nav nav-pills nav-stacked" id="foodThreeBar">
-                                    <li v-for="(foodtype,index) in foodtype" @click="selectFoodByFty(index)"><a data-toggle="tab" href="#foods">{{foodtype.ftyName}}</a><span class="hidden">{{index}}</span></li>
+                                    <li v-for="(foodtype,index) in foodtype" @click="selectFoodByFty(index)" v-clickFoodtype="index"><a data-toggle="tab" href="#foods">{{foodtype.ftyName}}</a><span class="hidden">{{index}}</span></li>
 
 
 <!--                                添加商品分类按钮，insertFoodSortModel-->
@@ -794,7 +1337,7 @@
                                         <div class="col-md-2"><p>￥{{food.foodPrice}}</p></div>
                                         <div class="col-md-2"><p>{{food.foodStock}}</p></div>
                                         <div class="col-md-3">
-                                            <div class="col-md-2" style="padding:0 5px 0 0"><a data-toggle="modal" data-target="#updateFoodModal" >编辑</a></div>
+                                            <div class="col-md-2" style="padding:0 5px 0 0"><a data-toggle="modal" data-target="#updateFoodModal" @click="editFood(index)">编辑</a></div>
                                             <div class="col-md-2" style="padding:0 5px 0 0"><a id="foodStatus" @click="updateFood(index)">{{food.foodStatus}}</a></div>
                                             <div class="col-md-2" style="padding:0 5px 0 0"><a id="deleteFood" @click="deleteFood(index)">删除</a></div>
                                         </div>
@@ -851,7 +1394,7 @@
                                                                 <label for="foodSort" class="col-md-2 control-label">请选择商品分类</label>
                                                                 <div class="col-md-10">
                                                                     <select class="form-control" id="foodSort" >
-                                                                        <option value="foodtype.ftyId" v-for="(foodtype,index) in foodtype">{{foodtype.ftyName}}</option>
+                                                                        <option :value="foodtype.ftyId" v-for="(foodtype,index) in foodtype">{{foodtype.ftyName}}</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -859,7 +1402,7 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                                            <button type="button" class="btn btn-primary" >提交</button>
+                                                            <button type="button" class="btn btn-primary"  @click="submitFood()">提交</button>
 <!--                                                            id="submitFood"-->
                                                         </div>
                                                     </div><!-- /.modal-content -->
@@ -920,7 +1463,7 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                                            <button type="button" class="btn btn-primary">提交</button>
+                                                            <button type="button" class="btn btn-primary" @click="udatefoodInfo()">提交</button>
                                                         </div>
                                                     </div><!-- /.modal-content -->
                                                 </div><!-- /.modal -->
@@ -1071,16 +1614,13 @@
                                 <div class="col-md-11">
                                     <div class="row">
                                         <div class="col-md-1" style="line-height: 30px">{{comment.custom.cusName}}</div>
-                                        <div class="star-rating col-md-2" style="margin: 0;padding: 0">
-                                            <fieldset class="col-md-9" style="line-height: 30px">
-                                                <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Outstanding" >5 stars</label>
-                                                <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Very Good">4 stars</label>
-                                                <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Good">3 stars</label>
-                                                <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Poor">2 stars</label>
-                                                <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Very Poor">1 star</label>
-                                            </fieldset>
-                                            <span class="col-md-3" style="line-height: 30px" v-if="comment.comLevel>3">好评</span>
-                                            <span class="col-md-3" style="line-height: 30px" v-else="comment.comLevel>3">差评</span>
+                                        <div class="col-md-2" style="margin: 0;padding: 0">
+                                            <div class="bg"><!--这里是背景，也就是灰色的星星-->
+                                                <!--说明，这里的width就是设置分数啦，以我写的为例，一个星星的长度是12px，也就是1分12px，如果是4.3分，就是4.3*12px = 51.6px的长度，当然这个一般是取得数据后用js或者其他模板语言去控制的-->
+                                                <div class="over" :style="{'width':comment.comLevel*12+'px'}"></div><!--这里是遮罩，设置宽度以达到评分的效果-->
+                                            </div>
+                                            <span class="col-md-3" style="line-height: 30px" v-if="comment.comLevel>=4">好评</span>
+                                            <span class="col-md-3" style="line-height: 30px" v-else>差评</span>
                                         </div>
                                         <div class="col-md-2 pull-right" style="line-height: 30px">{{comment.comTimeString}}</div>
                                     </div>
@@ -1121,7 +1661,6 @@
                     <div class="col-md-12" style="height: 70px">
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#shopInfo">商家信息</a></li>
-                            <li><a data-toggle="tab" href="#updateShopInfo">修改</a></li>
                         </ul>
                     </div>
 
@@ -1139,28 +1678,33 @@
                                     <tbody>
                                     <tr>
                                         <td class="col-md-2">店铺名</td>
-<!--                                        <td class="col-md-10">{{shopInfo.shopName}}&nbsp;&nbsp;&nbsp;<span class ="glyphicon glyphicon-edit"style ="color:#000000;"></span></td>-->
-                                        <td class="col-md-10">
-
-                                                <input type="text" class="form-control" id="updateShopName" placeholder="请输入店铺名称" value="尹正香麻辣香锅">
-
+                                        <td class="col-md-10">{{shopInfo.shopName}}&nbsp;&nbsp;&nbsp;<span class ="glyphicon glyphicon-edit editShopInfo"style ="color:#000000;"></span></td>
+                                        <td class="col-md-10" style="display:none">
+                                                <input type="text" class="editShopName form-control" id="updateShopName" placeholder="请输入店铺名称" value="" v-model="shopInfo.shopName">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="col-md-2">店铺地址</td>
-                                        <td class="col-md-10">{{shopInfo.shopAddr}}</td>
+                                        <td class="col-md-10">{{shopInfo.shopAddr}}&nbsp;&nbsp;&nbsp;<span class ="glyphicon glyphicon-edit editShopInfo"style ="color:#000000;"></span></td>
+                                        <td class="col-md-1" style="display:none">
+                                                <!-- container -->
+                                                <input readonly type="text" class="form-control editShopAddr" id="updateShopAddr" data-toggle="city-picker" placeholder="点击从下拉面板中选择省/市/区县/镇">
+                                        </td>
+
                                     </tr>
                                     <tr>
                                         <td class="col-md-2">店铺联系电话</td>
-                                        <td class="col-md-10">{{shopInfo.shopTel}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="col-md-2">店铺状态</td>
-                                        <td class="col-md-10">{{shopInfo.shopState}}</td>
+                                        <td class="col-md-10">{{shopInfo.shopTel}}&nbsp;&nbsp;&nbsp;<span class ="glyphicon glyphicon-edit editShopInfo"style ="color:#000000;"></span></td>
+                                        <td class="col-md-10" style="display:none">
+                                            <input type="text" class="form-control editShopTel"  id="updateShopTel" placeholder="请输入店铺联系电话" value="" v-model="shopInfo.shopTel">
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="col-md-2">店铺图片</td>
-                                        <td class="col-md-10"><img :src="shopInfo.shopImg" alt="店铺图片"></td>
+                                        <td class="col-md-10"><img :src="shopInfo.shopImg" alt="店铺图片">&nbsp;&nbsp;&nbsp;<span class ="glyphicon glyphicon-edit editShopInfo"style ="color:#000000;" ></span></td>
+                                        <td class="col-md-10" style="display:none">
+                                            <input type="file" id="updateShopImg" name="updateShopImg" class="" data-overwrite-initial="false" data-min-file-count="1">
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="col-md-2">店铺评分</td>
@@ -1168,11 +1712,18 @@
                                     </tr>
                                     <tr>
                                         <td class="col-md-2">起送价</td>
-                                        <td class="col-md-10">￥{{shopInfo.startPrice}}</td>
+                                        <td class="col-md-10">￥{{shopInfo.startPrice}}&nbsp;&nbsp;&nbsp;<span class ="glyphicon glyphicon-edit "style ="color:#000000;"></span></td>
+                                        <td class="col-md-10" style="display:none">
+                                            <input type="number" class="form-control editShopStartPrice" id="updateStartPrice" placeholder="请输入起送价" value="" v-model="shopInfo.startPrice"></input>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="col-md-2">包装费</td>
-                                        <td class="col-md-10">￥{{shopInfo.packagFee}}</td>
+                                        <td class="col-md-10">￥{{shopInfo.packagFee}}&nbsp;&nbsp;&nbsp;<span class ="glyphicon glyphicon-edit"style ="color:#000000;"></span></td>
+                                        <td class="col-md-10" style="display:none">
+                                            <input type="number" class="form-control editShopPackagFee" id="updatePackagFee" placeholder="请输入包装费" value="" v-model="shopInfo.packagFee"></input>
+                                        </td>
+
                                     </tr>
                                     <tr>
                                         <td class="col-md-2">月售</td>
@@ -1181,55 +1732,6 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                        <!--                    商家信息修改-->
-                        <div id="updateShopInfo" class="tab-pane fade">
-                            <form class="form-horizontal">
-<!--                                店铺名-->
-<!--                                <div class="form-group">-->
-<!--                                    <label for="updateShopName" class="col-md-2 control-label">店铺名称</label>-->
-<!--                                    <div class="col-md-10">-->
-<!--                                        <input type="text" class="form-control" id="updateShopName" placeholder="请输入店铺名称" value="尹正香麻辣香锅">-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                店铺地址-->
-                                <div class="form-group">
-                                    <label for="updateShopAddr" class="col-md-2 control-label">店铺地址</label>
-                                    <div style="position: relative" class="col-md-10">
-                                        <!-- container -->
-                                        <input readonly type="text" id="updateShopAddr" data-toggle="city-picker" placeholder="点击从下拉面板中选择省/市/区县/镇">
-                                    </div>
-
-                                </div>
-<!--                                店铺联系电话-->
-                                <div class="form-group">
-                                    <label for="updateShopTel" class="col-md-2 control-label">店铺联系电话</label>
-                                    <div class="col-md-10">
-                                        <input type="text" class="form-control" id="updateShopTel" placeholder="请输入店铺联系电话" value="13255565835">
-                                    </div>
-                                </div>
-<!--                                店铺图片-->
-                                <div class="form-group">
-                                    <label for="updateShopImg" class="col-md-2 control-label">店铺图片</label>
-                                    <div class="col-md-10">
-                                        <input type="file" id="updateShopImg" name="updateShopImg" class="file" data-overwrite-initial="false" data-min-file-count="1">
-                                    </div>
-                                </div>
-<!--                                起送价-->
-                                <div class="form-group">
-                                    <label for="updateStartPrice" class="col-md-2 control-label">起送价</label>
-                                    <div class="col-md-10">
-                                        <input type="number" class="form-control" id="updateStartPrice" placeholder="请输入起送价" value="20.00"></input>
-                                    </div>
-                                </div>
-<!--                                包装费-->
-                                <div class="form-group">
-                                    <label for="updatePackagFee" class="col-md-2 control-label">包装费</label>
-                                    <div class="col-md-10">
-                                        <input type="number" class="form-control" id="updatePackagFee" placeholder="请输入包装费" value="1.50"></input>
-                                    </div>
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </div>
