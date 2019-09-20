@@ -93,7 +93,7 @@
 
 
             $.ajax({
-                url:"/getShopId",
+                url:"/getshopId",
                 type:"post",
                 dataType:"json",
                 success:function (data) {
@@ -103,6 +103,22 @@
             selectFoodtype(shopId);
             selectShopInfo(shopId);
 
+            window.onbeforeunload=function(event){
+                if(event.clientX>document.body.clientWidth && event.clientY<0||event.altKey){
+                    $.ajax({
+                        url:"updateShopInfo",
+                        type:'post',
+                        data:{
+                            shopId:shopId,
+                            shopState:"未营业",
+                        },
+                        dataType:'json',
+                        success:function () {
+                        }
+
+                    })
+                }
+            };
 
 
             setInterval("getNewOrder()",5000);

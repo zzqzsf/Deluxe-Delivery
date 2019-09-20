@@ -47,7 +47,7 @@ public class ShopController {
     }
 
 
-    @RequestMapping("/getShopId")
+    @RequestMapping("/getshopId")
     public int getShopId(HttpServletRequest request){
         HttpSession session = request.getSession();
         int shopId = (int)session.getAttribute("shopId");
