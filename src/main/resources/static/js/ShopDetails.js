@@ -131,8 +131,12 @@ $(function(){
         $("#markBigBox").css("display","none");
         $("#MenuSort").css("display","block");
         $(".foodShow").css("display","block");
-        $("#cartShow").css("display","block");
         $("#cartFixed").css("display","block");
+        if($(".cartFood").length > 0){
+            $("#cartShow").css("display","block");
+        }else{
+            $(".packCharge").css("display","none");
+        }
     });
     $("#menuAssess ul li").eq(1).click(function () {
         $("#menuAssess ul li").eq(0).css({borderBottom:"0",color:"black"});
