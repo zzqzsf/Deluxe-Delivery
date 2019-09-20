@@ -49,7 +49,7 @@ public class ShopShowController {
 //    }
     @RequestMapping("/getAllShare")
     public PageInfo<Shop> get(@RequestParam(value = "pageNum",defaultValue = "1")Integer pageNum) {
-        PageHelper.startPage(pageNum, 1);
+        PageHelper.startPage(pageNum, 20);
 
         List<Shop> shareList = shopShowService.GetAllShops();
 
@@ -61,6 +61,12 @@ public class ShopShowController {
     public int selects(int cusId,int shopId){
 
       int s=  shopShowService.selects(cusId,shopId);
+        return s;
+    }
+    @RequestMapping("/dsc")
+    public int delate(int cusId,int shopId){
+
+        int s=  shopShowService.delate(cusId,shopId);
         return s;
     }
 

@@ -32,6 +32,9 @@ public class ShopShowServiceImpl  implements ShopShowService{
     public int selects(int cusId,int shopId) {
         return collectionMapper.insertSelective(cusId,shopId);
     }
+    public int delate(int cusId,int shopId){
+        return collectionMapper.delate(cusId,shopId);
+    }
     public int getShopId(String shopName){
         return shopMapper.getShopId(shopName);
     }

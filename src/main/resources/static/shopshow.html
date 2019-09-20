@@ -16,6 +16,7 @@
 
     <script>
         $(function () {
+            var i=3
             var cityName = sessionStorage.getItem("cityName");
             $("#l-2").html(cityName);
             var session = "";
@@ -44,8 +45,6 @@
                     }
                 }
             });
-            var $cone1=$("#shopshow1")
-            // $("#shopshow1").detach()
             var Num=1
             //vue
                 var vm = new Vue({
@@ -58,30 +57,76 @@
                         //图片透明度特效
                         abc:function () {
                             $(".show1").find(".i3").css('opacity','0.6');
-                            $(".show1").find(".shouc").show()
+                            if(session!=""){
+                                $("#ydl").show()
+                            }else {
+                                $("#wdl").show()
+                            }
                         },
                         abd:function () {
                             $(".show1").find(".i3").css('opacity','1')
-                            $(".show1").find(".shouc").hide()
+                            if(session!=""){
+                                $("#ydl").hide()
+                            }else {
+                               $("#wdl").hide()
+                            }
                         },
                         sc:function () {
+
+                            if(i%2!=0){
+                                $.ajax({
+                                    url: "/sc",
+                                    type: "post",
+                                    data: {
+                                        cusId:35,
+                                        shopId:2,
+                                    },
+                                    dataType: "json",
+                                    success: function () {
+                                        i++
+                                        alert("收藏成功");
+
+                                    }
+                                })
+                            }
+                            else {
+                                $.ajax({
+                                    url: "/dsc",
+                                    type: "post",
+                                    data: {
+                                        cusId:35,
+                                        shopId:2,
+                                    },
+                                    dataType: "json",
+                                    success: function () {
+                                        alert("取消成功");
+                                        i--
+                                    }
+                                })
+                            }
+
+                        },
+                        nh:function () {
                             $.ajax({
-                                url: "/sc",
+                                url: "/getShopId",
                                 type: "post",
                                 data: {
-                                    cusId:35,
-                                    shopId:2,
+                                    'shopName':$("#shopshow").find(".show-name").html()
                                 },
                                 dataType: "json",
-                                success: function () {
-                                    alert("提交成功");
-
+                                success: function (data) {
+                                    sessionStorage.setItem("shopId",data);
+                                    window.location.href="ShopDetails.html";
                                 }
                             })
                         }
 
+
                     }
                 });
+
+
+
             $.ajax({
                 url: "/getAllShare",
                 type: "post",
@@ -90,31 +135,27 @@
                 },
                 dataType: "json",
                 success: function (data) {
+                    var count = null;
+                    var s =null;
                     for (var i=0;i<data.list.length;i++) {
+                        count  = data.list[i].shopCom;
+                        count = (12 * count).toString();
+                        s = count + "px";
+                        $(".over").attr("width",s);
                         vm.shop.push({
-                            shopId:data.list[i].shopId,
+                            shopImg: data.list[i].shopImg,
                             shopName: data.list[i].shopName,
                             shopCom: data.list[i].shopCom,
                             startPrice:data.list[i].startPrice,
                             packagFee:data.list[i].packagFee
                         })
+                        // var url = "url(../images/shop/"+data.list[i].shopImg+")";
+                        // $node.children().eq(i).css("backgroundImage",url);
                     }
                 }
             })
-            $(".test").click(function () {
-                $.ajax({
-                    url: "/getShopId",
-                    type: "post",
-                    data: {
-                        'shopName':$(this).find(".show-name").html()
-                    },
-                    dataType: "json",
-                    success: function (data) {
-                        sessionStorage.setItem("shopId",data);
-                        window.location.href="ShopDetails.html";
-                    }
-                })
-            });
+            // var x="../image"+.list[i].shopImg
+            // $(".i3").attr(backgroundImage,url(x))
             $.ajax({
                 url: "/select",
                 type: "post",
@@ -167,7 +208,6 @@
                     },
                     dataType: "json",
                     success: function (data) {
-
                         var count = null;
                         var s =null;
                         for (var i=0;i<data.list.length;i++) {
@@ -176,6 +216,7 @@
                             s = count + "px";
                             $(".over").attr("width",s);
                             vm.shop.push({
+                                shopImg: data.list[i].shopImg,
                                 shopName: data.list[i].shopName,
                                 shopCom: data.list[i].shopCom,
                                 startPrice:data.list[i].startPrice,
@@ -203,6 +244,7 @@
                                 startPrice: data[i].startPrice,
                                 peiFee: data[i].peiFee,
                             })
+
                         }
                     }
                 })
@@ -257,12 +299,15 @@
         <div id="g1">美团外卖向消费者郑重承诺：</div>
         <div id="g2">平台公示</div>
     </div>
-    <div id="shopshow"class="test">
+    <div id="shopshow" >
         <div class="show1" @mouseenter="abc" @mouseleave="abd" v-for="(aa,index) in shop ">
             <div class="show-img">
-                <div class="i3"> <img @click="sc"  class="shouc" src="image/icon-new-heart.png" /></div>
+                <div class="i3" :style="{backgroundImage:'url(images/shop/' + aa.shopImg + ')'}">
+                    <img id="ydl" @click="sc"  class="shouc" src="image/icon-new-heart.png" />
+                    <img id="wdl"style="display: none" data-toggle="modal" data-target="#myModal" class="shouc" src="image/icon-new-heart.png" />
+                </div>
             </div>
-            <div class="show-font">
+            <div class="show-font"@click="nh">
                 <div class="show-name" >{{aa.shopName}}</div>
 <!--                评价星星-->
                 <div class="bg"><!--这里是背景，也就是灰色的星星-->
@@ -285,11 +330,6 @@
 <!--        分页-->
         <ul class="pagination" style="margin-left: 37%">
             <li><a class="w1" href="#">&laquo;</a></li>
-            <li><a class="j1" href="#">1</a></li>
-            <li><a class="j1" href="#">2</a></li>
-            <li><a class="j1" href="#">3</a></li>
-            <li ><a>...</a></li>
-            <li><a class="j2" href="#">5</a></li>
             <li><a class="w2" href="#">&raquo;</a></li>
         </ul>
 
@@ -297,7 +337,7 @@
     </div>
     <div id="shopshow1">
         <div id="show2">
-            <div id="solr-1">搜索"<div id="neir">zj</div>"结果如下</div>
+            <div id="solr-1">搜索结果如下</div>
                 <div class="solr-2" v-for="(bb,index) in shops ">
                     <div class="show-font">
                         <div class="show-name" >{{bb.shopName}}</div>

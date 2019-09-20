@@ -371,6 +371,7 @@
 
 }
 .show1 {
+    margin-bottom: 5%;
     width: 25%;
     height: 15%;
     float: left;
@@ -395,9 +396,10 @@
     width: 100%;
     opacity: 1;
     height: 100%;
-    background-image: url("../image/752a6606a87b6345893f278b3d2784be34816.jpg");
+    /*background-image: url("../image/752a6606a87b6345893f278b3d2784be34816.jpg");*/
     background-size: 100%;
 }
+
 .show-font{
     width: 90%;
     height: 30%;

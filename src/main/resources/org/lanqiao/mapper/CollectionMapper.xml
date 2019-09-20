@@ -49,4 +49,7 @@
     <insert id="insertSelectives" >
     insert into collection (cus_id,shop_id) value (#{param1},#{param2})
     </insert>
+    <delete id="delate">
+        DELETE FROM collection WHERE cus_id = #{param1} and shop_id = #{param2}
+    </delete>
 </mapper>

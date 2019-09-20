@@ -14,4 +14,5 @@ public interface ShopShowService {
     public int selects(int cusId,int shopId );
 
     int getShopId(String shopName);
+    public int delate(int cusId,int shopId);
 }

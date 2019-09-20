@@ -12,4 +12,5 @@ public interface CollectionMapper {
     List<Collections> getCollectionShop(Integer customerId);
 
     int insertSelective(int cusId,int shopId);
+    public int delate(int cusId,int shopId);
 }
