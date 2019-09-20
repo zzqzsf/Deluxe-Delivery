@@ -1,7 +1,4 @@
-
-
 $(function(){
-
     // sessionStorage.setItem('telephone', $("input[name='telphone']").val());
     //页面间传参数（己方）
      var shopId =sessionStorage.getItem("shopId");
@@ -11,10 +8,10 @@ $(function(){
     var session = "";
     sessionStorage.setItem('foodNum', $("#num").val());
     var opFlag = -1;
-    $("#MenuSort").css("display", "block");
-    $(".foodShow").css("display", "block");
-    $("#cartFixed").css("display", "block");
-    $("#menuAssess ul li").eq(0).css({borderBottom: "2px solid red", color: "red"});
+    $("#MenuSort").css("display","block");
+    $(".foodShow").css("display","block");
+    $("#cartFixed").css("display","block");
+    $("#menuAssess ul li").eq(0).css({borderBottom:"2px solid red",color:"red"});
     //设置菜品展示模板
     $foodShowModel = $(".foodShow:eq(0)");
     //购物车食物展示模板
@@ -58,7 +55,6 @@ $(function(){
         }
     });
 
-
     //食物分类和食物展示
     $.ajax({
         url:"http://localhost:8080/foodType",
@@ -100,11 +96,9 @@ $(function(){
                             // obj.detMoney=sum1;
                             // obj.foodNumber=$("input[name='num']").val;
                             // oi.push(obj);
-
                         }
                     }
                 });
-
                 $node1.children(1).children().last().detach();
                 $("#cartShow").before($node1);
             }
@@ -143,26 +137,30 @@ $(function(){
     })
     //选项卡功能
     $("#menuAssess ul li").eq(0).click(function () {
-        $("#menuAssess ul li").eq(1).css({borderBottom: "0", color: "black"});
-        $("#menuAssess ul li").eq(0).css({borderBottom: "2px solid red", color: "red"});
-        $("#selectAssess").css("display", "none");
-        $(".assessBigBox").css("display", "none");
-        $("#markBigBox").css("display", "none");
-        $("#MenuSort").css("display", "block");
-        $(".foodShow").css("display", "block");
-        $("#cartShow").css("display", "block");
-        $("#cartFixed").css("display", "block");
+        $("#menuAssess ul li").eq(1).css({borderBottom:"0",color:"black"});
+        $("#menuAssess ul li").eq(0).css({borderBottom:"2px solid red",color:"red"});
+        $("#selectAssess").css("display","none");
+        $(".assessBigBox").css("display","none");
+        $("#markBigBox").css("display","none");
+        $("#MenuSort").css("display","block");
+        $(".foodShow").css("display","block");
+        $("#cartFixed").css("display","block");
+        if($(".cartFood").length > 0){
+            $("#cartShow").css("display","block");
+        }else{
+            $(".packCharge").css("display","none");
+        }
     });
     $("#menuAssess ul li").eq(1).click(function () {
-        $("#menuAssess ul li").eq(0).css({borderBottom: "0", color: "black"});
-        $("#menuAssess ul li").eq(1).css({borderBottom: "2px solid red", color: "red"});
-        $("#MenuSort").css("display", "none");
-        $(".foodShow").css("display", "none");
-        $("#cartShow").css("display", "none");
-        $("#cartFixed").css("display", "none");
-        $("#selectAssess").css("display", "block");
-        $(".assessBigBox").css("display", "block");
-        $("#markBigBox").css("display", "block");
+        $("#menuAssess ul li").eq(0).css({borderBottom:"0",color:"black"});
+        $("#menuAssess ul li").eq(1).css({borderBottom:"2px solid red",color:"red"});
+        $("#MenuSort").css("display","none");
+        $(".foodShow").css("display","none");
+        $("#cartShow").css("display","none");
+        $("#cartFixed").css("display","none");
+        $("#selectAssess").css("display","block");
+        $(".assessBigBox").css("display","block");
+        $("#markBigBox").css("display","block");
     });
     //添加商品到购物车
     let addButList = $(".addButton");
@@ -202,7 +200,6 @@ $(function(){
         }
 
         calcTotal();
-
         //$node.children().eq(0).text($(this).prevAll().eq(1).text()).html();
 
     });
@@ -257,7 +254,6 @@ $(function(){
         $("#allMoney p").children().eq(1).text("￥" + sum1);
         $("#allMoney p").children().eq(0).text(sum2);
     }
-
     //清空购物车
     $("#clearCart").children().eq(1).click(function () {
         $("#clearCart").hide();
@@ -296,7 +292,6 @@ $(function(){
             }
         }
     });
-
     //处理时间字符串的方法
     function timestampToTime(times) {
         var date = new Date(times);
@@ -305,7 +300,6 @@ $(function(){
         D = date.getDate();
         return Y + M + D;
     }
-
     $(".assessBigBox:last").detach();
     $(".cartFood:last").detach();
     $(".foodShow:first").detach();

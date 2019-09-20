@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.lanqiao.mapper.OrderStatusMapper">
-    <resultMap id="OrderStatusResultMap" type="org.lanqiao.entity.OrderStatus">
+  <resultMap id="OrderStatusResultMap" type="org.lanqiao.entity.OrderStatus" >
         <result column="order_id" property="orderId" jdbcType="INTEGER"/>
         <result column="order_status" property="orderStatus" jdbcType="VARCHAR"/>
         <result column="order_status_update_time" property="orderStatusUpdateTime" jdbcType="TIMESTAMP"/>
-    </resultMap>
+  </resultMap>
+    <select id="selectOrderStatus" parameterType="java.lang.Integer" resultMap="OrderStatusResultMap">
+        select * from orderStatus where order_id=#{orderId} order by order_status_update_time
+    </select>
     <!--查询订单状态-->
     <select id="getOrderStatus" resultType="Map" parameterType="Integer">
-    select order_status,order_status_update_time from orderStatus where order_id = #{orderId}
-</select>
+        select order_status,order_status_update_time from orderStatus where order_id = #{orderId}
+    </select>
 
     <insert id="insert" parameterType="org.lanqiao.entity.OrderStatus">
     insert into orderStatus (order_id, order_status, order_status_update_time

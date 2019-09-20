@@ -2,11 +2,10 @@ package org.lanqiao.mapper;
 
 import org.apache.ibatis.annotations.Param;
 import org.lanqiao.entity.Orders;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
 @Service
 @Component
 public interface OrdersMapper {
@@ -25,10 +24,10 @@ public interface OrdersMapper {
     /*根据用户Id查订单*/
     List<Orders> getOrderList(@Param("customerId") Integer customerId);
 
-
     List<Orders> selectAllShopOrder(int shopId, String orderStatus);
 
     List<Orders> selectTodayOrder(int shopId);
+    List<Orders> selectExpectOrder(int shopId);
 //    更新订单状态
      int updateOrderState(Integer orderId);
 
